@@ -1,4 +1,4 @@
-package com.ssafy.restservice;
+package com.ssafy.example.restservice;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

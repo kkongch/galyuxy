@@ -1,4 +1,4 @@
-package com.ssafy.restservice;
+package com.ssafy.example.restservice;
 
 import lombok.Data;
 
