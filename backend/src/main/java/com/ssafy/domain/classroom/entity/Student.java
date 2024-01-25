@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "student")
 public class Student {
@@ -26,6 +24,6 @@ public class Student {
     boolean studentIsDeleted;
 
     @ManyToOne
-    @JoinColumn(name = "team_id")
-    Team team;
+    @JoinColumn(name = "group_id")
+    Group group;
 }

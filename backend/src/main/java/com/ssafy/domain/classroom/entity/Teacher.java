@@ -8,8 +8,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "teacher")
 public class Teacher {
@@ -32,5 +30,5 @@ public class Teacher {
     boolean teacherIsDeleted;
 
     @OneToMany(mappedBy = "teacher")
-    List<Team> teams = new ArrayList<Team>();
+    List<Group> teams = new ArrayList<Group>();
 }
