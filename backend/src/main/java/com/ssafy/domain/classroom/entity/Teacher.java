@@ -2,12 +2,16 @@ package com.ssafy.domain.classroom.entity;
 
 import jakarta.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Builder
+@ToString
 @Entity
 @Table(name = "teacher")
 public class Teacher {
@@ -15,7 +19,7 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
-    Integer teacherId;
+    Long teacherId;
 
     @Column(name = "teacher_name")
     String teacherName;
@@ -30,5 +34,11 @@ public class Teacher {
     boolean teacherIsDeleted;
 
     @OneToMany(mappedBy = "teacher")
-    List<Group> teams = new ArrayList<Group>();
+    List<Group> groups = new ArrayList<Group>();
+
+    public Teacher(String teacherName, String teacherEmail, String teacherPassword) {
+        this.teacherName = teacherName;
+        this.teacherEmail = teacherEmail;
+        this.teacherPassword = teacherPassword;
+    }
 }
