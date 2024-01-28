@@ -1,12 +1,18 @@
 import React from 'react';
 import GlobalStyle from 'styles/GlobalStyle'
+import TeacherNav from 'components/Navbar/TeacherNav';
 
 function App() {
   return (
-    <div className="App">
+
+    <>
       <GlobalStyle />
-      <h1>시작</h1>
-    </div>
+      <div>
+        <TeacherNav />
+
+        리액트 시작페이지
+      </div>
+    </>
   );
 }
 
