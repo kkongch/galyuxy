@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,5 +54,13 @@ public class PresentationService {
         presentation.setPresentationIsDeleted(false);
 
         return presentationRepository.save(presentation);
+    }
+
+    public Presentation updatePresentation(Presentation presentation) {
+        return presentationRepository.save(presentation);
+    }
+
+    public Optional<Presentation> getPresentationById(int presentationId) {
+        return presentationRepository.findById(presentationId);
     }
 }

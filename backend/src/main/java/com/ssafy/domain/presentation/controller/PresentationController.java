@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/presentation")
@@ -48,5 +49,30 @@ public class PresentationController {
             return new ResponseEntity<>("Error: Presentation title must be unique within a group.", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/{presentationId}")
+    public ResponseEntity<String> updatePresentation(
+            @PathVariable("presentationId") int presentationId,
+            @RequestBody Presentation updatedPresentation) {
+
+        try{
+            Optional<Presentation> existingPresentationOptional = presentationService.getPresentationById(presentationId);
+
+            if (existingPresentationOptional.isPresent()) {
+                Presentation existingPresentation = existingPresentationOptional.get();
+                existingPresentation.setPresentationTitle(updatedPresentation.getPresentationTitle());
+
+                Presentation updatedPresentationEntity = presentationService.updatePresentation(existingPresentation);
+
+                return new ResponseEntity<>("Presentation updated with ID: " + updatedPresentationEntity.getPresentationId(),
+                        HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Presentation not found with ID: " + presentationId, HttpStatus.NOT_FOUND);
+            }
+        }catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>("Error: Presentation title must be unique within a group.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }
