@@ -17,7 +17,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 
     @Override
-    public Teacher postOne(TeacherReq teacherReq) {
+    public Teacher saveOne(TeacherReq teacherReq) {
         Teacher teacher = Teacher.builder()
                 .teacherName(teacherReq.getTeacherName())
                 .teacherEmail(teacherReq.getTeacherEmail())
@@ -27,12 +27,35 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> getAll() {
+    public List<Teacher> findAll() {
         return teacherRepository.findAll();
     }
 
     @Override
-    public Optional<Teacher> getOne(Long id) {
+    public Optional<Teacher> findOne(Long id) {
         return teacherRepository.findById(id);
+    }
+
+    @Override
+    public Teacher updateOne(TeacherReq teacherReq, Long id) {
+        return teacherRepository.findById(id)
+                .map(teacher -> {
+                    teacher.setTeacherName(teacherReq.getTeacherName());
+                    teacher.setTeacherEmail(teacherReq.getTeacherEmail());
+                    teacher.setTeacherPassword(teacherReq.getTeacherPassword());
+                    return teacherRepository.save(teacher);
+                })
+                .orElseGet(() -> {
+                    Teacher newTeacher = new Teacher();
+                    newTeacher.setTeacherName(teacherReq.getTeacherName());
+                    newTeacher.setTeacherEmail(teacherReq.getTeacherEmail());
+                    newTeacher.setTeacherPassword(teacherReq.getTeacherPassword());
+                    return teacherRepository.save(newTeacher);
+                });
+    }
+
+    @Override
+    public void deleteOne(Long id) {
+        teacherRepository.deleteById(id);
     }
 }

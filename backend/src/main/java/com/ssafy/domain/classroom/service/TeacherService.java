@@ -7,7 +7,9 @@ import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.request.TeacherReq;
 
 public interface TeacherService {
-    Teacher postOne(TeacherReq teacherRea);
-    List<Teacher> getAll();
-    Optional<Teacher> getOne(Long id);
+    Teacher saveOne(TeacherReq teacherReq);
+    List<Teacher> findAll();
+    Optional<Teacher> findOne(Long id);
+    Teacher updateOne(TeacherReq teacherReq, Long id);
+    void deleteOne(Long id);
 }
