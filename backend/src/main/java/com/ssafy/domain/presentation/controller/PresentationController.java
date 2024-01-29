@@ -74,5 +74,19 @@ public class PresentationController {
         }
     }
 
+    @DeleteMapping("/{presentationId}")
+    public ResponseEntity<String> deletePresentation(@PathVariable("presentationId") int presentationId) {
+        Optional<Presentation> existingPresentationOptional = presentationService.getPresentationById(presentationId);
 
+        if (existingPresentationOptional.isPresent()) {
+            Presentation existingPresentation = existingPresentationOptional.get();
+            existingPresentation.setPresentationIsDeleted(true);
+
+            presentationService.updatePresentation(existingPresentation);
+
+            return new ResponseEntity<>("Presentation deleted with ID: " + presentationId, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Presentation not found with ID: " + presentationId, HttpStatus.NOT_FOUND);
+        }
+    }
 }
