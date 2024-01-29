@@ -2,6 +2,7 @@ package com.ssafy.domain.classroom.entity;
 
 import jakarta.persistence.*;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "`group`")
+@Getter(AccessLevel.PUBLIC)
 public class Group {
 
     @Id
@@ -28,4 +30,5 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     List<Student> students = new ArrayList<Student>();
+
 }
