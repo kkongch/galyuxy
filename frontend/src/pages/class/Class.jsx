@@ -1,11 +1,12 @@
 import React from 'react'
+import "components/Class/Class.css"
 
-function Art() {
+function Class() {
   return (
-    <div>
-        <p>클래스메인</p>
+    <div className='classContainer'>
+      <h1>3</h1>
     </div>
   )
 }
 
-export default Art
+export default Class

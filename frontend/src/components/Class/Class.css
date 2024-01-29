@@ -1,0 +1,12 @@
+
+
+
+.classContainer {
+    max-width: 100% ;
+    display: flex ;
+    justify-content: center;
+    align-items: center ;
+    height: 100vh;
+    background-image: url("assets/images/Main/메인페이지배경화면.png");
+    background-size: cover;
+  }
