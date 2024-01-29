@@ -14,13 +14,13 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id")
-    Integer groupId;
+    Long groupId;
 
     @Column(name = "group_name")
-    String teamName;
+    String groupName;
 
     @Column(name = "group_is_deleted")
-    boolean teamIsDeleted;
+    boolean groupIsDeleted;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
@@ -28,4 +28,9 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     List<Student> students = new ArrayList<Student>();
+
+    public Group(String groupName, Teacher teacher) {
+        this.groupName = groupName;
+        this.teacher = teacher;
+    }
 }
