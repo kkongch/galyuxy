@@ -12,6 +12,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "presentation")
 @Getter(AccessLevel.PUBLIC)
+@Setter
 public class Presentation {
 
     @Id
@@ -19,7 +20,7 @@ public class Presentation {
     @Column(name = "presentation_id")
     private Integer presentationId;
 
-    @Column(name = "presentation_title")
+    @Column(name = "presentation_title", unique = true)
     private String presentationTitle;
 
     @Column(name = "presentation_create_date")
