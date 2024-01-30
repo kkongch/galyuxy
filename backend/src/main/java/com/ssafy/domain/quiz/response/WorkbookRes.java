@@ -11,19 +11,13 @@ import java.sql.Timestamp;
 @Setter
 public class WorkbookRes {
 
-    Long id;
-    String title;
-    int totalPoint;
-    Timestamp createDate;
-    Timestamp updateDate;
+    Integer workbookId;
+    String workbookTitle;
 
     public static WorkbookRes of(Workbook workbook) {
         WorkbookRes workbookRes = new WorkbookRes();
-        workbookRes.setId(workbook.getId());
-        workbookRes.setTitle(workbook.getTitle());
-        workbookRes.setTotalPoint(workbook.getTotalPoint());
-        workbookRes.setCreateDate(workbook.getCreateDate());
-        workbookRes.setUpdateDate(workbook.getCreateDate());
+        workbookRes.setWorkbookId(workbook.getId());
+        workbookRes.setWorkbookTitle(workbook.getTitle());
         return workbookRes;
     }
 }

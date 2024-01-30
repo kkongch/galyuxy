@@ -23,7 +23,16 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
+        format_sql: true
         connection:
           characterEncoding: utf-8
           charSet: UTF-8
 #    defer-datasource-initialization: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace

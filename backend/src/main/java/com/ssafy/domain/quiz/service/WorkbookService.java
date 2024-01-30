@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface WorkbookService {
     List<Workbook> findAll();
-    List<Workbook> findAllByTitleLike(String keyword);
-    Optional<Workbook> findOne(Long id);
+    List<Workbook> findAllByTeacherId(Integer id);
+    List<Workbook> findAllByKeyword(String keyword);
+    List<Workbook> findAllByTeacherName(String teacherName);
+    void findWorkbookWithQuestions(Integer id);
 }

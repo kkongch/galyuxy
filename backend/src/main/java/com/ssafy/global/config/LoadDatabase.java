@@ -37,22 +37,28 @@ public class LoadDatabase {
         return args -> {
 
             // Teacher
-            log.info("Preloading " + teacherRepository.save(new Teacher("김선생", "kim@mail.com", "1111")));
-            log.info("Preloading " + teacherRepository.save(new Teacher("이선생", "lee@mail.com", "2222")));
+            Teacher teacherKim = new Teacher("김선생", "kim@mail.com", "1111");
+            log.info("Preloading " + teacherRepository.save(teacherKim));
 
-            Teacher teacher = new Teacher("박선생", "park@mail.com", "3333");
-            log.info("Preloading " + teacherRepository.save(teacher));
+            Teacher teacherLee = new Teacher("이선생", "lee@mail.com", "2222");
+            log.info("Preloading " + teacherRepository.save(teacherLee));
 
+            log.info("Preloading " + teacherRepository.save(new Teacher("박선생", "park@mail.com", "3333")));
             log.info("Preloading " + teacherRepository.save(new Teacher("최선생", "choi@mail.com", "4444")));
 
             // Group
-            Group group = new Group("24년 1학기 장덕초 5학년 2반", teacher);
+            Group group = new Group("24년 1학기 장덕초 5학년 2반", teacherKim);
             log.info("Preloading " + groupRepository.save(group));
 
             // Quiz
-            log.info("Preloading " + workbookRepository.save(new Workbook("고구려 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), teacher)));
-            log.info("Preloading " + workbookRepository.save(new Workbook("백제 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), teacher)));
-            log.info("Preloading " + workbookRepository.save(new Workbook("신라 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), true, teacher)));
+            log.info("Preloading " + workbookRepository.save(new Workbook("김선생 고구려 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), teacherKim)));
+            log.info("Preloading " + workbookRepository.save(new Workbook("김선생 백제 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), teacherKim)));
+            log.info("Preloading " + workbookRepository.save(new Workbook("김선생 신라 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), true, teacherKim)));
+
+            log.info("Preloading " + workbookRepository.save(new Workbook("이선생 고구려 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), teacherLee)));
+            log.info("Preloading " + workbookRepository.save(new Workbook("이선생 백제 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), true, teacherLee)));
+            log.info("Preloading " + workbookRepository.save(new Workbook("이선생 신라 문제집", 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), true, teacherLee)));
+
         };
     }
 }

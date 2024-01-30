@@ -21,12 +21,23 @@ public class WorkbookServiceImpl implements WorkbookService {
     }
 
     @Override
-    public List<Workbook> findAllByTitleLike(String keyword) {
-        return workbookRepository.findAllByTitleLike(keyword);
+    public List<Workbook> findAllByTeacherId(Integer id) {
+        return workbookRepository.findAllByTeacherId(id);
     }
 
     @Override
-    public Optional<Workbook> findOne(Long id) {
-        return workbookRepository.findById(id);
+    public List<Workbook> findAllByKeyword(String keyword) {
+        return workbookRepository.findAllByTitleContainingAndIsDeletedIsFalse(keyword);
     }
+
+    @Override
+    public List<Workbook> findAllByTeacherName(String teacherName) {
+        return workbookRepository.findAllByTeacherName(teacherName);
+    }
+
+    @Override
+    public void findWorkbookWithQuestions(Integer id) {
+
+    }
+
 }

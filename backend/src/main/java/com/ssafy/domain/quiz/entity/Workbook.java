@@ -18,7 +18,7 @@ public class Workbook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "workbook_id")
-    Long id;
+    Integer id;
 
     @Column(name = "workbook_title")
     String title;
