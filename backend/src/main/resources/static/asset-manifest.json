@@ -1,16 +1,23 @@
 {
   "files": {
     "main.css": "/static/css/main.e6c13ad2.css",
-    "main.js": "/static/js/main.2923471f.js",
+    "main.js": "/static/js/main.44527c1f.js",
     "static/js/787.9e9f4ffd.chunk.js": "/static/js/787.9e9f4ffd.chunk.js",
+    "static/media/메인페이지배경화면.png": "/static/media/메인페이지배경화면.43d2135d0cbeaa310614.png",
+    "static/media/메인_퀴즈.png": "/static/media/메인_퀴즈.7d21cafa089e531f57da.png",
+    "static/media/메인_미술활동.png": "/static/media/메인_미술활동.a10e3bd5ea4099ae990f.png",
+    "static/media/메인_연극발표활동.png": "/static/media/메인_연극발표활동.93fbe0c92de9caeeb1a4.png",
+    "static/media/메인_문화유산관람.png": "/static/media/메인_문화유산관람.d00d3306bab9f57979f5.png",
     "service-worker.js": "/service-worker.js",
+    "static/media/갤역시_로고.png": "/static/media/갤역시_로고.7584b9b005adb90963b0.png",
+    "static/media/갤역시풀네임.png": "/static/media/갤역시풀네임.fdb04cbfeec0d22e4824.png",
     "index.html": "/index.html",
     "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
-    "main.2923471f.js.map": "/static/js/main.2923471f.js.map",
+    "main.44527c1f.js.map": "/static/js/main.44527c1f.js.map",
     "787.9e9f4ffd.chunk.js.map": "/static/js/787.9e9f4ffd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.2923471f.js"
+    "static/js/main.44527c1f.js"
   ]
 }

@@ -1,5 +1,6 @@
 package com.ssafy.domain.heritage.entity;
 
+import com.ssafy.domain.classroom.entity.Student;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,4 +31,7 @@ public class ArtworkResult {
     private Artwork artwork;
     
     //학생 컬럼 추가해야함
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 }
