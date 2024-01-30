@@ -15,25 +15,25 @@ const GalaxyImage = styled.img`
     /* max-width: 1157px; */
     height: auto;
     left: 50%;
-    top: 30%;
+    top: 18%;
     transform: translate(-50%, -50%);
 `;
 const Frame = styled.img`
   position: absolute;
   top : ${props => props.top};
   left :${props => props.left};
-  width : 25rem;
-  height: 36.1875rem;
-`
+  width : 15vw;
+  height: auto;
+`;
 
 function MainPage() {
   return (
     <Background backgroundImage={mainbackgroundimage}>
       <GalaxyImage src={galaxyImage} alt="galaxy" style={{ maxWidth: '100%', height: 'auto' }}/>
-      <Frame src={heritageImage} alt='frame' top='20vh' left='15vw'/>
-      <Frame src={artImage} alt='frame' top='40vh' left='15vw'/>
-      <Frame src={presentationImage} alt='frame' top='60vh' left='15vw'/>
-      <Frame src={quizImage} alt='frame' top='80vh' left='15vw'/>
+      <Frame src={heritageImage} alt='frame' top='38vh' left='17vw'/>
+      <Frame src={artImage} alt='frame' top='31vh' left='34vw'/>
+      <Frame src={presentationImage} alt='frame' top='38vh' left='51vw'/>
+      <Frame src={quizImage} alt='frame' top='31vh' left='68vw'/>
     </Background>
   );
 }
