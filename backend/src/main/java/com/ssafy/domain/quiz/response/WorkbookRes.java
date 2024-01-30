@@ -1,11 +1,8 @@
 package com.ssafy.domain.quiz.response;
 
 import com.ssafy.domain.quiz.entity.Workbook;
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.Timestamp;
 
 @Getter
 @Setter

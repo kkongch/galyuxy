@@ -11,7 +11,7 @@ public interface WorkbookRepository extends JpaRepository<Workbook, Integer> {
 
     List<Workbook> findAllByIsDeletedIsFalse();
 
-    @Query("SELECT workbook FROM Workbook workbook WHERE workbook.teacher.id    `                                                                                                                                                                                                                                                                                                                                                                                                                 `            = :teacherId and workbook.isDeleted = false")
+    @Query("SELECT workbook FROM Workbook workbook WHERE workbook.teacher.id = :teacherId and workbook.isDeleted = false")
     List<Workbook> findAllByTeacherId(@Param("teacherId") Integer id);
 
     List<Workbook> findAllByTitleContainingAndIsDeletedIsFalse(String keyword);

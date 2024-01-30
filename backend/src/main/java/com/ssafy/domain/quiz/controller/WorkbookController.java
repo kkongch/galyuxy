@@ -1,30 +1,22 @@
 package com.ssafy.domain.quiz.controller;
 
+import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 import com.ssafy.domain.quiz.entity.Workbook;
 import com.ssafy.domain.quiz.response.WorkbookRes;
 import com.ssafy.domain.quiz.service.WorkbookService;
 import com.ssafy.global.config.common.dto.Message;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/quiz/workbook")
+@RequiredArgsConstructor
 public class WorkbookController {
 
-    @Autowired
-    private WorkbookService workbookService;
-
-
-//    @GetMapping("/{id}")
-//    ResponseEntity<WorkbookRes> getWorkbook(@PathVariable("id") Long id) {
-//        Optional<Workbook> workbook = workbookService.findOne(id);
-//    }
+    private final WorkbookService workbookService;
 
     @GetMapping
     ResponseEntity<Message<List<WorkbookRes>>> getWorkbookList(@RequestParam(name="teacherId", required=false) Integer teacherId) {

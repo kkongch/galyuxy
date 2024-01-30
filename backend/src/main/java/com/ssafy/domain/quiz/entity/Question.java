@@ -1,7 +1,11 @@
 package com.ssafy.domain.quiz.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@Getter
 @Entity
 @Table(name = "question")
 public class Question {
@@ -11,6 +15,7 @@ public class Question {
     @Column(name = "question_id")
     Integer id;
 
+    // OX : 1 & 객관식 : 2
     @Column(name = "question_type")
     int type;
 
@@ -38,4 +43,27 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "workbook_id")
     Workbook workbook;
+
+    public Question(int type, String instruction, String choice1, String choice2, String choice3, String choice4, int answer, Workbook workbook) {
+        this.type = type;
+        this.instruction = instruction;
+        this.choice1 = choice1;
+        this.choice2 = choice2;
+        this.choice3 = choice3;
+        this.choice4 = choice4;
+        this.answer = answer;
+        this.workbook = workbook;
+    }
+
+    public Question(int type, String instruction, String choice1, String choice2, String choice3, String choice4, int answer, boolean isDeleted, Workbook workbook) {
+        this.type = type;
+        this.instruction = instruction;
+        this.choice1 = choice1;
+        this.choice2 = choice2;
+        this.choice3 = choice3;
+        this.choice4 = choice4;
+        this.answer = answer;
+        this.isDeleted = isDeleted;
+        this.workbook = workbook;
+    }
 }
