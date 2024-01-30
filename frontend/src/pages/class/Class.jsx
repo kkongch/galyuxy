@@ -1,10 +1,14 @@
 import React from 'react'
 import "components/Class/Class.css"
+import PhotoFlame from 'components/Class/PhotoFlame'
 
 function Class() {
   return (
     <div className='classContainer'>
-      <h1>3</h1>
+
+      <PhotoFlame>
+        
+      </PhotoFlame>
     </div>
   )
 }
