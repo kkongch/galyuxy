@@ -32,4 +32,11 @@ public class RoomService {
         return roomResponse;
     }
 
+    public Room createRoom(Room room){
+        room.setRoomIsDeleted(false);
+        room.setRoomScript(null);
+
+        return roomRespository.save(room);
+    }
+
 }
