@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/room")
@@ -43,5 +44,23 @@ public class RoomController {
         Room createdRoom = roomService.createRoom(room);
 
         return new ResponseEntity<>("Room created with ID: " + createdRoom.getRoomId(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{roomId}")
+    public ResponseEntity<String> updateRoom(@PathVariable("roomId") int roomId,
+                                             @RequestBody Room updatedRoom){
+        Optional<Room> existingRoomOptional = roomService.getRoomById(roomId);
+
+        if (existingRoomOptional.isPresent()) {
+            Room existingRoom = existingRoomOptional.get();
+            existingRoom.setRoomSubject(updatedRoom.getRoomSubject());
+
+            Room updatedRoomEntity = roomService.updateRoom(existingRoom);
+
+            return new ResponseEntity<>("Room updated with ID: " + updatedRoomEntity.getRoomId(),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Room not found with ID: " + roomId, HttpStatus.NOT_FOUND);
+        }
     }
 }
