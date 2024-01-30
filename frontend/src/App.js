@@ -27,9 +27,6 @@ function App() {
           <Route path="/art" element={ <Art />}/> 
         </Routes>
       </div>
-      <div>
-        <MainPage/>
-      </div>
     </>
   );
 }
