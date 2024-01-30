@@ -63,4 +63,20 @@ public class RoomController {
             return new ResponseEntity<>("Room not found with ID: " + roomId, HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<String> deleteRoom(@PathVariable("roomId") int roomId){
+        Optional<Room> existingRoomOptional = roomService.getRoomById(roomId);
+
+        if (existingRoomOptional.isPresent()) {
+            Room existingRoom = existingRoomOptional.get();
+            existingRoom.setRoomIsDeleted(true);
+
+            roomService.updateRoom(existingRoom);
+
+            return new ResponseEntity<>("Room deleted with ID: " + roomId, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Room not found with ID: " + roomId, HttpStatus.NOT_FOUND);
+        }
+    }
 }
