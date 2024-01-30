@@ -14,7 +14,7 @@ public class Era {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "era_id")
-    private Integer eraID;
+    private Integer eraId;
 
     @Column(name = "era_name", columnDefinition = "TEXT")
     private String eraName;

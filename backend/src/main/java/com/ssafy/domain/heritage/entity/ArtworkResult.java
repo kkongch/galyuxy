@@ -1,11 +1,17 @@
 package com.ssafy.domain.heritage.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "artwork_result")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ArtworkResult {
 
     @Id
@@ -18,4 +24,10 @@ public class ArtworkResult {
 
     @Column(name = "artwork_result_image_url")
     String artworkResultImageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "artwork_id", nullable = false)
+    private Artwork artwork;
+    
+    //학생 컬럼 추가해야함
 }
