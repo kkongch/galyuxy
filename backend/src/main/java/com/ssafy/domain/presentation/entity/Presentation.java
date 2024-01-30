@@ -5,29 +5,35 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 import com.ssafy.domain.classroom.entity.Group;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "presentation")
+@Getter(AccessLevel.PUBLIC)
+@Setter
 public class Presentation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "presentation_id")
-    Integer presentationId;
+    private Integer presentationId;
 
-    @Column(name = "presentation_title")
-    String presentationTitle;
+    @Column(name = "presentation_title", unique = true)
+    private String presentationTitle;
 
     @Column(name = "presentation_create_date")
-    Timestamp presentationCreateDate;
+    private Timestamp presentationCreateDate;
 
     @Column(name = "presentation_is_active")
-    boolean presentationIsActive;
+    private boolean presentationIsActive;
 
     @Column(name = "presentation_is_deleted")
-    boolean presentationIsDeleted;
+    private boolean presentationIsDeleted;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    Group group;
+    private Group group;
+
 }

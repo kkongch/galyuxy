@@ -11,10 +11,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: "Helvetica", "Arial", sans-serif;
+    font-family: "Noto Sans"
     line-height: 1.5;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 600
   }
   
+
+
+
+
+
 `;
 
 export default GlobalStyle;
