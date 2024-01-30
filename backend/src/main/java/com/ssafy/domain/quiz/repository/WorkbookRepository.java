@@ -8,4 +8,6 @@ import java.util.List;
 public interface WorkbookRepository extends JpaRepository<Workbook, Long> {
 
     List<Workbook> findAllByIsDeletedIsFalse();
+//    List<Workbook> findAllByTeacher();
+    List<Workbook> findAllByTitleLike(String keyword);
 }

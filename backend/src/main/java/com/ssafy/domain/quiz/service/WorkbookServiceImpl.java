@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WorkbookServiceImpl implements WorkbookService {
@@ -17,6 +18,15 @@ public class WorkbookServiceImpl implements WorkbookService {
     @Override
     public List<Workbook> findAll() {
         return workbookRepository.findAllByIsDeletedIsFalse();
+    }
 
+    @Override
+    public List<Workbook> findAllByTitleLike(String keyword) {
+        return workbookRepository.findAllByTitleLike(keyword);
+    }
+
+    @Override
+    public Optional<Workbook> findOne(Long id) {
+        return workbookRepository.findById(id);
     }
 }

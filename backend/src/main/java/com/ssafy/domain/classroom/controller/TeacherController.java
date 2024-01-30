@@ -41,7 +41,6 @@ public class TeacherController {
     @GetMapping("/{id}")
     ResponseEntity<TeacherRes> getTeacher(@PathVariable("id") Long id) {
         Optional<Teacher> teacher = teacherService.findOne(id);
-        System.out.println(teacher.get().toString());
         teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + id));
         return new ResponseEntity<TeacherRes>(TeacherRes.of(teacher.get()), HttpStatus.OK);
     }

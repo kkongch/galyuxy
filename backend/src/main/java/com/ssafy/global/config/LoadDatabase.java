@@ -43,7 +43,7 @@ public class LoadDatabase {
             Teacher teacher = new Teacher("박선생", "park@mail.com", "3333");
             log.info("Preloading " + teacherRepository.save(teacher));
 
-            log.info("Preloading " + teacherRepository.save(new Teacher("박선생", "park@mail.com", "4444")));
+            log.info("Preloading " + teacherRepository.save(new Teacher("최선생", "choi@mail.com", "4444")));
 
             // Group
             Group group = new Group("24년 1학기 장덕초 5학년 2반", teacher);

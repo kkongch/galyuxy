@@ -19,9 +19,9 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher saveOne(TeacherReq teacherReq) {
         Teacher teacher = Teacher.builder()
-                .teacherName(teacherReq.getTeacherName())
-                .teacherEmail(teacherReq.getTeacherEmail())
-                .teacherPassword(teacherReq.getTeacherPassword())
+                .name(teacherReq.getName())
+                .email(teacherReq.getEmail())
+                .password(teacherReq.getPassword())
                 .build();
         return teacherRepository.save(teacher);
     }
@@ -40,16 +40,16 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher updateOne(TeacherReq teacherReq, Long id) {
         return teacherRepository.findById(id)
                 .map(teacher -> {
-                    teacher.setTeacherName(teacherReq.getTeacherName());
-                    teacher.setTeacherEmail(teacherReq.getTeacherEmail());
-                    teacher.setTeacherPassword(teacherReq.getTeacherPassword());
+                    teacher.setName(teacherReq.getName());
+                    teacher.setEmail(teacherReq.getEmail());
+                    teacher.setPassword(teacherReq.getPassword());
                     return teacherRepository.save(teacher);
                 })
                 .orElseGet(() -> {
                     Teacher newTeacher = new Teacher();
-                    newTeacher.setTeacherName(teacherReq.getTeacherName());
-                    newTeacher.setTeacherEmail(teacherReq.getTeacherEmail());
-                    newTeacher.setTeacherPassword(teacherReq.getTeacherPassword());
+                    newTeacher.setName(teacherReq.getName());
+                    newTeacher.setEmail(teacherReq.getEmail());
+                    newTeacher.setPassword(teacherReq.getPassword());
                     return teacherRepository.save(newTeacher);
                 });
     }

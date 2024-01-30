@@ -21,4 +21,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        connection:
+          characterEncoding: utf-8
+          charSet: UTF-8
+#    defer-datasource-initialization: false

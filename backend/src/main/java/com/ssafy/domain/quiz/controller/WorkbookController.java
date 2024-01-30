@@ -6,11 +6,10 @@ import com.ssafy.domain.quiz.service.WorkbookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,4 +27,18 @@ public class WorkbookController {
                 .collect(Collectors.toList());
         return new ResponseEntity<List<WorkbookRes>>(workbookResList, HttpStatus.OK);
     }
+
+    @GetMapping
+    ResponseEntity<List<WorkbookRes>> getWorkbookListByTitleLike(@RequestParam String keyword) {
+        List<Workbook> workbookList = workbookService.findAllByTitleLike(keyword);
+        List<WorkbookRes> workbookResList = workbookList.stream()
+                .map(WorkbookRes::of)
+                .collect(Collectors.toList());
+        return new ResponseEntity<List<WorkbookRes>>(workbookResList, HttpStatus.OK);
+    }
+
+//    @GetMapping("/{id}")
+//    ResponseEntity<WorkbookRes> getWorkbook(@PathVariable("id") Long id) {
+//        Optional<Workbook> workbook = workbookService.findOne(id);
+//    }
 }

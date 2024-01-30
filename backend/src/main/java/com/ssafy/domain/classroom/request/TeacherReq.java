@@ -10,10 +10,9 @@ import lombok.ToString;
 
 @Getter
 @ToString
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TeacherReq {
 
-    String teacherName;
-    String teacherEmail;
-    String teacherPassword;
+    String name;
+    String email;
+    String password;
 }
