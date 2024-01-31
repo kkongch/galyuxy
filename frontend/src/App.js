@@ -8,6 +8,8 @@ import Class from 'pages/class/Class';
 import HeritageList from 'pages/heritage/HeritageList';
 import WorkBookList from 'pages/quiz/WorkBookList';
 import MainPage from 'pages/main/MainPage';
+import PresentationCategory from 'pages/presentation/PresentationCategory';
+import PresentationRoom from 'pages/presentation/PresentationRoom';
 
 
 
@@ -23,7 +25,9 @@ function App() {
           <Route path="/teacher/class" element={ <Class />  }/> 
           <Route path="/heritage" element={ <HeritageList /> }/> 
           <Route path="/quiz/workbooklist" element={ <WorkBookList /> }/> 
-          <Route path="/presentation" element={ <PresentationMain /> }/> 
+          <Route path="/presentation" element={ <PresentationMain /> }/>.
+          <Route path="/presentation/:categoryId" element={ <PresentationCategory /> } />
+          <Route path="/presentation/:categoryId/:roomId" element={ <PresentationRoom /> } /> 
           <Route path="/art" element={ <Art />}/> 
         </Routes>
       </div>
