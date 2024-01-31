@@ -39,20 +39,20 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<TeacherRes> getTeacher(@PathVariable("id") Long id) {
+    ResponseEntity<TeacherRes> getTeacher(@PathVariable("id") Integer id) {
         Optional<Teacher> teacher = teacherService.findOne(id);
         teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + id));
         return new ResponseEntity<TeacherRes>(TeacherRes.of(teacher.get()), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<TeacherRes> putTeacher(@RequestBody TeacherReq teacherReq, @PathVariable("id") Long id) {
+    ResponseEntity<TeacherRes> putTeacher(@RequestBody TeacherReq teacherReq, @PathVariable("id") Integer id) {
         Teacher teacher = teacherService.updateOne(teacherReq, id);
         return new ResponseEntity<TeacherRes>(TeacherRes.of(teacher), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    void deleteTeacher(@PathVariable("id") Long id) {
+    void deleteTeacher(@PathVariable("id") Integer id) {
         teacherService.deleteOne(id);
     }
 }

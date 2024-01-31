@@ -3,6 +3,7 @@ package com.ssafy.domain.classroom.service;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.repository.TeacherRepository;
 import com.ssafy.domain.classroom.request.TeacherReq;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
 
-    @Autowired
     private TeacherRepository teacherRepository;
-
 
     @Override
     public Teacher saveOne(TeacherReq teacherReq) {
@@ -32,12 +32,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Optional<Teacher> findOne(Long id) {
+    public Optional<Teacher> findOne(Integer id) {
         return teacherRepository.findById(id);
     }
 
     @Override
-    public Teacher updateOne(TeacherReq teacherReq, Long id) {
+    public Teacher updateOne(TeacherReq teacherReq, Integer id) {
         return teacherRepository.findById(id)
                 .map(teacher -> {
                     teacher.setName(teacherReq.getName());
@@ -55,7 +55,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void deleteOne(Long id) {
+    public void deleteOne(Integer id) {
         teacherRepository.deleteById(id);
     }
 }

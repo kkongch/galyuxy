@@ -10,5 +10,4 @@ public interface WorkbookService {
     List<Workbook> findAllByTeacherId(Integer id);
     List<Workbook> findAllByKeyword(String keyword);
     List<Workbook> findAllByTeacherName(String teacherName);
-    void findWorkbookWithQuestions(Integer id);
 }

@@ -20,7 +20,7 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
-    Long id;
+    Integer id;
 
     @Column(name = "teacher_name")
     String name;

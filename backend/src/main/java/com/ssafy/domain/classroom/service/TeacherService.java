@@ -9,7 +9,7 @@ import com.ssafy.domain.classroom.request.TeacherReq;
 public interface TeacherService {
     Teacher saveOne(TeacherReq teacherReq);
     List<Teacher> findAll();
-    Optional<Teacher> findOne(Long id);
-    Teacher updateOne(TeacherReq teacherReq, Long id);
-    void deleteOne(Long id);
+    Optional<Teacher> findOne(Integer id);
+    Teacher updateOne(TeacherReq teacherReq, Integer id);
+    void deleteOne(Integer id);
 }

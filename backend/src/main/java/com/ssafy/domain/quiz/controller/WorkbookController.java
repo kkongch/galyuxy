@@ -1,5 +1,8 @@
 package com.ssafy.domain.quiz.controller;
 
+import com.ssafy.domain.quiz.entity.Question;
+import com.ssafy.domain.quiz.response.QuestionRes;
+import com.ssafy.domain.quiz.service.QuestionService;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import com.ssafy.domain.quiz.entity.Workbook;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 public class WorkbookController {
 
     private final WorkbookService workbookService;
+    private final QuestionService questionService;
 
     @GetMapping
     ResponseEntity<Message<List<WorkbookRes>>> getWorkbookList(@RequestParam(name="teacherId", required=false) Integer teacherId) {
@@ -46,5 +50,14 @@ public class WorkbookController {
                 .map(WorkbookRes::of)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(Message.success(workbookResList));
+    }
+
+    @GetMapping("/{workbookId}/questions")
+    ResponseEntity<Message<List<QuestionRes>>> getQuestionListByWorkbookId(@PathVariable(name="workbookId") Integer workbookId) {
+        List<Question> questionList = questionService.findAllByWorkbookId(workbookId);
+        List<QuestionRes> questionResList = questionList.stream()
+                .map(QuestionRes::of)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(Message.success(questionResList, "OK", null));
     }
 }

@@ -1,6 +1,8 @@
 package com.ssafy.domain.quiz.entity;
 
+import com.ssafy.domain.classroom.entity.Teacher;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -44,6 +46,11 @@ public class Question {
     @JoinColumn(name = "workbook_id")
     Workbook workbook;
 
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    Teacher teacher;
+
+    @Builder
     public Question(int type, String instruction, String choice1, String choice2, String choice3, String choice4, int answer, Workbook workbook) {
         this.type = type;
         this.instruction = instruction;

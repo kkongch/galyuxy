@@ -35,10 +35,4 @@ public class WorkbookServiceImpl implements WorkbookService {
     public List<Workbook> findAllByTeacherName(String teacherName) {
         return workbookRepository.findAllByTeacherName(teacherName);
     }
-
-    @Override
-    public void findWorkbookWithQuestions(Integer id) {
-
-    }
-
 }

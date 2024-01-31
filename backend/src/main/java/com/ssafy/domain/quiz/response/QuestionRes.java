@@ -8,23 +8,25 @@ import lombok.Setter;
 @Setter
 public class QuestionRes {
 
-    int type;
-    String instruction;
-    String choice1;
-    String choice2;
-    String choice3;
-    String choice4;
-    int answer;
+    Integer workbookId;
+    int questionType;
+    String questionInstruction;
+    String questionChoice1;
+    String questionChoice2;
+    String questionChoice3;
+    String questionChoice4;
+    int questionAnswer;
 
     public static QuestionRes of(Question question) {
         QuestionRes questionRes = new QuestionRes();
-        questionRes.setType(question.getType());
-        questionRes.setInstruction(question.getInstruction());
-        questionRes.setChoice1(question.getChoice1());
-        questionRes.setChoice2(question.getChoice2());
-        questionRes.setChoice3(question.getChoice3());
-        questionRes.setChoice4(question.getChoice4());
-        questionRes.setAnswer(question.getAnswer());
+        questionRes.setWorkbookId(question.getWorkbook().getId());
+        questionRes.setQuestionType(question.getType());
+        questionRes.setQuestionInstruction(question.getInstruction());
+        questionRes.setQuestionChoice1(question.getChoice1());
+        questionRes.setQuestionChoice2(question.getChoice2());
+        questionRes.setQuestionChoice3(question.getChoice3());
+        questionRes.setQuestionChoice4(question.getChoice4());
+        questionRes.setQuestionAnswer(question.getAnswer());
         return questionRes;
     }
 }
