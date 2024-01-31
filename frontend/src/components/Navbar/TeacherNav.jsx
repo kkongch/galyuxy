@@ -9,7 +9,7 @@ import LogoBox from './LogoBox';
 
 const NavbarContainer = styled.div`
   height: 100%;
-  width: 18vw;
+  width: 30rem;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -99,9 +99,6 @@ const Navbar = () => {
 
   return (
     <>
-      <ToggleButton onClick={toggleNavbar} isOpen={isOpen}>
-        {isOpen ? 'Close' : 'Menu'}
-      </ToggleButton>
       <NavbarContainer isOpen={isOpen}>
         <LogoImage>
           <img src={navlogo} alt="Logo" /> {/* 이미지 경로를 자신의 로고 이미지 경로로 변경하세요. */}
@@ -124,6 +121,9 @@ const Navbar = () => {
           </Menu>
         </MenuText>
       </NavbarContainer>
+      <ToggleButton onClick={toggleNavbar} isOpen={isOpen}>
+        {isOpen ? 'Close' : 'Menu'}
+      </ToggleButton>
     </>
   );
 };
