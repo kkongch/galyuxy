@@ -1,0 +1,66 @@
+package com.ssafy.domain.presentation.service;
+
+import com.ssafy.domain.classroom.entity.Group;
+import com.ssafy.domain.classroom.repository.GroupRepository;
+import com.ssafy.domain.classroom.service.GroupService;
+import com.ssafy.domain.presentation.entity.Presentation;
+import com.ssafy.domain.presentation.repository.PresentationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class PresentationService {
+
+    private final PresentationRepository presentationRepository;
+    private final GroupService groupService;
+
+    @Autowired
+    public PresentationService(PresentationRepository presentationRepository, GroupService groupService) {
+        this.presentationRepository = presentationRepository;
+        this.groupService = groupService;
+    }
+
+    public List<Map<String, Object>> getActivePresentationsByGroupId(int groupId) {
+        List<Presentation> presentations = presentationRepository.findByGroupGroupIdAndPresentationIsDeletedFalse(groupId);
+        return presentations.stream()
+                .map(this::mapPresentationToResponse)
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> mapPresentationToResponse(Presentation presentation) {
+        Map<String, Object> presentationResponse = new HashMap<>();
+        presentationResponse.put("presentationId", presentation.getPresentationId());
+        presentationResponse.put("presentationTitle", presentation.getPresentationTitle());
+        presentationResponse.put("presentationCreateDate", presentation.getPresentationCreateDate());
+        presentationResponse.put("presentation_is_active", presentation.isPresentationIsActive() ? 1 : 0);
+        return presentationResponse;
+    }
+
+    public Presentation createPresentation(Presentation presentation) {
+        presentation.setPresentationCreateDate(Timestamp.valueOf(LocalDateTime.now()));
+        presentation.setPresentationIsActive(true);
+        presentation.setPresentationIsDeleted(false);
+
+        return presentationRepository.save(presentation);
+    }
+
+    public Presentation updatePresentation(Presentation presentation) {
+        return presentationRepository.save(presentation);
+    }
+
+    public Optional<Presentation> getPresentationById(int presentationId) {
+        return presentationRepository.findById(presentationId);
+    }
+}
