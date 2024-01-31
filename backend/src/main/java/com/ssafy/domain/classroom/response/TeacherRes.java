@@ -13,8 +13,8 @@ public class TeacherRes {
 
     public static TeacherRes of(Teacher teacher) {
         TeacherRes teacherRes = new TeacherRes();
-        teacherRes.setTeacherName(teacher.getTeacherName());
-        teacherRes.setTeacherEmail(teacher.getTeacherEmail());
+        teacherRes.setTeacherName(teacher.getName());
+        teacherRes.setTeacherEmail(teacher.getEmail());
         return teacherRes;
     }
 }
