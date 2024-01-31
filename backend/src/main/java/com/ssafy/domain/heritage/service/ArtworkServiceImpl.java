@@ -1,8 +1,11 @@
 package com.ssafy.domain.heritage.service;
 
+import com.ssafy.domain.heritage.Dto.ArtworkResultDto;
+import com.ssafy.domain.heritage.Dto.ArtworkResultMapper;
 import com.ssafy.domain.heritage.entity.Artwork;
 import com.ssafy.domain.heritage.entity.ArtworkResult;
 import com.ssafy.domain.heritage.repository.ArtworkRepository;
+import com.ssafy.domain.heritage.repository.ArtworkResultRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +18,27 @@ public class ArtworkServiceImpl implements ArtworkService{
 
     @Autowired
     private final ArtworkRepository artworkRepository;
+    @Autowired
+    private final ArtworkResultRepository artworkResultRepository;
 
 
     @Override
-    public List<Artwork> getArtworkByType(int type) {
+    public List<Artwork> getByType(int type) {
         return artworkRepository.findByArtworkType(type);
     }
 
     @Override
-    public List<ArtworkResult> getArtworkResultByGroupId(int groupId) {
-        return null;
+    public List<ArtworkResultDto> getResultByGroupId(int groupId) {
+        List<ArtworkResult> artworkResultList = artworkResultRepository.findByStudentGroupGroupId(groupId);
+        return ArtworkResultMapper.toDtoList(artworkResultList);
     }
 
     @Override
-    public List<ArtworkResult> getArtworkResultByStudentId(int studentId) {
-        return null;
+    public List<ArtworkResultDto> getResultByStudentId(int studentId) {
+//        return artworkResultRepository.findByStudentId(studentId);
+        List<ArtworkResult> artworkResultList = artworkResultRepository.findByStudentId(studentId);
+        return ArtworkResultMapper.toDtoList(artworkResultList);
     }
+
+
 }

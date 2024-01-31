@@ -1,19 +1,21 @@
 package com.ssafy.domain.heritage.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+
 @Entity
+@Getter(AccessLevel.PUBLIC)
+@Setter
 @NoArgsConstructor
 public class Heritage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "heritage_id")
-    private Integer heritageId;
+    private int heritageId;
 
 
     @Column(name = "heritage_name" )
@@ -23,7 +25,7 @@ public class Heritage {
     private String heritageContent;
 
     @Column(name = "heritage_image_url")
-            private String heritageImageUrl;
+    private String heritageImageUrl;
 
     @Column(name = "heritage_3d_image_url")
     private String heritage3dImageUrl;

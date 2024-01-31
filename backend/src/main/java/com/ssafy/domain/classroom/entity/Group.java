@@ -28,8 +28,8 @@ public class Group {
     @JoinColumn(name = "teacher_id")
     Teacher teacher;
 
-    @OneToMany(mappedBy = "group")
-    List<Student> students = new ArrayList<Student>();
+//    @OneToMany(mappedBy = "group")
+//    List<Student> students = new ArrayList<Student>();
 
     public Group(String groupName, Teacher teacher) {
         this.groupName = groupName;

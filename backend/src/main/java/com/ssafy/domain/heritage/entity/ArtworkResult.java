@@ -1,7 +1,9 @@
 package com.ssafy.domain.heritage.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ssafy.domain.classroom.entity.Student;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +12,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "artwork_result")
-@Getter
+@Getter(AccessLevel.PUBLIC)
 @Setter
 @NoArgsConstructor
 public class ArtworkResult {
@@ -28,10 +30,16 @@ public class ArtworkResult {
 
     @ManyToOne
     @JoinColumn(name = "artwork_id", nullable = false)
+    @JsonManagedReference
     private Artwork artwork;
-    
-    //학생 컬럼 추가해야함
+
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @JsonManagedReference
     private Student student;
+
+    public ArtworkResult(Timestamp artworkResultCreateTime, String artworkResultImageUrl) {
+        this.artworkResultCreateTime = artworkResultCreateTime;
+        this.artworkResultImageUrl = artworkResultImageUrl;
+    }
 }

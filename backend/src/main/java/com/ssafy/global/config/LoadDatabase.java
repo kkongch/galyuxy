@@ -1,10 +1,16 @@
 package com.ssafy.global.config;
 
 import com.ssafy.domain.classroom.entity.Group;
+import com.ssafy.domain.classroom.entity.Student;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.repository.GroupRepository;
+import com.ssafy.domain.classroom.repository.StudentRepository;
+import com.ssafy.domain.heritage.entity.Artwork;
+import com.ssafy.domain.heritage.entity.ArtworkResult;
 import com.ssafy.domain.heritage.entity.Era;
 import com.ssafy.domain.heritage.entity.Heritage;
+import com.ssafy.domain.heritage.repository.ArtworkRepository;
+import com.ssafy.domain.heritage.repository.ArtworkResultRepository;
 import com.ssafy.domain.heritage.repository.EraRepository;
 import com.ssafy.domain.heritage.repository.HeritageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,8 @@ import org.slf4j.LoggerFactory;
 
 import com.ssafy.domain.classroom.repository.TeacherRepository;
 
+import java.sql.Timestamp;
+
 @Configuration
 public class LoadDatabase {
 
@@ -27,10 +35,19 @@ public class LoadDatabase {
     GroupRepository groupRepository;
 
     @Autowired
+    StudentRepository studentRepository;
+    @Autowired
     EraRepository eraRepository;
 
     @Autowired
     HeritageRepository heritageRepository;
+
+    @Autowired
+    ArtworkRepository artworkRepository;
+    @Autowired
+    ArtworkResultRepository artworkResultRepository;
+
+    
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
@@ -51,12 +68,48 @@ public class LoadDatabase {
             log.info("Preloading " + groupRepository.save(group));
 
             //era
-            Era era = new Era("삼국시대", "고구려");
-            log.info("Preloading " + eraRepository.save(era));
+            Era era1 = new Era("삼국시대", "고구려");
+            Era era2 = new Era("삼국시대", "백제");
+            Era era3 = new Era("삼국시대", "신라");
+            Era era4 = new Era("조선시대", "조선");
+            log.info("Preloading " + eraRepository.save(era1));
+            log.info("Preloading " + eraRepository.save(era2));
+            log.info("Preloading " + eraRepository.save(era3));
+            log.info("Preloading " + eraRepository.save(era4));
 
             Heritage heri = new Heritage("고구려 유물", "고구려유물은 오래됨");
-            heri.setEra(era);
+            heri.setEra(era1);
+            Heritage heri2 = new Heritage("조선백자", "조선백자는 하얗다.");
+            heri2.setEra(era4);
             log.info("Preloading " + heritageRepository.save(heri));
+            log.info("Preloading " + heritageRepository.save(heri2));
+
+            Student s1 = new Student(1,"김싸피");
+            s1.setGroup(group);
+            Student s2 = new Student(2,"이싸피");
+            s2.setGroup(group);
+            log.info("Preloading " + studentRepository.save(s1));
+            log.info("Preloading " + studentRepository.save(s2));
+
+            Artwork aw1 = new Artwork(1, "url");
+            aw1.setEra(era1);
+            aw1.setHeritage(heri);
+            log.info("Preloading " + artworkRepository.save(aw1));
+            Artwork aw2 = new Artwork(1, "url");
+            aw2.setEra(era4);
+            aw2.setHeritage(heri2);
+            log.info("Preloading " + artworkRepository.save(aw2));
+
+            ArtworkResult ar1 = new ArtworkResult(new Timestamp(System.currentTimeMillis()), "url");
+            ar1.setArtwork(aw1);
+            ar1.setStudent(s1);
+            log.info("Preloading " + artworkResultRepository.save(ar1));
+            ArtworkResult ar2 = new ArtworkResult(new Timestamp(System.currentTimeMillis()), "url");
+            ar2.setArtwork(aw2);
+            ar2.setStudent(s1);
+            log.info("Preloading " + artworkResultRepository.save(ar2));
+
+
 
 
         };

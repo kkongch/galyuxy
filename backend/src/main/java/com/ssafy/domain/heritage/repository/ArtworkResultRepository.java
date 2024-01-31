@@ -6,12 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ArtworkResultRepository extends JpaRepository<ArtworkResult, Integer> {
+    List<ArtworkResult> findByStudentGroupGroupId(int studentId);
+    List<ArtworkResult> findByStudentId(int studentId);
 
-    List<ArtworkResult> findByStudent(int studentId);
-    List<ArtworkResult> findByStudentGroup(int studentId);
 
-
-    /*    List<ArtworkResult> getArtworkResultByGroupId(int groupId);
-    List<ArtworkResult> getArtworkResultByStudentId(int studentId);
-*/
 }

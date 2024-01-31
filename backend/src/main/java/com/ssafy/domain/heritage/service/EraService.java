@@ -5,6 +5,6 @@ import com.ssafy.domain.heritage.entity.Era;
 import javax.swing.*;
 import java.util.List;
 
-public interface EraService {
+    public interface EraService {
     List<Era> getAll();
 }

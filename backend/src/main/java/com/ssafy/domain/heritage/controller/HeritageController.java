@@ -33,7 +33,7 @@ public class HeritageController {
 
         return optionalHeritage.map(heritage ->
                 ResponseEntity.ok().body(Message.success(heritage)))
-                .orElse(ResponseEntity.status(404).body(Message.fail("NOT_FOUND", "Heritage not found")));
+                .orElse(ResponseEntity.status(404).body(Message.fail("404", "Heritage not found")));
     }
 
 
