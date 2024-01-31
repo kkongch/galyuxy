@@ -3,13 +3,12 @@ import "components/Presentation/Presentation.css"
 
 
 
-function PresentationMain() {
+function PresentationCategory() {
   return (
     <div className='Container'>
-      <>메인</>
+      <>카테고리</>
     </div>
   )
 }
 
-export default PresentationMain
-
+export default PresentationCategory

@@ -3,13 +3,12 @@ import "components/Presentation/Presentation.css"
 
 
 
-function PresentationMain() {
+function PresentationRoom() {
   return (
     <div className='Container'>
-      <>메인</>
+      <>화상채팅</>
     </div>
   )
 }
 
-export default PresentationMain
-
+export default PresentationRoom
