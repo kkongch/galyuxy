@@ -1,12 +1,15 @@
 package com.ssafy.domain.classroom.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.ssafy.domain.heritage.entity.ArtworkResult;
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -33,6 +36,10 @@ public class Student {
     @JoinColumn(name = "group_id")
     @JsonBackReference
     Group group;
+
+    @OneToMany(mappedBy = "student")
+    @JsonBackReference
+    private List<ArtworkResult> artworkResults;
 
     public Student(int no, String name ){
         this.studentNo = id;

@@ -1,5 +1,7 @@
 package com.ssafy.domain.heritage.service;
 
+import com.ssafy.domain.heritage.Dto.ArtworkDto;
+import com.ssafy.domain.heritage.Dto.ArtworkMapper;
 import com.ssafy.domain.heritage.Dto.ArtworkResultDto;
 import com.ssafy.domain.heritage.Dto.ArtworkResultMapper;
 import com.ssafy.domain.heritage.entity.Artwork;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,13 @@ public class ArtworkServiceImpl implements ArtworkService{
     }
 
     @Override
+    public ArtworkDto getById(int id) {
+        Optional<Artwork> artwork = artworkRepository.findById(id);
+
+        return artwork.map(ArtworkMapper::toDto).orElse(null);
+    }
+
+    @Override
     public List<ArtworkResultDto> getResultByGroupId(int groupId) {
         List<ArtworkResult> artworkResultList = artworkResultRepository.findByStudentGroupGroupId(groupId);
         return ArtworkResultMapper.toDtoList(artworkResultList);
@@ -40,5 +50,10 @@ public class ArtworkServiceImpl implements ArtworkService{
         return ArtworkResultMapper.toDtoList(artworkResultList);
     }
 
+    @Override
+    public void saveResult(int type, int studentId, String imageUrl) {
+            ArtworkResult artworkResult = new ArtworkResult(studentId, imageUrl);
 
+            artworkResultRepository.save(artworkResult);
+    }
 }

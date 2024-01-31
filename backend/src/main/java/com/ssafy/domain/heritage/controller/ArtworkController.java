@@ -1,5 +1,7 @@
 package com.ssafy.domain.heritage.controller;
 
+import com.ssafy.domain.heritage.Dto.ArtworkDto;
+import com.ssafy.domain.heritage.Dto.ArtworkMapper;
 import com.ssafy.domain.heritage.Dto.ArtworkResultDto;
 import com.ssafy.domain.heritage.entity.Artwork;
 import com.ssafy.domain.heritage.entity.ArtworkResult;
@@ -7,11 +9,10 @@ import com.ssafy.domain.heritage.service.ArtworkService;
 import com.ssafy.global.common.dto.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +30,12 @@ public class ArtworkController {
         return ResponseEntity.ok().body(Message.success(artworkList));
     }
 
+    @GetMapping("/info/{artworkId}")
+    public ResponseEntity<Message<ArtworkDto>> getById(@PathVariable("artworkId") int id){
+        ArtworkDto artwork = artworkService.getById(id);
+        return ResponseEntity.ok().body(Message.success( artwork));
+    }
+
     @GetMapping("/result/{groupId}")
     public ResponseEntity<Message<List<ArtworkResultDto>>> getResultByGroupId(@PathVariable("groupId") int id){
         List<ArtworkResultDto> arDtoList = artworkService.getResultByGroupId(id);
@@ -41,5 +48,22 @@ public class ArtworkController {
         return ResponseEntity.ok().body(Message.success(arDtoList));
     }
 
+    @PostMapping(value = "/result", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message<Void>> postArtworkResult(@RequestBody ArtworkResultDto request) {
+        System.out.println("request : " +request.toString());
+        // 여기서 필요한 데이터를 추출하여 서비스에 전달
+////        try {
+//            artworkService.saveResult(
+//                    request.getArtwork().getArtworkType(),
+//                    request.getStudent().getId(),
+//                    request.getArtworkResultImageUrl()
+//            );
+            return ResponseEntity.ok().body(Message.success());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Message.fail("111","Failed to save artwork result."));
+//        }
+//        return  null;
+    }
 }
 

@@ -3,10 +3,7 @@ package com.ssafy.domain.heritage.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ssafy.domain.classroom.entity.Student;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -14,6 +11,7 @@ import java.sql.Timestamp;
 @Table(name = "artwork_result")
 @Getter(AccessLevel.PUBLIC)
 @Setter
+@ToString
 @NoArgsConstructor
 public class ArtworkResult {
 
@@ -38,7 +36,14 @@ public class ArtworkResult {
     @JsonManagedReference
     private Student student;
 
-    public ArtworkResult(Timestamp artworkResultCreateTime, String artworkResultImageUrl) {
+    public ArtworkResult(int studentId, String artworkResultImageUrl) {
+        this.student = new Student();
+        this.student.setId(studentId);
+        this.artworkResultImageUrl = artworkResultImageUrl;
+    }
+    public ArtworkResult(int studentId, Timestamp artworkResultCreateTime, String artworkResultImageUrl) {
+        this.student = new Student();
+        this.student.setId(studentId);
         this.artworkResultCreateTime = artworkResultCreateTime;
         this.artworkResultImageUrl = artworkResultImageUrl;
     }

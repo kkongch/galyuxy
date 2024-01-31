@@ -100,13 +100,11 @@ public class LoadDatabase {
             aw2.setHeritage(heri2);
             log.info("Preloading " + artworkRepository.save(aw2));
 
-            ArtworkResult ar1 = new ArtworkResult(new Timestamp(System.currentTimeMillis()), "url");
+            ArtworkResult ar1 = new ArtworkResult(s1.getId(), new Timestamp(System.currentTimeMillis()), "url");
             ar1.setArtwork(aw1);
-            ar1.setStudent(s1);
             log.info("Preloading " + artworkResultRepository.save(ar1));
-            ArtworkResult ar2 = new ArtworkResult(new Timestamp(System.currentTimeMillis()), "url");
+            ArtworkResult ar2 = new ArtworkResult(s1.getId(), new Timestamp(System.currentTimeMillis()), "url");
             ar2.setArtwork(aw2);
-            ar2.setStudent(s1);
             log.info("Preloading " + artworkResultRepository.save(ar2));
 
 
