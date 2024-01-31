@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import com.ssafy.domain.quiz.entity.Workbook;
 import com.ssafy.domain.quiz.response.WorkbookRes;
 import com.ssafy.domain.quiz.service.WorkbookService;
-import com.ssafy.global.config.common.dto.Message;
+import com.ssafy.global.common.dto.Message;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

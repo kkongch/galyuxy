@@ -1,8 +1,5 @@
 package com.ssafy.domain.quiz.controller;
 
-import com.ssafy.domain.classroom.entity.Teacher;
-import com.ssafy.domain.classroom.exception.TeacherException;
-import com.ssafy.domain.classroom.response.TeacherRes;
 import com.ssafy.domain.quiz.request.QuestionReq;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.domain.quiz.service.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
-import com.ssafy.global.config.common.dto.Message;
+import com.ssafy.global.common.dto.Message;
 import com.ssafy.domain.quiz.response.QuestionRes;
 import com.ssafy.domain.quiz.entity.Question;
 

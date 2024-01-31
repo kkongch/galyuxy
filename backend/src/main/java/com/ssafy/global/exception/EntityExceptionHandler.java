@@ -1,6 +1,6 @@
 package com.ssafy.global.exception;
 
-import com.ssafy.global.config.common.dto.Message;
+import com.ssafy.global.common.dto.Message;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.ssafy.global.config.common.dto;
+package com.ssafy.global.common.dto;
 
 import lombok.*;
 
