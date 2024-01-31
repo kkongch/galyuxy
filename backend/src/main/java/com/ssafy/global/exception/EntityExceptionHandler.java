@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class EntityExceptionHandler {
-
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Message> handleEntityNotFoundException(EntityNotFoundException entityNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Message.fail("BAD_REQUEST", entityNotFoundException.getMessage()));
