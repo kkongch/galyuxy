@@ -19,26 +19,26 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
-    Long teacherId;
+    Long id;
 
     @Column(name = "teacher_name")
-    String teacherName;
+    String name;
 
     @Column(name = "teacher_email")
-    String teacherEmail;
+    String email;
 
     @Column(name = "teacher_password")
-    String teacherPassword;
+    String password;
 
     @Column(name = "teacher_is_deleted")
-    boolean teacherIsDeleted;
+    boolean isDeleted;
 
     @OneToMany(mappedBy = "teacher")
     List<Group> groups = new ArrayList<Group>();
 
     public Teacher(String teacherName, String teacherEmail, String teacherPassword) {
-        this.teacherName = teacherName;
-        this.teacherEmail = teacherEmail;
-        this.teacherPassword = teacherPassword;
+        this.name = teacherName;
+        this.email = teacherEmail;
+        this.password = teacherPassword;
     }
 }
