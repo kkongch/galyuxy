@@ -19,7 +19,7 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
-    Long id;
+    Integer id;
 
     @Column(name = "teacher_name")
     String name;
@@ -36,9 +36,10 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     List<Group> groups = new ArrayList<Group>();
 
-    public Teacher(String teacherName, String teacherEmail, String teacherPassword) {
-        this.name = teacherName;
-        this.email = teacherEmail;
-        this.password = teacherPassword;
+    @Builder
+    public Teacher(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 }

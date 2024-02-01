@@ -8,13 +8,13 @@ import lombok.Setter;
 @Setter
 public class TeacherRes {
 
-    String teacherName;
-    String teacherEmail;
+    String name;
+    String email;
 
     public static TeacherRes of(Teacher teacher) {
         TeacherRes teacherRes = new TeacherRes();
-        teacherRes.setTeacherName(teacher.getName());
-        teacherRes.setTeacherEmail(teacher.getEmail());
+        teacherRes.setName(teacher.getName());
+        teacherRes.setEmail(teacher.getEmail());
         return teacherRes;
     }
 }

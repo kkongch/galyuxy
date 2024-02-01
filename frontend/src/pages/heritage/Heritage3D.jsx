@@ -10,21 +10,28 @@ import { useGLTF, OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { styled } from 'styled-components'
 import { useThree } from '@react-three/fiber'
+import Btn from 'components/Basic/Button'
 
+
+const Background = styled.div`
+  background-color: black;
+  width: 100%;
+  height: 100vh;
+
+`
 const BackgroundBox = styled.div`
   position: absolute;
   top: 10%;
   left: 10%;
-  width: 80vw; // 뷰포트 너비의 100%
-  height: 80vh; // 뷰포트 높이의 100%
+  width: 75vw; // 뷰포트 너비의 100%
+  height: 75vh; // 뷰포트 높이의 100%
   display: flex; // Flexbox 레이아웃 사용
   justify-content: center; // 가로축 중앙 정렬
   align-items: center; // 세로축 중앙 정렬
-  background-color: yellow;
+  background-color: #d9d9d9;
   z-index: 0; // 3D 캔버스를 보기 위해 z-index를 0으로 설정
 `
-
-const AbsoluteBox = styled.div`
+const Heritage3dBox = styled.div`
   position: 'absolute';
   height: '100%';
   top: '50%';
@@ -62,15 +69,15 @@ export default function Heritage3D(props) {
     return null
   }
   return (
-    <>
+    <Background>
       <BackgroundBox>
-        <AbsoluteBox>
+        <Heritage3dBox>
           <Canvas>
             <CameraController />
             <OrbitControls
               enableZoom={true}
               zoomSpeed={1}
-              target={[0, 0.6, 0]}
+              targete={[0, 0.6, 0]}
             />
             <ambientLight intensity={0.5} />
             <Suspense fallback={null}>
@@ -79,9 +86,10 @@ export default function Heritage3D(props) {
               <Model />
             </Suspense>
           </Canvas>
-        </AbsoluteBox>
+        </Heritage3dBox>
       </BackgroundBox>
-    </>
+      <Btn />
+    </Background>
   )
 }
 

@@ -1,26 +1,31 @@
 package com.ssafy.domain.presentation.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "room")
+@Getter(AccessLevel.PUBLIC)
+@Setter
 public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id")
-    Integer roomId;
+    private Integer roomId;
 
     @Column(name = "room_subject")
-    String roomSubject;
+    private String roomSubject;
 
     @Column(name = "room_script")
-    String roomScript;
+    private String roomScript;
 
     @Column(name = "room_is_deleted")
-    boolean roomIsDeleted;
+    private boolean roomIsDeleted;
 
     @ManyToOne
     @JoinColumn(name = "presentation_id")
-    Presentation presentation;
+    private Presentation presentation;
 }

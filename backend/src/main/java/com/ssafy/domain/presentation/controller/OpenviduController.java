@@ -2,6 +2,7 @@ package com.ssafy.domain.presentation.controller;
 
 import io.openvidu.java.client.*;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

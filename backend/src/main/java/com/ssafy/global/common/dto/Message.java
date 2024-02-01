@@ -35,6 +35,7 @@ public class Message<T> {
         private static DataHeader fail(String resultCode, String resultMessage) {
             return DataHeader.builder()
                     .successCode(1)
+                    .resultCode(resultCode)
                     .resultMessage(resultCode)
                     .resultMessage(resultMessage)
                     .build();

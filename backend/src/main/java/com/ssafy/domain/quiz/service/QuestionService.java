@@ -9,7 +9,9 @@ import java.util.Optional;
 public interface QuestionService {
     Question saveOne(QuestionReq questionReq);
     Optional<Question> findOne(Integer id);
+    void deleteOne(Integer id);
     List<Question> findAll();
     List<Question> findAllByKeyword(String keyword);
     List<Question> findAllByWorkbookId(Integer workbookId);
+    List<Question> findAllByTeacherName(String teacherName);
 }
