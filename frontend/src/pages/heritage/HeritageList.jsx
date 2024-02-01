@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Background from 'components/Basic/Background';
 import heritageImage from 'assets/images/Heritage/문화유산메인배경.png';
+import { getHeritage } from 'api/HeritageApi';
 const Body = styled.div`
   margin: 0;
   padding: 0;
@@ -22,24 +23,41 @@ const Container = styled.div`
 const StyledbBox = styled.div`
   width: 32%;
   height: 25vh;
-  background-color: #3498db;
- 
+  background-image: url(${props=>props.imageUrl});
+  background-size : cover;
+  border : 2px solid black;
   margin: 10vh 1%;
   transform-origin: center;
 `;
 
-const Box = React.forwardRef((props, ref) => {
-  return <StyledbBox ref={ref}/>;
+
+
+const Box = React.forwardRef((imageData, ref) => {
+  return <StyledbBox ref={ref} imageUrl={imageData}/>;
 });
 
 function HeritageList() {
+  const [HeritageData,setHeritageData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getHeritage();
+        setHeritageData(response.data); // 데이터를 상태에 저장
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   const boxRefs = useRef([]);
   boxRefs.current = [];
 
-  const boxes = Array.from({ length: 20 }, (_, index) => {
-    boxRefs.current.push(React.createRef());
-    return <Box ref={boxRefs.current[index]} key={index} />;
-  });
+  const boxes = HeritageData.heritageImageUrl.map((data,index) => (
+    <Box imageData={data} ref={React.createRef()} key={index}/>
+  ))
+   
+  
 
   useEffect(() => {
     const handleScroll = () => {
