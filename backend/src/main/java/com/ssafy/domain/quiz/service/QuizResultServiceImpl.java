@@ -15,6 +15,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuizResultServiceImpl implements QuizResultService{
@@ -50,5 +52,14 @@ public class QuizResultServiceImpl implements QuizResultService{
                 .score(quizResultReq.getQuizResultScore())
                 .build();
         return quizResultRepository.save(quizResult);
+    }
+
+    @Override
+    public List<QuizResult> getAllByWorkbookIdAndGroupId(Integer workbookId, Integer groupId) {
+//        List<Object[]> ret = quizResultRepository.findAllByWorkbookIdAndGroupId(workbookId, groupId);
+//        System.out.println(ret);
+        System.out.println(        quizResultRepository.findAllByWorkbookIdAndGroupId(workbookId, groupId).toString());
+//        return quizResultRepository.findAllByWorkbookIdAndGroupId(workbookId, groupId);
+        return null;
     }
 }

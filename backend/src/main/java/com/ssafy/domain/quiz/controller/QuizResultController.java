@@ -11,10 +11,10 @@ import com.ssafy.global.common.dto.Message;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/quiz/quizResult")
@@ -31,5 +31,16 @@ public class QuizResultController {
         } catch (EntityNotFoundException entityNotFoundException) {
             throw entityNotFoundException;
         }
+    }
+
+    @GetMapping
+    ResponseEntity<Message<List<QuizResultRes>>> getQuizResultListByWorkbookIdAndGroupId(@RequestParam(name="workbookId") Integer workbookId, @RequestParam(name="groupId") Integer groupId) {
+    quizResultService.getAllByWorkbookIdAndGroupId(workbookId, groupId);
+        //        List<QuizResult> quizResultList = quizResultService.getAllByWorkbookIdAndGroupId(workbookId, groupId);
+//        List<QuizResultRes> quizResultResList = quizResultList.stream()
+//                .map(QuizResultRes::of)
+//                .collect(Collectors.toList());
+//        return ResponseEntity.ok().body(Message.success(quizResultResList, "OK", null));
+        return null;
     }
 }
