@@ -41,10 +41,11 @@ public class Student {
     @JsonBackReference
     private List<ArtworkResult> artworkResults;
 
-    public Student(int no, String name ){
-        this.studentNo = id;
-        this.studentName = name;
-        this.studentIsDeleted = false;    
+    public Student(int no, String name ) {
+        this.no = no;
+        this.name = name;
+        this.isDeleted = false;
+    }
 
     public Student(String name, int no, Group group) {
         this.name = name;
