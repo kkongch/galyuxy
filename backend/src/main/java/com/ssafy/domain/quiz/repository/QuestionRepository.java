@@ -17,4 +17,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
     @Query("SELECT question FROM Question question WHERE question.workbook.id = :workbookId and question.isDeleted = false")
     List<Question> findAllByWorkbookId(@Param("workbookId") Integer workbookId);
+
+    @Query("SELECT question FROM Question question WHERE question.teacher.name LIKE %:teacherName% and question.isDeleted = false")
+    List<Question> findAllByTeacherName(@Param("teacherName") String teacherName);
 }

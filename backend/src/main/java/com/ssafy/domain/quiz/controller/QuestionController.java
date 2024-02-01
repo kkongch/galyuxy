@@ -52,11 +52,22 @@ public class QuestionController {
     }
 
     @GetMapping("/search")
-    ResponseEntity<Message<List<QuestionRes>>> searchQuestionList(@RequestParam(name="keyword", required=false) String keyword) {
-        List<Question> questionList = questionService.findAllByKeyword(keyword);
+    ResponseEntity<Message<List<QuestionRes>>> searchQuestionList(@RequestParam(name="keyword", required=false) String keyword, @RequestParam(name="teacherName", required=false) String teacherName) {
+        List<Question> questionList = null;
+        if (keyword != null) {
+            questionList = questionService.findAllByKeyword(keyword);
+        } else if (teacherName != null) {
+            questionList = questionService.findAllByTeacherName(teacherName);
+        }
         List<QuestionRes> questionResList = questionList.stream()
                 .map(QuestionRes::of)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(Message.success(questionResList, "OK", null));
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<Message<Void>> deleteQuestion(@PathVariable("id") Integer id) {
+        questionService.deleteOne(id);
+        return ResponseEntity.ok().body(Message.success(null, "OK", null));
     }
 }

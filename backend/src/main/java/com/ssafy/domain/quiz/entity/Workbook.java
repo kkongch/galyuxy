@@ -2,6 +2,7 @@ package com.ssafy.domain.quiz.entity;
 
 import com.ssafy.domain.classroom.entity.Teacher;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -42,6 +43,15 @@ public class Workbook {
     @OneToMany(mappedBy = "workbook")
     List<Question> questions = new ArrayList<Question>();
 
+    @Builder
+    public Workbook(String title, int totalPoint, Teacher teacher) {
+        this.title = title;
+        this.totalPoint = totalPoint;
+        this.createDate = new Timestamp(System.currentTimeMillis());
+        this.updateDate = new Timestamp(System.currentTimeMillis());
+        this.teacher = teacher;
+    }
+
     public Workbook(String title, int totalPoint, Timestamp createDate, Timestamp updateDate, Teacher teacher) {
         this.title = title;
         this.totalPoint = totalPoint;
@@ -57,5 +67,10 @@ public class Workbook {
         this.updateDate = updateDate;
         this.isDeleted = isDeleted;
         this.teacher = teacher;
+    }
+
+    public void softDelete() {
+        this.isDeleted = true;
+        this.updateDate = new Timestamp(System.currentTimeMillis());
     }
 }

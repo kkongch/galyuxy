@@ -39,7 +39,7 @@ public class Question {
     @Column(name = "question_answer")
     int answer;
 
-    @Column(name = "quesion_is_deleted")
+    @Column(name = "question_is_deleted")
     boolean isDeleted;
 
     @ManyToOne
@@ -51,7 +51,7 @@ public class Question {
     Teacher teacher;
 
     @Builder
-    public Question(int type, String instruction, String choice1, String choice2, String choice3, String choice4, int answer, Workbook workbook) {
+    public Question(int type, String instruction, String choice1, String choice2, String choice3, String choice4, int answer, Workbook workbook, Teacher teacher) {
         this.type = type;
         this.instruction = instruction;
         this.choice1 = choice1;
@@ -60,9 +60,10 @@ public class Question {
         this.choice4 = choice4;
         this.answer = answer;
         this.workbook = workbook;
+        this.teacher = teacher;
     }
 
-    public Question(int type, String instruction, String choice1, String choice2, String choice3, String choice4, int answer, boolean isDeleted, Workbook workbook) {
+    public Question(int type, String instruction, String choice1, String choice2, String choice3, String choice4, int answer, boolean isDeleted, Workbook workbook, Teacher teacher) {
         this.type = type;
         this.instruction = instruction;
         this.choice1 = choice1;
@@ -72,5 +73,10 @@ public class Question {
         this.answer = answer;
         this.isDeleted = isDeleted;
         this.workbook = workbook;
+        this.teacher = teacher;
+    }
+
+    public void softDelete() {
+        this.isDeleted = true;
     }
 }
