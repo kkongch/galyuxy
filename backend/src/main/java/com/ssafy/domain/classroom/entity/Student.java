@@ -11,31 +11,31 @@ import lombok.Setter;
 
 import java.util.List;
 
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "student")
-@Getter(AccessLevel.PUBLIC)
-@Setter
-@NoArgsConstructor
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    int id;
+    private Integer id;
 
     @Column(name = "student_name")
-    String studentName;
+    private String name;
 
     @Column(name = "student_no")
-    int studentNo;
+    private int no;
 
     @Column(name = "student_is_deleted")
-    boolean studentIsDeleted;
+    private boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
     @JsonBackReference
-    Group group;
+    private Group group;
 
     @OneToMany(mappedBy = "student")
     @JsonBackReference
@@ -44,6 +44,11 @@ public class Student {
     public Student(int no, String name ){
         this.studentNo = id;
         this.studentName = name;
-        this.studentIsDeleted = false;
+        this.studentIsDeleted = false;    
+
+    public Student(String name, int no, Group group) {
+        this.name = name;
+        this.no = no;
+        this.group = group;
     }
 }

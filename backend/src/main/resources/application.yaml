@@ -20,15 +20,22 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
-    defer-datasource-initialization: true
+      ddl-auto: create-drop 
+    properties:
+      hibernate:
+        format_sql: true
+        connection:
+          characterEncoding: utf-8
+          charSet: UTF-8 
 
 logging:
   level:
     org:
-      hibernate:
-        SQL: debug
-
+      hibernate:      
+        type:
+          descriptor:
+            sql: trace
+        
 cloud:
   aws:
     credentials:
@@ -42,3 +49,4 @@ cloud:
 application:
   bucket:
     name: galyuxy
+

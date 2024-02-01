@@ -1,5 +1,6 @@
 package com.ssafy.domain.classroom.entity;
 
+import com.ssafy.domain.quiz.entity.QuizResult;
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
@@ -16,13 +17,13 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id")
-    Integer groupId;
+    Integer id;
 
     @Column(name = "group_name")
-    String groupName;
+    String name;
 
     @Column(name = "group_is_deleted")
-    boolean groupIsDeleted;
+    boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
@@ -31,8 +32,11 @@ public class Group {
 //    @OneToMany(mappedBy = "group")
 //    List<Student> students = new ArrayList<Student>();
 
+    @OneToMany(mappedBy = "group")
+    List<QuizResult> quizResults = new ArrayList<QuizResult>();
+
     public Group(String groupName, Teacher teacher) {
-        this.groupName = groupName;
+        this.name = groupName;
         this.teacher = teacher;
     }
 

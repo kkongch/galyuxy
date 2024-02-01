@@ -1,7 +1,5 @@
 package com.ssafy.domain.presentation.service;
 
-import com.ssafy.domain.classroom.entity.Group;
-import com.ssafy.domain.classroom.repository.GroupRepository;
 import com.ssafy.domain.classroom.service.GroupService;
 import com.ssafy.domain.presentation.entity.Presentation;
 import com.ssafy.domain.presentation.repository.PresentationRepository;
@@ -9,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -24,16 +19,14 @@ import java.util.stream.Collectors;
 public class PresentationService {
 
     private final PresentationRepository presentationRepository;
-    private final GroupService groupService;
 
     @Autowired
     public PresentationService(PresentationRepository presentationRepository, GroupService groupService) {
         this.presentationRepository = presentationRepository;
-        this.groupService = groupService;
     }
 
     public List<Map<String, Object>> getActivePresentationsByGroupId(int groupId) {
-        List<Presentation> presentations = presentationRepository.findByGroupGroupIdAndPresentationIsDeletedFalse(groupId);
+        List<Presentation> presentations = presentationRepository.findByGroupIdAndPresentationIsDeletedFalse(groupId);
         return presentations.stream()
                 .map(this::mapPresentationToResponse)
                 .collect(Collectors.toList());
