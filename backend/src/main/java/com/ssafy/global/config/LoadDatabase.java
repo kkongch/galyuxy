@@ -79,6 +79,7 @@ public class LoadDatabase {
 
             Heritage heri = new Heritage("고구려 유물", "고구려유물은 오래됨");
             heri.setEra(era1);
+            heri.setHeritageImageUrl("https://galyuxy.s3.ap-northeast-2.amazonaws.com/heritage/%EA%B4%91%EA%B0%9C%ED%86%A0%EB%8C%80%EC%99%95%EB%A6%89%EB%B9%84.jpg");
             Heritage heri2 = new Heritage("조선백자", "조선백자는 하얗다.");
             heri2.setEra(era4);
             log.info("Preloading " + heritageRepository.save(heri));

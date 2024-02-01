@@ -28,3 +28,17 @@ logging:
     org:
       hibernate:
         SQL: debug
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIA6AYG3BQNOQE7SGF4
+      secretKey: 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
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: galyuxy
