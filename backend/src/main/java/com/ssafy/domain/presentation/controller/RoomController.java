@@ -97,4 +97,10 @@ public class RoomController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/user/{roomId}/{studentId}")
+    public ResponseEntity<Void> deleteStudentFromRoom(@PathVariable("roomId") int roomId, @PathVariable("studentId") int studentId) {
+        studentRoomService.deleteStudentFromRoom(roomId, studentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

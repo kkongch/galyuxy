@@ -6,6 +6,7 @@ import com.ssafy.domain.presentation.entity.Room;
 import com.ssafy.domain.presentation.entity.StudentRoom;
 import com.ssafy.domain.presentation.repository.RoomRepository;
 import com.ssafy.domain.presentation.repository.StudentRoomRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,4 +34,8 @@ public class StudentRoomService {
         return studentRoomRepository.save(studentRoom);
     }
 
+    @Transactional
+    public void deleteStudentFromRoom(Integer roomId, Integer studentId) {
+        studentRoomRepository.deleteByRoomRoomIdAndStudentStudentId(roomId, studentId);
+    }
 }
