@@ -37,8 +37,8 @@ public class PresentationController {
     public ResponseEntity<String> createPresentation(@RequestBody Presentation presentation) {
 
         try {
-            Group group = groupService.getGroupById(presentation.getGroup().getGroupId())
-                    .orElseThrow(() -> new RuntimeException("Group not found with id: " + presentation.getGroup().getGroupId()));
+            Group group = groupService.getGroupById(presentation.getGroup().getId())
+                    .orElseThrow(() -> new RuntimeException("Group not found with id: " + presentation.getGroup().getId()));
 
             presentation.setGroup(group);
             Presentation createdPresentation = presentationService.createPresentation(presentation);
