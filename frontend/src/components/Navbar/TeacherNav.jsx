@@ -4,23 +4,23 @@ import Menu from './Menu'; // Menu 컴포넌트 임포트
 import { useNavigate } from 'react-router-dom';
 import navlogo from 'assets/images/갤역시_로고.png'
 import LogoBox from './LogoBox';
+import { BiSolidChevronLeft, BiSolidChevronRight } from "react-icons/bi";
 
 
 
 const NavbarContainer = styled.div`
   height: 100%;
-  width: 30rem;
+  width: 25%;
   position: fixed;
   z-index: 1;
   top: 0;
-  left: ${props => props.isOpen ? '0' : '-26.125rem'};
+  left: ${props => props.isOpen ? '0' : '-25%'};
   background-color: rgba(0, 0, 0, 0.5);
   transition: 0.5s;
   display: flex;
   flex-direction: column;
   padding: 20px 20px;
-
-  border-radius: 0rem 3.125rem 0rem 0rem;
+  border-radius: 0% 6vh 0% 0%;
   border: 1px solid rgba(255, 255, 255, 0.53);
   background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(5px);
@@ -30,11 +30,10 @@ const NavbarContainer = styled.div`
 const LogoImage = styled.div`
   display: flex;
   width: 100%; 
-  height: auto; // 이미지 높이 설정
+  height: auto;
   background-color: var(--logo-bg); // 글로벌 스타일에서 설정할 배경색
-  justify-content: center; // 가운데 정렬
-  align-items: center; // 세로 방향으로 가운데 정렬
-  padding: 0.5vh 0.5vw; // 내부 여백
+  justify-content: center;
+  align-items: center;
   
   img {
     width: 70%; // 이미지의 최대 너비를 100%로 설정
@@ -43,13 +42,26 @@ const LogoImage = styled.div`
   `;
 
 
-const ToggleButton = styled.button`
+const ToggleButton = styled.div`
   position: fixed;
-  left: ${props => props.isOpen ? '20vw' : '0'};
-  top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: ${props => props.isOpen ? '25%' : '0'};
+  top: 7%;
+  height: 8%;
+  width: 3%;
   z-index: 2;
+  border-radius: 0px 40% 40% 0px;
+  background: #11235A;
+  color: white;
   cursor: pointer;
   transition: 0.5s;
+
+  svg {
+    font-size: 1000%;
+    pointer-events: none;
+  }
 `;
 
 
@@ -73,6 +85,10 @@ const NavbarLink = styled.a`
 
 const MenuText = styled.div`
   width: 95%;
+
+  hr {
+    border: 0.1rem solid #f1f1f1; 
+  }
 `
 
 const Navbar = () => {
@@ -100,6 +116,7 @@ const Navbar = () => {
   return (
     <>
       <NavbarContainer isOpen={isOpen}>
+      
         <LogoImage>
           <img src={navlogo} alt="Logo" /> {/* 이미지 경로를 자신의 로고 이미지 경로로 변경하세요. */}
         </LogoImage>
@@ -122,7 +139,7 @@ const Navbar = () => {
         </MenuText>
       </NavbarContainer>
       <ToggleButton onClick={toggleNavbar} isOpen={isOpen}>
-        {isOpen ? 'Close' : 'Menu'}
+        {isOpen ? <BiSolidChevronLeft /> : <BiSolidChevronRight />}
       </ToggleButton>
     </>
   );

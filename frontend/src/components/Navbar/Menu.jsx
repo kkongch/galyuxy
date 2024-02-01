@@ -11,9 +11,11 @@ const Submenu = styled.div`
 
 const MenuTitle = styled.div` // MenuTitle로 변경하여 클릭 가능하도록 함
   cursor: pointer; // 클릭 가능하도록 스타일 변경
-  font-size: 1.5vw;
-  padding: 10% 10%;
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 7% 15%;
   transition: 1s;
+
 `;
 
 // NavbarLink를 별도의 파일로 분리하거나 여기서 정의를 제거하고 Navbar.js에서 가져온 NavbarLink를 사용하세요.
