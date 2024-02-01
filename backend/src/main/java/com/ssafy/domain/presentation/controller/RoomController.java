@@ -1,10 +1,13 @@
 package com.ssafy.domain.presentation.controller;
 
 import com.ssafy.domain.classroom.entity.Group;
+import com.ssafy.domain.classroom.entity.Student;
 import com.ssafy.domain.presentation.entity.Presentation;
 import com.ssafy.domain.presentation.entity.Room;
+import com.ssafy.domain.presentation.entity.StudentRoom;
 import com.ssafy.domain.presentation.service.PresentationService;
 import com.ssafy.domain.presentation.service.RoomService;
+import com.ssafy.domain.presentation.service.StudentRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -21,11 +24,13 @@ public class RoomController {
 
     private final RoomService roomService;
     private final PresentationService presentationService;
+    private final StudentRoomService studentRoomService;
 
     @Autowired
-    public RoomController(RoomService roomService, PresentationService presentationService){
+    public RoomController(RoomService roomService, PresentationService presentationService, StudentRoomService studentRoomService){
         this.roomService = roomService;
         this.presentationService = presentationService;
+        this.studentRoomService = studentRoomService;
     }
 
     @GetMapping("/{presentationId}")
@@ -77,6 +82,19 @@ public class RoomController {
             return new ResponseEntity<>("Room deleted with ID: " + roomId, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Room not found with ID: " + roomId, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/join")
+    public ResponseEntity<StudentRoom> addStudentToRoom(@RequestBody Map<String, Integer> requestData) {
+        try {
+            Integer roomId = requestData.get("roomId");
+            Integer studentId = requestData.get("studentId");
+
+            StudentRoom addedStudentRoom = studentRoomService.addStudentToRoom(roomId, studentId);
+            return new ResponseEntity<>(addedStudentRoom, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

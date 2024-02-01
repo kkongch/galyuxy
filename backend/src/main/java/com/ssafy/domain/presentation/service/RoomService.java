@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
-    private final RoomRepository roomRespository;
+    private final RoomRepository roomRepository;
 
     public RoomService(RoomRepository roomRespository){
-        this.roomRespository = roomRespository;
+        this.roomRepository = roomRespository;
     }
 
     public List<Map<String, Object>> getRoomsByPresentationId(int presentationId){
-        List<Room> rooms = roomRespository.findByPresentationPresentationIdAndRoomIsDeletedFalse(presentationId);
+        List<Room> rooms = roomRepository.findByPresentationPresentationIdAndRoomIsDeletedFalse(presentationId);
         return rooms.stream()
                 .map(this::mapRoomToResponse)
                 .collect(Collectors.toList());
@@ -37,14 +37,14 @@ public class RoomService {
         room.setRoomIsDeleted(false);
         room.setRoomScript(null);
 
-        return roomRespository.save(room);
+        return roomRepository.save(room);
     }
 
     public Room updateRoom(Room room){
-        return roomRespository.save(room);
+        return roomRepository.save(room);
     }
 
     public Optional<Room> getRoomById(int roomId){
-        return roomRespository.findById(roomId);
+        return roomRepository.findById(roomId);
     }
 }
