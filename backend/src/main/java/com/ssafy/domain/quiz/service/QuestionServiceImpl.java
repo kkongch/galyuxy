@@ -1,5 +1,6 @@
 package com.ssafy.domain.quiz.service;
 
+import com.ssafy.domain.classroom.repository.TeacherRepository;
 import com.ssafy.domain.quiz.entity.Question;
 import com.ssafy.domain.quiz.entity.Workbook;
 import com.ssafy.domain.quiz.repository.QuestionRepository;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
 
+    private final TeacherRepository teacherRepository;
     private final WorkbookRepository workbookRepository;
     private final QuestionRepository questionRepository;
 
@@ -45,6 +47,14 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public void deleteOne(Integer id) {
+        questionRepository.findById(id).ifPresent(question -> {
+            question.softDelete();
+            questionRepository.save(question);
+        });
+    }
+
+    @Override
     public List<Question> findAll() {
         return questionRepository.findAllByIsDeletedIsFalse();
     }
@@ -56,7 +66,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> findAllByWorkbookId(Integer workbookId) {
+        if(!teacherRepository.existsById(workbookId)) throw new EntityNotFoundException(String.format("Workbook %d Not Found", workbookId));
         return questionRepository.findAllByWorkbookId(workbookId);
     }
 
+    @Override
+    public List<Question> findAllByTeacherName(String teacherName) {
+        return questionRepository.findAllByTeacherName(teacherName);
+    }
 }

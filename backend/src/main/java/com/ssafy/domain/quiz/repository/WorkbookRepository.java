@@ -1,7 +1,7 @@
 package com.ssafy.domain.quiz.repository;
 
-import com.ssafy.domain.quiz.entity.Workbook;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.ssafy.domain.quiz.entity.Workbook;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
