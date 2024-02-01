@@ -2,6 +2,7 @@ package com.ssafy.domain.presentation.service;
 
 import com.ssafy.domain.presentation.entity.Room;
 import com.ssafy.domain.presentation.repository.RoomRepository;
+import com.ssafy.domain.presentation.repository.StudentRoomRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -14,8 +15,8 @@ import java.util.stream.Collectors;
 public class RoomService {
     private final RoomRepository roomRepository;
 
-    public RoomService(RoomRepository roomRespository){
-        this.roomRepository = roomRespository;
+    public RoomService(RoomRepository roomRepository, StudentRoomRepository studentRoomRepository){
+        this.roomRepository = roomRepository;
     }
 
     public List<Map<String, Object>> getRoomsByPresentationId(int presentationId){
