@@ -19,9 +19,9 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher postOne(TeacherReq teacherReq) {
         Teacher teacher = Teacher.builder()
-                .teacherName(teacherReq.getTeacherName())
-                .teacherEmail(teacherReq.getTeacherEmail())
-                .teacherPassword(teacherReq.getTeacherPassword())
+                .name(teacherReq.getTeacherName())
+                .email(teacherReq.getTeacherEmail())
+                .password(teacherReq.getTeacherPassword())
                 .build();
         return teacherRepository.save(teacher);
     }

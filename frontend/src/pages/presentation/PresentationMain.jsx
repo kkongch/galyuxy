@@ -1,11 +1,15 @@
 import React from 'react'
+import "components/Presentation/Presentation.css"
 
-function PrMain() {
+
+
+function PresentationMain() {
   return (
-    <div>
-      <h>역활극메인</h>
+    <div className='Container'>
+      <>메인</>
     </div>
   )
 }
 
-export default PrMain
+export default PresentationMain
+
