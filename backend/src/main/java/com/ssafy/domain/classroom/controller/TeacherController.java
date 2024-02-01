@@ -25,13 +25,13 @@ public class TeacherController {
     @PostMapping
     ResponseEntity postTeacher(@RequestBody TeacherReq teacherReq) {
         System.out.println(teacherReq);
-        teacherService.saveOne(teacherReq);
+        teacherService.postOne(teacherReq);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping
     ResponseEntity<List<TeacherRes>> getTeacherList() {
-        List<Teacher> teacherList = teacherService.findAll();
+        List<Teacher> teacherList = teacherService.getAll();
         List<TeacherRes> teacherResList = teacherList.stream()
                 .map(TeacherRes::of)
                 .collect(Collectors.toList());
@@ -40,7 +40,7 @@ public class TeacherController {
 
     @GetMapping("/{id}")
     ResponseEntity<TeacherRes> getTeacher(@PathVariable("id") Integer id) {
-        Optional<Teacher> teacher = teacherService.findOne(id);
+        Optional<Teacher> teacher = teacherService.getOne(id);
         teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + id));
         return new ResponseEntity<TeacherRes>(TeacherRes.of(teacher.get()), HttpStatus.OK);
     }

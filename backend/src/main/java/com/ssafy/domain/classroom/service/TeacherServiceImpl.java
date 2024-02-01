@@ -34,24 +34,28 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Optional<Teacher> getOne(Long id) {
+    public Optional<Teacher> getOne(Integer id) {
         return teacherRepository.findById(id);
     }
 
     @Override
     public Teacher updateOne(TeacherReq teacherReq, Integer id) {
         return teacherRepository.findById(id)
-                .map(teacher -> {
-                    teacher.setName(teacherReq.getName());
-                    teacher.setEmail(teacherReq.getEmail());
-                    teacher.setPassword(teacherReq.getPassword());
-                    return teacherRepository.save(teacher);
+                .map(existingTeacher -> {
+                    Teacher updatedTeacher = Teacher.builder()
+                            .id(existingTeacher.getId())
+                            .name(teacherReq.getName())
+                            .email(teacherReq.getEmail())
+                            .password(teacherReq.getPassword())
+                            .build();
+                    return teacherRepository.save(updatedTeacher);
                 })
                 .orElseGet(() -> {
-                    Teacher newTeacher = new Teacher();
-                    newTeacher.setName(teacherReq.getName());
-                    newTeacher.setEmail(teacherReq.getEmail());
-                    newTeacher.setPassword(teacherReq.getPassword());
+                    Teacher newTeacher = Teacher.builder()
+                            .name(teacherReq.getName())
+                            .email(teacherReq.getEmail())
+                            .password(teacherReq.getPassword())
+                            .build();
                     return teacherRepository.save(newTeacher);
                 });
     }

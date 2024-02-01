@@ -22,20 +22,21 @@ public class Teacher {
     Integer id;
 
     @Column(name = "teacher_name")
-    String teacherName;
+    String name;
 
     @Column(name = "teacher_email")
-    String teacherEmail;
+    String email;
 
     @Column(name = "teacher_password")
-    String teacherPassword;
+    String password;
 
     @Column(name = "teacher_is_deleted")
-    boolean teacherIsDeleted;
+    boolean isDeleted;
 
     @OneToMany(mappedBy = "teacher")
     List<Group> groups = new ArrayList<Group>();
 
+    @Builder
     public Teacher(String name, String email, String password) {
         this.name = name;
         this.email = email;
