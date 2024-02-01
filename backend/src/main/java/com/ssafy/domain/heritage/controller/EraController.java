@@ -20,6 +20,7 @@ public class EraController {
 
     private final EraService eraService;
 
+    // 전체 시대 이름, 시대별 나라이름 불러오기
     @GetMapping
     public ResponseEntity<Message<List<Era>>> getAllEra(){
         List<Era> eraList = eraService.getAll();

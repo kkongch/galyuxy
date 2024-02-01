@@ -29,8 +29,8 @@ public class Group {
     @JoinColumn(name = "teacher_id")
     Teacher teacher;
 
-    @OneToMany(mappedBy = "group")
-    List<Student> students = new ArrayList<Student>();
+//    @OneToMany(mappedBy = "group")
+//    List<Student> students = new ArrayList<Student>();
 
     @OneToMany(mappedBy = "group")
     List<QuizResult> quizResults = new ArrayList<QuizResult>();
