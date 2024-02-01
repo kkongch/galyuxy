@@ -17,7 +17,7 @@ public class ArtworkResultMapper {
         dto.setArtworkId(ar.getArtwork().getArtworkId());
 
         dto.setStudentId(ar.getStudent().getId());
-        dto.setStudentName(ar.getStudent().getStudentName());
+        dto.setStudentName(ar.getStudent().getName());
 
         return dto;
     }
