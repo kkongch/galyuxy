@@ -12,16 +12,16 @@ import { styled } from 'styled-components';
 import { useThree } from '@react-three/fiber';
 
 const BackgroundBox = styled.div`
-    position: absolute;
-    top : 10%;
-    left : 10%;
-    width: 80vw;  // 뷰포트 너비의 100%
-    height: 80vh; // 뷰포트 높이의 100%
-    display: flex; // Flexbox 레이아웃 사용
-    justify-content: center; // 가로축 중앙 정렬
-    align-items: center; // 세로축 중앙 정렬
-    background-color: yellow;
-    z-index: 0; // 3D 캔버스를 보기 위해 z-index를 0으로 설정
+  position: absolute;
+  top : 10%;
+  left : 10%;
+  width: 80vw;  // 뷰포트 너비의 100%
+  height: 80vh; // 뷰포트 높이의 100%
+  display: flex; // Flexbox 레이아웃 사용
+  justify-content: center; // 가로축 중앙 정렬
+  align-items: center; // 세로축 중앙 정렬
+  background-color: yellow;
+  z-index: 0; // 3D 캔버스를 보기 위해 z-index를 0으로 설정
 `
 // Heritage3D라는 이름의 함수형 컴포넌트를 선언하고, 외부에서 전달받은 props를 사용합니다.
 export default function Heritage3D(props) {
@@ -37,7 +37,7 @@ export default function Heritage3D(props) {
   // 여기서는 모든 전달받은 props를 group 요소에 전달하고, dispose 함수를 null로 설정하여
   // GLTF 모델이 메모리에서 자동 해제되는 것을 방지합니다.
     return (
-        <group {...props} dispose={null} scale={[10,10,10]}>
+        <group {...props} dispose={null} scale={[1,1,1]}>
         {/* 'mesh'는 3D 모델의 형상을 렌더링하기 위한 요소입니다.
             여기서는 로드된 GLB 모델의 첫 번째 메쉬의 geometry와 material을 사용하여 메쉬를 생성합니다. */}
             <mesh geometry={nodes.mesh_0.geometry} material={nodes.mesh_0.material} />
@@ -53,16 +53,18 @@ export default function Heritage3D(props) {
   };
   return (
     <>
-        <BackgroundBox>
-            <Canvas >
-                <CameraController />
-                <OrbitControls target={[0,0,0]}/>
-                <ambientLight intensity={0.5} />
-                <Suspense fallback={null}> {/* 로딩 중에 보여줄 컴포넌트를 fallback에 넣습니다. */}
-                    <Model />
-                </Suspense>
-            </Canvas>
-        </BackgroundBox>
+      <BackgroundBox>
+      <div style={{ position: 'absolute', height:'100%', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        <Canvas >
+          <CameraController />
+          <OrbitControls enableZoom={true} zoomSpeed={1} target={[0,0.6,0]}/>
+          <ambientLight intensity={0.5} />
+          <Suspense fallback={null}> {/* 로딩 중에 보여줄 컴포넌트를 fallback에 넣습니다. */}
+            <Model />
+          </Suspense>
+        </Canvas>
+      </div>
+      </BackgroundBox>
     </>
   );
 }
