@@ -1,5 +1,7 @@
 package com.ssafy.domain.heritage.service;
 
+import com.ssafy.domain.classroom.entity.Student;
+import com.ssafy.domain.classroom.repository.StudentRepository;
 import com.ssafy.domain.heritage.Dto.ArtworkDto;
 import com.ssafy.domain.heritage.Dto.ArtworkMapper;
 import com.ssafy.domain.heritage.Dto.ArtworkResultDto;
@@ -8,6 +10,7 @@ import com.ssafy.domain.heritage.entity.Artwork;
 import com.ssafy.domain.heritage.entity.ArtworkResult;
 import com.ssafy.domain.heritage.repository.ArtworkRepository;
 import com.ssafy.domain.heritage.repository.ArtworkResultRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ public class ArtworkServiceImpl implements ArtworkService{
     @Autowired
     private final ArtworkResultRepository artworkResultRepository;
 
+    @Autowired
+    private final StudentRepository studentRepository;
 
     @Override
     public List<Artwork> getByType(int type) {
@@ -51,9 +56,18 @@ public class ArtworkServiceImpl implements ArtworkService{
     }
 
     @Override
-    public void saveResult(int type, int studentId, String imageUrl) {
-            ArtworkResult artworkResult = new ArtworkResult(studentId, imageUrl);
+    public void saveResult(int artworckId, int studentId, String imageUrl) {
+        // Artwork 엔터티 가져오기
+        Artwork artwork = artworkRepository.findById(artworckId).orElseThrow(() -> new EntityNotFoundException("Artwork not found"));
 
-            artworkResultRepository.save(artworkResult);
+        // Student 엔터티 가져오기
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+
+        ArtworkResult artworkResult = new ArtworkResult();
+        artworkResult.setArtwork(artwork);
+        artworkResult.setStudent(student);
+        artworkResult.setArtworkResultImageUrl(imageUrl);
+
+        artworkResultRepository.save(artworkResult);
     }
 }

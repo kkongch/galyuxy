@@ -48,22 +48,20 @@ public class ArtworkController {
         return ResponseEntity.ok().body(Message.success(arDtoList));
     }
 
-    @PostMapping(value = "/result", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/result", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message<Void>> postArtworkResult(@RequestBody ArtworkResultDto request) {
         System.out.println("request : " +request.toString());
-        // 여기서 필요한 데이터를 추출하여 서비스에 전달
-////        try {
-//            artworkService.saveResult(
-//                    request.getArtwork().getArtworkType(),
-//                    request.getStudent().getId(),
-//                    request.getArtworkResultImageUrl()
-//            );
+        try {
+            artworkService.saveResult(
+                    request.getArtworkId(),
+                    request.getStudentId(),
+                    request.getImageUrl()
+            );
             return ResponseEntity.ok().body(Message.success());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Message.fail("111","Failed to save artwork result."));
-//        }
-//        return  null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Message.fail("FAIL","Failed to save artwork result."));
+        }
     }
 }
 

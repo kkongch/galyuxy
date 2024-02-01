@@ -14,6 +14,8 @@ public class ArtworkResultMapper {
         dto.setCreateTime(ar.getArtworkResultCreateTime());
         dto.setImageUrl(ar.getArtworkResultImageUrl());
 
+        dto.setArtworkId(ar.getArtwork().getArtworkId());
+
         dto.setStudentId(ar.getStudent().getId());
         dto.setStudentName(ar.getStudent().getStudentName());
 
