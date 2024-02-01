@@ -1,54 +1,41 @@
-// default
+import React from 'react';
+import GlobalStyle from 'styles/GlobalStyle'
+import TeacherNav from 'components/Navbar/TeacherNav';
+import { Routes, Route, Link } from 'react-router-dom'
+import Art from 'pages/art/Art';
+import PresentationMain from 'pages/presentation/PresentationMain';
+import Class from 'pages/class/Class';
+import HeritageList from 'pages/heritage/HeritageList';
+import WorkBookList from 'pages/quiz/WorkBookList';
+import MainPage from 'pages/main/MainPage';
 
-/*
-import logo from './logo.svg';
-import './App.css';
+import PresentationCategory from 'pages/presentation/PresentationCategory';
+import PresentationRoom from 'pages/presentation/PresentationRoom';
+import Heritage2D from 'pages/heritage/Heritage2D';
+import Heritage3D from 'pages/heritage/Heritage3D';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <div>
+        <TeacherNav />
+        <Routes>
+          <Route path="/main" element={ <MainPage /> }/>
+          <Route path="/teacher/class" element={ <Class />  }/> 
+          <Route path="/heritage" element={ <HeritageList /> }/> 
+          <Route path="/heritage/:id" element={<Heritage2D/>}/>
+          <Route path="/heritage/3d" element={<Heritage3D />}/>
+          <Route path="/quiz/workbooklist" element={ <WorkBookList /> }/> 
+          <Route path="/presentation" element={ <PresentationMain /> }/>.
+          <Route path="/presentation/:categoryId" element={ <PresentationCategory /> } />
+          <Route path="/presentation/:categoryId/:roomId" element={ <PresentationRoom /> } /> 
+          <Route path="/art" element={ <Art />}/> 
+        </Routes>
+      </div>
+    </>
   );
-}
-
-export default App;
-*/
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const App = () => {
-
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: "https://jsonplaceholder.typicode.com/users",
-    }).then(response => setUsers(response.data));
-})
-
-return (
-  <ul>
-    {users.map(user => (
-      <li key={user.id}>{user.name}</li>
-    ))}
-  </ul>
-)
 }
 
 export default App;

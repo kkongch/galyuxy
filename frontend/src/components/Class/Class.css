@@ -1,0 +1,26 @@
+.classContainer {
+    display: flex ;
+    justify-content: center;
+    align-items: center ;
+
+    background-image: url("assets/images/Main/메인페이지배경화면.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 93.8125rem;
+    height: 84.125rem;
+    border-radius: 3.125rem;
+    background: #FFF; 
+  }

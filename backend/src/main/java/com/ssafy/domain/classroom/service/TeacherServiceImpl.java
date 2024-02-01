@@ -14,10 +14,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
 
+    @Autowired
     private TeacherRepository teacherRepository;
 
+
     @Override
-    public Teacher saveOne(TeacherReq teacherReq) {
+    public Teacher postOne(TeacherReq teacherReq) {
         Teacher teacher = Teacher.builder()
                 .name(teacherReq.getName())
                 .email(teacherReq.getEmail())
@@ -27,12 +29,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> findAll() {
+    public List<Teacher> getAll() {
         return teacherRepository.findAll();
     }
 
     @Override
-    public Optional<Teacher> findOne(Integer id) {
+    public Optional<Teacher> getOne(Long id) {
         return teacherRepository.findById(id);
     }
 

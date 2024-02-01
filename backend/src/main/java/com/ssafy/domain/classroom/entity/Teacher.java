@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 @Builder
 @ToString
 @Entity
@@ -23,16 +22,16 @@ public class Teacher {
     Integer id;
 
     @Column(name = "teacher_name")
-    String name;
+    String teacherName;
 
     @Column(name = "teacher_email")
-    String email;
+    String teacherEmail;
 
     @Column(name = "teacher_password")
-    String password;
+    String teacherPassword;
 
     @Column(name = "teacher_is_deleted")
-    boolean isDeleted;
+    boolean teacherIsDeleted;
 
     @OneToMany(mappedBy = "teacher")
     List<Group> groups = new ArrayList<Group>();

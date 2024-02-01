@@ -36,6 +36,7 @@ public class Message<T> {
             return DataHeader.builder()
                     .successCode(1)
                     .resultCode(resultCode)
+                    .resultMessage(resultCode)
                     .resultMessage(resultMessage)
                     .build();
         }
