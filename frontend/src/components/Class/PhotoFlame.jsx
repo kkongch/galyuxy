@@ -28,7 +28,7 @@ const ContentFrame = styled.div`
     height: 55.625rem;
     flex-shrink: 0;
     display: flex ;
-    flex-direction: column
+    flex-direction: column;
 
 `
 
@@ -105,8 +105,8 @@ const GroupInfo = styled.p`
 const GroupItem = ({ groupData }) => {
 
     //모달 여는 부분
-    const handleModalOpen = () => {
-    console.log('Modal open for group:', groupData.groupName);
+  const handleModalOpen = () => {
+    
   };
 
     return (
@@ -118,7 +118,7 @@ const GroupItem = ({ groupData }) => {
         </ClassFrame>
       </Group>
     );
-  };
+};
 
 
 
@@ -168,8 +168,8 @@ function PhotoFlame() {
 
 
     <Frame>
-    <button onClick={() => setIsModalOpen(true)}>클래스 생성</button>
-    {isModalOpen && <ClassModal onClose={handleModalClose} onSubmit={handleSubmit} />}
+      <button onClick={() => setIsModalOpen(true)}>클래스 생성</button>
+      {isModalOpen && <ClassModal onClose={handleModalClose} onSubmit={handleSubmit} />}
         <ContentFrame>
             {dummyGroups.map(group => 
             !group.groupIsDeleted && <GroupItem key={group.groupId} groupData={group} />
