@@ -5,69 +5,91 @@ Command: npx gltfjsx@6.2.16 poly.glb
 */
 
 // React와 drei 라이브러리에서 필요한 훅을 임포트합니다.
-import React, { Suspense,useRef } from 'react'
-import { useGLTF,OrbitControls } from '@react-three/drei'
+import React, { Suspense, useRef } from 'react'
+import { useGLTF, OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { styled } from 'styled-components';
-import { useThree } from '@react-three/fiber';
+import { styled } from 'styled-components'
+import { useThree } from '@react-three/fiber'
+import Btn from 'components/Basic/Button'
 
-const BackgroundBox = styled.div`
-    position: absolute;
-    top : 10%;
-    left : 10%;
-    width: 80vw;  // 뷰포트 너비의 100%
-    height: 80vh; // 뷰포트 높이의 100%
-    display: flex; // Flexbox 레이아웃 사용
-    justify-content: center; // 가로축 중앙 정렬
-    align-items: center; // 세로축 중앙 정렬
-    background-color: yellow;
-    z-index: 0; // 3D 캔버스를 보기 위해 z-index를 0으로 설정
+const Background = styled.div`
+  background-color: black;
+  width: 100%;
+  height: 100vh;
 `
+const BackgroundBox = styled.div`
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 75vw; // 뷰포트 너비의 100%
+  height: 75vh; // 뷰포트 높이의 100%
+  display: flex; // Flexbox 레이아웃 사용
+  justify-content: center; // 가로축 중앙 정렬
+  align-items: center; // 세로축 중앙 정렬
+  background-color: #d9d9d9;
+  z-index: 0; // 3D 캔버스를 보기 위해 z-index를 0으로 설정
+`
+const Heritage3dBox = styled.div`
+  position: 'absolute';
+  height: '100%';
+  top: '50%';
+  left: '50%';
+  transform: 'translate(-50%, -50%)';
+`
+
 // Heritage3D라는 이름의 함수형 컴포넌트를 선언하고, 외부에서 전달받은 props를 사용합니다.
 export default function Heritage3D(props) {
   // useGLTF 훅을 사용하여 'images/Heritage/poly.glb' 경로의 GLB 모델을 로드합니다.
   // 이 훅은 로드된 모델의 노드와 재질 정보를 반환합니다.
-  const Model = () =>{
-    
-    const { nodes, materials } =  useGLTF(process.env.PUBLIC_URL + '/3dpea.gltf');
-    
+  const Model = () => {
+    const { nodes, materials } = useGLTF(process.env.PUBLIC_URL + '/3dpea.gltf')
 
-  // 컴포넌트가 렌더링하는 JSX를 반환합니다.
-  // 'group'은 three.js에서 3D 객체를 그룹화하기 위한 컨테이너입니다.
-  // 여기서는 모든 전달받은 props를 group 요소에 전달하고, dispose 함수를 null로 설정하여
-  // GLTF 모델이 메모리에서 자동 해제되는 것을 방지합니다.
+    // 컴포넌트가 렌더링하는 JSX를 반환합니다.
+    // 'group'은 three.js에서 3D 객체를 그룹화하기 위한 컨테이너입니다.
+    // 여기서는 모든 전달받은 props를 group 요소에 전달하고, dispose 함수를 null로 설정하여
+    // GLTF 모델이 메모리에서 자동 해제되는 것을 방지합니다.
     return (
-        <group {...props} dispose={null} scale={[10,10,10]}>
+      <group {...props} dispose={null} scale={[1, 1, 1]}>
         {/* 'mesh'는 3D 모델의 형상을 렌더링하기 위한 요소입니다.
             여기서는 로드된 GLB 모델의 첫 번째 메쉬의 geometry와 material을 사용하여 메쉬를 생성합니다. */}
-            <mesh geometry={nodes.mesh_0.geometry} material={nodes.mesh_0.material} />
-        </group>
-    );
-  };
+        <mesh
+          geometry={nodes.mesh_0.geometry}
+          material={nodes.mesh_0.material}
+        />
+      </group>
+    )
+  }
   const CameraController = () => {
-    const { camera, gl } = useThree();
+    const { camera, gl } = useThree()
     // 카메라의 위치를 조정하여 모델이 화면 가운데에 오도록 설정
-    camera.position.set(0, 0, 5);
-    gl.setSize(window.innerWidth, window.innerHeight);
-    return null;
-  };
+    camera.position.set(0, 0, 5)
+    gl.setSize(window.innerWidth, window.innerHeight)
+    return null
+  }
   return (
-    <>
-        <BackgroundBox>
-            <Canvas >
-                <CameraController />
-                <OrbitControls target={[0,0,0]}/>
-                <ambientLight intensity={0.5} />
-                <Suspense fallback={null}> {/* 로딩 중에 보여줄 컴포넌트를 fallback에 넣습니다. */}
-                    <Model />
-                </Suspense>
-            </Canvas>
-        </BackgroundBox>
-    </>
-  );
+    <Background>
+      <BackgroundBox>
+        <Heritage3dBox>
+          <Canvas>
+            <CameraController />
+            <OrbitControls
+              enableZoom={true}
+              zoomSpeed={1}
+              targete={[0, 0.6, 0]}
+            />
+            <ambientLight intensity={0.5} />
+            <Suspense fallback={null}>
+              {' '}
+              {/* 로딩 중에 보여줄 컴포넌트를 fallback에 넣습니다. */}
+              <Model />
+            </Suspense>
+          </Canvas>
+        </Heritage3dBox>
+      </BackgroundBox>
+      <Btn />
+    </Background>
+  )
 }
-
-
 
 // 'useGLTF.preload'를 사용하여 컴포넌트가 마운트되기 전에 'images/Heritage/poly.glb' 모델을 사전 로드합니다.
 // 이렇게 하면 나중에 컴포넌트를 사용할 때 모델이 이미 로드되어 있어 렌더링 속도가 빨라집니다.
