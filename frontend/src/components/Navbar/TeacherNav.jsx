@@ -4,7 +4,7 @@ import Menu from './Menu' // Menu 컴포넌트 임포트
 import { useNavigate } from 'react-router-dom'
 import navlogo from 'assets/images/갤역시_로고.png'
 import LogoBox from './LogoBox'
-import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi'
+import { PiCaretLeftLight, PiCaretRightLight } from 'react-icons/pi'
 
 const NavbarContainer = styled.div`
   height: 100%;
@@ -18,7 +18,7 @@ const NavbarContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 20px;
-  border-radius: 0% 6vh 0% 0%;
+  border-radius: 0% 5rem 0% 0%;
   border: 1px solid rgba(255, 255, 255, 0.53);
   background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(5px);
@@ -49,7 +49,7 @@ const ToggleButton = styled.div`
   height: 8%;
   width: 3%;
   z-index: 2;
-  border-radius: 0px 40% 40% 0px;
+  border-radius: 0px 1.5rem 1.5rem 0px;
   background: #11235a;
   color: white;
   cursor: pointer;
@@ -84,8 +84,8 @@ const MenuText = styled.div`
   width: 100%;
 
   hr {
-    border: 0.2rem solid white;
-    margin: 1rem 3rem 0;
+    border: 0.1rem solid white;
+    margin: 1rem 2rem 0;
   }
 `
 
@@ -158,7 +158,7 @@ const Navbar = () => {
         </MenuText>
       </NavbarContainer>
       <ToggleButton onClick={toggleNavbar} isOpen={isOpen}>
-        {isOpen ? <BiSolidChevronLeft /> : <BiSolidChevronRight />}
+        {isOpen ? <PiCaretLeftLight /> : <PiCaretRightLight />}
       </ToggleButton>
     </>
   )
