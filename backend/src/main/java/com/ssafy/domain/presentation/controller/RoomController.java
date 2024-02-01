@@ -52,7 +52,7 @@ public class RoomController {
     }
 
     @PutMapping("/{roomId}")
-    public ResponseEntity<String> updateRoom(@PathVariable("roomId") int roomId,
+    public ResponseEntity<String> updateRoom(@PathVariable("roomId") String roomId,
                                              @RequestBody Room updatedRoom){
         Optional<Room> existingRoomOptional = roomService.getRoomById(roomId);
 
@@ -70,7 +70,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/{roomId}")
-    public ResponseEntity<String> deleteRoom(@PathVariable("roomId") int roomId){
+    public ResponseEntity<String> deleteRoom(@PathVariable("roomId") String roomId){
         Optional<Room> existingRoomOptional = roomService.getRoomById(roomId);
 
         if (existingRoomOptional.isPresent()) {
@@ -88,7 +88,7 @@ public class RoomController {
     @PostMapping("/join")
     public ResponseEntity<StudentRoom> addStudentToRoom(@RequestBody Map<String, Integer> requestData) {
         try {
-            Integer roomId = requestData.get("roomId");
+            String roomId = String.valueOf(requestData.get("roomId"));
             Integer studentId = requestData.get("studentId");
 
             StudentRoom addedStudentRoom = studentRoomService.addStudentToRoom(roomId, studentId);
@@ -99,7 +99,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/user/{roomId}/{studentId}")
-    public ResponseEntity<Void> deleteStudentFromRoom(@PathVariable("roomId") int roomId, @PathVariable("studentId") int studentId) {
+    public ResponseEntity<Void> deleteStudentFromRoom(@PathVariable("roomId") String roomId, @PathVariable("studentId") int studentId) {
         studentRoomService.deleteStudentFromRoom(roomId, studentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

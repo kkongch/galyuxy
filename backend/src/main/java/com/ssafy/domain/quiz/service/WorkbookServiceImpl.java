@@ -20,7 +20,7 @@ public class WorkbookServiceImpl implements WorkbookService {
     private final WorkbookRepository workbookRepository;
 
     @Override
-    public Workbook saveOne(WorkbookReq workbookReq) {
+    public Workbook postOne(WorkbookReq workbookReq) {
 
         Integer teacherId = workbookReq.getTeacherId();
         Teacher teacher = teacherRepository.findById(teacherId)
@@ -35,22 +35,22 @@ public class WorkbookServiceImpl implements WorkbookService {
     }
 
     @Override
-    public List<Workbook> findAll() {
+    public List<Workbook> getAll() {
         return workbookRepository.findAllByIsDeletedIsFalse();
     }
 
     @Override
-    public List<Workbook> findAllByTeacherId(Integer id) {
+    public List<Workbook> getAllByTeacherId(Integer id) {
         return workbookRepository.findAllByTeacherId(id);
     }
 
     @Override
-    public List<Workbook> findAllByKeyword(String keyword) {
+    public List<Workbook> getAllByKeyword(String keyword) {
         return workbookRepository.findAllByTitleContainingAndIsDeletedIsFalse(keyword);
     }
 
     @Override
-    public List<Workbook> findAllByTeacherName(String teacherName) {
+    public List<Workbook> getAllByTeacherName(String teacherName) {
         return workbookRepository.findAllByTeacherName(teacherName);
     }
 

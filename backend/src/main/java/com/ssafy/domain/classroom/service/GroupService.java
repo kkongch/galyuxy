@@ -19,6 +19,6 @@ public class GroupService {
     }
 
     public Optional<Group> getGroupById(int groupId) {
-        return groupRepository.findByGroupId(groupId);
+        return groupRepository.findById(groupId);
     }
 }

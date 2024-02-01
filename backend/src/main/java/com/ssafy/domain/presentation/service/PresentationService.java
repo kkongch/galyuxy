@@ -26,7 +26,7 @@ public class PresentationService {
     }
 
     public List<Map<String, Object>> getActivePresentationsByGroupId(int groupId) {
-        List<Presentation> presentations = presentationRepository.findByGroupGroupIdAndPresentationIsDeletedFalse(groupId);
+        List<Presentation> presentations = presentationRepository.findByGroupIdAndPresentationIsDeletedFalse(groupId);
         return presentations.stream()
                 .map(this::mapPresentationToResponse)
                 .collect(Collectors.toList());

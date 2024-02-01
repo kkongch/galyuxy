@@ -27,7 +27,7 @@ public class QuestionController {
     @PostMapping
     ResponseEntity<Message<QuestionRes>> postQuestion(@RequestBody QuestionReq questionReq) {
         try {
-            Question question = questionService.saveOne(questionReq);
+            Question question = questionService.postOne(questionReq);
             return ResponseEntity.ok().body(Message.success(QuestionRes.of(question), "OK", null));
         } catch (EntityNotFoundException entityNotFoundException) {
             throw entityNotFoundException;

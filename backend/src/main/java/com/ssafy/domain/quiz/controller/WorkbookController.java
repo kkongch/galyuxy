@@ -27,7 +27,7 @@ public class WorkbookController {
     @PostMapping
     ResponseEntity<Message<WorkbookRes>> postWorkbook(@RequestBody WorkbookReq workbookReq) {
         try {
-            Workbook workbook = workbookService.saveOne(workbookReq);
+            Workbook workbook = workbookService.postOne(workbookReq);
             return ResponseEntity.ok().body(Message.success(WorkbookRes.of(workbook), "OK", null));
         } catch (EntityNotFoundException entityNotFoundException) {
             throw entityNotFoundException;
@@ -38,9 +38,9 @@ public class WorkbookController {
 
         List<Workbook> workbookList = null;
         if (teacherId != null) {
-            workbookList = workbookService.findAllByTeacherId(teacherId);
+            workbookList = workbookService.getAllByTeacherId(teacherId);
         } else {
-            workbookList = workbookService.findAll();
+            workbookList = workbookService.getAll();
         }
         List<WorkbookRes> workbookResList = workbookList.stream()
                 .map(WorkbookRes::of)
@@ -52,9 +52,9 @@ public class WorkbookController {
     ResponseEntity<Message<List<WorkbookRes>>> searchWorkbookList(@RequestParam(name="keyword", required=false) String keyword, @RequestParam(name="teacherName", required=false) String teacherName) {
         List<Workbook> workbookList = null;
         if (keyword != null) {
-            workbookList = workbookService.findAllByKeyword(keyword);
+            workbookList = workbookService.getAllByKeyword(keyword);
         } else if (teacherName != null) {
-            workbookList = workbookService.findAllByTeacherName(teacherName);
+            workbookList = workbookService.getAllByTeacherName(teacherName);
         }
         List<WorkbookRes> workbookResList = workbookList.stream()
                 .map(WorkbookRes::of)

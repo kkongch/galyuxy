@@ -6,10 +6,10 @@ import com.ssafy.domain.quiz.request.WorkbookReq;
 import java.util.List;
 
 public interface WorkbookService {
-    Workbook saveOne(WorkbookReq workbookReq);
+    Workbook postOne(WorkbookReq workbookReq);
     void deleteOne(Integer id);
-    List<Workbook> findAll();
-    List<Workbook> findAllByTeacherId(Integer id);
-    List<Workbook> findAllByKeyword(String keyword);
-    List<Workbook> findAllByTeacherName(String teacherName);
+    List<Workbook> getAll();
+    List<Workbook> getAllByTeacherId(Integer id);
+    List<Workbook> getAllByKeyword(String keyword);
+    List<Workbook> getAllByTeacherName(String teacherName);
 }

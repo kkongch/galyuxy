@@ -22,7 +22,7 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
 
     @Override
-    public Question saveOne(QuestionReq questionReq) {
+    public Question postOne(QuestionReq questionReq) {
 
         Integer workbookId = questionReq.getWorkbookId();
         Workbook workbook = workbookRepository.findById(workbookId)
