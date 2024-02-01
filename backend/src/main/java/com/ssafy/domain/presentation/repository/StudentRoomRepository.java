@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRoomRepository extends JpaRepository<StudentRoom, Integer> {
     @Transactional
-    void deleteByRoomRoomIdAndStudentStudentId(int roomId, int studentId);
+    void deleteByRoomRoomIdAndStudentStudentId(String roomId, int studentId);
 
 }
