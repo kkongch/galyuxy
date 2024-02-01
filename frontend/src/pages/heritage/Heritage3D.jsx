@@ -12,10 +12,12 @@ import { styled } from 'styled-components'
 import { useThree } from '@react-three/fiber'
 import Btn from 'components/Basic/Button'
 
+
 const Background = styled.div`
   background-color: black;
   width: 100%;
   height: 100vh;
+
 `
 const BackgroundBox = styled.div`
   position: absolute;
