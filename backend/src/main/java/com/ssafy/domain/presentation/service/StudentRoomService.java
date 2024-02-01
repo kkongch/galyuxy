@@ -36,6 +36,6 @@ public class StudentRoomService {
 
     @Transactional
     public void deleteStudentFromRoom(String roomId, Integer studentId) {
-        studentRoomRepository.deleteByRoomRoomIdAndStudentStudentId(roomId, studentId);
+        studentRoomRepository.deleteByRoomRoomIdAndStudentId(roomId, studentId);
     }
 }

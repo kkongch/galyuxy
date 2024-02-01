@@ -1,6 +1,5 @@
 package com.ssafy.domain.quiz.request;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 
 @Getter
