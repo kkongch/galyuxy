@@ -8,10 +8,11 @@ import Class from 'pages/class/Class';
 import HeritageList from 'pages/heritage/HeritageList';
 import WorkBookList from 'pages/quiz/WorkBookList';
 import MainPage from 'pages/main/MainPage';
+
 import PresentationCategory from 'pages/presentation/PresentationCategory';
 import PresentationRoom from 'pages/presentation/PresentationRoom';
-
-
+import Heritage2D from 'pages/heritage/Heritage2D';
+import Heritage3D from 'pages/heritage/Heritage3D';
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
           <Route path="/main" element={ <MainPage /> }/>
           <Route path="/teacher/class" element={ <Class />  }/> 
           <Route path="/heritage" element={ <HeritageList /> }/> 
+          <Route path="/heritage/:id" element={<Heritage2D/>}/>
+          <Route path="/heritage/3d" element={<Heritage3D />}/>
           <Route path="/quiz/workbooklist" element={ <WorkBookList /> }/> 
           <Route path="/presentation" element={ <PresentationMain /> }/>.
           <Route path="/presentation/:categoryId" element={ <PresentationCategory /> } />
