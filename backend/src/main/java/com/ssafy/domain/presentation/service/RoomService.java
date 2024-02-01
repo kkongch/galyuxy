@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class RoomService {
     private final RoomRepository roomRepository;
 
-    public RoomService(RoomRepository roomRepository, StudentRoomRepository studentRoomRepository){
+    public RoomService(RoomRepository roomRepository){
         this.roomRepository = roomRepository;
     }
 
@@ -45,7 +45,7 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
-    public Optional<Room> getRoomById(int roomId){
+    public Optional<Room> getRoomById(String roomId){
         return roomRepository.findById(roomId);
     }
 }

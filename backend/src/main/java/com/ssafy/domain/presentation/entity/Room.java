@@ -12,9 +12,8 @@ import lombok.Setter;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_id")
-    private Integer roomId;
+    @Column(name = "room_id", length = 50, nullable = false)
+    private String roomId;
 
     @Column(name = "room_subject")
     private String roomSubject;

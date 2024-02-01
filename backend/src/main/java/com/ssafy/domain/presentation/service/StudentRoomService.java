@@ -22,7 +22,7 @@ public class StudentRoomService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public StudentRoom addStudentToRoom(Integer roomId, Integer studentId) {
+    public StudentRoom addStudentToRoom(String roomId, Integer studentId) {
         StudentRoom studentRoom = new StudentRoom();
 
         Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
@@ -35,7 +35,7 @@ public class StudentRoomService {
     }
 
     @Transactional
-    public void deleteStudentFromRoom(Integer roomId, Integer studentId) {
+    public void deleteStudentFromRoom(String roomId, Integer studentId) {
         studentRoomRepository.deleteByRoomRoomIdAndStudentStudentId(roomId, studentId);
     }
 }
