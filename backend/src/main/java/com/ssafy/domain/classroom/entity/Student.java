@@ -7,23 +7,25 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "student")
+@Setter
+@Getter
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    Long studentId;
+    private Integer studentId;
 
     @Column(name = "student_name")
-    String studentName;
+    private String studentName;
 
     @Column(name = "student_no")
-    int studentNo;
+    private int studentNo;
 
     @Column(name = "student_is_deleted")
-    boolean studentIsDeleted;
+    private boolean studentIsDeleted;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    Group group;
+    private Group group;
 }
