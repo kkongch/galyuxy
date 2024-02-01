@@ -1,26 +1,58 @@
 .classContainer {
-    display: flex ;
-    justify-content: center;
-    align-items: center ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-image: url("assets/images/Main/메인페이지배경화면.png");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+  background-image: url('assets/images/Main/硫붿씤�섏씠吏�諛곌꼍�붾㈃.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
-  .modal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 93.8125rem;
-    height: 84.125rem;
-    border-radius: 3.125rem;
-    background: #FFF; 
-  }
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 93.8125rem;
+  height: 84.125rem;
+  border-radius: 3.125rem;
+  background: #fff;
+}
+
+.modal-body {
+  display: flex;
+  flex-wrap: wrap; /* 以꾨컮轅덉쓣 �덉슜 */
+  gap: 1rem; /* ��ぉ �ъ씠�� 媛꾧꺽 */
+  margin-bottom: 1rem; /* �섎떒 踰꾪듉怨쇱쓽 媛꾧꺽 */
+}
+
+.modal-body > * {
+  flex: 1 1 23%; /* 4媛쒖쓽 ��ぉ�� �� 以꾩뿉 �쒖떆. 媛� ��ぉ�� 李⑥��� 理쒖냼 �ш린瑜� 23%濡� �ㅼ젙 */
+  max-width: 23%; /* 媛� ��ぉ�� 理쒕� �덈퉬�� 23%濡� �ㅼ젙 */
+}
+
+.modal-header {
+  margin-bottom: 1rem; /* �대옒�ㅻ챸 �명뭼怨쇱쓽 媛꾧꺽 */
+}
+
+.student-list {
+  margin-bottom: 1rem; /* �숈깮 紐⑸줉怨쇱쓽 媛꾧꺽 */
+}
+
+.student-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem; /* �⑤뵫 異붽� */
+}
+
+/* 踰꾪듉 �ㅽ��� */
+.modal-footer button {
+  margin-right: 0.5rem; /* 踰꾪듉 �ъ씠�� 媛꾧꺽 */
+}
