@@ -8,14 +8,17 @@ import com.ssafy.domain.quiz.entity.Question;
 import com.ssafy.domain.quiz.entity.QuizResult;
 import com.ssafy.domain.quiz.entity.Workbook;
 import com.ssafy.domain.quiz.repository.QuizResultRepository;
+import com.ssafy.domain.quiz.repository.StudentQuizResultProjection;
 import com.ssafy.domain.quiz.repository.WorkbookRepository;
 import com.ssafy.domain.quiz.request.QuestionReq;
 import com.ssafy.domain.quiz.request.QuizResultReq;
+import com.ssafy.domain.quiz.response.StudentQuizResultRes;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,11 +58,10 @@ public class QuizResultServiceImpl implements QuizResultService{
     }
 
     @Override
-    public List<QuizResult> getAllByWorkbookIdAndGroupId(Integer workbookId, Integer groupId) {
-//        List<Object[]> ret = quizResultRepository.findAllByWorkbookIdAndGroupId(workbookId, groupId);
-//        System.out.println(ret);
-        System.out.println(        quizResultRepository.findAllByWorkbookIdAndGroupId(workbookId, groupId).toString());
-//        return quizResultRepository.findAllByWorkbookIdAndGroupId(workbookId, groupId);
-        return null;
+    public List<StudentQuizResultRes> getAllByWorkbookIdAndGroupId(Integer workbookId, Integer groupId) {
+        List<StudentQuizResultProjection> studentQuizResultProjectionList = quizResultRepository.findAllByWorkbookIdAndGroupId(workbookId, groupId);
+        return studentQuizResultProjectionList.stream()
+                .map(projection -> new StudentQuizResultRes(projection.getStudentNo(), projection.getStudentName(), projection.getQuizResultScore()))
+                .collect(Collectors.toList());
     }
 }

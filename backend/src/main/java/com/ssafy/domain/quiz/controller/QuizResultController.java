@@ -6,6 +6,7 @@ import com.ssafy.domain.quiz.request.QuestionReq;
 import com.ssafy.domain.quiz.request.QuizResultReq;
 import com.ssafy.domain.quiz.response.QuestionRes;
 import com.ssafy.domain.quiz.response.QuizResultRes;
+import com.ssafy.domain.quiz.response.StudentQuizResultRes;
 import com.ssafy.domain.quiz.service.QuizResultService;
 import com.ssafy.global.common.dto.Message;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,13 +35,8 @@ public class QuizResultController {
     }
 
     @GetMapping
-    ResponseEntity<Message<List<QuizResultRes>>> getQuizResultListByWorkbookIdAndGroupId(@RequestParam(name="workbookId") Integer workbookId, @RequestParam(name="groupId") Integer groupId) {
-    quizResultService.getAllByWorkbookIdAndGroupId(workbookId, groupId);
-        //        List<QuizResult> quizResultList = quizResultService.getAllByWorkbookIdAndGroupId(workbookId, groupId);
-//        List<QuizResultRes> quizResultResList = quizResultList.stream()
-//                .map(QuizResultRes::of)
-//                .collect(Collectors.toList());
-//        return ResponseEntity.ok().body(Message.success(quizResultResList, "OK", null));
-        return null;
+    ResponseEntity<Message<List<StudentQuizResultRes>>> getQuizResultListByWorkbookIdAndGroupId(@RequestParam(name = "workbookId") Integer workbookId, @RequestParam(name = "groupId") Integer groupId) {
+        List<StudentQuizResultRes> studentQuizResultResList = quizResultService.getAllByWorkbookIdAndGroupId(workbookId, groupId);
+        return ResponseEntity.ok().body(Message.success(studentQuizResultResList, "OK", null));
     }
 }
