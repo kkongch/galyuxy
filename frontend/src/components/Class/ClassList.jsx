@@ -83,7 +83,6 @@ const ClassList = () => {
         groupName: '2023 3학기',
       },
     ])
-    console.log(classList)
   }, [])
 
   return (
