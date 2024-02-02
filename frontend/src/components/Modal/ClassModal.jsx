@@ -1,7 +1,9 @@
-import { studentListState } from 'Recoil/ClassState'
-import { React, useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import { React } from 'react'
+
 import styled from 'styled-components'
+import StudentList from './StudentList'
+import { isModalOpenState } from 'Recoil/ClassState'
+import { useRecoilState } from 'recoil'
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -15,11 +17,10 @@ const ModalDiv = styled.div`
   align-items: center;
 `
 
-const Modals = styled.div`
-  width: ${(props) => props.width || 'fit-content'};
-  height: ${(props) => props.height || 'fit-content'};
-  padding: ${(props) => props.padding || 'fit-content'};
-  margin: ${(props) => props.margin || 'fit-content'};
+const ModalBox = styled.div`
+  width: 93.8125rem;
+  height: 92.125rem;
+  padding: 5rem 9.88rem;
   background-color: white;
   border-radius: 3.125rem;
   display: flex;
@@ -80,58 +81,7 @@ const AddButton = styled.div`
   align-items: center;
   cursor: pointer;
 `
-const StudentBox = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  height: 54rem;
-`
-const Flex = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-`
-const DeleteButton = styled.div`
-  width: 14.625rem;
-  height: 5.125rem;
-  background-color: #f00;
-  border-radius: 1rem;
-  color: #fff;
-  text-align: center;
-  font-size: 1.875rem;
-  font-weight: 600;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 2rem;
-`
-const StudentInfoBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-top: 2.44rem;
-`
-const StudentInfoItem = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1.25rem;
-  background: #f6eca9;
-  color: #000;
-  font-size: 2.5rem;
-  font-weight: 700;
-  width: 16.875rem;
-  height: 5.625rem;
-  margin-bottom: 1.25rem;
-  margin-right: 1.5rem;
-`
+
 const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -171,27 +121,20 @@ const ConfirmButton = styled.div`
   cursor: pointer;
 `
 
-export const Modal = () => {
-  const [studentList, setStudentList] = useRecoilState(studentListState)
+export const ClassModal = () => {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState)
 
-  useEffect(() => {
-    setStudentList([
-      {
-        studentId: 1,
-        studentName: '김가영',
-        studentNo: '1',
-      },
-      {
-        studentId: 2,
-        studentName: '김나영',
-        studentNo: '2',
-      },
-    ])
-  }, [])
+  const handleCancel = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleConfirm = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <ModalDiv>
-      <Modals width='93.8125rem' height='92.125rem' padding='5rem 9.88rem'>
+      <ModalBox>
         <ClassNameBox>
           <Title>
             <p>클래스 명</p>
@@ -203,45 +146,12 @@ export const Modal = () => {
           <SmallInput />
           <AddButton>추가</AddButton>
         </AddStudentBox>
-        <StudentBox>
-          <Flex>
-            <Title>
-              <p>학생 목록</p>
-            </Title>
-            <DeleteButton>선택 삭제</DeleteButton>
-          </Flex>
-          <StudentInfoBox>
-            <StudentInfoItem>
-              <span>1번</span>
-              <span>홍길동</span>
-            </StudentInfoItem>
-            <StudentInfoItem>
-              <span>1번</span>
-              <span>홍길동</span>
-            </StudentInfoItem>
-            <StudentInfoItem>
-              <span>1번</span>
-              <span>홍길동</span>
-            </StudentInfoItem>
-            <StudentInfoItem>
-              <span>1번</span>
-              <span>홍길동</span>
-            </StudentInfoItem>
-            <StudentInfoItem>
-              <span>1번</span>
-              <span>홍길동</span>
-            </StudentInfoItem>
-            <StudentInfoItem>
-              <span>1번</span>
-              <span>홍길동</span>
-            </StudentInfoItem>
-          </StudentInfoBox>
-        </StudentBox>
+        <StudentList />
         <ButtonBox>
-          <CancelButton onClick={() => {}}>취소</CancelButton>
-          <ConfirmButton onClick={() => {}}>완료</ConfirmButton>
+          <CancelButton onClick={handleCancel}>취소</CancelButton>
+          <ConfirmButton onClick={handleConfirm}>완료</ConfirmButton>
         </ButtonBox>
-      </Modals>
+      </ModalBox>
     </ModalDiv>
   )
 }

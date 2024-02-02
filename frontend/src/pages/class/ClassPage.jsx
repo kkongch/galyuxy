@@ -1,6 +1,8 @@
+import { isModalOpenState } from 'Recoil/ClassState'
 import ClassList from 'components/Class/ClassList'
-import { Modal } from 'components/Modal/ClassModal'
-import React from 'react'
+import { ClassModal } from 'components/Modal/ClassModal'
+import { React, useState } from 'react'
+import { useRecoilState } from 'recoil'
 import styled from 'styled-components'
 
 const MainBox = styled.main`
@@ -62,12 +64,22 @@ const BoardBackgroundInner = styled.div`
 `
 
 const Class = () => {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState)
+
+  const handleAddClassClick = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <MainBox>
-      {/* <Modal /> */}
+      {isModalOpen && <ClassModal onClose={handleCloseModal} />}
       <TeacherClassBox>
         <AddClassButtonBox>
-          <AddClassButton>
+          <AddClassButton onClick={handleAddClassClick}>
             <SvgBox>
               <svg
                 width='35'

@@ -9,3 +9,8 @@ export const studentListState = atom({
   key: 'studentList',
   default: [],
 })
+
+export const isModalOpenState = atom({
+  key: 'isModalOpen',
+  default: false,
+})
