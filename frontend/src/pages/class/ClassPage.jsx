@@ -1,4 +1,5 @@
 import ClassList from 'components/Class/ClassList'
+import { Modal } from 'components/Modal/ClassModal'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -63,6 +64,7 @@ const BoardBackgroundInner = styled.div`
 const Class = () => {
   return (
     <MainBox>
+      {/* <Modal /> */}
       <TeacherClassBox>
         <AddClassButtonBox>
           <AddClassButton>
