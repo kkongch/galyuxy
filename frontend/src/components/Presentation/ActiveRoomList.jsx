@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { presentationListState, roomListState } from 'store/PresentationStates' // 방 목록 상태를 저장한 파일의 경로로 수정해야 합니다.
+import { presentationListState, roomListState } from 'store/PresentationStates'
 import { useNavigate, useParams } from 'react-router-dom'
 import 'components/Presentation/Presentation.css'
 import RoomModal from './RoomModal'
@@ -13,11 +13,10 @@ function ActiveRoomList() {
   let { categoryId } = useParams()
 
   const categoryIdInt = parseInt(categoryId, 10)
-  //활동 제목 파람스 이용해서 빼오기
   const matchedPresentation = presentationList.find(
     (presentation) => presentation.presentationId === categoryIdInt
   )
-  // 컴포넌트 마운트 시 방 목록 데이터를 가져오는 로직
+
   useEffect(() => {
     axios
       .get('http://localhost:8080/room/1')
@@ -29,7 +28,6 @@ function ActiveRoomList() {
       })
   }, [setRoomList])
 
-  // 방을 클릭했을 때 호출될 함수
   const handleRoomClick = (roomId) => {
     navigate(`/presentation/${categoryIdInt}/:roomId`)
   }

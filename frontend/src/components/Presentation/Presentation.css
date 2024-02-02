@@ -18,15 +18,13 @@
 
 .Presentationframe {
   padding: 16px;
-  /* margin: 16px; 액자 이미지가 전체를 채우기 때문에 마진을 제거할 수 있습니다. */
-  width: 43%; /* 너비 설정 */
-  height: 48vh; /* 높이 설정 */
+  width: 43%;
+  height: 48vh;
   background-image: url('assets/images/Presentation/준비액자.png');
   background-repeat: no-repeat;
-  background-size: contain; /* 이미지가 컨테이너 안에 들어맞도록 조정 */
-  background-position: center center; /* 이미지를 컨테이너 중앙에 위치 */
-  background-clip: border-box; /* 배경 이미지가 테두리 내부에만 표시되도록 함 */
-  /* 컨테이너에 맞추기 위해 border를 제거합니다. */
+  background-size: contain;
+  background-position: center center;
+  background-clip: border-box;
 }
 
 .ActiveContainer {
@@ -51,8 +49,8 @@
   justify-content: center;
   align-items: center;
   background-image: url('assets/images/Presentation/토끼액자.png');
-  background-size: contain; /* 이미지가 박스의 크기에 맞도록 조정 */
-  background-position: center; /* 이미지를 박스의 중앙에 위치시킴 */
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   top: -20%;
   left: -13%;
@@ -80,32 +78,32 @@
   background: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 내부 요소들 사이의 간격을 균등하게 설정 */
-  padding: 20px; /* 모달 내부의 패딩을 추가하여 여백을 줌 */
-  box-sizing: border-box; /* 패딩과 보더가 너비에 포함되도록 설정 */
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .modalContent {
-  width: 100%; /* 부모 요소인 모달의 너비에 맞게 설정 */
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .ActiveModal input[type='text'] {
-  width: 88%; /* 부모 요소인 모달의 너비에 맞게 조정 */
+  width: 88%;
   padding: 10px;
-  margin-bottom: 8%; /* 버튼과의 간격을 주기 위해 마진 추가 */
+  margin-bottom: 8%;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .ActiveModal button {
-  width: calc(5% - 10px); /* 버튼 두 개가 같은 줄에 오도록 너비 조정 */
+  width: calc(5% - 10px);
   padding: 10px;
   border: none;
   border-radius: 5px;
-  margin: 5px; /* 버튼 사이의 간격 */
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
+  margin: 5px;
+  cursor: pointer;
 }
 
 .ActiveRoomContainer {
@@ -113,50 +111,47 @@
   height: 50vh;
   border-radius: 3.75rem;
   display: flex;
-  flex-wrap: wrap; /* 내용이 넘치면 다음 줄로 */
-  justify-content: flex-start; /* 내용을 왼쪽 정렬 */
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 16px;
   align-items: center;
 }
 
 .ActiveRoomBox {
-  flex: 1 1 calc(50% - 8px); /* 한 줄에 2개씩, 간격을 고려하여 너비 계산 */
-  max-width: calc(50% - 8px); /* 최대 너비 설정 */
+  flex: 1 1 calc(50% - 8px);
+  max-width: calc(50% - 8px);
   height: 30vh;
   border-radius: 3.125rem;
   text-align: center;
   display: flex;
-  justify-content: center; /* 내용을 가운데 정렬 */
-  align-items: center; /* 내용을 수직 가운데 정렬 */
+  justify-content: center;
+  align-items: center;
   background-image: url('assets/images/Presentation/티비액자.png');
-  background-size: contain; /* 이미지가 박스의 크기에 맞도록 조정 */
-  background-position: center; /* 이미지를 박스의 중앙에 위치시킴 */
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   position: relative;
 }
 
-/* 활동제목 CSS */
 .PresentationTitle {
-  position: absolute; /* 절대 위치 지정 */
-  top: 9%; /* 상단에서 20px 떨어진 위치 */
-  left: 31%; /* 왼쪽 기준 50% 위치에 배치 */
-  transform: translateX(-50%); /* X축 기준으로 -50% 이동하여 중앙 정렬 */
-  /* 기타 스타일 설정 */
+  position: absolute;
+  top: 9%;
+  left: 31%;
+  transform: translateX(-50%);
 }
 
 .PresentationButton {
-  position: absolute; /* 절대 위치 지정 */
-  top: 9%; /* 상단에서 20px 떨어진 위치 */
-  left: 70%; /* 왼쪽 기준 50% 위치에 배치 */
-  transform: translateX(-50%); /* X축 기준으로 -50% 이동하여 중앙 정렬 */
-  /* 기타 스타일 설정 */
+  position: absolute;
+  top: 9%;
+  left: 70%;
+  transform: translateX(-50%);
 }
 
 .ActiveRoomFooter {
-  position: absolute; /* 절대 위치 지정 */
-  top: 95%; /* 상단에서 20px 떨어진 위치 */
-  left: 90%; /* 왼쪽 기준 50% 위치에 배치 */
-  transform: translateX(-50%); /* X축 기준으로 -50% 이동하여 중앙 정렬 */
+  position: absolute;
+  top: 95%;
+  left: 90%;
+  transform: translateX(-50%);
   width: 20%;
 }
 
@@ -171,24 +166,24 @@
   height: 50vh;
   border-radius: 3.75rem;
   display: flex;
-  flex-wrap: wrap; /* 내용이 넘치면 다음 줄로 */
-  justify-content: flex-start; /* 내용을 왼쪽 정렬 */
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 16px;
   align-items: center;
 }
 
 .VideoBox {
-  flex: 1 1 calc(50% - 8px); /* 한 줄에 2개씩, 간격을 고려하여 너비 계산 */
-  max-width: calc(50% - 8px); /* 최대 너비 설정 */
+  flex: 1 1 calc(50% - 8px);
+  max-width: calc(50% - 8px);
   height: 30vh;
   border-radius: 3.125rem;
   text-align: center;
   display: flex;
-  justify-content: center; /* 내용을 가운데 정렬 */
-  align-items: center; /* 내용을 수직 가운데 정렬 */
+  justify-content: center;
+  align-items: center;
   background-image: url('assets/images/Presentation/채팅액자.png');
-  background-size: contain; /* 이미지가 박스의 크기에 맞도록 조정 */
-  background-position: center; /* 이미지를 박스의 중앙에 위치시킴 */
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   position: relative;
 }
