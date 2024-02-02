@@ -1,8 +1,8 @@
-import { React } from 'react'
+import { React, useState } from 'react'
 
 import styled from 'styled-components'
 import StudentList from './StudentList'
-import { isModalOpenState } from 'Recoil/ClassState'
+import { isModalOpenState, studentListState } from 'Recoil/ClassState'
 import { useRecoilState } from 'recoil'
 
 const ModalDiv = styled.div`
@@ -123,13 +123,43 @@ const ConfirmButton = styled.div`
 
 export const ClassModal = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState)
+  const [groupName, setGroupName] = useState('')
+  const [studentNo, setStudentNo] = useState('')
+  const [studentName, setStudentName] = useState('')
+  const [studentList, setStudentList] = useRecoilState(studentListState)
 
   const handleCancel = () => {
     setIsModalOpen(false)
   }
 
   const handleConfirm = () => {
+    const formattedData = {
+      group: {
+        teacherId: 1,
+        groupName: groupName,
+      },
+      student: studentList,
+    }
+
+    setStudentNo('')
+    setStudentName('')
+    setStudentList([])
+
+    console.log(formattedData)
     setIsModalOpen(false)
+  }
+
+  const handleAddStudent = () => {
+    const updatedStudentList = [...studentList]
+
+    updatedStudentList.push({
+      studentName: studentName,
+      studentNo: studentNo,
+    })
+
+    setStudentList(updatedStudentList)
+    setStudentNo('')
+    setStudentName('')
   }
 
   return (
@@ -139,12 +169,21 @@ export const ClassModal = () => {
           <Title>
             <p>클래스 명</p>
           </Title>
-          <LargeInput />
+          <LargeInput
+            value={groupName}
+            onChange={(e) => setGroupName(e.target.value)}
+          />
         </ClassNameBox>
         <AddStudentBox>
-          <SmallInput />
-          <SmallInput />
-          <AddButton>추가</AddButton>
+          <SmallInput
+            value={studentNo}
+            onChange={(e) => setStudentNo(e.target.value)}
+          />
+          <SmallInput
+            value={studentName}
+            onChange={(e) => setStudentName(e.target.value)}
+          />
+          <AddButton onClick={handleAddStudent}>추가</AddButton>
         </AddStudentBox>
         <StudentList />
         <ButtonBox>
