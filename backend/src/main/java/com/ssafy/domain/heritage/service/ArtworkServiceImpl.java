@@ -44,7 +44,7 @@ public class ArtworkServiceImpl implements ArtworkService{
 
     @Override
     public List<ArtworkResultDto> getResultByGroupId(int groupId) {
-        List<ArtworkResult> artworkResultList = artworkResultRepository.findByStudentGroupGroupId(groupId);
+        List<ArtworkResult> artworkResultList = artworkResultRepository.findByStudentGroupId(groupId);
         return ArtworkResultMapper.toDtoList(artworkResultList);
     }
 
