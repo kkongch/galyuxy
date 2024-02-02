@@ -25,6 +25,68 @@ export const classListState = atom({
 })
 
 export const studentListState = atom({
-  key: 'studentListState',
-  default: {}, // 학생 목록을 클래스 ID에 매핑하기 위해 객체 사용
-})
+  key: 'studentListState', // 고유한 키를 지정합니다.
+  default: [
+    {
+      "studentId": 1,
+      "studentName": "김가영",
+      "studentNo": "1",
+      "studentIsDeleted": 0, // 0: 삭제되지 않음
+    },
+    {
+      "studentId": 2,
+      "studentName": "김나영",
+      "studentNo": "2",
+      "studentIsDeleted": 0,
+    },
+    // ... 나머지 학생 데이터를 추가합니다.
+    {
+      "studentId": 3,
+      "studentName": "박준호",
+      "studentNo": "3",
+      "studentIsDeleted": 0,
+    },
+    {
+      "studentId": 4,
+      "studentName": "이하은",
+      "studentNo": "4",
+      "studentIsDeleted": 0,
+    },
+    {
+      "studentId": 5,
+      "studentName": "최민수",
+      "studentNo": "5",
+      "studentIsDeleted": 0,
+    },
+    {
+      "studentId": 6,
+      "studentName": "한지민",
+      "studentNo": "6",
+      "studentIsDeleted": 0,
+    },
+    {
+      "studentId": 7,
+      "studentName": "김현우",
+      "studentNo": "7",
+      "studentIsDeleted": 0,
+    },
+    {
+      "studentId": 8,
+      "studentName": "나영석",
+      "studentNo": "8",
+      "studentIsDeleted": 0,
+    },
+    {
+      "studentId": 9,
+      "studentName": "유재석",
+      "studentNo": "9",
+      "studentIsDeleted": 0,
+    },
+    {
+      "studentId": 10,
+      "studentName": "강호동",
+      "studentNo": "10",
+      "studentIsDeleted": 0,
+    }
+  ], // 배열로 초기값 설정
+});

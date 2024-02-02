@@ -5,28 +5,11 @@ import { useRecoilState } from 'recoil'
 import { classListState, studentListState } from 'store/ClassStates'
 import photoflame from 'assets/images/Class/액자사진.png'
 import ClassModal from './ClassModal'
+import 'components/Class/Class.css';
 
-const Frame = styled.div`
-  border: 1px solid #000;
-  padding: 16px;
-  margin: 16px;
-  width: 101.125rem;
-  height: 84.3125rem;
-  flex-shrink: 0;
-  background-image: url(${photoflame});
-`
 
-// 데이터 담는틀 (플렉스 설정해서 열배열하였은)
-const ContentFrame = styled.div`
-  margin: 22rem 6.19rem 7.44rem 6.3rem;
-  padding-top: 3rem;
-  border: 1px solid #000;
-  width: 82.125rem;
-  height: 55.625rem;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-`
+
+
 
 // 액자안 컨텐츠 내용 다루는 곳
 const ClassFrame = styled.div`
@@ -199,7 +182,7 @@ function PhotoFlame() {
   }
 
   return (
-    <Frame>
+    <div className='frame'>
       <button onClick={() => setIsModalOpen(true)}>클래스 생성</button>
       {isModalOpen && (
         <ClassModal
@@ -209,7 +192,7 @@ function PhotoFlame() {
           initialData={initialModalData}
         />
       )}
-      <ContentFrame>
+      <div className='contentframe'>
         {classList.map(
           (group) =>
             !group.groupIsDeleted && (
@@ -220,8 +203,8 @@ function PhotoFlame() {
               />
             )
         )}
-      </ContentFrame>
-    </Frame>
+      </div>
+    </div>
   )
 }
 

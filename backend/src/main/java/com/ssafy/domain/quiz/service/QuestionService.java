@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QuestionService {
-    Question saveOne(QuestionReq questionReq);
+    Question postOne(QuestionReq questionReq);
     Optional<Question> findOne(Integer id);
     void deleteOne(Integer id);
     List<Question> findAll();
