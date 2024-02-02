@@ -1,12 +1,11 @@
 import React from 'react'
-import "components/Presentation/Presentation.css"
-
-
+import 'components/Presentation/Presentation.css'
+import ActiveRoom from 'components/Presentation/ActiveRoom'
 
 function PresentationRoom() {
   return (
-    <div className='Container'>
-      <>화상채팅</>
+    <div className='PresentationContainer'>
+      <ActiveRoom></ActiveRoom>
     </div>
   )
 }
