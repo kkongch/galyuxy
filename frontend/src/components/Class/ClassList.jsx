@@ -77,6 +77,15 @@ const ClassList = () => {
     setSelectedGroupId(groupId)
   }
 
+  const handleDeleteClassClick = (groupId) => {
+    const updatedClassList = classList.filter(
+      (classItem) => classItem.group.groupId !== groupId
+    )
+    setClassList(updatedClassList)
+
+    // PUT /group/deleteStudent
+  }
+
   useEffect(() => {
     // GET /group/:teacherId
     setClassList([
@@ -165,7 +174,9 @@ const ClassList = () => {
                 />
               </svg>
             </RefactorButton>
-            <DeleteButton>
+            <DeleteButton
+              onClick={() => handleDeleteClassClick(classItem.group.groupId)}
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='55'
