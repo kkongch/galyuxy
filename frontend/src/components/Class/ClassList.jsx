@@ -78,11 +78,14 @@ const ClassList = () => {
   }
 
   const handleDeleteClassClick = (groupId) => {
-    const updatedClassList = classList.filter(
-      (classItem) => classItem.group.groupId !== groupId
-    )
-    setClassList(updatedClassList)
+    const shouldDelete = window.confirm('정말로 삭제하시겠습니까?')
 
+    if (shouldDelete) {
+      const updatedClassList = classList.filter(
+        (classItem) => classItem.group.groupId !== groupId
+      )
+      setClassList(updatedClassList)
+    }
     // PUT /group/deleteStudent
   }
 
