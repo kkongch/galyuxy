@@ -10,7 +10,12 @@ export const studentListState = atom({
   default: [],
 })
 
-export const isModalOpenState = atom({
-  key: 'isModalOpen',
+export const isAddModalOpenState = atom({
+  key: 'isAddModalOpen',
+  default: false,
+})
+
+export const isRefactorModalOpenState = atom({
+  key: 'isRefactorModalOpen',
   default: false,
 })

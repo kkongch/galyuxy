@@ -3,8 +3,9 @@ import { React, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import StudentList from './StudentList'
 import {
-  isModalOpenState,
   classListState,
+  isAddModalOpenState,
+  isRefactorModalOpenState,
   studentListState,
 } from 'Recoil/ClassState'
 import { useRecoilState } from 'recoil'
@@ -125,8 +126,12 @@ const ConfirmButton = styled.div`
   cursor: pointer;
 `
 
-export const ClassModal = () => {
-  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState)
+export const ClassModal = ({ groupId }) => {
+  const [isAddModalOpen, setIsAddModalOpen] =
+    useRecoilState(isAddModalOpenState)
+  const [isRefactorModalOpen, setIsRefactorModalOpen] = useRecoilState(
+    isRefactorModalOpenState
+  )
   const [groupName, setGroupName] = useState('')
   const [studentNo, setStudentNo] = useState('')
   const [studentName, setStudentName] = useState('')
@@ -134,16 +139,20 @@ export const ClassModal = () => {
   const [classList, setClassList] = useRecoilState(classListState)
 
   useEffect(() => {
-    // 현재 모달 groupId가 1이라고 가정
-    const groupWithId = classList.find((item) => item.group.groupId === 1)
+    const groupWithId = classList.find((item) => item.group.groupId === groupId)
 
     if (groupWithId) {
       setStudentList(groupWithId.student)
+      setGroupName(groupWithId.group.groupName)
+    } else {
+      setStudentList([])
+      setGroupName('')
     }
   }, [])
 
   const handleCancel = () => {
-    setIsModalOpen(false)
+    setIsAddModalOpen(false)
+    setIsRefactorModalOpen(false)
   }
 
   const handleConfirm = () => {
@@ -151,7 +160,8 @@ export const ClassModal = () => {
     setStudentName('')
     setStudentList([])
 
-    setIsModalOpen(false)
+    setIsAddModalOpen(false)
+    setIsRefactorModalOpen(false)
   }
 
   const handleAddStudent = () => {
@@ -162,10 +172,12 @@ export const ClassModal = () => {
       studentNo: studentNo,
     })
 
-    // POST /group
     setStudentList(updatedStudentList)
     setStudentNo('')
     setStudentName('')
+
+    // POST /group
+    // PUT /group
   }
 
   return (

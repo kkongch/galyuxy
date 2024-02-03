@@ -1,5 +1,6 @@
-import { classListState } from 'Recoil/ClassState'
-import React, { useEffect } from 'react'
+import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState'
+import { ClassModal } from 'components/Modal/ClassModal'
+import { React, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import styled from 'styled-components'
 
@@ -67,6 +68,13 @@ const SvgBox = styled.div`
 
 const ClassList = () => {
   const [classList, setClassList] = useRecoilState(classListState)
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isRefactorModalOpenState)
+  const [selectedGroupId, setSelectedGroupId] = useState(null)
+
+  const handleRefactorClassClick = (groupId) => {
+    setIsModalOpen(true)
+    setSelectedGroupId(groupId)
+  }
 
   useEffect(() => {
     // GET /group/:teacherId
@@ -114,6 +122,7 @@ const ClassList = () => {
 
   return (
     <ClassBox>
+      {isModalOpen && <ClassModal groupId={selectedGroupId} />}
       {classList.map((classItem) => (
         <ClassItem key={classItem.group.groupId}>
           <ClassItemFirst>
@@ -139,7 +148,9 @@ const ClassList = () => {
             </ClassTitle>
           </ClassItemFirst>
           <ClassItemSecond>
-            <RefactorButton>
+            <RefactorButton
+              onClick={() => handleRefactorClassClick(classItem.group.groupId)}
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='55'

@@ -76,7 +76,7 @@ const StudentList = () => {
       <StudentInfoBox>
         <StudentInfoBox>
           {studentList.map((student) => (
-            <StudentInfoItem key={student.studentId}>
+            <StudentInfoItem key={student.studentNo}>
               <span>{student.studentNo}번</span>
               <span>{student.studentName}</span>
             </StudentInfoItem>
