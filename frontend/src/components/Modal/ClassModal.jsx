@@ -54,6 +54,9 @@ const LargeInput = styled.input`
   font-size: 2rem;
   font-weight: 600;
   padding: 0 2.69rem;
+  &:focus {
+    outline: 0.1rem solid #596fb7;
+  }
 `
 const AddStudentBox = styled.div`
   display: flex;
@@ -72,6 +75,9 @@ const SmallInput = styled.input`
   font-size: 2rem;
   font-weight: 600;
   padding: 0 2.69rem;
+  &:focus {
+    outline: 0.1rem solid #596fb7;
+  }
 `
 const AddButton = styled.div`
   background-color: #596fb7;
@@ -196,10 +202,12 @@ export const ClassModal = ({ groupId }) => {
           <SmallInput
             value={studentNo}
             onChange={(e) => setStudentNo(e.target.value)}
+            placeholder='반'
           />
           <SmallInput
             value={studentName}
             onChange={(e) => setStudentName(e.target.value)}
+            placeholder='이름'
           />
           <AddButton onClick={handleAddStudent}>추가</AddButton>
         </AddStudentBox>
