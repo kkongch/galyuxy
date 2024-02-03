@@ -131,6 +131,29 @@ const ConfirmButton = styled.div`
   margin-left: 2.52rem;
   cursor: pointer;
 `
+const Flex = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+`
+
+const DeleteButton = styled.div`
+  width: 14.625rem;
+  height: 5.125rem;
+  background-color: #f00;
+  border-radius: 1rem;
+  color: #fff;
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 2rem;
+`
 
 export const ClassModal = ({ groupId }) => {
   const [isAddModalOpen, setIsAddModalOpen] =
@@ -211,6 +234,12 @@ export const ClassModal = ({ groupId }) => {
           />
           <AddButton onClick={handleAddStudent}>추가</AddButton>
         </AddStudentBox>
+        <Flex>
+          <Title>
+            <p>학생 목록</p>
+            {/* <DeleteButton>선택 삭제</DeleteButton> */}
+          </Title>
+        </Flex>
         <StudentList />
         <ButtonBox>
           <CancelButton onClick={handleCancel}>취소</CancelButton>
