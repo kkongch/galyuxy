@@ -9,7 +9,8 @@ const ClassBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 79.1875rem;
+  /* width: 79.1875rem; */
+  width: 100%;
   max-height: 40.4375rem;
   overflow-y: auto;
   margin: 5rem 0;
@@ -19,7 +20,7 @@ const ClassItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 74.5rem;
+  width: 70.5rem;
   min-height: 8.1875rem;
   border-radius: 2.5rem;
   background: #fff;
