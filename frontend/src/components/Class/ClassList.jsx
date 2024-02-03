@@ -12,6 +12,7 @@ const ClassBox = styled.div`
   width: 79.1875rem;
   max-height: 40.4375rem;
   overflow-y: auto;
+  margin: 5rem 0;
 `
 
 const ClassItem = styled.div`
@@ -94,7 +95,7 @@ const ClassList = () => {
           {
             studentId: 2,
             studentName: '김나인',
-            studentNo: 1,
+            studentNo: 2,
           },
         ],
       },
@@ -113,7 +114,7 @@ const ClassList = () => {
           {
             studentId: 2,
             studentName: '이나인',
-            studentNo: '2',
+            studentNo: 2,
           },
         ],
       },
