@@ -69,18 +69,45 @@ const ClassList = () => {
   const [classList, setClassList] = useRecoilState(classListState)
 
   useEffect(() => {
+    // GET /group/:teacherId
     setClassList([
       {
-        groupId: 1,
-        groupName: '2023 1학기',
+        group: {
+          groupId: 1,
+          groupName: '2024 1학기',
+        },
+
+        student: [
+          {
+            studentId: 1,
+            studentName: '김가인',
+            studentNo: 1,
+          },
+          {
+            studentId: 2,
+            studentName: '김나인',
+            studentNo: 1,
+          },
+        ],
       },
       {
-        groupId: 2,
-        groupName: '2023 2학기',
-      },
-      {
-        groupId: 3,
-        groupName: '2023 3학기',
+        group: {
+          groupId: 2,
+          groupName: '2024 2학기',
+        },
+
+        student: [
+          {
+            studentId: 1,
+            studentName: '이가인',
+            studentNo: '1',
+          },
+          {
+            studentId: 2,
+            studentName: '이나인',
+            studentNo: '2',
+          },
+        ],
       },
     ])
   }, [])
@@ -88,7 +115,7 @@ const ClassList = () => {
   return (
     <ClassBox>
       {classList.map((classItem) => (
-        <ClassItem key={classItem.groupId}>
+        <ClassItem key={classItem.group.groupId}>
           <ClassItemFirst>
             <EnterButton>
               <p>입장</p>
@@ -108,7 +135,7 @@ const ClassList = () => {
               </SvgBox>
             </EnterButton>
             <ClassTitle>
-              <p>{classItem.groupName}</p>
+              <p>{classItem.group.groupName}</p>
             </ClassTitle>
           </ClassItemFirst>
           <ClassItemSecond>

@@ -65,21 +65,6 @@ const StudentInfoItem = styled.div`
 const StudentList = () => {
   const [studentList, setStudentList] = useRecoilState(studentListState)
 
-  useEffect(() => {
-    setStudentList([
-      {
-        studentId: 1,
-        studentName: '김가영',
-        studentNo: '1',
-      },
-      {
-        studentId: 2,
-        studentName: '김나영',
-        studentNo: '2',
-      },
-    ])
-  }, [])
-
   return (
     <StudentBox>
       <Flex>

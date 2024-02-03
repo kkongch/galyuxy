@@ -1,8 +1,12 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import StudentList from './StudentList'
-import { isModalOpenState, studentListState } from 'Recoil/ClassState'
+import {
+  isModalOpenState,
+  classListState,
+  studentListState,
+} from 'Recoil/ClassState'
 import { useRecoilState } from 'recoil'
 
 const ModalDiv = styled.div`
@@ -127,25 +131,26 @@ export const ClassModal = () => {
   const [studentNo, setStudentNo] = useState('')
   const [studentName, setStudentName] = useState('')
   const [studentList, setStudentList] = useRecoilState(studentListState)
+  const [classList, setClassList] = useRecoilState(classListState)
+
+  useEffect(() => {
+    // 현재 모달 groupId가 1이라고 가정
+    const groupWithId = classList.find((item) => item.group.groupId === 1)
+
+    if (groupWithId) {
+      setStudentList(groupWithId.student)
+    }
+  }, [])
 
   const handleCancel = () => {
     setIsModalOpen(false)
   }
 
   const handleConfirm = () => {
-    const formattedData = {
-      group: {
-        teacherId: 1,
-        groupName: groupName,
-      },
-      student: studentList,
-    }
-
     setStudentNo('')
     setStudentName('')
     setStudentList([])
 
-    console.log(formattedData)
     setIsModalOpen(false)
   }
 
@@ -157,6 +162,7 @@ export const ClassModal = () => {
       studentNo: studentNo,
     })
 
+    // POST /group
     setStudentList(updatedStudentList)
     setStudentNo('')
     setStudentName('')
