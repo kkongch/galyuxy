@@ -1,50 +1,30 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Menu from './Menu' // Menu 컴포넌트 임포트
-import { useNavigate } from 'react-router-dom'
-import navlogo from 'assets/images/갤역시_로고.png'
-import LogoBox from './LogoBox'
-import { PiCaretLeftLight, PiCaretRightLight } from 'react-icons/pi'
+import Logo from 'assets/images/Logo.png'
+import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg'
 
-const NavbarContainer = styled.div`
+const NavContainer = styled.nav`
+  position: absolute;
   height: 100%;
-  width: 25%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: ${(props) => (props.isOpen ? '0' : '-25%')};
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: 0.5s;
-  display: flex;
+  width: 30rem;
   flex-direction: column;
-  padding: 20px 20px;
-  border-radius: 0% 5rem 0% 0%;
-  border: 1px solid rgba(255, 255, 255, 0.53);
-  background: rgba(255, 255, 255, 0.53);
-  backdrop-filter: blur(5px);
-`
-
-// 로고이미지 추가
-const LogoImage = styled.div`
+  flex-wrap: wrap;
   display: flex;
-  width: 100%;
-  height: auto;
-  background-color: var(--logo-bg); // 글로벌 스타일에서 설정할 배경색
-  justify-content: center;
   align-items: center;
-
-  img {
-    width: 60%; // 이미지의 최대 너비를 100%로 설정
-    height: 100%; // 이미지의 최대 높이를 100%로 설정
-  }
+  border-radius: 0rem 5rem 0rem 0rem;
+  border: 1px solid rgba(255, 255, 255, 0.53);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  transform: translateX(${(props) => (props.isOpen ? '0' : '-100%')});
+  transition: transform 0.3s ease-out;
 `
-
-const ToggleButton = styled.div`
+const ToggleButton = styled.button`
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  left: ${(props) => (props.isOpen ? '25%' : '0')};
+  left: ${(props) => (props.isOpen ? '30rem' : '0')};
   top: 7%;
   height: 8%;
   width: 3%;
@@ -53,115 +33,184 @@ const ToggleButton = styled.div`
   background: #11235a;
   color: white;
   cursor: pointer;
-  transition: 0.5s;
+  transition: left 0.3s ease-out;
+`
+const FullLogo = styled.img`
+  display: flex;
+  height: 8rem;
+  margin: 3rem;
+`
+const Profile = styled.div`
+  display: grid;
+  height: 17rem;
+  width: 25rem;
+  margin-bottom: 2rem;
+  padding: 1.7rem 1.7rem 1.5rem;
+  background: white;
+  border-radius: 1.25rem;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+`
+const ProfileImage = styled.img`
+  grid-row: 1;
+  grid-column: 1;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 1rem;
+  background: blue;
+`
+const UserInfo = styled.div`
+  display: flex;
+  grid-row: 1;
+  grid-column: 3;
+  text-align: right;
+  flex-direction: column-reverse;
+  margin: 0 0 0.5rem;
+`
+const UserType = styled.div`
+  font-weight: bold;
+  font-size: 1.3rem;
+`
+const UserName = styled.div`
+  font-size: 2.3rem;
+  font-weight: bold;
+`
+const ProfileBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  grid-row: 3;
+  grid-column: 1 / span 3;
+`
+const ClassChoice = styled.div`
+  display: flex;
+  background: #f6eca9;
+  width: 10rem;
+  height: 3.5rem;
+  border-radius: 1.25rem;
+  margin: 0.5rem 0 0;
+  align-items: center;
+  justify-content: center;
+`
+const Logout = styled.div`
+  display: flex;
+  background: #f6eca9;
+  width: 10rem;
+  height: 3.5rem;
+  border-radius: 1.25rem;
+  margin: 0.5rem 0 0;
+  align-items: center;
+  justify-content: center;
+`
+const MenuText = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: -3rem;
 
-  svg {
-    font-size: 1000%;
-    pointer-events: none;
+  hr {
+    border: 0.1rem solid #fff;
+    margin: 1rem -3rem;
   }
 `
-
-// NavbarLink를 별도의 파일로 분리하는 것을 고려필요
-const NavbarLink = styled.a`
-  padding: 0.6rem 5rem;
+const Menu = styled(Link)`
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  color: black;
+  font-size: 3rem;
+  text-decoration: none;
+  cursor: pointer;
+`
+const SubMenuItem = styled(Link)`
+  margin: 1rem 2rem 0;
   text-decoration: none;
   color: #545454;
   display: block;
-  transition: 0.5s;
-  font-size: 150%;
+  transition: 0.3s;
+  font-size: 2.5rem;
   font-weight: 600;
   line-height: normal;
-
-  &:hover {
-    color: #f1f1f1;
-  }
-  &:active {
-    color: black;
-  }
+  text-decoration: none;
 `
-
-const MenuText = styled.div`
-  width: 100%;
-
-  hr {
-    border: 0.1rem solid white;
-    margin: 1rem 2rem 0;
+const SubMenu = ({ children }) => {
+  const handleSubMenuClick = (e) => {
+    e.stopPropagation()
   }
-`
 
-const Navbar = () => {
+  return <SubMenuItem onClick={handleSubMenuClick}>{children}</SubMenuItem>
+}
+
+const TeacherNav = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState({
     art: false,
     culture: false,
     theater: false,
     quiz: false,
-  }) // 각 메뉴 항목에 대해 초기 상태 설정
+  })
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen)
   }
 
-  const navigate = useNavigate()
-
-  const heritageNavigate = () => {
-    navigate('/heritage')
-  }
-
-  const presentationNavigate = () => {
-    navigate('/presentation')
-  }
-
   const toggleSubmenu = (menu) => {
-    setOpenMenu({ ...openMenu, [menu]: !openMenu[menu] })
+    setOpenMenu((prevMenu) => ({
+      ...prevMenu,
+      [menu]: !prevMenu[menu],
+    }))
   }
 
   return (
     <>
-      <NavbarContainer isOpen={isOpen}>
-        <LogoImage>
-          <img src={navlogo} alt='Logo' />{' '}
-          {/* 이미지 경로를 자신의 로고 이미지 경로로 변경하세요. */}
-        </LogoImage>
-        <LogoBox> </LogoBox>
+      <NavContainer isOpen={isOpen}>
+        <Link to='/main'>
+          <FullLogo src={Logo} />
+        </Link>
+        <Profile>
+          <ProfileImage />
+          <UserInfo>
+            <UserName>김나연</UserName>
+            <UserType>선생님</UserType>
+          </UserInfo>
+          <ProfileBtn>
+            <ClassChoice>클래스 선택</ClassChoice>
+            <Logout>로그아웃</Logout>
+          </ProfileBtn>
+        </Profile>
         <MenuText>
-          <Menu
-            title='문화유산 관람'
-            isOpen={openMenu['culture']}
-            onClick={heritageNavigate}
-          />
+          <Menu to='/heritage'>문화유산 관람</Menu>
           <hr />
-          <Menu
-            title='미술 활동'
-            isOpen={openMenu['art']}
-            onClick={() => toggleSubmenu('art')}
-          >
-            <NavbarLink href='#'>드로잉</NavbarLink>
-            <NavbarLink href='#'>컬러링북</NavbarLink>
+          <Menu onClick={() => toggleSubmenu('art')}>
+            미술 활동
+            {openMenu.art && (
+              <>
+                <SubMenu href='#'>드로잉</SubMenu>
+                <SubMenu href='#'>컬러링북</SubMenu>
+              </>
+            )}
           </Menu>
           <hr />
-          <Menu
-            title='연극 발표 활동'
-            isOpen={openMenu['theater']}
-            onClick={presentationNavigate}
-          />
+          <Menu to='/presentation'>연극 발표 활동</Menu>
           <hr />
-          <Menu
-            title='퀴즈'
-            isOpen={openMenu['quiz']}
-            onClick={() => toggleSubmenu('quiz')}
-          >
-            <NavbarLink href='#'>문제집 목록</NavbarLink>
-            <NavbarLink href='#'>문제집 생성</NavbarLink>
-            <NavbarLink href='#'>퀴즈 결과</NavbarLink>
+          <Menu onClick={() => toggleSubmenu('quiz')}>
+            퀴즈
+            {openMenu.quiz && (
+              <>
+                <SubMenu href='#'>문제집 목록</SubMenu>
+                <SubMenu href='#'>문제집 생성</SubMenu>
+                <SubMenu href='#'>퀴즈 결과</SubMenu>
+              </>
+            )}
           </Menu>
         </MenuText>
-      </NavbarContainer>
-      <ToggleButton onClick={toggleNavbar} isOpen={isOpen}>
-        {isOpen ? <PiCaretLeftLight /> : <PiCaretRightLight />}
+      </NavContainer>
+      <ToggleButton isOpen={isOpen} onClick={toggleNavbar}>
+        {isOpen ? (
+          <ArrowSimpleImage style={{ transform: 'rotate(180deg)' }} />
+        ) : (
+          <ArrowSimpleImage />
+        )}
       </ToggleButton>
     </>
   )
 }
 
-export default Navbar
+export default TeacherNav
