@@ -22,8 +22,8 @@ const ClassBox = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 160rem;
-  height: 100rem;
+  height: 100vh;
+  width: 100vw;
 `
 const AddClassButton = styled.div`
   display: flex;
