@@ -1,5 +1,6 @@
 package com.ssafy.domain.classroom.entity;
 
+import com.ssafy.domain.classroom.entity.enums.Role;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -33,6 +34,10 @@ public class Teacher {
     @Column(name = "teacher_is_deleted")
     boolean isDeleted;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "teacher_role")
+    Role role;
+
     @OneToMany(mappedBy = "teacher")
     List<Group> groups = new ArrayList<Group>();
 
@@ -41,5 +46,6 @@ public class Teacher {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = Role.TEACHER;
     }
 }
