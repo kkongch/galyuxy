@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import Background from 'components/Basic/Background'
 import FullnameImage from 'assets/svg/main/fullname.svg'
 import heritageImage from 'assets/svg/main/main1.svg'
@@ -27,9 +28,13 @@ const CardContainer = styled.div`
   display: flex;
   top: 30rem;
 `
-
-const CardImage = styled.img`
+// const StyledLink = styled(Link)`
+//   text-decoration: none;
+// `
+const CardLink = styled(Link)`
   margin: 0 1rem;
+  cursor: pointer;
+
   &:nth-child(even) {
     margin-top: 10rem;
   }
@@ -37,7 +42,9 @@ const CardImage = styled.img`
     margin-bottom: 10rem;
   }
 `
-
+const CardImage = styled.img`
+  width: 100%;
+`
 const MainPage = () => {
   return (
     <Background
@@ -46,10 +53,18 @@ const MainPage = () => {
       <MainPageContainer>
         <Fullname src={FullnameImage} />
         <CardContainer>
-          <CardImage src={heritageImage} />
-          <CardImage src={artImage} />
-          <CardImage src={presentationImage} />
-          <CardImage src={quizImage} />
+          <CardLink to='/heritage'>
+            <CardImage src={heritageImage} alt='Heritage' />
+          </CardLink>
+          <CardLink to='/art'>
+            <CardImage src={artImage} alt='Art' />
+          </CardLink>
+          <CardLink to='/presentation'>
+            <CardImage src={presentationImage} alt='Presentation' />
+          </CardLink>
+          <CardLink to='/quiz'>
+            <CardImage src={quizImage} alt='Quiz' />
+          </CardLink>
         </CardContainer>
       </MainPageContainer>
     </Background>
