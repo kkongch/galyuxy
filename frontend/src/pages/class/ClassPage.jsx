@@ -2,20 +2,20 @@ import {
   isAddModalOpenState,
   studentListState,
   userTypeState,
-} from 'Recoil/ClassState'
-import ClassList from 'components/Class/ClassList'
-import { ClassModal } from 'components/Modal/ClassModal'
-import { React, useEffect } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import styled from 'styled-components'
-import mainBackground from 'assets/images/mainBackground.png'
-import Background from 'components/Basic/Background'
-import StudentList from 'components/Modal/StudentList'
+} from 'Recoil/ClassState';
+import ClassList from 'components/Class/ClassList';
+import { ClassModal } from 'components/Class/ClassModal';
+import { React, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import styled from 'styled-components';
+import mainBackground from 'assets/images/mainBackground.png';
+import Background from 'components/Basic/Background';
+import StudentList from 'components/Class/StudentList';
 
 const MainBox = styled.main`
   height: 100vh;
   width: 100vw;
-`
+`;
 
 const ClassBox = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const ClassBox = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
-`
+`;
 const AddClassButton = styled.div`
   display: flex;
   justify-content: center;
@@ -39,7 +39,7 @@ const AddClassButton = styled.div`
   padding: 0 2.31rem;
   border-radius: 1rem;
   cursor: pointer;
-`
+`;
 const Text = styled.div`
   display: flex;
   justify-content: center;
@@ -53,19 +53,19 @@ const Text = styled.div`
   font-weight: 600;
   padding: 0 2.31rem;
   border-radius: 1rem;
-`
+`;
 const TopOfBoardBox = styled.div`
   display: flex;
   width: 90.1875rem;
   height: 5.125rem;
   justify-content: flex-end;
   margin-bottom: 1.19rem;
-`
+`;
 const SvgBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 const BoardBackgroundOuter = styled.div`
   display: flex;
   justify-content: center;
@@ -74,7 +74,7 @@ const BoardBackgroundOuter = styled.div`
   height: 62.4375rem;
   background-color: #dcab7a;
   border-radius: 1.2rem;
-`
+`;
 const BoardBackgroundInner = styled.div`
   display: flex;
   justify-content: center;
@@ -83,12 +83,12 @@ const BoardBackgroundInner = styled.div`
   height: 54.4375rem;
   background-color: #fccb82;
   padding: 0 4.3rem;
-`
+`;
 
 const Class = () => {
-  const userType = useRecoilValue(userTypeState)
-  const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState)
-  const [studentList, setStudentList] = useRecoilState(studentListState)
+  const userType = useRecoilValue(userTypeState);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
+  const [studentList, setStudentList] = useRecoilState(studentListState);
 
   const dummy = {
     group: {
@@ -133,17 +133,17 @@ const Class = () => {
         studentNo: 7,
       },
     ],
-  }
+  };
 
   useEffect(() => {
     // GET /group/:groupId
-    setStudentList(dummy.student)
-  }, [])
+    setStudentList(dummy.student);
+  }, []);
 
   const handleAddClassClick = () => {
-    setStudentList([])
-    setIsModalOpen(true)
-  }
+    setStudentList([]);
+    setIsModalOpen(true);
+  };
 
   return (
     <Background backgroundImage={mainBackground}>
@@ -186,7 +186,7 @@ const Class = () => {
         </ClassBox>
       </MainBox>
     </Background>
-  )
-}
+  );
+};
 
-export default Class
+export default Class;

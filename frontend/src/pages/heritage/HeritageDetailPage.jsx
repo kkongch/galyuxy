@@ -137,7 +137,7 @@ const SvgBox = styled.div`
   height: 4.6875rem;
 `;
 
-const HeritageDetail = () => {
+const HeritageDetailPage = () => {
   const navigate = useNavigate();
   const [heritage, setHeritage] = useRecoilState(heritageState);
 
@@ -213,4 +213,4 @@ const HeritageDetail = () => {
     </Background>
   );
 };
-export default HeritageDetail;
+export default HeritageDetailPage;

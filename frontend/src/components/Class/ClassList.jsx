@@ -1,8 +1,8 @@
-import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState'
-import { ClassModal } from 'components/Modal/ClassModal'
-import { React, useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import styled from 'styled-components'
+import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState';
+import { ClassModal } from 'components/Class/ClassModal';
+import { React, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
 
 const ClassBox = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const ClassBox = styled.div`
   max-height: 40.4375rem;
   overflow-y: auto;
   margin: 5rem 0;
-`
+`;
 
 const ClassItem = styled.div`
   display: flex;
@@ -26,15 +26,15 @@ const ClassItem = styled.div`
   background: #fff;
   margin-bottom: 2.31rem;
   padding: 0 2.12rem;
-`
+`;
 const ClassItemFirst = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 const ClassItemSecond = styled.div`
   display: flex;
-`
+`;
 
 const EnterButton = styled.div`
   display: flex;
@@ -47,48 +47,50 @@ const EnterButton = styled.div`
   font-size: 1.875rem;
   font-weight: 600;
   cursor: pointer;
-`
+`;
 const ClassTitle = styled.div`
   text-align: center;
   font-size: 3.375rem;
   font-weight: 600;
   margin-left: 2.56rem;
-`
+`;
 const DeleteButton = styled.div`
   margin-left: 1rem;
   cursor: pointer;
-`
+`;
 const RefactorButton = styled.div`
   margin-left: 1rem;
   cursor: pointer;
-`
+`;
 const SvgBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const ClassList = () => {
-  const [classList, setClassList] = useRecoilState(classListState)
-  const [isModalOpen, setIsModalOpen] = useRecoilState(isRefactorModalOpenState)
-  const [selectedGroupId, setSelectedGroupId] = useState(null)
+  const [classList, setClassList] = useRecoilState(classListState);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(
+    isRefactorModalOpenState
+  );
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
 
   const handleRefactorClassClick = (groupId) => {
-    setIsModalOpen(true)
-    setSelectedGroupId(groupId)
-  }
+    setIsModalOpen(true);
+    setSelectedGroupId(groupId);
+  };
 
   const handleDeleteClassClick = (groupId) => {
-    const shouldDelete = window.confirm('정말로 삭제하시겠습니까?')
+    const shouldDelete = window.confirm('정말로 삭제하시겠습니까?');
 
     if (shouldDelete) {
       const updatedClassList = classList.filter(
         (classItem) => classItem.group.groupId !== groupId
-      )
-      setClassList(updatedClassList)
+      );
+      setClassList(updatedClassList);
     }
     // PUT /group/deleteStudent
-  }
+  };
 
   useEffect(() => {
     // GET /group/:teacherId
@@ -131,8 +133,8 @@ const ClassList = () => {
           },
         ],
       },
-    ])
-  }, [])
+    ]);
+  }, []);
 
   return (
     <ClassBox>
@@ -198,7 +200,7 @@ const ClassList = () => {
         </ClassItem>
       ))}
     </ClassBox>
-  )
-}
+  );
+};
 
-export default ClassList
+export default ClassList;
