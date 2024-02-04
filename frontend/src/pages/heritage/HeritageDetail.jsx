@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
-import heritageDetailImage from 'assets/images/Heritage/문화유산상세배경.png'
-import Background from 'components/Basic/Background'
-import StarsImage from 'assets/images/stars.png'
-import HExample1Image from 'assets/images/HExample1.png'
-import { useNavigate } from 'react-router-dom'
-import { heritageState } from 'Recoil/HeritageState'
-import { useRecoilState } from 'recoil'
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import heritageDetailImage from 'assets/images/Heritage/문화유산상세배경.png';
+import Background from 'components/Basic/Background';
+import StarsImage from 'assets/images/stars.png';
+import HExample1Image from 'assets/images/HExample1.png';
+import { useNavigate } from 'react-router-dom';
+import { heritageState } from 'Recoil/HeritageState';
+import { useRecoilState } from 'recoil';
 
 const MainBox = styled.main`
   display: flex;
@@ -16,20 +16,20 @@ const MainBox = styled.main`
   height: 100vh;
   width: 100vw;
   padding: 3.06rem;
-`
+`;
 const HeritageBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70vh;
   width: 100vw;
-`
+`;
 const FrameBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 92.5rem;
-`
+`;
 const FrameOuter = styled.div`
   display: flex;
   justify-content: center;
@@ -39,7 +39,7 @@ const FrameOuter = styled.div`
   border-radius: 1rem;
   background: #594f46;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`
+`;
 const FrameInner = styled.div`
   display: flex;
   justify-content: center;
@@ -48,11 +48,11 @@ const FrameInner = styled.div`
   height: 51.375rem;
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`
+`;
 const HeritageImage = styled.img`
   width: auto;
   height: 41.44125rem;
-`
+`;
 const InfoBox = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -64,13 +64,13 @@ const InfoBox = styled.div`
   border: 2px solid #efefef;
   padding: 4.7rem;
   background-color: white;
-`
+`;
 const TitleBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-`
+`;
 const Title = styled.div`
   display: flex;
   justify-content: center;
@@ -78,7 +78,7 @@ const Title = styled.div`
   text-align: center;
   font-size: 3.75rem;
   font-weight: 600;
-`
+`;
 const Description = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -89,13 +89,13 @@ const Description = styled.div`
   margin-top: 2rem;
   overflow-y: auto;
   padding-right: 2.2rem;
-`
+`;
 const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-`
+`;
 const BackButton = styled.div`
   display: flex;
   justify-content: space-between;
@@ -111,7 +111,7 @@ const BackButton = styled.div`
   padding: 0 3.5rem;
   font-weight: 700;
   cursor: pointer;
-`
+`;
 const ThreeDButton = styled.div`
   display: flex;
   justify-content: space-between;
@@ -128,25 +128,25 @@ const ThreeDButton = styled.div`
   font-weight: 700;
   color: #fff;
   cursor: pointer;
-`
+`;
 const SvgBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: auto;
   height: 4.6875rem;
-`
+`;
 
 const HeritageDetail = () => {
-  const navigate = useNavigate()
-  const [heritage, setHeritage] = useRecoilState(heritageState)
+  const navigate = useNavigate();
+  const [heritage, setHeritage] = useRecoilState(heritageState);
 
   const handleBackClick = () => {
-    navigate('/heritage')
-  }
+    navigate('/heritage');
+  };
   const handleThreeDClick = () => {
-    navigate(`/heritage/${heritage.heritageId}/3d`)
-  }
+    navigate(`/heritage/${heritage.heritageId}/3d`);
+  };
 
   return (
     <Background backgroundImage={heritageDetailImage}>
@@ -211,6 +211,6 @@ const HeritageDetail = () => {
         </ButtonBox>
       </MainBox>
     </Background>
-  )
-}
-export default HeritageDetail
+  );
+};
+export default HeritageDetail;

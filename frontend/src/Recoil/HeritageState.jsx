@@ -1,4 +1,4 @@
-import { atom } from 'recoil'
+import { atom } from 'recoil';
 
 export const heritageState = atom({
   key: 'heritage',
@@ -15,4 +15,4 @@ export const heritageState = atom({
       eraCountry: '백제',
     },
   },
-})
+});

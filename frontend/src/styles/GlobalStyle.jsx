@@ -1,19 +1,19 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   html {
-  font-size: 16px;
-}
+    font-size: 16px;
+  }
 
   body {
     font-family: "Noto Sans KR";
   }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;
