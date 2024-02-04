@@ -5,6 +5,8 @@ import Background from 'components/Basic/Background'
 import StarsImage from 'assets/images/stars.png'
 import HExample1Image from 'assets/images/HExample1.png'
 import { useNavigate } from 'react-router-dom'
+import { heritageState } from 'Recoil/HeritageState'
+import { useRecoilState } from 'recoil'
 
 const MainBox = styled.main`
   display: flex;
@@ -135,14 +137,15 @@ const SvgBox = styled.div`
   height: 4.6875rem;
 `
 
-function Heritage2D() {
+const HeritageDetail = () => {
   const navigate = useNavigate()
+  const [heritage, setHeritage] = useRecoilState(heritageState)
 
   const handleBackClick = () => {
     navigate('/heritage')
   }
   const handleThreeDClick = () => {
-    navigate('/heritage/1/3d')
+    navigate(`/heritage/${heritage.heritageId}/3d`)
   }
 
   return (
@@ -162,17 +165,10 @@ function Heritage2D() {
               <SvgBox>
                 <img src={StarsImage} alt='' />
               </SvgBox>
-              <Title>정림사지 5층 석탑</Title>
+              <Title>{heritage.heritageName}</Title>
             </TitleBox>
             <Description>
-              <p>
-                충청남도 부여군 부여읍 부여 정림사지에 있는 후기 사비 백제의
-                석탑(石塔)으로, 익산 미륵사지 석탑과 함께 현전하는 유이(唯二)한
-                백제시대의 석탑이다. 부여 정림사지 오층석탑의 설립 배경에 대한
-                기록이 남아 있지 않아 언제 석탑이 세워졌는지 알 수 없지만,
-                백제가 사비로 천도한 시기인 6세기 중엽에 석탑이 설립된 것으로
-                추정된다.
-              </p>
+              <p>{heritage.heritageContent}</p>
             </Description>
           </InfoBox>
         </HeritageBox>
@@ -217,4 +213,4 @@ function Heritage2D() {
     </Background>
   )
 }
-export default Heritage2D
+export default HeritageDetail
