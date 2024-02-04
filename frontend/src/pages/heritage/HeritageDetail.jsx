@@ -4,6 +4,7 @@ import heritageDetailImage from 'assets/images/Heritage/문화유산상세배경
 import Background from 'components/Basic/Background'
 import StarsImage from 'assets/images/stars.png'
 import HExample1Image from 'assets/images/HExample1.png'
+import { useNavigate } from 'react-router-dom'
 
 const MainBox = styled.main`
   display: flex;
@@ -93,7 +94,23 @@ const ButtonBox = styled.div`
   align-items: center;
   width: 100%;
 `
-const IconDiv = styled.div`
+const BackButton = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 22.5rem;
+  height: 7.5rem;
+  border-radius: 3.75rem;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
+  background-color: #d9d9d9;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-left: 3.06rem;
+  padding: 0 3.5rem;
+  font-weight: 700;
+  cursor: pointer;
+`
+const ThreeDButton = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -108,6 +125,7 @@ const IconDiv = styled.div`
   padding: 0 3.5rem;
   font-weight: 700;
   color: #fff;
+  cursor: pointer;
 `
 const SvgBox = styled.div`
   display: flex;
@@ -118,6 +136,15 @@ const SvgBox = styled.div`
 `
 
 function Heritage2D() {
+  const navigate = useNavigate()
+
+  const handleBackClick = () => {
+    navigate('/heritage')
+  }
+  const handleThreeDClick = () => {
+    navigate('/heritage/1/3d')
+  }
+
   return (
     <Background backgroundImage={heritageDetailImage}>
       <MainBox>
@@ -144,16 +171,14 @@ function Heritage2D() {
                 백제시대의 석탑이다. 부여 정림사지 오층석탑의 설립 배경에 대한
                 기록이 남아 있지 않아 언제 석탑이 세워졌는지 알 수 없지만,
                 백제가 사비로 천도한 시기인 6세기 중엽에 석탑이 설립된 것으로
-                추정된다.기록이 남아 있지 않아 언제 석탑이 세워졌는지 알 수
-                없지만, 백제가 사비로 천도한 시기인 6세기 중엽에 석탑이 설립된
-                것으로 추정된다.
+                추정된다.
               </p>
             </Description>
           </InfoBox>
         </HeritageBox>
 
         <ButtonBox>
-          <IconDiv>
+          <BackButton onClick={handleBackClick}>
             <SvgBox>
               <svg
                 width='76'
@@ -168,9 +193,9 @@ function Heritage2D() {
                 />
               </svg>
             </SvgBox>
-            <p>뒤로가기</p>
-          </IconDiv>
-          <IconDiv>
+            <p>목록 보기</p>
+          </BackButton>
+          <ThreeDButton onClick={handleThreeDClick}>
             <SvgBox>
               <svg
                 width='70'
@@ -186,7 +211,7 @@ function Heritage2D() {
               </svg>
             </SvgBox>
             <p>3D 관람</p>
-          </IconDiv>
+          </ThreeDButton>
         </ButtonBox>
       </MainBox>
     </Background>
