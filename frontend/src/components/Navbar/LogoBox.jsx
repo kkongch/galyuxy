@@ -1,21 +1,20 @@
 // LogoBox.jsx
-import styled from 'styled-components'
-
+import styled from 'styled-components';
+import QRcode from 'pages/main/QRcode';
 const StyledLogoBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  height: 20%;
-  flex-shrink: 0;
-  border-radius: 1vw;
-  background: blue;
-  box-shadow: 0.5rem 0.5rem 1rem 0.1rem rgba(0, 0, 0, 0.5);
-  margin: 1rem auto;
-`
+  grid-row: 1;
+  grid-column: 1;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 1rem;
+`;
 
-const LogoBox = () => {
-  return <StyledLogoBox />
-}
+const LogoBox = ({ toggleQRModal }) => {
+  return (
+    <StyledLogoBox>
+      <QRcode id='받아올id' onClick={toggleQRModal} />
+    </StyledLogoBox>
+  );
+};
 
-export default LogoBox
+export default LogoBox;

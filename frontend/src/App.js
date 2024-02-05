@@ -1,19 +1,18 @@
-import React from 'react'
-import GlobalStyle from 'styles/GlobalStyle'
-import TeacherNav from 'components/Navbar/TeacherNav'
-import { Routes, Route, Link } from 'react-router-dom'
-import Art from 'pages/art/Art'
-import PresentationMain from 'pages/presentation/PresentationMain'
-import Class from 'pages/class/Class'
-import HeritageList from 'pages/heritage/HeritageList'
-import WorkBookList from 'pages/quiz/WorkBookList'
-import MainPage from 'pages/main/MainPage'
+import React from 'react';
+import GlobalStyle from 'styles/GlobalStyle';
+import TeacherNav from 'components/Navbar/TeacherNav';
+import { Routes, Route, Link } from 'react-router-dom';
+import Art from 'pages/art/Art';
+import PresentationPage from 'pages/presentation/PresentationPage';
+import ClassPage from 'pages/class/ClassPage';
+import HeritageList from 'pages/heritage/HeritageList';
+import WorkBookList from 'pages/quiz/WorkBookList';
+import MainPage from 'pages/main/MainPage';
 
-import PresentationCategory from 'pages/presentation/PresentationCategory'
-import PresentationRoom from 'pages/presentation/PresentationRoom'
-import Heritage2D from 'pages/heritage/Heritage2D'
-import Heritage3D from 'pages/heritage/Heritage3D'
-import { RecoilRoot } from 'recoil'
+import HeritageDetailPage from 'pages/heritage/HeritageDetailPage';
+import Heritage3D from 'pages/heritage/Heritage3D';
+import { RecoilRoot } from 'recoil';
+import RoomPage from 'pages/presentation/RoomPage';
 
 function App() {
   return (
@@ -24,26 +23,19 @@ function App() {
           <TeacherNav />
           <Routes>
             <Route path='/main' element={<MainPage />} />
-            <Route path='/teacher/class' element={<Class />} />
+            <Route path='/class' element={<ClassPage />} />
             <Route path='/heritage' element={<HeritageList />} />
-            <Route path='/heritage/:id' element={<Heritage2D />} />
-            <Route path='/heritage/3d' element={<Heritage3D />} />
+            <Route path='/heritage/:id' element={<HeritageDetailPage />} />
+            <Route path='/heritage/:id/3d' element={<Heritage3D />} />
             <Route path='/quiz/workbooklist' element={<WorkBookList />} />
-            <Route path='/presentation' element={<PresentationMain />} />.
-            <Route
-              path='/presentation/:categoryId'
-              element={<PresentationCategory />}
-            />
-            <Route
-              path='/presentation/:categoryId/:roomId'
-              element={<PresentationRoom />}
-            />
+            <Route path='/presentation' element={<PresentationPage />} />
+            <Route path='/room' element={<RoomPage />} />
             <Route path='/art' element={<Art />} />
           </Routes>
         </div>
       </RecoilRoot>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

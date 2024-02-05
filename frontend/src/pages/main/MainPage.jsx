@@ -1,41 +1,72 @@
 import React from 'react'
 import styled from 'styled-components'
-import galaxyImage from 'assets/images/Main/갤역시풀네임.png'
+import { Link } from 'react-router-dom'
 import Background from 'components/Basic/Background'
-import mainbackgroundimage from 'assets/images/Main/메인페이지배경화면.png'
-import heritageImage from 'assets/images/Main/메인_문화유산관람.png'
-import artImage from 'assets/images/Main/메인_미술활동.png'
-import presentationImage from 'assets/images/Main/메인_연극발표활동.png'
-import quizImage from 'assets/images/Main/메인_퀴즈.png'
+import FullnameImage from 'assets/svg/main/fullname.svg'
+import heritageImage from 'assets/svg/main/main1.svg'
+import artImage from 'assets/svg/main/main2.svg'
+import presentationImage from 'assets/svg/main/main3.svg'
+import quizImage from 'assets/svg/main/main4.svg'
 
-const GalaxyImage = styled.img`
-  position: absolute;
-  width: 50%;
-  height: auto;
-  left: 50%;
-  top: 18%;
-  transform: translate(-50%, -50%);
-`
-const Frame = styled.img`
-  position: absolute;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
-  width: 15vw;
-  height: auto;
+const MainPageContainer = styled.div`
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
 `
 
-function MainPage() {
+const Fullname = styled.img`
+  display: flex;
+  position: absolute;
+  top: 10rem;
+  object-fit: none;
+`
+
+const CardContainer = styled.div`
+  position: absolute;
+  display: flex;
+  top: 30rem;
+`
+// const StyledLink = styled(Link)`
+//   text-decoration: none;
+// `
+const CardLink = styled(Link)`
+  margin: 0 1rem;
+  cursor: pointer;
+
+  &:nth-child(even) {
+    margin-top: 10rem;
+  }
+  &:nth-child(odd) {
+    margin-bottom: 10rem;
+  }
+`
+const CardImage = styled.img`
+  width: 100%;
+`
+const MainPage = () => {
   return (
-    <Background backgroundImage={mainbackgroundimage}>
-      <GalaxyImage
-        src={galaxyImage}
-        alt='galaxy'
-        style={{ maxWidth: '100%', height: 'auto' }}
-      />
-      <Frame src={heritageImage} alt='frame' top='38vh' left='17vw' />
-      <Frame src={artImage} alt='frame' top='31vh' left='34vw' />
-      <Frame src={presentationImage} alt='frame' top='38vh' left='51vw' />
-      <Frame src={quizImage} alt='frame' top='31vh' left='68vw' />
+    <Background
+      backgroundImage={require('assets/svg/main/Background.svg').default}
+    >
+      <MainPageContainer>
+        <Fullname src={FullnameImage} />
+        <CardContainer>
+          <CardLink to='/heritage'>
+            <CardImage src={heritageImage} alt='Heritage' />
+          </CardLink>
+          <CardLink to='/art'>
+            <CardImage src={artImage} alt='Art' />
+          </CardLink>
+          <CardLink to='/presentation'>
+            <CardImage src={presentationImage} alt='Presentation' />
+          </CardLink>
+          <CardLink to='/quiz'>
+            <CardImage src={quizImage} alt='Quiz' />
+          </CardLink>
+        </CardContainer>
+      </MainPageContainer>
     </Background>
   )
 }

@@ -40,7 +40,7 @@ function HeritageList() {
     const fetchData = async () => {
       try {
         const response = await getHeritage()
-        setHeritageData(response.data) // 데이터를 상태에 저장
+        setHeritageData(response.databody) // 데이터를 상태에 저장
       } catch (error) {
         console.error(error)
       }
