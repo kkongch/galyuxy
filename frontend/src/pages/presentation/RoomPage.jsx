@@ -1,5 +1,5 @@
 import { isAddModalOpenState, userTypeState } from 'Recoil/ClassState';
-import { React } from 'react';
+import { React, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import mainBackground from 'assets/images/mainBackground.png';
@@ -50,7 +50,8 @@ const StartButton = styled.div`
   height: 5.125rem;
   font-size: 2rem;
   font-weight: 600;
-  background-color: #c8c8c8;
+  background-color: ${({ isRunning }) => (isRunning ? '#f00' : '#c8c8c8')};
+  color: ${({ isRunning }) => (isRunning ? '#fff' : '#000')};
   border-radius: 1rem;
   cursor: pointer;
   margin-left: 1.94rem;
@@ -89,6 +90,7 @@ const RoomPage = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
   const [roomList, setRoomList] = useRecoilState(roomListState);
   const userType = useRecoilValue(userTypeState);
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     // (student) GET /presentation/:groupId 호출 뒤, active가 1인 presentationId 가져오기
@@ -115,6 +117,10 @@ const RoomPage = () => {
 
   const handleAddClassClick = () => {
     setIsModalOpen(true);
+  };
+
+  const handleButtonClick = () => {
+    setIsRunning(!isRunning);
   };
 
   return (
@@ -145,8 +151,8 @@ const RoomPage = () => {
                   </SvgBox>
                   <p>추가</p>
                 </AddClassButton>
-                <StartButton>
-                  <p>시작</p>
+                <StartButton isRunning={isRunning} onClick={handleButtonClick}>
+                  <p>{isRunning ? '종료' : '시작'}</p>
                 </StartButton>
               </ButtonBox>
             )}
