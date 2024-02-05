@@ -1,6 +1,7 @@
+import { userTypeState } from 'Recoil/ClassState';
 import { roomListState } from 'Recoil/PresentationState';
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 const RoomBox = styled.div`
@@ -73,6 +74,7 @@ const DeleteButton = styled.div`
 
 const RoomList = () => {
   const [roomList, setRoomList] = useRecoilState(roomListState);
+  const userType = useRecoilValue(userTypeState);
 
   const handleDeleteClassClick = (roomId) => {
     const shouldDelete = window.confirm('정말로 삭제하시겠습니까?');
@@ -101,9 +103,13 @@ const RoomList = () => {
               <EnterButton>
                 <p>입장</p>
               </EnterButton>
-              <DeleteButton onClick={() => handleDeleteClassClick(room.roomId)}>
-                <p>삭제</p>
-              </DeleteButton>
+              {userType === 1 ?? (
+                <DeleteButton
+                  onClick={() => handleDeleteClassClick(room.roomId)}
+                >
+                  <p>삭제</p>
+                </DeleteButton>
+              )}
             </ButtonBox>
           </RoomContent>
         </RoomBox>
