@@ -15,8 +15,8 @@ const StyledLargeButton = styled.div`
   font-weight: 600;
 `;
 
-const LargeButton = () => {
-  return <StyledLargeButton></StyledLargeButton>;
+const LargeButton = ({ text }) => {
+  return <StyledLargeButton>{text}</StyledLargeButton>;
 };
 
 export default LargeButton;
