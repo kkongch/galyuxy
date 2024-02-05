@@ -1,5 +1,6 @@
 package com.ssafy.domain.classroom.controller;
 
+import com.ssafy.domain.classroom.dto.GroupDto;
 import com.ssafy.domain.classroom.entity.Group;
 import com.ssafy.domain.classroom.service.GroupService;
 import com.ssafy.global.common.dto.Message;
@@ -22,12 +23,10 @@ public class GroupController {
 
     private final GroupService groupService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/list/{id}")
     @PreAuthorize("hasAuthority('TEACHER')")
-    ResponseEntity<Message<List<Group>>> getGroupList(@PathVariable("id") Integer id) {
-
-        return null;
-
-//        return ResponseEntity.ok().body(Message.success(teacherDto));
+    ResponseEntity<Message<List<GroupDto>>> getGroupList(@PathVariable("id") Integer id) {
+        List<GroupDto> groupList = groupService.getGroupListByTeacherId(id);
+        return ResponseEntity.ok().body(Message.success(groupList));
     }
 }
