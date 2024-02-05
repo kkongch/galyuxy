@@ -26,7 +26,11 @@ spring:
         format_sql: true
         connection:
           characterEncoding: utf-8
-          charSet: UTF-8 
+          charSet: UTF-8
+  data:
+    redis:
+      host: localhost
+      port: 6380
 
 logging:
   level:
@@ -50,3 +54,10 @@ application:
   bucket:
     name: galyuxy
 
+jwt:
+  secret-key:
+    access: TestAccessKey111111122222222223333333333333aaaaaaaaabbbbbbbbccccccccdddddddddfqwrqwfqwifjaisfjoihfoiqwflasjdglkkjasdlgjlkasdgjiowejgliasjglasjdgio
+    refresh: TestRefreshKey111111122222222223333333333333aaaaaaaaabbbbbbbbccccccccdddddddddfqwrqwfqwifjaisfjoihfoiqwflasjdglkkjasdlgjlkasdgjiowejgliasjglasjdgio
+  expired-min:
+    access: 60
+    refresh: 10000000
