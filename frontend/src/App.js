@@ -12,6 +12,7 @@ import MainPage from 'pages/main/MainPage';
 import HeritageDetailPage from 'pages/heritage/HeritageDetailPage';
 import Heritage3D from 'pages/heritage/Heritage3D';
 import { RecoilRoot } from 'recoil';
+import RoomPage from 'pages/presentation/RoomPage';
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
             <Route path='/heritage/:id' element={<HeritageDetailPage />} />
             <Route path='/heritage/:id/3d' element={<Heritage3D />} />
             <Route path='/quiz/workbooklist' element={<WorkBookList />} />
-            <Route path='/presentation' element={<PresentationPage />} />.
+            <Route path='/presentation' element={<PresentationPage />} />
+            <Route path='/room' element={<RoomPage />} />
             <Route path='/art' element={<Art />} />
           </Routes>
         </div>
