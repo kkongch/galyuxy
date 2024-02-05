@@ -13,7 +13,6 @@ import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
 public interface TeacherService {
     Teacher postOne(TeacherReq teacherReq);
     List<Teacher> getAll();
-    Optional<Teacher> getOne(Integer id);
     Teacher updateOne(TeacherReq teacherReq, Integer id);
     void deleteOne(Integer id);
 
@@ -28,5 +27,7 @@ public interface TeacherService {
 
     void signUp(TeacherDto teacherDto);
 
-//    void logout(String email);
+    void logout(String email);
+
+    Optional<Teacher> getOne(Integer id);
 }

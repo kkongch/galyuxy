@@ -20,7 +20,7 @@ public class TeacherLoginActiveDto {
         return TeacherLoginActiveDto.builder()
                 .id(info.getId())
                 .email(info.getEmail())
-                .role(info.getRole())
+                .role(Role.valueOf(info.getRole()))
                 .build();
     }
 }

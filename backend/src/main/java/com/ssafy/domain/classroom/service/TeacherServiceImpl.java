@@ -45,10 +45,6 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.findAll();
     }
 
-    @Override
-    public Optional<Teacher> getOne(Integer id) {
-        return teacherRepository.findById(id);
-    }
 
     @Override
     public Teacher updateOne(TeacherReq teacherReq, Integer id) {
@@ -100,7 +96,7 @@ public class TeacherServiceImpl implements TeacherService {
                 .id(teacher.getId())
                 .email(teacher.getEmail())
                 .name(teacher.getName())
-                .role(teacher.getRole())
+                .role(String.valueOf(teacher.getRole()))
                 .build();
 
     }
@@ -122,6 +118,21 @@ public class TeacherServiceImpl implements TeacherService {
                 .build();
         teacherRepository.save(teacher );
     }
+
+    @Override
+    public void logout(String email) {
+        try {
+            refreshRepository.delete(email);
+        } catch(Exception e) {
+            throw new TeacherException("이미 로그아웃됨");
+        }
+    }
+
+    @Override
+    public Optional<Teacher> getOne(Integer id) {
+        return teacherRepository.findById(id);
+    }
+
 
 
 }

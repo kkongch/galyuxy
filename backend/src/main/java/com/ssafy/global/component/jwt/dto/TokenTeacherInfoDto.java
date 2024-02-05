@@ -19,10 +19,10 @@ import static javax.management.timer.Timer.ONE_MINUTE;
 @AllArgsConstructor
 public class TokenTeacherInfoDto {
 
-    private int id;
+    private Integer id;
     private String email;
     private String name;
-    private Role role;
+    private String role;
 
     public Claims toClaims(int expiresMin) {
         Claims claims = Jwts.claims();
@@ -31,6 +31,8 @@ public class TokenTeacherInfoDto {
 
         claims.put(KEY_ID, this.id);
         claims.put(KEY_EMAIL, this.email);
+        claims.put(KEY_NAME, this.name);
+        claims.put(KEY_ROLE, this.role);
         claims.setExpiration(new Date(now.getTime() + expiresMin * ONE_MINUTE));
 
         // expire 시간은 TokenProvider에서 설정
@@ -39,8 +41,10 @@ public class TokenTeacherInfoDto {
 
     public static TokenTeacherInfoDto from(Claims claims) {
         return TokenTeacherInfoDto.builder()
-                .id(claims.get(KEY_ID, int.class))
+                .id(claims.get(KEY_ID, Integer.class))
                 .email(claims.get(KEY_EMAIL, String.class))
+                .name(claims.get(KEY_NAME, String.class))
+                .role(claims.get(KEY_ROLE, String.class))
                 .build();
     }
 

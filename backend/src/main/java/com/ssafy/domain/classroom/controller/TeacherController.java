@@ -9,6 +9,7 @@ import com.ssafy.domain.classroom.dto.TeacherLoginActiveDto;
 import com.ssafy.domain.classroom.dto.TeacherLoginReqDto;
 import com.ssafy.domain.classroom.dto.TeacherLoginResDto;
 import com.ssafy.domain.classroom.entity.Teacher;
+import com.ssafy.domain.classroom.entity.enums.Role;
 import com.ssafy.domain.classroom.exception.TeacherException;
 import com.ssafy.domain.classroom.request.TeacherReq;
 import com.ssafy.domain.classroom.response.TeacherRes;
@@ -55,12 +56,6 @@ public class TeacherController {
         return new ResponseEntity<List<TeacherRes>>(teacherResList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<TeacherRes> getTeacher(@PathVariable("id") Integer id) {
-        Optional<Teacher> teacher = teacherService.getOne(id);
-        teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + id));
-        return new ResponseEntity<TeacherRes>(TeacherRes.of(teacher.get()), HttpStatus.OK);
-    }
 
     @PutMapping("/{id}")
     ResponseEntity<TeacherRes> putTeacher(@RequestBody TeacherReq teacherReq, @PathVariable("id") Integer id) {
@@ -103,6 +98,36 @@ public class TeacherController {
         return ResponseEntity.ok().body(Message.success(teacherLoginResDto));
     }
 
+    @GetMapping("/logout")
+    @PreAuthorize("hasAuthority('TEACHER')")
+    public ResponseEntity<Message<Void>> logout(@AuthenticationPrincipal TeacherLoginActiveDto teacherLoginActiveDto,
+                                                      HttpServletResponse response) {
+        teacherService.logout(teacherLoginActiveDto.getEmail());
 
+        // 쿠키 삭제
+        Cookie accessTokenCookie = new Cookie("accessToken", null);
+        accessTokenCookie.setMaxAge(0);
+        accessTokenCookie.setPath("/");
+        response.addCookie(accessTokenCookie);
+        return ResponseEntity.ok().body(Message.success());
+    }
+
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('TEACHER')")
+    ResponseEntity<Message<TeacherDto>> getTeacher(@PathVariable("id") Integer id) {
+        Optional<Teacher> teacher = teacherService.getOne(id);
+        teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + id));
+        TeacherDto teacherDto = TeacherDto.builder()
+                .id(id)
+                .name(teacher.get().getName())
+                .email(teacher.get().getEmail())
+                .role(Role.TEACHER)
+                .isDeleted(teacher.get().isDeleted())
+                .build();
+
+
+        return ResponseEntity.ok().body(Message.success(teacherDto));
+    }
 
 }
