@@ -2,15 +2,15 @@ package com.ssafy.domain.classroom.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDto {
-    private int id;
-    private int no;
-    private String name;
-    private boolean isDeleted;
+public class GroupStudentsDto {
+    private GroupDto group;
+    private List<StudentDto> students;
 
 }
