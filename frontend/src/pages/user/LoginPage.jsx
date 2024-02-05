@@ -37,7 +37,7 @@ const UserLogin = styled.div`
 const Title = styled.div`
   text-align: center;
   font-size: 4rem;
-  font-weight: 600;
+  font-weight: 700;
 `;
 const LoginInputBox = styled.div`
   display: flex;
@@ -104,9 +104,7 @@ const LoginPage = () => {
                   <AccountButton>비밀번호 찾기</AccountButton>
                 </AccountBox>
               </LoginInputBox>
-              <LargeButton>
-                <p>확인</p>
-              </LargeButton>
+              <LargeButton>로그인</LargeButton>
             </UserLogin>
             <UserLogin>
               <Title>
