@@ -14,7 +14,7 @@ import PresentationRoom from 'pages/presentation/PresentationRoom'
 import Heritage2D from 'pages/heritage/Heritage2D'
 import Heritage3D from 'pages/heritage/Heritage3D'
 import { RecoilRoot } from 'recoil'
-
+import QRcode from 'pages/main/QRcode'
 function App() {
   return (
     <>
@@ -24,6 +24,7 @@ function App() {
           <TeacherNav />
           <Routes>
             <Route path='/main' element={<MainPage />} />
+            <Route path='/QRcode' element={<QRcode />} />
             <Route path='/teacher/class' element={<Class />} />
             <Route path='/heritage' element={<HeritageList />} />
             <Route path='/heritage/:id' element={<Heritage2D />} />
