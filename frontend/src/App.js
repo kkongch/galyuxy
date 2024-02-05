@@ -1,8 +1,8 @@
 import React from 'react';
 import GlobalStyle from 'styles/GlobalStyle';
 import TeacherNav from 'components/Navbar/TeacherNav';
-import { Routes, Route, Link } from 'react-router-dom';
-import Art from 'pages/art/Art';
+import { Routes, Route, Link, Router, BrowserRouter} from 'react-router-dom';
+import Coloring from 'pages/art/Coloring';
 import PresentationPage from 'pages/presentation/PresentationPage';
 import ClassPage from 'pages/class/ClassPage';
 import HeritageList from 'pages/heritage/HeritageList';
