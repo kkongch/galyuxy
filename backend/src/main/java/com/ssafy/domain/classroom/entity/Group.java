@@ -3,15 +3,18 @@ package com.ssafy.domain.classroom.entity;
 import com.ssafy.domain.quiz.entity.QuizResult;
 import jakarta.persistence.*;
 
-import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
+@ToString
 @Table(name = "`group`")
 @Getter(AccessLevel.PUBLIC)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Group {
 
     @Id
@@ -40,7 +43,4 @@ public class Group {
         this.teacher = teacher;
     }
 
-    public Group() {
-
-    }
 }

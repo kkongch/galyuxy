@@ -35,9 +35,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j // 로깅
 public class TeacherController {
 
-    @Autowired
-    private TeacherService teacherService;
-    @Autowired
+    private final TeacherService teacherService;
     private final JwtService jwtService;
 
     @PostMapping
