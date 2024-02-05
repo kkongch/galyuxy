@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import Logo from 'assets/images/Logo.png'
-import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Logo from 'assets/images/Logo.png';
+import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
+import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
+import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 
 const NavContainer = styled.nav`
   position: absolute;
@@ -18,7 +20,7 @@ const NavContainer = styled.nav`
   backdrop-filter: blur(8px);
   transform: translateX(${(props) => (props.isOpen ? '0' : '-100%')});
   transition: transform 0.3s ease-out;
-`
+`;
 const ToggleButton = styled.button`
   position: fixed;
   display: flex;
@@ -34,12 +36,12 @@ const ToggleButton = styled.button`
   color: white;
   cursor: pointer;
   transition: left 0.3s ease-out;
-`
+`;
 const FullLogo = styled.img`
   display: flex;
   height: 8rem;
   margin: 3rem;
-`
+`;
 const Profile = styled.div`
   display: grid;
   height: 17rem;
@@ -49,7 +51,7 @@ const Profile = styled.div`
   background: white;
   border-radius: 1.25rem;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`
+`;
 const ProfileImage = styled.img`
   grid-row: 1;
   grid-column: 1;
@@ -57,7 +59,7 @@ const ProfileImage = styled.img`
   width: 9rem;
   border-radius: 1rem;
   background: blue;
-`
+`;
 const UserInfo = styled.div`
   display: flex;
   grid-row: 1;
@@ -65,21 +67,23 @@ const UserInfo = styled.div`
   text-align: right;
   flex-direction: column-reverse;
   margin: 0 0 0.5rem;
-`
+`;
 const UserType = styled.div`
-  font-weight: bold;
+  font-weight: 800;
   font-size: 1.3rem;
-`
+`;
 const UserName = styled.div`
   font-size: 2.3rem;
-  font-weight: bold;
-`
+  font-weight: 800;
+`;
 const ProfileBtn = styled.div`
   display: flex;
   justify-content: space-between;
   grid-row: 3;
   grid-column: 1 / span 3;
-`
+  font-size: 1.1rem;
+  font-weight: 900;
+`;
 const ClassChoice = styled.div`
   display: flex;
   background: #f6eca9;
@@ -87,9 +91,10 @@ const ClassChoice = styled.div`
   height: 3.5rem;
   border-radius: 1.25rem;
   margin: 0.5rem 0 0;
+  padding: 0 1rem;
   align-items: center;
-  justify-content: center;
-`
+  justify-content: space-evenly;
+`;
 const Logout = styled.div`
   display: flex;
   background: #f6eca9;
@@ -97,9 +102,10 @@ const Logout = styled.div`
   height: 3.5rem;
   border-radius: 1.25rem;
   margin: 0.5rem 0 0;
+  padding: 0 1rem;
   align-items: center;
-  justify-content: center;
-`
+  justify-content: space-evenly;
+`;
 const MenuText = styled.div`
   display: flex;
   flex-direction: column;
@@ -107,18 +113,19 @@ const MenuText = styled.div`
 
   hr {
     border: 0.1rem solid #fff;
-    margin: 1rem -3rem;
+    margin: 1rem -4rem 1rem -1rem;
   }
-`
+`;
 const Menu = styled(Link)`
   align-items: center;
   width: 100%;
   padding: 1rem;
   color: black;
   font-size: 3rem;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-`
+`;
 const SubMenuItem = styled(Link)`
   margin: 1rem 2rem 0;
   text-decoration: none;
@@ -126,37 +133,37 @@ const SubMenuItem = styled(Link)`
   display: block;
   transition: 0.3s;
   font-size: 2.5rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: normal;
   text-decoration: none;
-`
+`;
 const SubMenu = ({ children }) => {
   const handleSubMenuClick = (e) => {
-    e.stopPropagation()
-  }
+    e.stopPropagation();
+  };
 
-  return <SubMenuItem onClick={handleSubMenuClick}>{children}</SubMenuItem>
-}
+  return <SubMenuItem onClick={handleSubMenuClick}>{children}</SubMenuItem>;
+};
 
 const TeacherNav = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState({
     art: false,
     culture: false,
     theater: false,
     quiz: false,
-  })
+  });
 
   const toggleNavbar = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   const toggleSubmenu = (menu) => {
     setOpenMenu((prevMenu) => ({
       ...prevMenu,
       [menu]: !prevMenu[menu],
-    }))
-  }
+    }));
+  };
 
   return (
     <>
@@ -171,8 +178,14 @@ const TeacherNav = () => {
             <UserType>선생님</UserType>
           </UserInfo>
           <ProfileBtn>
-            <ClassChoice>클래스 선택</ClassChoice>
-            <Logout>로그아웃</Logout>
+            <ClassChoice>
+              <BookIcon />
+              클래스 선택
+            </ClassChoice>
+            <Logout>
+              <LogoutIcon />
+              로그아웃
+            </Logout>
           </ProfileBtn>
         </Profile>
         <MenuText>
@@ -210,7 +223,7 @@ const TeacherNav = () => {
         )}
       </ToggleButton>
     </>
-  )
-}
+  );
+};
 
-export default TeacherNav
+export default TeacherNav;
