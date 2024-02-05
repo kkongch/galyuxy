@@ -17,6 +17,7 @@ const Input = styled.input`
   }
   font-size: 1.75rem;
   font-weight: 600;
+  padding: 0 2rem;
 `;
 
 const StyledInput = ({ type, id, name, placeholder }) => {
