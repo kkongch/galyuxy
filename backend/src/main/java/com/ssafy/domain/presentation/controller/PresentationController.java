@@ -4,6 +4,7 @@ import com.ssafy.domain.classroom.entity.Group;
 import com.ssafy.domain.classroom.service.GroupService;
 import com.ssafy.domain.presentation.entity.Presentation;
 import com.ssafy.domain.presentation.service.PresentationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/presentation")
+@RequiredArgsConstructor
 public class PresentationController {
 
+    @Autowired
     private final PresentationService presentationService;
-    private final GroupService groupService;
 
     @Autowired
-    public PresentationController(PresentationService presentationService, GroupService groupService){
-        this.presentationService = presentationService;
-        this.groupService = groupService;
-    }
+    private final GroupService groupService;
 
     @GetMapping("/{groupId}")
     public ResponseEntity<List<Map<String, Object>>> getActivePresentationsByGroupId(@PathVariable("groupId") int groupId) {

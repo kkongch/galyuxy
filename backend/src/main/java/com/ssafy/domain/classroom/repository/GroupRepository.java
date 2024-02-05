@@ -13,4 +13,6 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     @Query("SELECT CASE WHEN COUNT(student) > 0 THEN true ELSE false END FROM Group group JOIN group.students student WHERE group.id = :groupId AND student.id = :studentId")
     boolean hasStudentByStudentId(@Param("groupId") Integer groupId, @Param("studentId") Integer studentId);
+
+    
 }
