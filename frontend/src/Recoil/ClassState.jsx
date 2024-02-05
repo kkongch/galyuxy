@@ -22,7 +22,7 @@ export const isRefactorModalOpenState = atom({
 
 export const userTypeState = atom({
   key: 'userType',
-  default: 1, // 1: teacher, 2: student
+  default: 2, // 1: teacher, 2: student
 });
 
 export const studentUserState = atom({
