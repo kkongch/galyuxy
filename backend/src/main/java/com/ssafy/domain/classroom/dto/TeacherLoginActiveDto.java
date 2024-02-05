@@ -1,5 +1,6 @@
 package com.ssafy.domain.classroom.dto;
 
+import com.ssafy.domain.classroom.entity.enums.Role;
 import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
 import lombok.*;
 
@@ -11,7 +12,7 @@ public class TeacherLoginActiveDto {
     private int id;
     private String name;
     private String email;
-    private String role;
+    private Role role;
     private boolean isDeleted;
 
 

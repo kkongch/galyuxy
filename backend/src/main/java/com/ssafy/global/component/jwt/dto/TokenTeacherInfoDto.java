@@ -1,5 +1,6 @@
 package com.ssafy.global.component.jwt.dto;
 
+import com.ssafy.domain.classroom.entity.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class TokenTeacherInfoDto {
     private int id;
     private String email;
     private String name;
-    private String role;
+    private Role role;
 
     public Claims toClaims(int expiresMin) {
         Claims claims = Jwts.claims();

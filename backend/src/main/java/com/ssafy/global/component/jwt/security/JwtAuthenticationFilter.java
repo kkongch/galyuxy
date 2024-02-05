@@ -69,7 +69,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // Spring security의 SecurityContextHolder에 사용자 정보 저장
     private static void saveLoginTeacherInSecurityContext(TeacherLoginActiveDto tokenTeacherInfoDto) {
         JwtAuthenticationToken authentication = new JwtAuthenticationToken(
-                tokenTeacherInfoDto, "", Arrays.asList(new SimpleGrantedAuthority(tokenTeacherInfoDto.getRole()))
+                tokenTeacherInfoDto, "", Arrays.asList(new SimpleGrantedAuthority(tokenTeacherInfoDto.getRole().toString()))
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

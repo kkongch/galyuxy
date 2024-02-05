@@ -4,23 +4,40 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ssafy.domain.classroom.dto.TeacherDto;
+import com.ssafy.domain.classroom.dto.TeacherLoginActiveDto;
+import com.ssafy.domain.classroom.dto.TeacherLoginReqDto;
+import com.ssafy.domain.classroom.dto.TeacherLoginResDto;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.exception.TeacherException;
 import com.ssafy.domain.classroom.request.TeacherReq;
 import com.ssafy.domain.classroom.response.TeacherRes;
 import com.ssafy.domain.classroom.service.TeacherService;
+import com.ssafy.global.common.dto.Message;
+import com.ssafy.global.component.jwt.dto.TokenDto;
+import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
+import com.ssafy.global.component.jwt.service.JwtService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/teachers")
+@Slf4j // 로깅
 public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private final JwtService jwtService;
 
     @PostMapping
     ResponseEntity postTeacher(@RequestBody TeacherReq teacherReq) {
@@ -55,4 +72,37 @@ public class TeacherController {
     void deleteTeacher(@PathVariable("id") Integer id) {
         teacherService.deleteOne(id);
     }
+
+    ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
+
+    @PostMapping("/signup")
+    public ResponseEntity<Message<Void>> signUp(@RequestBody TeacherDto teacherDto) {
+        teacherService.signUp(teacherDto);
+        return ResponseEntity.ok().body(Message.success());
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Message<TeacherLoginResDto>> login(@RequestBody TeacherLoginReqDto teacherLoginReqDto,
+                                                             HttpServletResponse response) {
+        TokenTeacherInfoDto tokenTeacherInfoDto = teacherService.loginCheckTeacher(teacherLoginReqDto);
+        TokenDto tokenDto = jwtService.issueToken(tokenTeacherInfoDto);
+        TeacherLoginResDto teacherLoginResDto =TeacherLoginResDto.builder()
+                .teacherInfo(tokenTeacherInfoDto)
+                .token(tokenDto)
+                .build();
+
+        // JWT 토큰 쿠키에 저장
+        Cookie accessTokenCookie = new Cookie("accessToken", tokenDto.getAccessToken());
+        accessTokenCookie.setPath("/");
+        accessTokenCookie.setMaxAge(3600); // 3600초
+        response.addCookie(accessTokenCookie);
+
+        return ResponseEntity.ok().body(Message.success(teacherLoginResDto));
+    }
+
+
+
 }
