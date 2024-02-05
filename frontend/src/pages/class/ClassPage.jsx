@@ -27,16 +27,16 @@ const ClassBox = styled.div`
 `;
 const AddClassButton = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 20.5625rem;
+  width: 11.5rem;
   height: 5.125rem;
   background-color: #596fb7;
   color: #fff;
   text-align: center;
   font-size: 1.875rem;
   font-weight: 600;
-  padding: 0 2.31rem;
+  padding: 0 2.4rem;
   border-radius: 1rem;
   cursor: pointer;
 `;
@@ -167,7 +167,7 @@ const Class = () => {
                     />
                   </svg>
                 </SvgBox>
-                <p>클래스 추가하기</p>
+                <p>추가</p>
               </AddClassButton>
             </TopOfBoardBox>
           ) : (

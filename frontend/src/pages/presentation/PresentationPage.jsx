@@ -1,10 +1,9 @@
-import { isAddModalOpenState, userTypeState } from 'Recoil/ClassState';
+import { isAddModalOpenState } from 'Recoil/ClassState';
 import { React } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import mainBackground from 'assets/images/mainBackground.png';
 import Background from 'components/Basic/Background';
-import { presentationListState } from 'Recoil/PresentationState';
 import PresentationList from '../../components/Presentation/PresentationList';
 import PresentationModal from 'components/Presentation/PresentationModal';
 
@@ -23,16 +22,16 @@ const ClassBox = styled.div`
 `;
 const AddClassButton = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 20.5625rem;
+  width: 11.5rem;
   height: 5.125rem;
   background-color: #596fb7;
   color: #fff;
   text-align: center;
   font-size: 1.875rem;
   font-weight: 600;
-  padding: 0 2.31rem;
+  padding: 0 2.4rem;
   border-radius: 1rem;
   cursor: pointer;
 `;
@@ -82,7 +81,6 @@ const BoardBackgroundInner = styled.div`
 `;
 
 const PresentationPage = () => {
-  const userType = useRecoilValue(userTypeState);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
 
   const handleAddClassClick = () => {
@@ -110,8 +108,7 @@ const PresentationPage = () => {
                   />
                 </svg>
               </SvgBox>
-
-              <p>활동방 생성</p>
+              <p>추가</p>
             </AddClassButton>
           </TopOfBoardBox>
 
