@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'assets/images/Logo.png';
+import LogoBox from './LogoBox';
 import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
 import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
 import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
-
+import QRmodal from './QRmodal';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -52,14 +53,13 @@ const Profile = styled.div`
   border-radius: 1.25rem;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
-const ProfileImage = styled.img`
-  grid-row: 1;
-  grid-column: 1;
-  height: 9rem;
-  width: 9rem;
-  border-radius: 1rem;
-  background: blue;
-`;
+// const ProfileImage = styled.img`
+//   grid-row: 1;
+//   grid-column: 1;
+//   height: 9rem;
+//   width: 9rem;
+//   border-radius: 1rem;
+// `;
 const UserInfo = styled.div`
   display: flex;
   grid-row: 1;
@@ -165,6 +165,9 @@ const TeacherNav = () => {
     }));
   };
 
+  const [checkModal, setCheckModal] = useState(false);
+  const toggleQRModal = () => setCheckModal(!checkModal);
+
   return (
     <>
       <NavContainer isOpen={isOpen}>
@@ -172,7 +175,7 @@ const TeacherNav = () => {
           <FullLogo src={Logo} />
         </Link>
         <Profile>
-          <ProfileImage />
+          <LogoBox toggleQRModal={toggleQRModal} />
           <UserInfo>
             <UserName>김나연</UserName>
             <UserType>선생님</UserType>
@@ -215,6 +218,7 @@ const TeacherNav = () => {
           </Menu>
         </MenuText>
       </NavContainer>
+      {checkModal && <QRmodal toggleQRModal={toggleQRModal} />}
       <ToggleButton isOpen={isOpen} onClick={toggleNavbar}>
         {isOpen ? (
           <ArrowSimpleImage style={{ transform: 'rotate(180deg)' }} />
