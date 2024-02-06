@@ -138,14 +138,14 @@ const SvgBox = styled.div`
 `;
 
 const HeritageDetailPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [heritage, setHeritage] = useRecoilState(heritageState);
 
   const handleBackClick = () => {
-    navigate('/heritage');
+    // navigate('/heritage');
   };
   const handleThreeDClick = () => {
-    navigate(`/heritage/${heritage.heritageId}/3d`);
+    // navigate(`/heritage/${heritage.heritageId}/3d`);
   };
 
   return (

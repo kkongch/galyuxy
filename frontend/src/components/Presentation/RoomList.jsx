@@ -103,7 +103,7 @@ const RoomList = () => {
               <EnterButton>
                 <p>입장</p>
               </EnterButton>
-              {userType === 1 ?? (
+              {userType === 1 && (
                 <DeleteButton
                   onClick={() => handleDeleteClassClick(room.roomId)}
                 >

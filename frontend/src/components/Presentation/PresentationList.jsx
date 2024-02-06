@@ -1,9 +1,13 @@
-import { isRefactorModalOpenState } from 'Recoil/ClassState';
+import {
+  isAddModalOpenState,
+  isRefactorModalOpenState,
+} from 'Recoil/ClassState';
 import { presentationListState } from 'Recoil/PresentationState';
 import { React, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import PresentationModal from './PresentationModal';
+import { getPresentationList, deletePresentation } from 'api/PresentationApi';
 
 const ClassBox = styled.div`
   display: flex;
@@ -12,7 +16,7 @@ const ClassBox = styled.div`
   align-items: center;
   /* width: 79.1875rem; */
   width: 100%;
-  max-height: 40.4375rem;
+  max-height: 44.4375rem;
   overflow-y: auto;
   margin: 5rem 0;
 `;
@@ -73,13 +77,39 @@ const PresentationList = () => {
   const [presentationList, setPresentationList] = useRecoilState(
     presentationListState
   );
-  const [isModalOpen, setIsModalOpen] = useRecoilState(
+  const [isRefactorModalOpen, setIsRefactorModalOpen] = useRecoilState(
     isRefactorModalOpenState
   );
+  const [isAddModalOpen, setIsAddModalOpen] =
+    useRecoilState(isAddModalOpenState);
   const [selectedPresentationId, setSelectedPresentationId] = useState(null);
+  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+  const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
+
+  const handleGetPresentationList = async (groupId) => {
+    try {
+      const list = await getPresentationList(groupId);
+      setPresentationList(list);
+    } catch (error) {
+      console.error('Error handleGetPresentationList: ', error);
+    }
+  };
+
+  const handleDeletePresentation = async (presentationId) => {
+    try {
+      await deletePresentation(presentationId);
+      setPresentationList((prevList) =>
+        prevList.filter(
+          (presentation) => presentation.presentationId !== presentationId
+        )
+      );
+    } catch (error) {
+      console.error('Error handleDeletePresentation: ', error);
+    }
+  };
 
   const handleRefactorClassClick = (presentationId) => {
-    setIsModalOpen(true);
+    setIsRefactorModalOpen(true);
     setSelectedPresentationId(presentationId);
   };
 
@@ -91,31 +121,29 @@ const PresentationList = () => {
         (presentationItem) => presentationItem.presentationId !== presentationId
       );
       setPresentationList(updatedPresentationList);
+      setPresentationIdToDelete(presentationId);
+      setIsDeleteClicked(true);
     }
-    // DELETE /presentation/:presentationId
   };
 
   useEffect(() => {
-    // GET /presentation/:presentationId
-    setPresentationList([
-      {
-        presentationId: 1,
-        presentationTitle: '이순신 인터뷰',
-        presentationCreateDate: '2024-01-28T03:00:00.000+00:00',
-        presentation_is_active: 1,
-      },
-      {
-        presentationId: 2,
-        presentationTitle: '김현영 장군',
-        presentationCreateDate: '2024-01-28T04:30:00.000+00:00',
-        presentation_is_active: 0,
-      },
-    ]);
-  }, []);
+    console.log(presentationIdToDelete);
+    if (isDeleteClicked && presentationIdToDelete !== null) {
+      handleDeletePresentation(presentationIdToDelete);
+      setIsDeleteClicked(false);
+      setPresentationIdToDelete(null);
+    }
+  }, [isDeleteClicked, presentationIdToDelete]);
+
+  useEffect(() => {
+    const groupId = 1;
+
+    handleGetPresentationList(groupId);
+  }, [isAddModalOpen, isRefactorModalOpen]);
 
   return (
     <ClassBox>
-      {isModalOpen && (
+      {isRefactorModalOpen && (
         <PresentationModal presentationId={selectedPresentationId} />
       )}
       {presentationList.map((presentationItem) => (

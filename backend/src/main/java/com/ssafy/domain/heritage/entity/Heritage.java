@@ -21,7 +21,7 @@ public class Heritage {
     @Column(name = "heritage_name" )
     private String heritageName;
 
-    @Column(name = "heritage_content" )
+    @Column(name = "heritage_content", length = 30000)
     private String heritageContent;
 
     @Column(name = "heritage_image_url")
