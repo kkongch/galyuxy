@@ -1,18 +1,20 @@
 package com.ssafy.domain.presentation.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
 import com.ssafy.domain.classroom.entity.Group;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "presentation")
 @Getter(AccessLevel.PUBLIC)
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Presentation {
 
     @Id
@@ -34,6 +36,12 @@ public class Presentation {
 
     @ManyToOne
     @JoinColumn(name = "group_id")
+    @JsonBackReference
     private Group group;
+
+    public Presentation(String presentationTitle, Group group) {
+        this.presentationTitle = presentationTitle;
+        this.group = group;
+    }
 
 }

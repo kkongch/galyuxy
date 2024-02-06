@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PresentationRepository extends JpaRepository<Presentation, Integer> {
     List<Presentation> findByGroupIdAndPresentationIsDeletedFalse(int groupId);
-}
+
+ }

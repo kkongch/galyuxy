@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Builder
+@ToString
 @Table(name = "student")
 public class Student {
 
