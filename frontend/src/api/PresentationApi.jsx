@@ -38,3 +38,13 @@ export const createPresentation = async (presentationData) => {
     throw error;
   }
 };
+
+export const updatePresentation = async (presentationId, newData) => {
+  try {
+    const response = await api.put(`/presentation/${presentationId}`, newData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updatePresentation:', error);
+    throw error;
+  }
+};
