@@ -4,7 +4,7 @@ import { React, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import PresentationModal from './PresentationModal';
-import { getPresentationList } from 'api/PresentationApi';
+import { getPresentationList, deletePresentation } from 'api/PresentationApi';
 
 const ClassBox = styled.div`
   display: flex;
@@ -78,6 +78,30 @@ const PresentationList = () => {
     isRefactorModalOpenState
   );
   const [selectedPresentationId, setSelectedPresentationId] = useState(null);
+  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+  const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
+
+  const handleFetchPresentationList = async (groupId) => {
+    try {
+      const list = await getPresentationList(groupId);
+      setPresentationList(list);
+    } catch (error) {
+      console.error('Error handleFetchPresentationList: ', error);
+    }
+  };
+
+  const handleDeletePresentation = async (presentationId) => {
+    try {
+      await deletePresentation(presentationId);
+      setPresentationList((prevList) =>
+        prevList.filter(
+          (presentation) => presentation.presentationId !== presentationId
+        )
+      );
+    } catch (error) {
+      console.error('Error handleDeletePresentation: ', error);
+    }
+  };
 
   const handleRefactorClassClick = (presentationId) => {
     setIsModalOpen(true);
@@ -92,18 +116,19 @@ const PresentationList = () => {
         (presentationItem) => presentationItem.presentationId !== presentationId
       );
       setPresentationList(updatedPresentationList);
+      setPresentationIdToDelete(presentationId);
+      setIsDeleteClicked(true);
     }
-    // DELETE /presentation/:presentationId
   };
 
-  const handleFetchPresentationList = async (groupId) => {
-    try {
-      const list = await getPresentationList(groupId);
-      setPresentationList(list);
-    } catch (error) {
-      console.error('Error fetching presentation list:', error);
+  useEffect(() => {
+    console.log(presentationIdToDelete);
+    if (isDeleteClicked && presentationIdToDelete !== null) {
+      handleDeletePresentation(presentationIdToDelete);
+      setIsDeleteClicked(false);
+      setPresentationIdToDelete(null);
     }
-  };
+  }, [isDeleteClicked, presentationIdToDelete]);
 
   useEffect(() => {
     const groupId = 1;
