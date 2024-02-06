@@ -1,14 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Stage, Layer, Line, Text, Image, Rect } from 'react-konva';
-import useImage from 'use-image';
-import Gimage from 'assets/images/고려청자컬러링북.png';
-import Konva from 'konva';
 import styled from 'styled-components';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
 import Background from 'components/Basic/Background';
-import { useNavigate } from 'react-router-dom';
-
+import Konva from 'konva';
 const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -56,17 +52,7 @@ const SaveButton = styled.div`
 const ARbutton = styled.div`
   margin-left: 3.06rem;
 `;
-const Exampleimage = styled.div`
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  position: fixed;
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  background-color: #ffffff;
-  z-index: 0;
-`;
+
 const ToolContainer = styled.div`
   position: fixed;
   top: 20px;
@@ -82,13 +68,7 @@ const SvgBox = styled.div`
   width: auto;
   height: 4.6875rem;
 `;
-const DrawingTool = styled.div``;
-const StyledSelect = styled.select`
-  height: 40px; // 높이 증가
-  font-size: 16px; // 폰트 크기 증가
-  margin-bottom: 10px; // 아래 요소와의 간격
-  padding: 5px 10px; // 내부 여백 증가
-`;
+
 const remToPixels = (rem) => {
   // 기본 폰트 크기를 가정하여 rem을 px로 변환
   return rem * 16;
@@ -111,7 +91,7 @@ const DescriptionBox = styled.div`
   font-size: 50px;
 `;
 
-const Coloring = () => {
+const Drawing = () => {
   const stageRef = useRef(null);
   const rectLayerRef = useRef(null);
   // const navigate = useNavigate()
@@ -120,11 +100,11 @@ const Coloring = () => {
   const [size, setSize] = useState(5); // 선의 굵기 상태, 기본값은 5
   const [lines, setLines] = useState([]); // 선들의 배열
   const isDrawing = useRef(false); // 그리기 상태
-  const [coloringImage] = useImage(Gimage); // 이미지 경로 수정 필요
-  const imageWidth = coloringImage ? coloringImage.width * 1.2 : 0;
-  const imageHeight = coloringImage ? coloringImage.height * 1.2 : 0;
-  const imageX = window.innerWidth / 2 - imageWidth / 2;
-  const imageY = window.innerHeight / 2 - imageHeight / 2;
+  //   const [coloringImage] = useImage(Gimage); // 이미지 경로 수정 필요
+  //   const imageWidth = coloringImage ? coloringImage.width * 1.2 : 0;
+  //   const imageHeight = coloringImage ? coloringImage.height * 1.2 : 0;
+  //   const imageX = window.innerWidth / 2 - imageWidth / 2;
+  //   const imageY = window.innerHeight / 2 - imageHeight / 2;
   // Rect 크기를 rem 단위에서 px 단위로 설정
   const rectWidth = remToPixels(90); // 90rem을 px로 변환
   const rectHeight = remToPixels(56.25); // 56.25rem을 px로 변환
@@ -151,9 +131,20 @@ const Coloring = () => {
     const stage = e.target.getStage();
     const pointerPosition = stage.getPointerPosition();
 
-    // Stage 내의 상대적 위치를 계산
+    // Rect 경계 내에서만 그림을 그릴 수 있도록 수정
     let posX = pointerPosition.x - stage.x();
     let posY = pointerPosition.y - stage.y();
+
+    // Rect 경계를 벗어나면 그리기를 중단
+    if (
+      posX < rectX ||
+      posX > rectX + rectWidth ||
+      posY < rectY ||
+      posY > rectY + rectHeight
+    ) {
+      // 선을 끝내는 로직을 추가할 수 있습니다.
+      return;
+    }
 
     let lastLine = lines[lines.length - 1];
     lastLine.points = lastLine.points.concat([posX, posY]);
@@ -164,44 +155,42 @@ const Coloring = () => {
     isDrawing.current = false;
   };
 
-  // const saveImage = () => {
-  //   const tempCanvas = document.createElement('canvas');
-  //   tempCanvas.width = stageRef.current.width();
-  //   tempCanvas.height = stageRef.current.height();
-  //   const ctx = tempCanvas.getContext('2d');
-
-  //   // Konva 캔버스의 이미지를 임시 캔버스에 그림
-  //   const image = new window.Image(); // 'window.'를 사용하여 Image 생성자를 명시적으로 참조
-  //   image.onload = () => {
-  //     ctx.drawImage(image, 0, 0);
-  //     // 임시 캔버스의 데이터 URL을 사용하여 이미지 저장 로직 진행
-  //     const dataURL = tempCanvas.toDataURL();
-  //     const link = document.createElement('a');
-  //     link.download = 'coloring-book.png';
-  //     link.href = dataURL;
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //   };
-  //   image.src = stageRef.current.toDataURL();
-  // };
   const saveImage = () => {
-    // Rect가 포함된 Layer의 visible 속성을 false로 설정
-    rectLayerRef.current.visible(false);
-    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+    // 새로운 Layer 생성
+    const saveLayer = new Konva.Layer();
 
-    // 이미지 저장 로직
-    const dataURL = stageRef.current.toDataURL();
+    // lines 배열을 순회하며 각 선이 Rect 내부에 있는지 확인 후 saveLayer에 추가
+    lines.forEach((line) => {
+      // 여기서는 간단히 모든 선을 saveLayer에 추가합니다.
+      // 실제로는 선이 Rect 내부에 있는지 확인하는 로직이 필요합니다.
+      const newLine = new Konva.Line({
+        points: line.points,
+        stroke: line.color,
+        strokeWidth: line.size,
+        globalCompositeOperation:
+          line.tool === 'eraser' ? 'destination-out' : 'source-over',
+      });
+      saveLayer.add(newLine);
+    });
+
+    // 임시로 stage에 saveLayer를 추가
+    stageRef.current.add(saveLayer);
+
+    // saveLayer를 사용해 이미지 데이터 생성
+    const dataURL = saveLayer.toDataURL({
+      pixelRatio: 3, // 이미지 품질을 높이기 위해 pixelRatio 조정
+    });
+
+    // 생성된 이미지 데이터를 사용하여 파일 다운로드
     const link = document.createElement('a');
-    link.download = 'coloring-book.png';
+    link.download = 'drawing.png';
     link.href = dataURL;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
-    rectLayerRef.current.visible(true);
-    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+    // saveLayer 제거
+    saveLayer.destroy();
   };
 
   const handleBackClick = () => {
@@ -211,7 +200,7 @@ const Coloring = () => {
   const handleArClick = () => {};
   return (
     <Background backgroundImage={backgroundImage}>
-      <DescriptionBox>고려청자</DescriptionBox>
+      <DescriptionBox>고려청자 그림을 그려주세요</DescriptionBox>
       <Stage
         width={window.innerWidth}
         height={window.innerHeight}
@@ -231,7 +220,7 @@ const Coloring = () => {
           />
         </Layer>
         {/* 배경 이미지용 Layer */}
-        <Layer>
+        {/* <Layer>
           <Exampleimage>
             {coloringImage && (
               <Image
@@ -245,7 +234,7 @@ const Coloring = () => {
               />
             )}
           </Exampleimage>
-        </Layer>
+        </Layer> */}
 
         {/* 그리기 동작용 Layer */}
         <Layer>
@@ -350,6 +339,6 @@ const Coloring = () => {
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<Coloring />);
+root.render(<Drawing />);
 
-export default Coloring;
+export default Drawing;

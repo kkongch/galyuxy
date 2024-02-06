@@ -137,12 +137,16 @@ const SubMenuItem = styled(Link)`
   line-height: normal;
   text-decoration: none;
 `;
-const SubMenu = ({ children }) => {
+const SubMenu = ({ to, children }) => {
   const handleSubMenuClick = (e) => {
     e.stopPropagation();
   };
 
-  return <SubMenuItem onClick={handleSubMenuClick}>{children}</SubMenuItem>;
+  return (
+    <SubMenuItem to={to} onClick={handleSubMenuClick}>
+      {children}
+    </SubMenuItem>
+  );
 };
 
 const TeacherNav = () => {
@@ -198,7 +202,7 @@ const TeacherNav = () => {
             미술 활동
             {openMenu.art && (
               <>
-                <SubMenu href='#'>드로잉</SubMenu>
+                <SubMenu to='/art'>드로잉</SubMenu>
                 <SubMenu href='#'>컬러링북</SubMenu>
               </>
             )}
@@ -210,7 +214,7 @@ const TeacherNav = () => {
             퀴즈
             {openMenu.quiz && (
               <>
-                <SubMenu href='#'>문제집 목록</SubMenu>
+                <SubMenu to='/main'>문제집 목록</SubMenu>
                 <SubMenu href='#'>문제집 생성</SubMenu>
                 <SubMenu href='#'>퀴즈 결과</SubMenu>
               </>
