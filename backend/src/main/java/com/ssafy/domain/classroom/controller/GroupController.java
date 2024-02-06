@@ -14,7 +14,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -66,12 +68,32 @@ public class GroupController {
         
         //그룹id로 기존 학생 리스트 가져오기
         List<StudentDto> existStudent = studentService.getStudentListByGroupId(request.getGroup().getId() );
-        List<StudentDto> updateStudent;
+        List<StudentDto> updateStudent = request.getStudents(); // 새로 입력받은 학생 리스트
+
+        Set<Integer> updateStudentIdSet = new HashSet<>();
+        for (StudentDto updateS : updateStudent) {
+//            System.out.println(studentDto.toString());
+            // id가 있는 학생 = 기존에 추가된 학생
+            if(updateS.getId() != 0){
+                updateStudentIdSet.add(updateS.getId());
+            }
+            // id가 없는 학생 = 새로 추가한 학생 : DB에 저장
+            else {
+                studentService.saveStudent(updateS, group);
+            }
+        }
+//        System.out.println(updateStudentIdSet);
 
 
-        // id가 있는 학생과 기존 학생 비교해서 삭제된 기존 학생 찾기
-        
-        // id가 없는 학생 찾아서 추가하기
+        // id가 있는 학생과 기존 학생 비교해서 삭제된 기존 학생 찾아서 DB 삭제컬럼 업데이트
+        for (StudentDto existS : existStudent) {
+//            System.out.println(studentDto.toString());
+            if(!updateStudentIdSet.contains(existS.getId())){
+                System.out.println("delete " + existS.getId());
+                studentService.delete(existS.getId());
+
+            }
+        }
         
         return ResponseEntity.ok().body(Message.success());
     }
