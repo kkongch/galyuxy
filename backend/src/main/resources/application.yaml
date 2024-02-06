@@ -54,6 +54,9 @@ application:
   bucket:
     name: galyuxy
 
+openvidu:
+  url: http://localhost:4443/
+  secret: T1BFTlZJRFVBUFA6TVlfU0VDUkVU
 jwt:
   secret-key:
     access: TestAccessKey111111122222222223333333333333aaaaaaaaabbbbbbbbccccccccdddddddddfqwrqwfqwifjaisfjoihfoiqwflasjdglkkjasdlgjlkasdgjiowejgliasjglasjdgio
