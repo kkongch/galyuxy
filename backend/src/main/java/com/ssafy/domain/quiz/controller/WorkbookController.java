@@ -3,6 +3,7 @@ package com.ssafy.domain.quiz.controller;
 import com.ssafy.domain.quiz.entity.Question;
 import com.ssafy.domain.quiz.request.WorkbookReq;
 import com.ssafy.domain.quiz.response.QuestionRes;
+import com.ssafy.domain.quiz.response.WorkbookDetailRes;
 import com.ssafy.domain.quiz.service.QuestionService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import com.ssafy.global.common.dto.Message;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,7 +35,22 @@ public class WorkbookController {
             throw entityNotFoundException;
         }
     }
-    @GetMapping
+
+    @GetMapping("/{workbookId}")
+    ResponseEntity<Message<WorkbookDetailRes>> getWorkbook(@PathVariable(name="workbookId") Integer workbookId) {
+        try {
+            Optional<Workbook> optionalWorkbook = workbookService.findOne(workbookId);
+            if (!optionalWorkbook.isPresent()) throw new EntityNotFoundException(String.format("Workbook %d Not Found", workbookId));
+            Workbook workbook = optionalWorkbook.get();
+            List<Question> questionList = questionService.findAllByWorkbookId(workbookId);
+            WorkbookDetailRes workbookDetailRes = WorkbookDetailRes.of(workbook, questionList);
+            return ResponseEntity.ok().body(Message.success(workbookDetailRes, "OK", null));
+        } catch (EntityNotFoundException entityNotFoundException) {
+            throw entityNotFoundException;
+        }
+    }
+
+    @GetMapping("/{workbookId}/questions")
     ResponseEntity<Message<List<WorkbookRes>>> getWorkbookList(@RequestParam(name="teacherId", required=false) Integer teacherId) {
 
         List<Workbook> workbookList = null;
@@ -62,14 +79,14 @@ public class WorkbookController {
         return ResponseEntity.ok().body(Message.success(workbookResList, "OK", null));
     }
 
-    @GetMapping("/{workbookId}/questions")
-    ResponseEntity<Message<List<QuestionRes>>> getQuestionListByWorkbookId(@PathVariable(name="workbookId") Integer workbookId) {
-        List<Question> questionList = questionService.findAllByWorkbookId(workbookId);
-        List<QuestionRes> questionResList = questionList.stream()
-                .map(QuestionRes::of)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok().body(Message.success(questionResList, "OK", null));
-    }
+//    @GetMapping("/{workbookId}/questions")
+//    ResponseEntity<Message<List<QuestionRes>>> getQuestionListByWorkbookId(@PathVariable(name="workbookId") Integer workbookId) {
+//        List<Question> questionList = questionService.findAllByWorkbookId(workbookId);
+//        List<QuestionRes> questionResList = questionList.stream()
+//                .map(QuestionRes::of)
+//                .collect(Collectors.toList());
+//        return ResponseEntity.ok().body(Message.success(questionResList, "OK", null));
+//    }
 
     @PutMapping("/{id}")
     ResponseEntity<Message<Void>> deleteWorkbook(@PathVariable("id") Integer id) {

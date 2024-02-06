@@ -35,6 +35,11 @@ public class WorkbookServiceImpl implements WorkbookService {
     }
 
     @Override
+    public Optional<Workbook> findOne(Integer id) {
+        return workbookRepository.findById(id);
+    }
+
+    @Override
     public List<Workbook> getAll() {
         return workbookRepository.findAllByIsDeletedIsFalse();
     }

@@ -8,6 +8,7 @@ import com.ssafy.domain.quiz.request.WrongAnswerReq;
 import com.ssafy.domain.quiz.response.QuizResultRes;
 import com.ssafy.domain.quiz.response.WorkbookRes;
 import com.ssafy.domain.quiz.response.WrongAnswerRes;
+import com.ssafy.domain.quiz.service.WorkbookService;
 import com.ssafy.domain.quiz.service.WrongAnswerService;
 import com.ssafy.global.common.dto.Message;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class WrongAnswerController {
 
     private final WrongAnswerService wrongAnswerService;
+    private final WorkbookService workbookService;
 
     @PostMapping
     ResponseEntity<Message<WrongAnswerRes>> postWrongAnswer(@RequestBody WrongAnswerReq wrongAnswerReq) {
