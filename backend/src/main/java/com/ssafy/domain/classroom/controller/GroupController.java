@@ -65,7 +65,10 @@ public class GroupController {
         }
         
         //그룹id로 기존 학생 리스트 가져오기
-        studentService.getStudentListByGroupId(request.getGroup().getId() );
+        List<StudentDto> existStudent = studentService.getStudentListByGroupId(request.getGroup().getId() );
+        List<StudentDto> updateStudent;
+
+
         // id가 있는 학생과 기존 학생 비교해서 삭제된 기존 학생 찾기
         
         // id가 없는 학생 찾아서 추가하기
