@@ -15,4 +15,7 @@ public interface GroupService {
     List<GroupDto> getGroupListByTeacherId(int teacherId);
 
     void saveGroupAndStudents(int teacherId, GroupStudentsDto request);
+
+    Group updateName(GroupDto request);
+    void delete(int groupId);
 }
