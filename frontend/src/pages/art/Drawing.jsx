@@ -131,9 +131,20 @@ const Drawing = () => {
     const stage = e.target.getStage();
     const pointerPosition = stage.getPointerPosition();
 
-    // Stage 내의 상대적 위치를 계산
+    // Rect 경계 내에서만 그림을 그릴 수 있도록 수정
     let posX = pointerPosition.x - stage.x();
     let posY = pointerPosition.y - stage.y();
+
+    // Rect 경계를 벗어나면 그리기를 중단
+    if (
+      posX < rectX ||
+      posX > rectX + rectWidth ||
+      posY < rectY ||
+      posY > rectY + rectHeight
+    ) {
+      // 선을 끝내는 로직을 추가할 수 있습니다.
+      return;
+    }
 
     let lastLine = lines[lines.length - 1];
     lastLine.points = lastLine.points.concat([posX, posY]);
@@ -165,24 +176,6 @@ const Drawing = () => {
     };
     image.src = stageRef.current.toDataURL();
   };
-  //   const saveImage = () => {
-  //     // Rect가 포함된 Layer의 visible 속성을 false로 설정
-  //     rectLayerRef.current.visible(false);
-  //     stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
-
-  //     // 이미지 저장 로직
-  //     const dataURL = stageRef.current.toDataURL();
-  //     const link = document.createElement('a');
-  //     link.download = 'coloring-book.png';
-  //     link.href = dataURL;
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-
-  //     // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
-  //     rectLayerRef.current.visible(true);
-  //     stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
-  //   };
 
   const handleBackClick = () => {
     // navigate('/main');
