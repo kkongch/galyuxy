@@ -14,6 +14,8 @@ import PresentationRoom from 'pages/presentation/PresentationRoom';
 import Heritage2D from 'pages/heritage/Heritage2D';
 import Heritage3D from 'pages/heritage/Heritage3D';
 
+import Quiz from 'components/Quiz/Quiz';
+
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="/presentation/:categoryId" element={ <PresentationCategory /> } />
           <Route path="/presentation/:categoryId/:roomId" element={ <PresentationRoom /> } /> 
           <Route path="/art" element={ <Art />}/> 
+
+          <Route path="/quiz/quizLive" element={ <Quiz />}/>
         </Routes>
       </div>
     </>
