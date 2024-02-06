@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ssafy.domain.heritage.entity.ArtworkResult;
 import jakarta.persistence.*;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
+@Builder
+@ToString
 @Table(name = "student")
 public class Student {
 

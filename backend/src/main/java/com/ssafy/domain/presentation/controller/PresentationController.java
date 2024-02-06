@@ -2,8 +2,13 @@ package com.ssafy.domain.presentation.controller;
 
 import com.ssafy.domain.classroom.entity.Group;
 import com.ssafy.domain.classroom.service.GroupService;
+import com.ssafy.domain.heritage.entity.Era;
+import com.ssafy.domain.presentation.dto.PresentationDto;
+import com.ssafy.domain.presentation.dto.PresentationGroupDto;
 import com.ssafy.domain.presentation.entity.Presentation;
+import com.ssafy.domain.presentation.repository.PresentationRepository;
 import com.ssafy.domain.presentation.service.PresentationService;
+import com.ssafy.global.common.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -33,43 +38,44 @@ public class PresentationController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createPresentation(@RequestBody Presentation presentation) {
+    public ResponseEntity<String> createPresentation(@RequestBody PresentationGroupDto request) {
 
         try {
-            Group group = groupService.getGroupById(presentation.getGroup().getId())
-                    .orElseThrow(() -> new RuntimeException("Group not found with id: " + presentation.getGroup().getId()));
+            Presentation pp = Presentation.builder()
+                    .presentationTitle(request.getPresentationTitle())
+                    .group(Group.builder().id(request.getGroup().getId()).build())
+                    .presentationIsActive(false)
+                    .build();
 
-            presentation.setGroup(group);
-            Presentation createdPresentation = presentationService.createPresentation(presentation);
-
+            Presentation createdPresentation = presentationService.createPresentation(pp);
+//
             return new ResponseEntity<>("Presentation created with ID: " + createdPresentation.getPresentationId(), HttpStatus.CREATED);
-
-        }catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             return new ResponseEntity<>("Error: Presentation title must be unique within a group.", HttpStatus.BAD_REQUEST);
         }
     }
 
+
     @PutMapping("/{presentationId}")
-    public ResponseEntity<String> updatePresentation(
+    public ResponseEntity<Message<Void>> updatePresentation(
             @PathVariable("presentationId") int presentationId,
-            @RequestBody Presentation updatedPresentation) {
+            @RequestBody PresentationDto request) {
 
-        try{
-            Optional<Presentation> existingPresentationOptional = presentationService.getPresentationById(presentationId);
+        try {
+            Presentation existPresentation = presentationService.getPresentationById(presentationId).orElse(null);
 
-            if (existingPresentationOptional.isPresent()) {
-                Presentation existingPresentation = existingPresentationOptional.get();
-                existingPresentation.setPresentationTitle(updatedPresentation.getPresentationTitle());
+            if (existPresentation != null) {
+                existPresentation.setPresentationTitle(request.getPresentationTitle());
+                presentationService.updatePresentation(existPresentation);
 
-                Presentation updatedPresentationEntity = presentationService.updatePresentation(existingPresentation);
 
-                return new ResponseEntity<>("Presentation updated with ID: " + updatedPresentationEntity.getPresentationId(),
-                        HttpStatus.OK);
+                return ResponseEntity.ok().body(Message.success());
             } else {
-                return new ResponseEntity<>("Presentation not found with ID: " + presentationId, HttpStatus.NOT_FOUND);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Message.fail(String.valueOf(HttpStatus.NOT_FOUND), "Presentation not found with ID: " + presentationId));
             }
-        }catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<>("Error: Presentation title must be unique within a group.", HttpStatus.BAD_REQUEST);
+
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.ok().body(Message.fail(String.valueOf(HttpStatus.BAD_REQUEST), "Error: Presentation title must be unique within a group."));
         }
     }
 

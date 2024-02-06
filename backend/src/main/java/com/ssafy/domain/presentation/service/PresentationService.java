@@ -43,7 +43,6 @@ public class PresentationService {
 
     public Presentation createPresentation(Presentation presentation) {
         presentation.setPresentationCreateDate(Timestamp.valueOf(LocalDateTime.now()));
-        presentation.setPresentationIsActive(true);
         presentation.setPresentationIsDeleted(false);
 
         return presentationRepository.save(presentation);

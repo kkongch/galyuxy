@@ -1,8 +1,6 @@
 package com.ssafy.domain.classroom.controller;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.ssafy.domain.classroom.dto.TeacherDto;
 import com.ssafy.domain.classroom.dto.TeacherLoginActiveDto;
@@ -22,12 +20,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -45,14 +43,14 @@ public class TeacherController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping
-    ResponseEntity<List<TeacherRes>> getTeacherList() {
-        List<Teacher> teacherList = teacherService.getAll();
-        List<TeacherRes> teacherResList = teacherList.stream()
-                .map(TeacherRes::of)
-                .collect(Collectors.toList());
-        return new ResponseEntity<List<TeacherRes>>(teacherResList, HttpStatus.OK);
-    }
+//    @GetMapping
+//    ResponseEntity<List<TeacherRes>> getTeacherList() {
+//        List<Teacher> teacherList = teacherService.getAll();
+//        List<TeacherRes> teacherResList = teacherList.stream()
+//                .map(TeacherRes::of)
+//                .collect(Collectors.toList());
+//        return new ResponseEntity<List<TeacherRes>>(teacherResList, HttpStatus.OK);
+//    }
 
 
     @PutMapping("/{id}")
@@ -111,13 +109,13 @@ public class TeacherController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping()
     @PreAuthorize("hasAuthority('TEACHER')")
-    ResponseEntity<Message<TeacherDto>> getTeacher(@PathVariable("id") Integer id) {
-        Optional<Teacher> teacher = teacherService.getOne(id);
-        teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + id));
+    ResponseEntity<Message<TeacherDto>> getTeacher(@AuthenticationPrincipal TeacherLoginActiveDto teacherLoginActiveDto) {
+        Optional<Teacher> teacher = teacherService.getOne(teacherLoginActiveDto.getId());
+        teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + teacherLoginActiveDto.getId()));
         TeacherDto teacherDto = TeacherDto.builder()
-                .id(id)
+                .id(teacher.get().getId())
                 .name(teacher.get().getName())
                 .email(teacher.get().getEmail())
                 .role(Role.TEACHER)
