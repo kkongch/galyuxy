@@ -4,6 +4,7 @@ import { React, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import PresentationModal from './PresentationModal';
+import { getPresentationList } from 'api/PresentationApi';
 
 const ClassBox = styled.div`
   display: flex;
@@ -95,22 +96,19 @@ const PresentationList = () => {
     // DELETE /presentation/:presentationId
   };
 
+  const handleFetchPresentationList = async (groupId) => {
+    try {
+      const list = await getPresentationList(groupId);
+      setPresentationList(list);
+    } catch (error) {
+      console.error('Error fetching presentation list:', error);
+    }
+  };
+
   useEffect(() => {
-    // GET /presentation/:presentationId
-    setPresentationList([
-      {
-        presentationId: 1,
-        presentationTitle: '이순신 인터뷰',
-        presentationCreateDate: '2024-01-28T03:00:00.000+00:00',
-        presentation_is_active: 1,
-      },
-      {
-        presentationId: 2,
-        presentationTitle: '김현영 장군',
-        presentationCreateDate: '2024-01-28T04:30:00.000+00:00',
-        presentation_is_active: 0,
-      },
-    ]);
+    const groupId = 1;
+
+    handleFetchPresentationList(groupId);
   }, []);
 
   return (
