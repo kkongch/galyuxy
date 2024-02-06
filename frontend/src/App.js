@@ -8,7 +8,7 @@ import ClassPage from 'pages/class/ClassPage';
 import HeritageList from 'pages/heritage/HeritageList';
 import WorkBookList from 'pages/quiz/WorkBookList';
 import MainPage from 'pages/main/MainPage';
-
+import DrawingPage from 'pages/art/Drawing';
 import HeritageDetailPage from 'pages/heritage/HeritageDetailPage';
 import Heritage3D from 'pages/heritage/Heritage3D';
 import { RecoilRoot } from 'recoil';
@@ -37,6 +37,7 @@ function App() {
             <Route path='/presentation' element={<PresentationPage />} />
             <Route path='/room' element={<RoomPage />} />
             <Route path='/art' element={<Coloring />} />
+            <Route path='/drawing' element={<DrawingPage />} />
           </Routes>
         </div>
       </RecoilRoot>
