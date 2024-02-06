@@ -127,7 +127,6 @@ const PresentationList = () => {
   };
 
   useEffect(() => {
-    console.log(presentationIdToDelete);
     if (isDeleteClicked && presentationIdToDelete !== null) {
       handleDeletePresentation(presentationIdToDelete);
       setIsDeleteClicked(false);
@@ -139,7 +138,7 @@ const PresentationList = () => {
     const groupId = 1;
 
     handleGetPresentationList(groupId);
-  }, [isAddModalOpen, isRefactorModalOpen]);
+  }, []);
 
   return (
     <ClassBox>
