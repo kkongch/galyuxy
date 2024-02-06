@@ -4,7 +4,7 @@ import { Stage, Layer, Line, Text, Image, Rect } from 'react-konva';
 import styled from 'styled-components';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
 import Background from 'components/Basic/Background';
-
+import Konva from 'konva';
 const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -156,25 +156,41 @@ const Drawing = () => {
   };
 
   const saveImage = () => {
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = stageRef.current.width();
-    tempCanvas.height = stageRef.current.height();
-    const ctx = tempCanvas.getContext('2d');
+    // 새로운 Layer 생성
+    const saveLayer = new Konva.Layer();
 
-    // Konva 캔버스의 이미지를 임시 캔버스에 그림
-    const image = new window.Image(); // 'window.'를 사용하여 Image 생성자를 명시적으로 참조
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0);
-      // 임시 캔버스의 데이터 URL을 사용하여 이미지 저장 로직 진행
-      const dataURL = tempCanvas.toDataURL();
-      const link = document.createElement('a');
-      link.download = 'coloring-book.png';
-      link.href = dataURL;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-    image.src = stageRef.current.toDataURL();
+    // lines 배열을 순회하며 각 선이 Rect 내부에 있는지 확인 후 saveLayer에 추가
+    lines.forEach((line) => {
+      // 여기서는 간단히 모든 선을 saveLayer에 추가합니다.
+      // 실제로는 선이 Rect 내부에 있는지 확인하는 로직이 필요합니다.
+      const newLine = new Konva.Line({
+        points: line.points,
+        stroke: line.color,
+        strokeWidth: line.size,
+        globalCompositeOperation:
+          line.tool === 'eraser' ? 'destination-out' : 'source-over',
+      });
+      saveLayer.add(newLine);
+    });
+
+    // 임시로 stage에 saveLayer를 추가
+    stageRef.current.add(saveLayer);
+
+    // saveLayer를 사용해 이미지 데이터 생성
+    const dataURL = saveLayer.toDataURL({
+      pixelRatio: 3, // 이미지 품질을 높이기 위해 pixelRatio 조정
+    });
+
+    // 생성된 이미지 데이터를 사용하여 파일 다운로드
+    const link = document.createElement('a');
+    link.download = 'drawing.png';
+    link.href = dataURL;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // saveLayer 제거
+    saveLayer.destroy();
   };
 
   const handleBackClick = () => {
