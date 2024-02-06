@@ -7,6 +7,7 @@ import {
 } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
 import { presentationListState } from 'Recoil/PresentationState';
+import { createPresentation } from 'api/PresentationApi';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -107,6 +108,21 @@ const PresentationModal = ({ presentationId }) => {
     presentationListState
   );
 
+  const handleCreatePresentation = async () => {
+    try {
+      const presentationData = {
+        presentationTitle: presentationTitle,
+        group: {
+          id: 1,
+        },
+      };
+
+      const createdPresentation = await createPresentation(presentationData);
+    } catch (error) {
+      console.error('Error handleCreatePresentation:', error);
+    }
+  };
+
   useEffect(() => {
     const presentationWithId = presentationList.find(
       (item) => item.presentationId === presentationId
@@ -127,6 +143,7 @@ const PresentationModal = ({ presentationId }) => {
   const handleConfirm = () => {
     // PUT /presentation/:presentationId
 
+    if (isAddModalOpen && !isRefactorModalOpen) handleCreatePresentation();
     setIsAddModalOpen(false);
     setIsRefactorModalOpen(false);
   };

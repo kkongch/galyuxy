@@ -1,4 +1,7 @@
-import { isRefactorModalOpenState } from 'Recoil/ClassState';
+import {
+  isAddModalOpenState,
+  isRefactorModalOpenState,
+} from 'Recoil/ClassState';
 import { presentationListState } from 'Recoil/PresentationState';
 import { React, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -13,7 +16,7 @@ const ClassBox = styled.div`
   align-items: center;
   /* width: 79.1875rem; */
   width: 100%;
-  max-height: 40.4375rem;
+  max-height: 44.4375rem;
   overflow-y: auto;
   margin: 5rem 0;
 `;
@@ -74,19 +77,21 @@ const PresentationList = () => {
   const [presentationList, setPresentationList] = useRecoilState(
     presentationListState
   );
-  const [isModalOpen, setIsModalOpen] = useRecoilState(
+  const [isRefactorModalOpen, setIsRefactorModalOpen] = useRecoilState(
     isRefactorModalOpenState
   );
+  const [isAddModalOpen, setIsAddModalOpen] =
+    useRecoilState(isAddModalOpenState);
   const [selectedPresentationId, setSelectedPresentationId] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
 
-  const handleFetchPresentationList = async (groupId) => {
+  const handleGetPresentationList = async (groupId) => {
     try {
       const list = await getPresentationList(groupId);
       setPresentationList(list);
     } catch (error) {
-      console.error('Error handleFetchPresentationList: ', error);
+      console.error('Error handleGetPresentationList: ', error);
     }
   };
 
@@ -104,7 +109,7 @@ const PresentationList = () => {
   };
 
   const handleRefactorClassClick = (presentationId) => {
-    setIsModalOpen(true);
+    setIsRefactorModalOpen(true);
     setSelectedPresentationId(presentationId);
   };
 
@@ -133,12 +138,12 @@ const PresentationList = () => {
   useEffect(() => {
     const groupId = 1;
 
-    handleFetchPresentationList(groupId);
-  }, []);
+    handleGetPresentationList(groupId);
+  }, [isAddModalOpen, isRefactorModalOpen]);
 
   return (
     <ClassBox>
-      {isModalOpen && (
+      {isRefactorModalOpen && (
         <PresentationModal presentationId={selectedPresentationId} />
       )}
       {presentationList.map((presentationItem) => (

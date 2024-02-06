@@ -25,3 +25,16 @@ export const deletePresentation = async (presentationId) => {
     throw error;
   }
 };
+
+export const createPresentation = async (presentationData) => {
+  try {
+    const response = await api.post('/presentation', presentationData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error('Error createPresentation:', error);
+    throw error;
+  }
+};
