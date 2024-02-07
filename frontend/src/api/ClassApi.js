@@ -17,3 +17,15 @@ export const getClassList = async (accessToken) => {
     throw error;
   }
 };
+
+export const getStudentList = async (accessToken, groupId) => {
+  try {
+    const response = await api.get(`/group/detail/${groupId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data.dataBody;
+  } catch (error) {
+    console.error('Error getStudentList:', error);
+    throw error;
+  }
+};

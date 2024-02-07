@@ -74,11 +74,11 @@ const ClassList = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(
     isRefactorModalOpenState
   );
-  const [selectedGroupId, setSelectedGroupId] = useState(null);
+  const [selectedClassItem, setSelectedClassItem] = useState(null);
 
-  const handleRefactorClassClick = (groupId) => {
+  const handleRefactorClassClick = (classItem) => {
     setIsModalOpen(true);
-    setSelectedGroupId(groupId);
+    setSelectedClassItem(classItem);
   };
 
   const handleDeleteClassClick = (groupId) => {
@@ -97,7 +97,6 @@ const ClassList = () => {
     try {
       const list = await getClassList(accessToken);
       setClassList(list);
-      console.log(list);
     } catch (error) {
       console.error('Error handleGetClassList: ', error);
     }
@@ -109,7 +108,7 @@ const ClassList = () => {
 
   return (
     <ClassBox>
-      {isModalOpen && <ClassModal groupId={selectedGroupId} />}
+      {isModalOpen && <ClassModal classItem={selectedClassItem} />}
       {classList.map((classItem) => (
         <ClassItem key={classItem.id}>
           <ClassItemFirst>
@@ -135,9 +134,7 @@ const ClassList = () => {
             </ClassTitle>
           </ClassItemFirst>
           <ClassItemSecond>
-            <RefactorButton
-              onClick={() => handleRefactorClassClick(classItem.group.groupId)}
-            >
+            <RefactorButton onClick={() => handleRefactorClassClick(classItem)}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='55'
@@ -151,9 +148,7 @@ const ClassList = () => {
                 />
               </svg>
             </RefactorButton>
-            <DeleteButton
-              onClick={() => handleDeleteClassClick(classItem.group.groupId)}
-            >
+            <DeleteButton onClick={() => handleDeleteClassClick(classItem.id)}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='55'

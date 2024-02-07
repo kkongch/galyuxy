@@ -88,11 +88,11 @@ const StudentList = () => {
       <StudentInfoBox>
         {studentList.map((student) => (
           <StudentInfoItem
-            key={student.studentNo}
+            key={student.no}
             onClick={() => handleStudentItemClick(student)}
           >
-            <span>{student.studentNo}번&nbsp;</span>
-            <span>{student.studentName}</span>
+            <span>{student.no}번&nbsp;</span>
+            <span>{student.name}</span>
           </StudentInfoItem>
         ))}
       </StudentInfoBox>

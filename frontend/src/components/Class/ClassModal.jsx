@@ -9,6 +9,7 @@ import {
   studentListState,
 } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
+import { getStudentList } from 'api/ClassApi';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -155,7 +156,7 @@ const DeleteButton = styled.div`
   margin-left: 2rem;
 `;
 
-export const ClassModal = ({ groupId }) => {
+export const ClassModal = ({ classItem }) => {
   const [isAddModalOpen, setIsAddModalOpen] =
     useRecoilState(isAddModalOpenState);
   const [isRefactorModalOpen, setIsRefactorModalOpen] = useRecoilState(
@@ -165,20 +166,20 @@ export const ClassModal = ({ groupId }) => {
   const [studentNo, setStudentNo] = useState('');
   const [studentName, setStudentName] = useState('');
   const [studentList, setStudentList] = useRecoilState(studentListState);
-  const [classList, setClassList] = useRecoilState(classListState);
+
+  const handleGetStudentList = async (accessToken, classItem) => {
+    try {
+      const list = await getStudentList(accessToken, classItem.id);
+      setStudentList(list);
+      setGroupName(classItem.name);
+      console.log(list);
+    } catch (error) {
+      console.error('Error handleGetStudentList: ', error);
+    }
+  };
 
   useEffect(() => {
-    const groupWithId = classList.find(
-      (item) => item.group.groupId === groupId
-    );
-
-    if (groupWithId) {
-      setStudentList(groupWithId.student);
-      setGroupName(groupWithId.group.groupName);
-    } else {
-      setStudentList([]);
-      setGroupName('');
-    }
+    handleGetStudentList(sessionStorage.getItem('accessToken'), classItem);
   }, []);
 
   const handleCancel = () => {
