@@ -1,8 +1,12 @@
 package com.ssafy.domain.presentation.service;
 
+import com.ssafy.domain.presentation.entity.Presentation;
 import com.ssafy.domain.presentation.entity.Room;
+import com.ssafy.domain.presentation.repository.PresentationRepository;
 import com.ssafy.domain.presentation.repository.RoomRepository;
-import com.ssafy.domain.presentation.repository.StudentRoomRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,12 +16,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RoomService {
-    private final RoomRepository roomRepository;
+    @Autowired
+    private PresentationRepository presentationRepository;
 
-    public RoomService(RoomRepository roomRepository){
-        this.roomRepository = roomRepository;
-    }
+    @Autowired
+    private RoomRepository roomRepository;
 
     public List<Map<String, Object>> getRoomsByPresentationId(int presentationId){
         List<Room> rooms = roomRepository.findByPresentationPresentationIdAndRoomIsDeletedFalse(presentationId);
@@ -35,8 +40,10 @@ public class RoomService {
     }
 
     public Room createRoom(Room room){
-        room.setRoomIsDeleted(false);
-        room.setRoomScript(null);
+        Presentation presentation = presentationRepository.findById(room.getPresentation().getPresentationId())
+                .orElseThrow(() -> new EntityNotFoundException("Presentation not found"));
+
+        room.setPresentation(presentation);
 
         return roomRepository.save(room);
     }

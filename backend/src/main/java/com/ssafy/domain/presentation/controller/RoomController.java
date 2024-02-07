@@ -1,7 +1,6 @@
 package com.ssafy.domain.presentation.controller;
 
-import com.ssafy.domain.classroom.entity.Group;
-import com.ssafy.domain.classroom.entity.Student;
+import com.ssafy.domain.presentation.dto.RoomPresentationDto;
 import com.ssafy.domain.presentation.entity.Presentation;
 import com.ssafy.domain.presentation.entity.Room;
 import com.ssafy.domain.presentation.entity.StudentRoom;
@@ -9,7 +8,6 @@ import com.ssafy.domain.presentation.service.PresentationService;
 import com.ssafy.domain.presentation.service.RoomService;
 import com.ssafy.domain.presentation.service.StudentRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,12 +38,17 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createRoom(@RequestBody Room room){
+    public ResponseEntity<String> createRoom(@RequestBody RoomPresentationDto request){
+        System.out.println("qwerasf");
 
-        Presentation presentation = presentationService.getPresentationById(room.getPresentation().getPresentationId())
-                .orElseThrow(() -> new RuntimeException("Presentation not found with id: " + room.getPresentation().getPresentationId()));
+        Room room = Room.builder()
+                .roomId(request.getRoomId())
+                .roomSubject(request.getRoomSubject())
+                .presentation(Presentation.builder().presentationId(request.getPresentation().getPresentationId()).build())
+                .build();
 
-        room.setPresentation(presentation);
+        System.out.println("room: " + room);
+
         Room createdRoom = roomService.createRoom(room);
 
         return new ResponseEntity<>("Room created with ID: " + createdRoom.getRoomId(), HttpStatus.CREATED);
