@@ -91,6 +91,17 @@ const LoginPage = () => {
 
       const response = await teacherLogin(loginData);
 
+      console.log(response.dataBody.token);
+
+      sessionStorage.setItem(
+        'accessToken',
+        response.dataBody.token.accessToken
+      );
+      sessionStorage.setItem(
+        'refreshToken',
+        response.dataBody.token.refreshToken
+      );
+
       setIsLoggedIn(true);
     } catch (error) {
       console.error('Error handleTeacherLogin:', error);
@@ -99,7 +110,9 @@ const LoginPage = () => {
 
   const handleConfirm = () => {
     handleLogin();
-    navigate('/class');
+    if (isLoggedIn) {
+      navigate('/class');
+    }
   };
 
   return (
