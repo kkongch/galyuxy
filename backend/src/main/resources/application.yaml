@@ -20,7 +20,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop 
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
@@ -54,6 +54,9 @@ application:
   bucket:
     name: galyuxy
 
+openvidu:
+  url: http://localhost:4443/
+  secret: T1BFTlZJRFVBUFA6TVlfU0VDUkVU
 jwt:
   secret-key:
     access: TestAccessKey111111122222222223333333333333aaaaaaaaabbbbbbbbccccccccdddddddddfqwrqwfqwifjaisfjoihfoiqwflasjdglkkjasdlgjlkasdgjiowejgliasjglasjdgio

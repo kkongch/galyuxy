@@ -5,7 +5,7 @@ import com.ssafy.domain.classroom.dto.TeacherLoginReqDto;
 import com.ssafy.domain.classroom.dto.TeacherMapper;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.entity.enums.Role;
-import com.ssafy.domain.classroom.exception.TeacherException;
+import com.ssafy.domain.classroom.exception.ClassroomException;
 import com.ssafy.domain.classroom.repository.TeacherRepository;
 import com.ssafy.domain.classroom.request.TeacherReq;
 import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
@@ -84,12 +84,12 @@ public class TeacherServiceImpl implements TeacherService {
     public TokenTeacherInfoDto loginCheckTeacher(TeacherLoginReqDto teacherLoginReqDto) {
         TeacherDto teacher = this.getByEmail(teacherLoginReqDto.getEmail());
         if(teacher == null) {
-            throw new TeacherException("이메일을 가진 회원을 찾을 수 없음");
+            throw new ClassroomException("이메일을 가진 회원을 찾을 수 없음");
         }
 
         //패스워드 디코딩 후 비교
         if(!passwordEncoder.matches(teacherLoginReqDto.getPassword(), teacher.getPassword())) {
-            throw new TeacherException("비밀번호가 일치하지 않음");
+            throw new ClassroomException("비밀번호가 일치하지 않음");
         }
 
         return TokenTeacherInfoDto.builder()
@@ -120,11 +120,19 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public int emailDuplicateCheck(String email) {
+        int emailCheck = teacherRepository.countByEmail(email);
+        if(emailCheck == 1)
+            throw new ClassroomException("이미 사용중인 메일입니다.");
+        return emailCheck;
+    }
+
+    @Override
     public void logout(String email) {
         try {
             refreshRepository.delete(email);
         } catch(Exception e) {
-            throw new TeacherException("이미 로그아웃됨");
+            throw new ClassroomException("이미 로그아웃됨");
         }
     }
 

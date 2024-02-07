@@ -27,6 +27,8 @@ public interface TeacherService {
 
     void signUp(TeacherDto teacherDto);
 
+    int emailDuplicateCheck(String email);
+
     void logout(String email);
 
     Optional<Teacher> getOne(Integer id);

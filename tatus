@@ -1,0 +1,1653 @@
+[33mcommit 079a885ffd17f737b869a638b463e2933a48ac4f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/group[m[33m)[m
+Author: 김현영 <hggew@naver.com>
+Date:   Wed Feb 7 10:07:40 2024 +0900
+
+    feat: 큻래스 삭제 + 학생 삭제 api 완료
+
+[33mcommit 60199f89a5705f0c7e1d29096a99b2ae61ccb968[m[33m ([m[1;31morigin/feature/group[m[33m)[m
+Author: 김현영 <hggew@naver.com>
+Date:   Wed Feb 7 02:09:18 2024 +0900
+
+    feat: 클래스 수정 + 학생 수정api 완료
+
+[33mcommit d0f234e949888551e9496cbf2235e057833761c1[m
+Author: 김현영 <hggew@naver.com>
+Date:   Wed Feb 7 01:35:11 2024 +0900
+
+    feat: heritage entity content 컬럼 길이 수정
+
+[33mcommit bccfe8f0f57697388189ffc8e5a8262a1ca5c1c9[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 1722cd0 7e5ea47
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Feb 6 23:31:42 2024 +0900
+
+    Merge branch 'develop-distribution' into 'develop'
+    
+    fix: spring.jpa.hibernate.ddl-auto: update & CORS
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!54
+
+[33mcommit 7e5ea47cd8e0cb222c888d5725bf647f7862aec6[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Feb 6 23:31:11 2024 +0900
+
+    fix: spring.jpa.hibernate.ddl-auto: update & CORS
+
+[33mcommit 1722cd05a8f6136844a9a7738a23a62ef2fde0ca[m
+Merge: 69dab53 8ff3249
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Feb 6 23:14:13 2024 +0900
+
+    Merge branch 'feature/group' into 'develop'
+    
+    Feature/group
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!53
+
+[33mcommit 8ff3249b0cd0704c7297bcca18e3a7253900353d[m
+Merge: be56e50 69dab53
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Feb 6 23:13:42 2024 +0900
+
+    feat: application.yaml sql 설정변경
+
+[33mcommit be56e50e87214cc73cb0b0da73364e676c631eed[m
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Feb 6 21:54:05 2024 +0900
+
+    feat: 그룹 수정, 학생 수정 진행중
+
+[33mcommit fc56270d301dd3e6f9a6c78231af0b31b54574ff[m
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Feb 6 17:47:18 2024 +0900
+
+    feat: 그룹 수정, 삭제 메서드 추가
+
+[33mcommit 69dab530e47035b64d6e040a12f28482dd9e59e4[m
+Merge: 7244efd 076f962
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Feb 6 16:34:23 2024 +0900
+
+    Merge branch 'feature/group' into 'develop'
+    
+    Feature/group
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!51
+
+[33mcommit 076f9627fcd39fc977b1c6d2bd59be0c10f79544[m
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Feb 6 16:32:37 2024 +0900
+
+    fix: presentation post, put api 수정
+
+[33mcommit 7244efd5ef45d67f66e078dd04e3c64a91cbb0ff[m
+Merge: 8a856c4 ce39a00
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 15:17:17 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into develop
+
+[33mcommit 8a856c4997457c61479eeaa377f65715fc38a563[m[33m ([m[1;31morigin/feature/presentation-connection[m[33m)[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 15:16:43 2024 +0900
+
+    feat: 연극 및 발표 활동명 변경
+    
+    PUT /presentation/{presentationId}
+
+[33mcommit 6f0773b841cd6c4d8036862818d746ff3890068d[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 15:05:19 2024 +0900
+
+    feat: 연극 및 발표 활동 생성
+    
+    POST /presentation
+
+[33mcommit ce39a00f1e7b2fe089e9aa46576ac0f85ee5deb9[m
+Merge: 5cf51a3 32e8a26
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 14:44:11 2024 +0900
+
+    Merge branch 'feature/savedrawing' into 'develop'
+    
+    Feature/savedrawing
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!50
+
+[33mcommit 32e8a26c0823c806c22244e21d184ea6be810ed3[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 14:42:51 2024 +0900
+
+    feat : 드로잉 저장기능 수정
+
+[33mcommit 6b217b4c5bfdf78493543313d9221c79dfe4262c[m
+Merge: 0c3bb85 5cf51a3
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 14:11:17 2024 +0900
+
+    충돌해결
+
+[33mcommit 0c3bb85681787d62ceda7e11697d90420a5c86c6[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 14:06:26 2024 +0900
+
+    pull from develop
+
+[33mcommit 5cf51a3a607dd7d0e9169f67d3282c8dcd418924[m
+Merge: e6c15f6 6434016
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 13:37:39 2024 +0900
+
+    Merge branch 'feature/DrawingpageModify' into 'develop'
+    
+    feat : Rect안에 있는 그림만 저장되게 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!49
+
+[33mcommit 6434016f4c0948f69f59ed1796354d445b7e4e4f[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 13:37:05 2024 +0900
+
+    feat : Rect안에 있는 그림만 저장되게 수정
+
+[33mcommit e6c15f6be8bb93f48de6cb492fb6657892792ecb[m
+Merge: dfa7145 7e0c227
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 11:58:09 2024 +0900
+
+    Merge branch 'feature/DrawingPage' into 'develop'
+    
+    feat : 드로잉페이지 구현
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!48
+
+[33mcommit 7e0c22736a932e09ec51289c0b352e377bb80357[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 11:57:34 2024 +0900
+
+    feat : 드로잉페이지 구현
+
+[33mcommit dfa71452e14e6b6ce00b3d4bf25495109ace80cd[m
+Merge: 21c635d 2ffbba7
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 11:43:26 2024 +0900
+
+    Merge branch 'feature/Coloringpage' into 'develop'
+    
+    Coloringpage css 수정 및 다양한 버튼 추가 및 저장기능 구현
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!47
+
+[33mcommit 2ffbba7a3357deb225508f4c088734e361f8393d[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 11:42:43 2024 +0900
+
+    Coloringpage css 수정 및 다양한 버튼 추가 및 저장기능 구현
+
+[33mcommit a7fd186042949ca1c722c7758aea1d76297f689a[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 10:30:34 2024 +0900
+
+    feat: 연극 및 발표 활동 삭제
+    
+    /presentation/:presentationId
+
+[33mcommit 62cabb68fcf386a1d5d30dd217af26084fdf8edc[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 10:01:48 2024 +0900
+
+    feat: 연극 및 발표 활동 목록 출력
+    
+    GET /presentation/:groupId
+
+[33mcommit 21c635df371b2dfb076f72c69b3bb7bffc9800be[m
+Merge: 713fe39 532690c
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 01:22:40 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into develop
+
+[33mcommit 713fe39b65cfd454bb112b64fd6fd1578a74e90f[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 01:19:27 2024 +0900
+
+    feat: 비밀번호 변경 페이지 layout
+
+[33mcommit 532690c4294a1fd0848f31dbbc1477ba7e1ec5e4[m
+Merge: de134f2 f22479e
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 00:52:04 2024 +0900
+
+    Merge branch 'feature/drawingcss' into 'develop'
+    
+    feat : 컬러링북 페이지 일부 완성 및 css 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!46
+
+[33mcommit f22479e712cf86c389243309c57d07784ea48183[m
+Merge: a2c6520 de134f2
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 00:51:37 2024 +0900
+
+    Merge branch 'develop' into 'feature/drawingcss'
+    
+    # Conflicts:
+    #   frontend/src/App.js
+
+[33mcommit a2c6520b0f9ccd4e8d83faf1840c42f00ed86cc7[m
+Author: kkongch <dhwjdals1324@gmail.com>
+Date:   Tue Feb 6 00:50:26 2024 +0900
+
+    feat : 컬러링북 페이지 일부 완성 및 css 수정
+
+[33mcommit fe722a06b7c361d47fd607cd3e7d165f768e8c79[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Feb 6 00:24:24 2024 +0900
+
+    fix: 교사 방목록 페이지 수정
+    
+    ??를 && 연산자로 수정
+
+[33mcommit 6fd2bbe24d38558fe9b8fd4880b0081b3308a5b3[m
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Feb 6 00:24:11 2024 +0900
+
+    feat: 클래스생성 + 학생 추가 api 구현 중
+
+[33mcommit 2130a7e2a62962e1f8e2563dc01e2d11d7a29cb8[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 23:57:38 2024 +0900
+
+    feat: 회원가입 페이지 layout
+
+[33mcommit 3d5013da1b03a55b947c1855502ca53956eb775e[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 23:57:25 2024 +0900
+
+    refactor: props로 text 받기
+
+[33mcommit f52ee65df187a11f3bae95eb4268148cacfde5e3[m
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 23:26:56 2024 +0900
+
+    refactor: 교사 정보 조회 api 리팩토링
+
+[33mcommit 99f57b4a341892621c10664f72a17152beaf8ade[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 23:14:46 2024 +0900
+
+    refactor: LargeButton 컴포넌트 분리
+
+[33mcommit 9c6a62e7c144d7f33ddfee1eddfaee1bdb6958b9[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 23:03:00 2024 +0900
+
+    feat: 로그인 페이지 layout
+
+[33mcommit 5985cc5bf8cd8ea45ea5dfab25346715787eb826[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 22:58:48 2024 +0900
+
+    design: input padding 조정
+
+[33mcommit 5b1eac905b6e44a0952a50c9ee2e42fd0e6df130[m
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 22:18:51 2024 +0900
+
+    feat: 교사의 클래스 목록 조회 api 구현
+
+[33mcommit f1908c00b8513130d540db075a81966a86ea6bb6[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 22:02:43 2024 +0900
+
+    feat: 회원 페이지 input component 제작
+
+[33mcommit 9ae7364457e1172848af2b4a832597a86fcaa828[m
+Merge: 9268dab de134f2
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 21:34:35 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into feature/group
+
+[33mcommit de134f2040a2866aad22067cc5d7d2e954e1a630[m[33m ([m[1;32mdevelop[m[33m)[m
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 21:32:48 2024 +0900
+
+    refactor: group service 인터페이스 추가, presentation controller annotation 추가
+
+[33mcommit a916df53364fc33924b662dd0ef14515a632a775[m
+Merge: 9ab7c34 bb47178
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 21:06:48 2024 +0900
+
+    Merge branch 'feature/user' into 'develop'
+    
+    Merge from Feature/user into develop
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!45
+
+[33mcommit 9268dab843221831f425f1b857c7db0dc1b83453[m[33m ([m[1;32mfeature/user[m[33m)[m
+Merge: bb47178 9ab7c34
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 21:04:51 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into feature/user
+
+[33mcommit bb471780f56e5405ba5c801b9d4f0b7387691ee9[m[33m ([m[1;31morigin/feature/user[m[33m)[m
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 20:59:29 2024 +0900
+
+    feat: 로그아웃, 교사 정보 가져오기api  구현
+
+[33mcommit 9ab7c346678022dcf528e31d1f5994fb9271e489[m
+Merge: 6fd0afe e2c15a2
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 20:10:52 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into develop
+
+[33mcommit 6fd0afe497bd93e2c73157816a369da509baa077[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 20:10:23 2024 +0900
+
+    feat: 시작, 종료 버튼 토글
+
+[33mcommit 397c77d2cf85a04a67a6eec499545e8be8e074af[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 20:05:13 2024 +0900
+
+    feat: 사용자 유형에 따른 화면 전환
+    
+    학생 사용자는 입장 버튼만 보이게 함
+
+[33mcommit 40bfe778fcc4b726ac2644a0a0d32b40f47512ae[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 20:00:30 2024 +0900
+
+    feat: 방 주제 보여주기, 사용자 유형에 따른 화면 전환
+
+[33mcommit a1fe1acd703f7ba8e3355fcdf77abb75430d7893[m
+Author: 김현영 <hggew@naver.com>
+Date:   Mon Feb 5 17:22:12 2024 +0900
+
+    feat: 로그인, 회원가입 api 구현
+
+[33mcommit 6acea4d8dd926f3bc557d56dbd41baa2bbd01dc2[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 16:34:02 2024 +0900
+
+    feat: 페이지 경로 추가
+    
+    /room
+
+[33mcommit 4d0d2e69c0d4a2f539db69ac008a4cbb128373ec[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 16:33:18 2024 +0900
+
+    refactor: 버튼 크기 조정 및 불필요한 코드 삭제
+
+[33mcommit b42aa1a3da76ef79650c9c84ef8ae1539ee7e638[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 16:32:57 2024 +0900
+
+    feat: 방 CRD
+
+[33mcommit e2c15a257b72932034eef06b0bfda4b760502df8[m
+Merge: ed8dbdd 530d05e
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Feb 5 12:05:33 2024 +0900
+
+    Merge branch 'feature/QRnavbar' into 'develop'
+    
+    feat : navbar에 QRcode 추가
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!44
+
+[33mcommit 530d05ee09b023753408980c27b180e40e0df9e4[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Feb 5 12:04:54 2024 +0900
+
+    feat : navbar에 QRcode 추가
+
+[33mcommit ed8dbdd1612fa28a078e0cd38aeac01fb3c67d9c[m
+Merge: ad09f7b 39c3d96
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Feb 5 11:40:09 2024 +0900
+
+    Merge branch 'feature/drawing' into develop
+
+[33mcommit 39c3d96173759c2aa364dcb34a0e6cbb50112517[m[33m ([m[1;31morigin/feature/drawing[m[33m)[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Feb 5 11:33:52 2024 +0900
+
+    feat : 드로잉북 생성
+
+[33mcommit ad09f7bde8bf72f8b8346d3fee52b2149ed268ee[m
+Merge: 366ff46 0ddd498
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 11:28:11 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into develop
+
+[33mcommit 366ff46d2f1f4b772dc054103b0d78f6efa44279[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 11:27:13 2024 +0900
+
+    refactor: 경로 삭제
+
+[33mcommit ce2d8675af2841b2d4ce370b4600845ec89fb702[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 11:25:20 2024 +0900
+
+    remove: 불필요한 파일 삭제
+
+[33mcommit 91f908d2db6efecb9de1c3aa2a7b68b9856d8f95[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Feb 5 11:18:27 2024 +0900
+
+    feat: 활동 목록 CRUD
+
+[33mcommit 0ddd498340e0d8a188e7d71cf2dc054a0d38ac3d[m
+Merge: 8505858 85fb438
+Author: 조형찬 <bd3945@naver.com>
+Date:   Mon Feb 5 10:15:08 2024 +0900
+
+    Merge branch 'feature/CSS' into 'develop'
+    
+    feat: CSS 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!42
+
+[33mcommit 85fb43840a8453c7364eebac505ed6b3e2a9534f[m[33m ([m[1;31morigin/feature/CSS[m[33m)[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Mon Feb 5 10:12:46 2024 +0900
+
+    feat: CSS 네비바 수정
+
+[33mcommit 6c81cd15f437fb151d9dd63166599ed656aa5775[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Mon Feb 5 10:12:26 2024 +0900
+
+    feat: CSS 네비 프로필 버튼
+
+[33mcommit 850585888639c166fc16cb816ee39ec87c53e819[m
+Merge: ed622a7 1502478
+Author: 조형찬 <bd3945@naver.com>
+Date:   Mon Feb 5 08:48:30 2024 +0900
+
+    Merge branch 'feature/CSS' into 'develop'
+    
+    feat : CSS 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!41
+
+[33mcommit 150247868a5075798e5ddff99838fff81719f416[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Mon Feb 5 08:46:18 2024 +0900
+
+    feat : CSS 이미지 교체
+
+[33mcommit 2be8562dd209f1c821446801d94926f373b062f3[m
+Author: 김현영 <hggew@naver.com>
+Date:   Sun Feb 4 22:38:09 2024 +0900
+
+    feat: redis, jwt, security 추가
+
+[33mcommit fe01af763df2228d61a8b8c33c2d5cddad596a03[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Sun Feb 4 17:54:11 2024 +0900
+
+    feat : CSS 탭아이콘
+
+[33mcommit 5723196299bb044a962522cb2b897d34936c27e3[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Sun Feb 4 17:45:30 2024 +0900
+
+    feat : CSS 이미지 수정
+
+[33mcommit ed622a7f88b87fbdfac2f756430607afb312374a[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sun Feb 4 17:13:33 2024 +0900
+
+    fix: 페이지 경로 수정
+
+[33mcommit 97debefeb614afa537e67f62a0d1cd30ebdd1f11[m
+Merge: d51b9a1 0f8f693
+Author: 조형찬 <bd3945@naver.com>
+Date:   Sun Feb 4 17:10:04 2024 +0900
+
+    Merge branch 'feature/css-refactor' into 'develop'
+    
+    feat : CSS 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!40
+
+[33mcommit 0f8f693311dff868cd360ab7be1a1f6168e48273[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Sun Feb 4 17:04:59 2024 +0900
+
+    feat : CSS 네비 수정
+
+[33mcommit 7684341128cea6768fa2d52eb9341d4e7ac324c2[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Sun Feb 4 17:04:33 2024 +0900
+
+    feat : CSS 이미지 수정
+
+[33mcommit ba1193843f8d76c57fba56bec2bde0f6a8667c2e[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Sun Feb 4 17:04:05 2024 +0900
+
+    feat : CSS 메인화면 수정
+
+[33mcommit d51b9a1e7e2fe3822882d2c611557c3ca6d2b8ff[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sun Feb 4 16:44:08 2024 +0900
+
+    refactor: 불필요한 파일 삭제 및 폴더 이동
+
+[33mcommit f2ab8eb555040ea727df499e3deaec1f997e0610[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sun Feb 4 16:27:13 2024 +0900
+
+    style: 세미클론 추가
+
+[33mcommit 736bb41d7ff1956e2dafcfec4f8c8d9e3cda9c68[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sun Feb 4 16:19:41 2024 +0900
+
+    design: 클래스 페이지 css 변경
+
+[33mcommit e649c21dab7b7441c7fe5f1a56107832f6bf5be3[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sun Feb 4 16:18:18 2024 +0900
+
+    feat: heritage 상태 설정
+
+[33mcommit cb24c15a1ebb9d0aa1eb7b219d64ff9c4b2078d4[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sun Feb 4 16:00:54 2024 +0900
+
+    feat: 버튼 클릭 시 페이지 이동
+    
+    목록 보기, 3D 관람 버튼
+
+[33mcommit 0b863ad26c65801fd506048ff57b71ff45761df6[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sun Feb 4 15:51:37 2024 +0900
+
+    feat: 문화유산 상세페이지 layout
+
+[33mcommit e25bea1908396683a832023c7e64f9bb2050e69f[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 20:42:26 2024 +0900
+
+    feat: 학생 메인페이지 입장 기능
+
+[33mcommit ac69cb262665e43f02bbe398e090dacc8733372a[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 20:11:56 2024 +0900
+
+    feat: 학생 클래스 페이지 생성
+
+[33mcommit 9cdfac996211a0571121999d627b25049f711e92[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 20:02:28 2024 +0900
+
+    design: 클래스 목록 width 변경
+
+[33mcommit 55b793506be8591e8296604e340d23a2cb918a95[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 20:01:19 2024 +0900
+
+    refactor: 학생 목록 분리
+
+[33mcommit 6156d699bc2f271c71f411eed3a25ba525dfd1e2[m
+Merge: 4aa5360 725c3d4
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 17:37:00 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into develop
+
+[33mcommit 4aa5360dc70ee2a31291c2a91dea66e41b2ba3cd[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 17:35:09 2024 +0900
+
+    feat: 클래스 삭제 시 confirm 창 추가
+
+[33mcommit b256c1c7837cc3cf38335094c3fcc9496c710e6c[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 17:32:32 2024 +0900
+
+    feat: 클래스 삭제 기능
+
+[33mcommit 35b4ac767fc0f1befbcae260ff1ddbc8f521a44c[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 17:26:32 2024 +0900
+
+    design: 배경 삽입 및 클래스 css 수정
+
+[33mcommit a80cc54f74037de5ce11279dbd37db5f7e7f70c5[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 17:04:14 2024 +0900
+
+    refactor: 불필요한 코드 삭제
+
+[33mcommit 3c75a2c2d15510a46b9bfaa20b0a396ab55580a0[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 17:03:58 2024 +0900
+
+    design: input ui 변경
+    
+    placeholder, outline 색상 추가
+
+[33mcommit 02ea80c651a7cc41d2a172e39eccf63fe3dba6f9[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 16:56:27 2024 +0900
+
+    feat: 클래스 수정 기능
+
+[33mcommit 3d26e6e5a6369cf591ee1751483acb967c15b67e[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 15:44:09 2024 +0900
+
+    refactor: classState, studentListState 값 수정
+
+[33mcommit c5ecff9f9caf7647224f0b290d033a1bf807ac9e[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Sat Feb 3 00:15:57 2024 +0900
+
+    feat: 클래스 학생 추가
+
+[33mcommit ecee9152d1ac2834f4f31d18cbe774bf1215fa68[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Fri Feb 2 23:58:06 2024 +0900
+
+    feat: class modal 열고 닫기 기능
+
+[33mcommit 725c3d4d87e30e488e4b6dd0880f932a8800a20b[m
+Merge: 0787648 cf29202
+Author: 오기선 <pakox123@gmail.com>
+Date:   Fri Feb 2 23:56:36 2024 +0900
+
+    Merge branch 'feature/Presentation' into 'develop'
+    
+    feat : presentation
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!38
+
+[33mcommit cf29202bfbeb17b5fcfe75e465e0c19df99257d4[m
+Author: 오기선 <pakox123@gmail.com>
+Date:   Fri Feb 2 23:55:41 2024 +0900
+
+    feat : presentation
+
+[33mcommit 0787648e7e345c1d918c1230f34603e56d06652b[m
+Author: 오기선 <pakox123@gmail.com>
+Date:   Fri Feb 2 23:17:27 2024 +0900
+
+    feat : 역활극페이지 개발
+
+[33mcommit 3672e755a06310bbf977ec8a940f3715ccd9083c[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Fri Feb 2 16:54:48 2024 +0900
+
+    feat: 클래스 모달 layout 생성
+
+[33mcommit ebe6bf35c336b78d9948955001186dcc37826eec[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Fri Feb 2 16:54:02 2024 +0900
+
+    feat: 불필요한 코드 삭제
+
+[33mcommit f6302a2895bb86fdfa400a7afac1f1818ac26bcc[m
+Merge: 37f6638 5a123c3
+Author: 조형찬 <bd3945@naver.com>
+Date:   Fri Feb 2 16:46:08 2024 +0900
+
+    Merge branch 'feature/css-refactor' into 'develop'
+    
+    Feature/CSS refactor
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!37
+
+[33mcommit 5a123c33b3dba29ce06fa7dbc8f4300d14f6ebb4[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Fri Feb 2 16:44:25 2024 +0900
+
+    feat : CSS 메인페이지 수정
+
+[33mcommit e85f99a05a16a7638ef3673d1523948b229765c5[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Fri Feb 2 16:43:55 2024 +0900
+
+    feat : CSS 이미지 수정
+
+[33mcommit 37f663831a0c052cb5c634f16cc83487ffebbf33[m
+Merge: a94bdc1 75a09af
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Fri Feb 2 16:26:13 2024 +0900
+
+    Merge branch 'feature/QRcode' into 'develop'
+    
+    QR코드 생성 및 QR코드 모달 생성
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!36
+
+[33mcommit 75a09af8831498c128c109b57a495a2b87e9e0cc[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Fri Feb 2 16:25:35 2024 +0900
+
+    QR코드 생성 및 QR코드 모달 생성
+
+[33mcommit a94bdc190423391cfb90e4e65871fd967dbb1344[m
+Merge: 00ff2e0 396e722
+Author: nayeon <kknyapple@gmail.com>
+Date:   Fri Feb 2 14:34:04 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into develop
+
+[33mcommit 00ff2e05cc98b622bba59081a341b437313bfe10[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Fri Feb 2 14:29:07 2024 +0900
+
+    feat: 클래스 layout 및 dummy date 삽입
+
+[33mcommit 2b684b70aacf12f374dcfdefb5ece69584f16527[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Fri Feb 2 14:25:33 2024 +0900
+
+    feat: classListState atom 생성
+    
+    교사 사용자가 이전에 생성했던 모든 클래스 목록
+
+[33mcommit 8996293d3357cd45e75f2ae0f1b5e29660b9192d[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Fri Feb 2 14:23:58 2024 +0900
+
+    style: 폰트 설정
+
+[33mcommit 8e184fbccf06019781f027bff16846ec62148944[m
+Author: 김현영 <hggew@naver.com>
+Date:   Fri Feb 2 10:43:07 2024 +0900
+
+    merge from develop
+
+[33mcommit 396e72210f0c11733ce241e8708fef0a61d9717f[m
+Merge: c106ea1 bb72186
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Fri Feb 2 10:37:43 2024 +0900
+
+    Merge branch 'feature/group' into 'develop'
+    
+    fix: [BE] Group
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!34
+
+[33mcommit bb72186d6dc8a1e86636ea0084649c0744b3eb3d[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Fri Feb 2 10:37:11 2024 +0900
+
+    fix: [BE] Group
+
+[33mcommit c106ea181884c578be68a716e0e8d3e5fe700e94[m
+Merge: a9d6b46 74d853a
+Author: 김현영 <hggew@naver.com>
+Date:   Thu Feb 1 22:46:24 2024 +0900
+
+    Merge branch 'feature/user' into 'develop'
+    
+    fix: merge 후 student entity, ArtworkResultMapper 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!33
+
+[33mcommit 74d853a12c5d2f6e591483cc209a61fbd5f0c540[m
+Author: 김현영 <hggew@naver.com>
+Date:   Thu Feb 1 22:45:47 2024 +0900
+
+    fix: merge 후 student entity, ArtworkResultMapper 수정
+
+[33mcommit a9d6b46593f5656fef16292747dd1d07000ded7e[m
+Merge: c0e8fe5 4355837
+Author: giseon <pakox123@gmail.com>
+Date:   Thu Feb 1 22:42:32 2024 +0900
+
+    feat : 클래스페이지
+
+[33mcommit 4355837e971da99c25d72f65a9fdfe8b40dccb37[m
+Author: giseon <pakox123@gmail.com>
+Date:   Thu Feb 1 22:40:49 2024 +0900
+
+    feat : 클래스페이지 제작
+
+[33mcommit fe0742405fbc4384e9b6a62283e580cd7685e368[m
+Merge: 4280bf5 fb417f2
+Author: 김현영 <hggew@naver.com>
+Date:   Thu Feb 1 22:36:25 2024 +0900
+
+    Merge branch 'feature/heritage' into 'develop'
+    
+    merge from feature/heritage into develop
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!32
+
+[33mcommit fb417f29cee81493193cacf5180499ef1792cbc9[m
+Merge: 7ec43ad 4280bf5
+Author: 김현영 <hggew@naver.com>
+Date:   Thu Feb 1 22:36:17 2024 +0900
+
+    Merge branch 'develop' into 'feature/heritage'
+    
+    # Conflicts:
+    #   backend/src/main/java/com/ssafy/domain/classroom/entity/Student.java
+    #   backend/src/main/resources/application.yaml
+
+[33mcommit 4280bf5a0803edf7cd9ec9224c7512fbc2f4dce3[m
+Merge: de090e3 63372d2
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Thu Feb 1 22:28:42 2024 +0900
+
+    Merge branch 'feature/quiz' into 'develop'
+    
+    feat: [BE] 퀴즈 결과 저장
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!31
+
+[33mcommit 63372d2476b8aeeb4f9156790764af87456c13a1[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Thu Feb 1 22:28:22 2024 +0900
+
+    feat: [BE] 퀴즈 결과 저장
+
+[33mcommit 7ec43ad8e3cd7c1e111efee5747024eb32adb349[m
+Author: 김현영 <hggew@naver.com>
+Date:   Thu Feb 1 22:23:02 2024 +0900
+
+    comment: heritage controller 주석 추가
+
+[33mcommit de090e31bc90ae1cf229218b18402511dc6815ee[m
+Author: giseon <pakox123@gmail.com>
+Date:   Thu Feb 1 20:36:36 2024 +0900
+
+    feat:클래스
+
+[33mcommit 05ff94c7f472899aff69e2e41cb5983b5cc92f64[m
+Merge: c0e8fe5 f50c40e
+Author: 김나연 <kknyapple@gmail.com>
+Date:   Thu Feb 1 20:14:52 2024 +0900
+
+    Merge branch 'feature/room-entity-fix' into 'develop'
+    
+    merge
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!29
+
+[33mcommit c0e8fe5148b39fd96e8093bc63adf84f48eb4489[m
+Merge: 1a74ca2 f64bfa4
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Thu Feb 1 17:56:25 2024 +0900
+
+    Merge branch 'feature/quiz' into 'develop'
+    
+    feat : quiz 메인화면 및 3d모델 css 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!28
+
+[33mcommit f64bfa4686fb3f1808a348b62a84780a28db668f[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Thu Feb 1 17:55:20 2024 +0900
+
+    feat : quiz 메인화면 및 3d모델 css 수정
+
+[33mcommit 1a74ca2438874446c96450718aa462131a6ef899[m
+Merge: d0b1624 77896e4
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 17:54:15 2024 +0900
+
+    Merge branch 'feature/css' into 'develop'
+    
+    Feature/CSS
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!27
+
+[33mcommit 77896e444485a7f7a8cf1a736f3098dde1ad60cc[m
+Merge: 7fecd98 d0b1624
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 17:54:07 2024 +0900
+
+    Merge branch 'develop' into 'feature/css'
+    
+    # Conflicts:
+    #   frontend/src/pages/heritage/Heritage3D.jsx
+
+[33mcommit 7fecd98971e3a88a1d72878304e892285ad67df3[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 17:44:10 2024 +0900
+
+    feast : CSS 페이지 수정
+
+[33mcommit 9ce73931ad6cdea990fc310c7f076344bd7e17d9[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 17:41:53 2024 +0900
+
+    feat : CSS 네비바
+
+[33mcommit e6b5cd8acf12656688f04e89cc94cb626376f834[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 17:39:05 2024 +0900
+
+    feat :  CSS 이미지
+
+[33mcommit f50c40e344b057c8adebb9d4f8437c4f4461835a[m[33m ([m[1;31morigin/feature/room-entity-fix[m[33m)[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Thu Feb 1 15:51:39 2024 +0900
+
+    fix: room_id 컬럼 String 타입으로 수정
+    
+    room_id 값을 autoincreament가 아닌 sesseionId 값으로 바꿈
+
+[33mcommit d0b1624ae8ccd965752138beff1df50b57d0ab61[m
+Merge: 2cf9876 c6c792c
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Thu Feb 1 15:25:49 2024 +0900
+
+    Merge branch 'feature/quiz' into 'develop'
+    
+    fix: [BE] Merge Request
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!26
+
+[33mcommit c6c792c66161b78f0e23f53d59662062248f8c66[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Thu Feb 1 15:25:09 2024 +0900
+
+    fix: [BE] Merge Request
+
+[33mcommit 46e82c663a819133a0c5d933dd6f2b6a590b828b[m
+Merge: 2276235 2cf9876
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Thu Feb 1 15:14:11 2024 +0900
+
+    Merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into feature/quiz
+    
+    # Conflicts:
+    #       backend/build.gradle
+    #       backend/src/main/java/com/ssafy/domain/classroom/entity/Teacher.java
+    #       backend/src/main/java/com/ssafy/domain/classroom/response/TeacherRes.java
+    #       backend/src/main/java/com/ssafy/domain/classroom/service/TeacherServiceImpl.java
+    #       backend/src/main/java/com/ssafy/domain/presentation/controller/OpenviduController.java
+    #       backend/src/main/java/com/ssafy/domain/presentation/service/PresentationService.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/controller/QuestionController.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/controller/WorkbookController.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/entity/Question.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/entity/Workbook.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/repository/QuestionRepository.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/repository/WorkbookRepository.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/request/QuestionReq.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/service/QuestionService.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/service/QuestionServiceImpl.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/service/WorkbookService.java
+    #       backend/src/main/java/com/ssafy/domain/quiz/service/WorkbookServiceImpl.java
+    #       backend/src/main/java/com/ssafy/global/common/dto/Message.java
+    #       backend/src/main/java/com/ssafy/global/config/LoadDatabase.java
+
+[33mcommit 2276235b30c1c144459436d7404a56777e17a726[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Thu Feb 1 14:59:05 2024 +0900
+
+    feat: [BE] 문제 목록 검색
+
+[33mcommit 2cf9876b5b415e2941b31520de7544a4fbdf399d[m
+Merge: 6f277f6 cab2955
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Thu Feb 1 13:49:02 2024 +0900
+
+    Merge branch 'feature/heritagepage' into 'develop'
+    
+    feat : 3d 모델 위치 조정 및 버튼 완성
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!24
+
+[33mcommit cab29552496befb4885808f48435172d00ff27a1[m[33m ([m[1;31morigin/feature/heritagepage[m[33m)[m
+Merge: 6b2ab9b 6f277f6
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Thu Feb 1 13:48:43 2024 +0900
+
+    Merge branch 'develop' into 'feature/heritagepage'
+    
+    # Conflicts:
+    #   frontend/src/pages/heritage/Heritage3D.jsx
+
+[33mcommit 6b2ab9bd5b6a8d1077811ce1d64a280f39092607[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Thu Feb 1 13:44:55 2024 +0900
+
+    feat : 3d 모델 위치 조정 및 버튼 완성
+
+[33mcommit 6f277f685945c9e4f959875e0f9d4ba73c7c833d[m
+Merge: f4f68a7 a233908
+Author: 김나연 <kknyapple@gmail.com>
+Date:   Thu Feb 1 12:15:31 2024 +0900
+
+    Merge branch 'feature/room' into 'develop'
+    
+    merge
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!23
+
+[33mcommit f4f68a754d35147e3c4b515c05201f4f3cc79184[m
+Merge: 931f958 621866f
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 12:12:18 2024 +0900
+
+    Merge branch 'feature/css' into 'develop'
+    
+    feat : CSS 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!22
+
+[33mcommit 621866fc6b9d07a8b1178df269f2f9160a3ebd9d[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 12:10:23 2024 +0900
+
+    feat : CSS 수정
+
+[33mcommit d46d5abb80345f49cb4d056b50b9d8d4137a314c[m
+Author: 김현영 <hggew@naver.com>
+Date:   Thu Feb 1 11:42:32 2024 +0900
+
+    feat: 미술활동 - 추가하기 api 완료, 그룹별 목록 가져오기api 수정, 학생별 목록 가져오기 api 수정
+
+[33mcommit a233908f0482f04ed6677adf2e3c6ef7f929afa0[m[33m ([m[1;31morigin/feature/room[m[33m)[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Thu Feb 1 11:36:37 2024 +0900
+
+    refactor: 오타 수정
+
+[33mcommit a4e6d2101ad4dea11e92ca6b3fb2c7528e5f4c6f[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Thu Feb 1 11:36:26 2024 +0900
+
+    feat: 방에 접속한 사용자 삭제
+    
+    DELETE /room/user/{roomId}/{studentId}
+
+[33mcommit 32aca4315f7d8ca57789eb631b219e110b4521d9[m
+Merge: 2804c6c edc3ad2
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 10:56:21 2024 +0900
+
+    Merge branch 'feature/css' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into feature/css
+
+[33mcommit 2804c6c9e7454751cce21337cb59259ed7ace34b[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 10:56:15 2024 +0900
+
+    feat: css 수정 아이콘 추가
+
+[33mcommit edc3ad2b5ce60513256ca86902c60a0088e7ed2e[m
+Merge: ca2d498 931f958
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 10:28:54 2024 +0900
+
+    fix: merge into develop 해결
+
+[33mcommit ca2d498b5e0b291aa07f798ce38bc815e0244741[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Thu Feb 1 10:15:10 2024 +0900
+
+    feat : css 수정
+
+[33mcommit 344d6329f71242d972ef5e14e7656d819625228e[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Thu Feb 1 09:50:34 2024 +0900
+
+    feat: 방에 사용자 추가하기
+    
+    POST /room/join
+
+[33mcommit 931f958739dea35d0b0752e9ea2553514c811aad[m
+Merge: cfb9610 6a87c7e
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Thu Feb 1 09:27:06 2024 +0900
+
+    Merge branch 'feature/heritagepage' into 'develop'
+    
+    feat : 3d 모델 추가 및 heritage 메인페이지 코드 구성
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!21
+
+[33mcommit 6a87c7e87d326ddc12133a107c22d7f60b840f13[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Thu Feb 1 09:25:09 2024 +0900
+
+    fix: merge 충돌 해결
+
+[33mcommit f06369b486df4987f494775e98e40a13d485f3c0[m
+Author: 김현영 <hggew@naver.com>
+Date:   Wed Jan 31 17:50:42 2024 +0900
+
+    feat: artworkResult post api 진행 중
+
+[33mcommit cfb9610a996c1dcdd3331cb9e66867961d06c9b3[m
+Merge: b2ecd46 8c6b67e
+Author: 오기선 <pakox123@gmail.com>
+Date:   Wed Jan 31 17:40:35 2024 +0900
+
+    Merge branch 'feature/presentation' into 'develop'
+    
+    feat:역활극생성
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!19
+
+[33mcommit 8c6b67e318011d4963c1e9ba77a4e524b5ac6973[m
+Author: 오기선 <pakox123@gmail.com>
+Date:   Wed Jan 31 17:27:34 2024 +0900
+
+    feat:역활극생성
+
+[33mcommit b2ecd460496c608d81b8c6071bb7530e5cd04c89[m
+Merge: e06dbef 68e3eb9
+Author: 조형찬 <bd3945@naver.com>
+Date:   Wed Jan 31 17:17:22 2024 +0900
+
+    Merge branch 'feature/css' into 'develop'
+    
+    feat : CSS 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!18
+
+[33mcommit e06dbef0dea4cf3edb8432155a685727374dafaa[m
+Merge: fc482b1 b027fea
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 17:16:07 2024 +0900
+
+    Merge branch 'feature/quiz' into 'develop'
+    
+    feat: quiz
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!17
+
+[33mcommit b027fea7c9cec309e0a3ca55ba71672dc11413c4[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 17:15:22 2024 +0900
+
+    remove: 예제 Greeting package
+
+[33mcommit 68e3eb9deb1aaf3eb1e562bb00fa89c89a716284[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Wed Jan 31 17:15:01 2024 +0900
+
+    feat : CSS 수정
+
+[33mcommit dce0bd6fa9c2545608f1412ae992e8cf31e4cb54[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 16:43:06 2024 +0900
+
+    chore:
+
+[33mcommit c9006381cf8031c8d9abcf9c1324670f045065c5[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 16:39:08 2024 +0900
+
+    chore:
+
+[33mcommit 472afc1962f0182a53ba9434e8ebcc2a274fad2c[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 16:37:50 2024 +0900
+
+    chore:
+
+[33mcommit 00b6084b05af59948bb2a6d040669fa0db309dba[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 16:26:48 2024 +0900
+
+    remove: Greeting package
+
+[33mcommit 50e8f86781edc950bb5578624d88736bb7303522[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 16:12:54 2024 +0900
+
+    remove: LoadDatabase.java
+
+[33mcommit 727ff1c7f405815123121da54746603497ff866f[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 31 16:09:55 2024 +0900
+
+    feat: [BE] 문제 생성
+
+[33mcommit 928f98786c886f8a51d983ed2029ea349da01ce4[m
+Author: 김현영 <hggew@naver.com>
+Date:   Wed Jan 31 12:08:17 2024 +0900
+
+    feat: 미술활동 get api 완료
+
+[33mcommit fc482b19dcde3b299838811816ee8003367a4f3d[m
+Merge: 5cacb62 27daf3f
+Author: 조형찬 <bd3945@naver.com>
+Date:   Wed Jan 31 09:56:02 2024 +0900
+
+    Merge branch 'feature/css' into 'develop'
+    
+    feat: CSS 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!12
+
+[33mcommit e7690493847c3a550f871740c9684e5dba3960e1[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 23:57:05 2024 +0900
+
+    feat: 방 삭제하기
+    
+    DELETE /room/{roomId}
+
+[33mcommit 5cacb6279dcb082a615d5811a221c079f83ded3b[m
+Merge: a65eadf 73384a2
+Author: 오기선 <pakox123@gmail.com>
+Date:   Tue Jan 30 23:55:13 2024 +0900
+
+    Merge branch 'feature/class2' into 'develop'
+    
+    feat : 클래스페이지
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!11
+
+[33mcommit 73384a2450b537771bdb194f1e6eb813a54038bb[m
+Author: giseon <pakox123@gmail.com>
+Date:   Tue Jan 30 23:50:22 2024 +0900
+
+    feat : 클래스페이지
+
+[33mcommit 3a1e18ecc267c26650cb7282ad89fe4ef3b8eb66[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 23:46:35 2024 +0900
+
+    feat: 방 주제 변경하기
+    
+    PUT /room/{roomId}
+
+[33mcommit ddb41dfdff89a0876e8e99a9da39e094a2e419d3[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Jan 30 22:42:47 2024 +0900
+
+    feat: [BE] 문제 조회
+
+[33mcommit 3929ce047a12eb09409c803327bb9591a0d86bef[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 22:36:11 2024 +0900
+
+    refactor: 불필요한 변수명 삭제
+
+[33mcommit d3d358ea3f352b3bcdb909522492d7156f293b5c[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 22:27:47 2024 +0900
+
+    feat: 방 추가하기
+    
+    POST /room
+
+[33mcommit aea246d9e4ce8dd74bb0c6db791f510e790267ff[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 22:25:17 2024 +0900
+
+    feat: 방 목록 가져오기
+    
+    GET /room/{presentationId}
+
+[33mcommit 13dc9328609bfe66914829b3debda41c36be4bd4[m
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Jan 30 18:01:09 2024 +0900
+
+    feat: 미술활동 api 진행중
+
+[33mcommit 2b528877a30cc113efb16247e94056d0ec9498d6[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Jan 30 17:59:06 2024 +0900
+
+    feat: 키워드가 포함된 문제집 목록 검색
+
+[33mcommit 27daf3f00111448352bc5408e4ddaeac778a7afe[m
+Author: 조형찬 <bd3945@naver.com>
+Date:   Tue Jan 30 16:00:52 2024 +0900
+
+    feat: CSS 수정
+
+[33mcommit a65eadf196fea60b1316ef8b5f7cb22167708f99[m
+Merge: 9780db1 56fa182
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Jan 30 15:56:25 2024 +0900
+
+    Merge branch 'feature/heritagepage' into 'develop'
+    
+    feat : 문화유산관람 메인페이지 수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!10
+
+[33mcommit 56fa18287d51540e74cfd0f91cf2e0f975f3a04a[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Jan 30 15:52:09 2024 +0900
+
+    feat : 문화유산관람 메인페이지 수정
+
+[33mcommit 9780db1b0cb7cd7d691f036f8b46a7b5e53a5e88[m
+Merge: 31604cc 9c0d24e
+Author: 김나연 <kknyapple@gmail.com>
+Date:   Tue Jan 30 15:36:08 2024 +0900
+
+    Merge branch 'feature/openvidu' into 'develop'
+    
+    Merge
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!9
+
+[33mcommit 9c0d24ee43358c1e0eaaee4235f9417c6c96fa10[m[33m ([m[1;31morigin/feature/openvidu[m[33m)[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 15:27:05 2024 +0900
+
+    feat: 버전 업데이트, allowedHeaders 추가
+
+[33mcommit d839526cb11f8ea013be87bbb40f01c0d8814428[m
+Merge: e629b27 31604cc
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Jan 30 14:59:26 2024 +0900
+
+    merge branch 'develop' of https://lab.ssafy.com/s10-webmobile1-sub2/S10P12C206 into feature/heritage
+    merge: develop to feature/heritage
+
+[33mcommit e629b274f39f28237b89a8dd4aac1e453b526e30[m
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Jan 30 14:59:02 2024 +0900
+
+    feat: 미술활동 entity 추가
+
+[33mcommit 2345f6a4842549fd677d6ed1f90e62eb7d31347c[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 13:52:17 2024 +0900
+
+    feat: openvidu 세션 초기화 및 연결 생성
+    
+    POST /openvidu/sessions
+    POST /openvidu/sessions/{sessionI}/connections
+
+[33mcommit 31604ccd1c895b5af5de9e3740ceb54698d52c8b[m
+Merge: ba6566f 9133221
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Jan 30 13:32:11 2024 +0900
+
+    Merge branch 'feature/heritage' into 'develop'
+    
+    feat: 문화유산 api 완료
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!8
+
+[33mcommit 913322134063a3aff4f8b0a33db6d8f4db69f5a9[m
+Author: 김현영 <hggew@naver.com>
+Date:   Tue Jan 30 11:47:07 2024 +0900
+
+    feat: 문화유산 api 완료
+
+[33mcommit ba6566f70655e886ea4d048842c6224e764d2bcf[m
+Merge: 40849f5 606713b
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Jan 30 09:52:39 2024 +0900
+
+    Merge branch 'feature/mainpage' into 'develop'
+    
+    메인페이지 css 조정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!7
+
+[33mcommit 606713b433fc23db4cf25bda4bfeccec3b9c42e0[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Tue Jan 30 09:51:50 2024 +0900
+
+    메인페이지 css 조정
+
+[33mcommit 40849f5fa3a5d1ee57c6ce7669558c6bc2159691[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 09:26:40 2024 +0900
+
+    fix: conflict 해결
+
+[33mcommit 5390c3e947de99885e188b6f6d33108828339d3c[m
+Merge: 334c78c c0760fd
+Author: nayeon <kknyapple@gmail.com>
+Date:   Tue Jan 30 09:19:48 2024 +0900
+
+    merge
+
+[33mcommit 98075faec0fc8c20094fef713736689de8f41b5f[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Jan 30 09:11:23 2024 +0900
+
+    feat: getWorkbookListByTitle
+
+[33mcommit c0760fd3b840ae8f49c3ac8e7fdee259ed3f4770[m
+Merge: d1cd854 de035b0
+Author: 오기선 <pakox123@gmail.com>
+Date:   Mon Jan 29 17:52:13 2024 +0900
+
+    Merge branch 'feature/Nav' into 'develop'
+    
+    feat : 네비바수정
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!6
+
+[33mcommit d1cd85425f1fc9fad5a2c9a34a0d4d08ef76747a[m
+Merge: c895b11 ab059b0
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Jan 29 17:46:03 2024 +0900
+
+    Merge branch 'feature/mainpage' into 'develop'
+    
+    feat : 메인페이지 액자 추가
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!5
+
+[33mcommit ab059b017f2c2592d4ab67597999da3adcea5457[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Jan 29 17:45:29 2024 +0900
+
+    feat : 메인페이지 액자 추가
+
+[33mcommit de035b024f1b71c97fe4b909766afbf07d45493a[m
+Author: 오기선 <pakox123@gmail.com>
+Date:   Mon Jan 29 17:44:19 2024 +0900
+
+    feat : 네비바수정
+
+[33mcommit 7c512014635001ef3de2f3c5e6ce33a8ec26e624[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Mon Jan 29 17:26:14 2024 +0900
+
+    feat: [BE] GET quiz/workbooks
+
+[33mcommit dcef50584ebe155bc3fb24bc9166009aea0d209b[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Mon Jan 29 17:26:01 2024 +0900
+
+    feat: [BE] GET quiz/workbooks
+
+[33mcommit 334c78c83d690d03619086a66b5f26e1e35dba64[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Jan 29 16:00:31 2024 +0900
+
+    feat: 연극 및 발표 활동 삭제하기
+    
+    DELETE /presentation/{presentationId}
+
+[33mcommit c895b11ea2c68585019575e58d37877f2bdd4d76[m
+Merge: f3d363d 16f9be5
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Jan 29 15:57:25 2024 +0900
+
+    Merge branch 'feature/mainpage' into 'develop'
+    
+    feat : 메인페이지 배경화면 및 로고 추가
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!4
+
+[33mcommit 16f9be537c67e4f0edeabbd6e1d1b943e5a9cc38[m
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Mon Jan 29 15:53:32 2024 +0900
+
+    feat : 메인페이지 배경화면 및 로고 추가
+
+[33mcommit 4c8a8d84c9651686792faed9ca1217c7a2d94af7[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Jan 29 15:24:43 2024 +0900
+
+    feat: 연극 및 발표 활동명 변경하기
+    
+    PUT /presentation/{presentationId}
+
+[33mcommit cf2f899b1002f411e6973194435325ebd2165dd0[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Jan 29 15:07:11 2024 +0900
+
+    feat: 연극 및 발표 활동 추가하기
+    
+    POST /presentation
+
+[33mcommit 00c2f89d8f7645c90d483e275bfd02238a9de482[m[33m ([m[1;31morigin/feature/greeting[m[33m)[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Mon Jan 29 11:59:49 2024 +0900
+
+    feat: [BE] Teacher CRUD Example
+
+[33mcommit f3d363dcb744270ddc5709a5a235a3daa2d5a94a[m
+Merge: ccc4c3f 60aab33
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Mon Jan 29 11:51:37 2024 +0900
+
+    Merge branch 'feature/greeting' into 'develop'
+    
+    feat: [BE] Teacher CRUD Example
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!3
+
+[33mcommit ccc4c3f3f63b53d5e60fa9bf8baf2acfffe463ef[m
+Author: 오기선 <pakox123@gmail.com>
+Date:   Mon Jan 29 11:26:36 2024 +0900
+
+    feat : 네비바라우터추가
+
+[33mcommit c307c40dc0ded29dec60bfe416c574e50e1c402a[m
+Author: 오기선 <pakox123@gmail.com>
+Date:   Mon Jan 29 11:26:22 2024 +0900
+
+    feat : 라우터추가
+
+[33mcommit 887b9e71c49ca6b655b6a8f0065f7c5c65b492ae[m
+Author: nayeon <kknyapple@gmail.com>
+Date:   Mon Jan 29 11:10:32 2024 +0900
+
+    feat: 연극 및 발표 활동 목록 가져오기
+    
+    /presentation/{groupId}
+
+[33mcommit 60aab334412e17f0a55b8a3edd79c614bb75582d[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Mon Jan 29 10:01:28 2024 +0900
+
+    feat: Teacher Post & Get
+
+[33mcommit 546d8183ae75c3372132f9e5b01ba6e81ddbebab[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Mon Jan 29 08:58:44 2024 +0900
+
+    feat: Teacher Post & Get
+
+[33mcommit 5094ebace1ae8121d1e6169135583f0bc63bec02[m
+Author: giseon <pakox123@gmail.com>
+Date:   Mon Jan 29 01:30:42 2024 +0900
+
+    feat : 네비바추가
+
+[33mcommit aa7611ac73b378dbc681fb89dd1c7b3f7051370f[m
+Author: giseon <pakox123@gmail.com>
+Date:   Sun Jan 28 15:37:43 2024 +0900
+
+    init : 초기 생성
+
+[33mcommit 38953cb2f6945e12d7d24f1c2763009b23c14757[m
+Merge: 76508f2 9f56a06
+Author: 오정민 <dhwjdals1324@gmail.com>
+Date:   Fri Jan 26 22:40:56 2024 +0900
+
+    Merge branch 'feature/directory' into 'develop'
+    
+    feat : 페이지경로만들기
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!2
+
+[33mcommit 9f56a0623d91bf1db67da7af8fd8543959aa0c3e[m
+Author: kkongch <dhwjdals1324@gmail.com>
+Date:   Fri Jan 26 22:37:19 2024 +0900
+
+    feat : 페이지경로만들기
+
+[33mcommit 76508f20cc9daa4a58da5ac79e0a61b46817bb64[m
+Merge: f75c102 23bb95a
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Fri Jan 26 22:08:12 2024 +0900
+
+    Merge branch 'feature/greeting' into 'develop'
+    
+    Feature/greeting
+    
+    See merge request s10-webmobile1-sub2/S10P12C206!1
+
+[33mcommit 23bb95aa7b7a17143ba172879cc9ffd98354d6ab[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Fri Jan 26 22:05:16 2024 +0900
+
+    remove: Era.java (Entity)
+
+[33mcommit f75c102ab9f14f88e0150fedc6bbd39d950d19d2[m
+Author: 오기선 <pakox123@gmail.com>
+Date:   Fri Jan 26 17:32:07 2024 +0900
+
+    init : 초기 생성
+
+[33mcommit 1648da4aa3bf3989c080e8802c99fdc0fa90d514[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Thu Jan 25 17:53:51 2024 +0900
+
+    feat:create entity class for presentation
+
+[33mcommit c9c6e368c9825d6e4e3329136a168def4f1e6a30[m
+Author: 김현영 <hggew@naver.com>
+Date:   Thu Jan 25 16:49:50 2024 +0900
+
+    Update README.md
+
+[33mcommit 18575994ba591fdf461acc15fe9a979fc6795c7f[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Wed Jan 24 16:48:55 2024 +0900
+
+    feat: entity and repository example
+
+[33mcommit a9088fcf3fa946fbc0d6d2bcaca7c130c4dea648[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Jan 23 17:31:28 2024 +0900
+
+    feat: greeting
+
+[33mcommit 6b961d138c85675db1e28c2e110208004161c57f[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Jan 23 01:07:23 2024 +0900
+
+    remove:package.json
+
+[33mcommit 346a9e8b125bfaa43c72310d1bd996504eb55fe6[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Tue Jan 23 01:01:00 2024 +0900
+
+    init:
+
+[33mcommit e63a2b965248cfd005c8c6e10cd79e3a2bc3c601[m
+Author: 최지웅 <jwchoi42@naver.com>
+Date:   Mon Jan 22 22:51:53 2024 +0900
+
+    add README

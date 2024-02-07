@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @Table(name = "`group`")
 @Getter(AccessLevel.PUBLIC)
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Group {
