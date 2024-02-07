@@ -20,8 +20,16 @@ const Input = styled.input`
   padding: 0 2rem;
 `;
 
-const StyledInput = ({ type, id, name, placeholder }) => {
-  return <Input type={type} id={id} name={name} placeholder={placeholder} />;
+const StyledInput = ({ type, id, name, placeholder, onChange }) => {
+  return (
+    <Input
+      type={type}
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      onChange={onChange}
+    />
+  );
 };
 
 export default StyledInput;

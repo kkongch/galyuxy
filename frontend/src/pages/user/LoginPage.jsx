@@ -1,6 +1,9 @@
+import { teacherLogin } from 'api/UserApi';
 import Background from 'components/Basic/Background';
 import StyledInput from 'components/User/StyledInput';
-import React from 'react';
+import useInput from 'hooks/useInput';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 const FlexBox = styled.div`
@@ -74,6 +77,31 @@ const LargeButton = styled.div`
 `;
 
 const LoginPage = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email, setEmail] = useInput('');
+  const [password, setPassword] = useInput('');
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const loginData = {
+        email: email,
+        password: password,
+      };
+
+      const response = await teacherLogin(loginData);
+
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error('Error handleTeacherLogin:', error);
+    }
+  };
+
+  const handleConfirm = () => {
+    handleLogin();
+    navigate('/class');
+  };
+
   return (
     <Background
       backgroundImage={require('assets/svg/main/Background.svg').default}
@@ -85,18 +113,23 @@ const LoginPage = () => {
               <Title>
                 <p>교사 로그인</p>
               </Title>
+
               <LoginInputBox>
                 <StyledInput
                   type='email'
                   id='email'
                   name='email'
                   placeholder='이메일'
+                  value={email}
+                  onChange={setEmail}
                 />
                 <StyledInput
                   type='password'
                   id='password'
                   name='password'
                   placeholder='비밀번호'
+                  value={password}
+                  onChange={setPassword}
                 />
                 <AccountBox>
                   <AccountButton>회원가입</AccountButton>
@@ -104,7 +137,7 @@ const LoginPage = () => {
                   <AccountButton>비밀번호 찾기</AccountButton>
                 </AccountBox>
               </LoginInputBox>
-              <LargeButton>로그인</LargeButton>
+              <LargeButton onClick={handleConfirm}>로그인</LargeButton>
             </UserLogin>
             <UserLogin>
               <Title>
