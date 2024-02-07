@@ -4,6 +4,9 @@ import Background from 'components/Basic/Background';
 import heritageImage from 'assets/images/Heritage/문화유산메인배경.png';
 import { getHeritage } from 'api/HeritageApi';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { heritageState } from 'Recoil/HeritageState';
+import { selectedHeritageIdState } from 'Recoil/SelectedHeritageIdState';
 const Body = styled.div`
   margin: 0;
   padding: 0;
@@ -31,18 +34,18 @@ const StyledbBox = styled.div`
   transform-origin: center;
 `;
 
-const Box = React.forwardRef(({ imageUrl }, ref) => {
-  return <StyledbBox ref={ref} imageUrl={imageUrl} />;
+const Box = React.forwardRef(({ imageUrl, onClick }, ref) => {
+  return <StyledbBox ref={ref} imageUrl={imageUrl} onClick={onClick} />;
 });
 
 function HeritageList() {
   const navigate = useNavigate();
-  const [HeritageData, setHeritageData] = useState([]);
+  // const [HeritageData, setHeritageData] = useState([]);
+  const [HeritageData, setHeritageData] = useRecoilState(heritageState);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getHeritage();
-        // console.log(response);
         setHeritageData(response.data.dataBody); // 데이터를 상태에 저장
       } catch (error) {
         console.error(error);
@@ -51,17 +54,26 @@ function HeritageList() {
 
     fetchData();
   }, []);
-  console.log(HeritageData);
+  console.log(heritageState);
   const boxRefs = useRef([]);
   boxRefs.current = HeritageData.map(
     (_, i) => boxRefs.current[i] || React.createRef()
   );
 
+  // const boxes = HeritageData.map((data, index) => (
+  //   <Box
+  //     imageUrl={data.heritageImageUrl}
+  //     ref={boxRefs.current[index]}
+  //     onClick={() => handleDetailClick(data.heritageId)}
+  //     // key={index}
+  //   />
+  // ));
   const boxes = HeritageData.map((data, index) => (
     <Box
+      key={data.heritageId} // 고유한 key 값으로 data.heritageId 사용
       imageUrl={data.heritageImageUrl}
       ref={boxRefs.current[index]}
-      // key={index}
+      onClick={() => handleDetailClick(data.heritageId)}
     />
   ));
 
@@ -86,13 +98,15 @@ function HeritageList() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  const handleDetailClick = () => {
-    navigate('/heritage/:id');
+  const setSelectedHeritageId = useSetRecoilState(selectedHeritageIdState);
+  const handleDetailClick = (heritageId) => {
+    setSelectedHeritageId(heritageId);
+    navigate(`/heritage/${heritageId}`);
   };
   return (
     <Background backgroundImage={heritageImage}>
       <Body>
-        <Container onClick={handleDetailClick}>{boxes}</Container>
+        <Container>{boxes}</Container>
       </Body>
     </Background>
   );
