@@ -98,5 +98,19 @@ public class GroupController {
         return ResponseEntity.ok().body(Message.success());
     }
 
+    // 그룹 삭제 및 그룹 내 학생 리스트 삭제
+    @PutMapping("/delete/{groupId}")
+    @PreAuthorize("hasAuthority('TEACHER')")
+    ResponseEntity<Message<Void>> deleteGroupAndStudents(@PathVariable("groupId") Integer groupId) {
 
+        //그룹 삭제
+        groupService.delete(groupId);
+
+        //해당 그룹의 학생 리스트 가져오기
+        List<StudentDto> studentList = studentService.getStudentListByGroupId(groupId);
+        for (StudentDto student : studentList) {
+            studentService.delete(student.getId());
+        }
+        return ResponseEntity.ok().body(Message.success());
+    }
 }

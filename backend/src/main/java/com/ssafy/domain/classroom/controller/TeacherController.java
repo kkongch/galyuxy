@@ -8,7 +8,7 @@ import com.ssafy.domain.classroom.dto.TeacherLoginReqDto;
 import com.ssafy.domain.classroom.dto.TeacherLoginResDto;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.entity.enums.Role;
-import com.ssafy.domain.classroom.exception.TeacherException;
+import com.ssafy.domain.classroom.exception.ClassroomException;
 import com.ssafy.domain.classroom.request.TeacherReq;
 import com.ssafy.domain.classroom.response.TeacherRes;
 import com.ssafy.domain.classroom.service.TeacherService;
@@ -113,7 +113,7 @@ public class TeacherController {
     @PreAuthorize("hasAuthority('TEACHER')")
     ResponseEntity<Message<TeacherDto>> getTeacher(@AuthenticationPrincipal TeacherLoginActiveDto teacherLoginActiveDto) {
         Optional<Teacher> teacher = teacherService.getOne(teacherLoginActiveDto.getId());
-        teacher.orElseThrow(() -> new TeacherException("Could not find teacher : " + teacherLoginActiveDto.getId()));
+        teacher.orElseThrow(() -> new ClassroomException("Could not find teacher : " + teacherLoginActiveDto.getId()));
         TeacherDto teacherDto = TeacherDto.builder()
                 .id(teacher.get().getId())
                 .name(teacher.get().getName())

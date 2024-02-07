@@ -1,10 +1,10 @@
 package com.ssafy.domain.classroom.service;
 
-import com.ssafy.domain.classroom.dto.GroupDto;
 import com.ssafy.domain.classroom.dto.StudentDto;
 import com.ssafy.domain.classroom.dto.StudentMapper;
 import com.ssafy.domain.classroom.entity.Group;
 import com.ssafy.domain.classroom.entity.Student;
+import com.ssafy.domain.classroom.exception.ClassroomException;
 import com.ssafy.domain.classroom.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +45,8 @@ public class StudentServiceImpl implements StudentService{
         if (student != null) {
             student.setDeleted(true);
             studentRepository.save(student);
+        }else{
+            throw new ClassroomException("해당 학생을 찾을 수 없음. id : " + studentId);
         }
     }
 }

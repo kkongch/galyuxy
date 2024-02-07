@@ -6,11 +6,8 @@ import com.ssafy.domain.classroom.entity.Student;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.repository.GroupRepository;
 import com.ssafy.domain.classroom.repository.StudentRepository;
-import com.ssafy.global.common.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -83,5 +80,7 @@ public class GroupServiceImpl implements GroupService {
             group.setDeleted(true);
             groupRepository.save(group);
         }
+        else
+            throw new ClassCastException("해당 그룹을 찾을 수 없음");
     }
 }
