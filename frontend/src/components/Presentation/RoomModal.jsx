@@ -99,7 +99,6 @@ const RoomModal = ({ roomId }) => {
     useRecoilState(isAddModalOpenState);
   const [roomSubject, setRoomSubject] = useState('');
   const [roomList, setRoomList] = useRecoilState(roomListState);
-  const [session, setSession] = useState(null);
 
   useEffect(() => {
     const roomWithId = roomList.find((item) => item.roomId === roomId);
@@ -117,43 +116,42 @@ const RoomModal = ({ roomId }) => {
 
   const handleCreateRoomSession = async () => {
     try {
-      const session = await createRoomSession();
+      const createdSession = await createRoomSession();
 
-      setSession(session);
+      await handleCreateRoom(createdSession);
     } catch (error) {
       console.error('Error handleCreatePresentation:', error);
     }
   };
 
-  const handleCreateRoom = async () => {
+  const handleCreateRoom = async (session) => {
     try {
-      const presentationData = {
-        roomId: 'ses_NMafpzYU64',
+      const roomData = {
+        roomId: session,
         roomSubject: roomSubject,
         presentation: {
           presentationId: 1,
         },
       };
 
-      await createRoom(presentationData);
+      await createRoom(roomData);
     } catch (error) {
-      console.error('Error handleCreatePresentation:', error);
+      console.error('Error handleCreateRoom:', error);
     }
   };
 
   const handleConfirm = () => {
+    handleCreateRoomSession();
+
     const roomData = {
-      roomId: 'ses_NMafpzYU64',
       roomSubject: roomSubject,
       presentation: {
         presentationId: 1,
       },
     };
     setRoomList([...roomList, roomData]);
-    handleCreateRoom();
 
     setIsAddModalOpen(false);
-    setSession(null);
   };
 
   return (
