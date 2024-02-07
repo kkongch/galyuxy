@@ -55,7 +55,7 @@ public class GroupController {
     }
 
     // 그룹 및 그룹 내 학생 리스트 수정 + 추가
-    @PutMapping("/{groupId}")
+    @PutMapping("/modify")
     @PreAuthorize("hasAuthority('TEACHER')")
     ResponseEntity<Message<Void>> putGroupAndStudents(@AuthenticationPrincipal TeacherLoginActiveDto teacherLoginActiveDto,
                                                        @RequestBody GroupStudentsDto request) {
