@@ -80,8 +80,6 @@ const PresentationList = () => {
   const [isRefactorModalOpen, setIsRefactorModalOpen] = useRecoilState(
     isRefactorModalOpenState
   );
-  const [isAddModalOpen, setIsAddModalOpen] =
-    useRecoilState(isAddModalOpenState);
   const [selectedPresentationId, setSelectedPresentationId] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
