@@ -29,3 +29,17 @@ export const getStudentList = async (accessToken, groupId) => {
     throw error;
   }
 };
+
+export const createClass = async (accessToken, classData) => {
+  try {
+    const response = await api.post('/group', classData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error('Error createClass:', error);
+    throw error;
+  }
+};

@@ -68,16 +68,16 @@ const StudentList = () => {
   const handleStudentItemClick = (student) => {
     if (userType === 2) {
       const isConfirmed = window.confirm(
-        `${student.studentNo}번 ${student.studentName}이 맞나요?`
+        `${student.no}번 ${student.name}이 맞나요?`
       );
 
       if (isConfirmed) {
         navigate('/main');
         setStudentUser({
           groupId: 1,
-          studentId: student.studentId,
-          studentName: student.studentName,
-          studentNo: student.studentNo,
+          studentId: student.id,
+          studentName: student.name,
+          studentNo: student.no,
         });
       }
     }

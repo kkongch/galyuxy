@@ -1,4 +1,8 @@
-import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState';
+import {
+  classListState,
+  isAddModalOpenState,
+  isRefactorModalOpenState,
+} from 'Recoil/ClassState';
 import { getClassList } from 'api/ClassApi';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React, useEffect, useState } from 'react';
@@ -75,6 +79,8 @@ const ClassList = () => {
     isRefactorModalOpenState
   );
   const [selectedClassItem, setSelectedClassItem] = useState(null);
+  const [isAddModalOpen, setIsAddModalOpen] =
+    useRecoilState(isAddModalOpenState);
 
   const handleRefactorClassClick = (classItem) => {
     setIsModalOpen(true);
@@ -105,6 +111,10 @@ const ClassList = () => {
   useEffect(() => {
     handleGetClassList(sessionStorage.getItem('accessToken'));
   }, []);
+
+  useEffect(() => {
+    handleGetClassList(sessionStorage.getItem('accessToken'));
+  }, [isAddModalOpen]);
 
   return (
     <ClassBox>

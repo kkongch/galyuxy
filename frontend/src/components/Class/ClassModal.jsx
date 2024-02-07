@@ -9,7 +9,7 @@ import {
   studentListState,
 } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
-import { getStudentList } from 'api/ClassApi';
+import { createClass, getStudentList } from 'api/ClassApi';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -178,16 +178,39 @@ export const ClassModal = ({ classItem }) => {
     }
   };
 
+  const handleCreateClass = async (accessToken, classData) => {
+    console.log(classData);
+    try {
+      await createClass(accessToken, classData);
+    } catch (error) {
+      console.error('Error handleCreateClass: ', error);
+    }
+  };
+
   useEffect(() => {
-    handleGetStudentList(sessionStorage.getItem('accessToken'), classItem);
+    if (classItem) {
+      handleGetStudentList(sessionStorage.getItem('accessToken'), classItem);
+    }
+    console.log(studentList);
   }, []);
 
   const handleCancel = () => {
+    setStudentNo('');
+    setStudentName('');
+    setStudentList([]);
+
     setIsAddModalOpen(false);
     setIsRefactorModalOpen(false);
   };
 
   const handleConfirm = () => {
+    handleCreateClass(sessionStorage.getItem('accessToken'), {
+      group: {
+        name: groupName,
+      },
+      students: studentList,
+    });
+
     setStudentNo('');
     setStudentName('');
     setStudentList([]);
@@ -200,16 +223,15 @@ export const ClassModal = ({ classItem }) => {
     const updatedStudentList = [...studentList];
 
     updatedStudentList.push({
-      studentName: studentName,
-      studentNo: studentNo,
+      name: studentName,
+      no: studentNo,
     });
+
+    console.log(updatedStudentList);
 
     setStudentList(updatedStudentList);
     setStudentNo('');
     setStudentName('');
-
-    // POST /group
-    // PUT /group
   };
 
   return (
