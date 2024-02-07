@@ -18,7 +18,7 @@ export const getRoomList = async (presentationId) => {
 
 export const deleteRoom = async (roomId) => {
   try {
-    const response = await api.delete(`/presentation/${roomId}`);
+    const response = await api.delete(`/room/${roomId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleteRoom: ', error);
@@ -28,7 +28,7 @@ export const deleteRoom = async (roomId) => {
 
 export const createRoom = async (roomData) => {
   try {
-    const response = await api.post('/presentation', roomData, {
+    const response = await api.post('/room', roomData, {
       headers: {
         'Content-Type': 'application/json',
       },
