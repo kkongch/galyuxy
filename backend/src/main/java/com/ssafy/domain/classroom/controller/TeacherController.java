@@ -75,6 +75,15 @@ public class TeacherController {
         return ResponseEntity.ok().body(Message.success());
     }
 
+    // 이메일 체크
+    @GetMapping("/checkDuplicate/{teacherEmail}")
+    public ResponseEntity<Message<Void>> logout(@PathVariable String teacherEmail) {
+        int emailCheck = teacherService.emailDuplicateCheck(teacherEmail);
+        return ResponseEntity.ok().body(Message.success());
+    }
+
+
+
     @PostMapping("/login")
     public ResponseEntity<Message<TeacherLoginResDto>> login(@RequestBody TeacherLoginReqDto teacherLoginReqDto,
                                                              HttpServletResponse response) {

@@ -120,6 +120,14 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public int emailDuplicateCheck(String email) {
+        int emailCheck = teacherRepository.countByEmail(email);
+        if(emailCheck == 1)
+            throw new ClassroomException("이미 사용중인 메일입니다.");
+        return emailCheck;
+    }
+
+    @Override
     public void logout(String email) {
         try {
             refreshRepository.delete(email);
