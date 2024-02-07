@@ -61,3 +61,6 @@ jwt:
   expired-min:
     access: 60
     refresh: 10000000
+openvidu:
+  url: http://localhost:4443/
+  secret: T1BFTlZJRFVBUFA6TVlfU0VDUkVU
