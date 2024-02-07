@@ -1,4 +1,5 @@
 import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState';
+import { getClassList } from 'api/ClassApi';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -92,55 +93,25 @@ const ClassList = () => {
     // PUT /group/deleteStudent
   };
 
+  const handleGetClassList = async (accessToken) => {
+    try {
+      const list = await getClassList(accessToken);
+      setClassList(list);
+      console.log(list);
+    } catch (error) {
+      console.error('Error handleGetClassList: ', error);
+    }
+  };
+
   useEffect(() => {
-    // GET /group/:teacherId
-    setClassList([
-      {
-        group: {
-          groupId: 1,
-          groupName: '2024 1학기',
-        },
-
-        student: [
-          {
-            studentId: 1,
-            studentName: '김가인',
-            studentNo: 1,
-          },
-          {
-            studentId: 2,
-            studentName: '김나인',
-            studentNo: 2,
-          },
-        ],
-      },
-      {
-        group: {
-          groupId: 2,
-          groupName: '2024 2학기',
-        },
-
-        student: [
-          {
-            studentId: 1,
-            studentName: '이가인',
-            studentNo: '1',
-          },
-          {
-            studentId: 2,
-            studentName: '이나인',
-            studentNo: 2,
-          },
-        ],
-      },
-    ]);
+    handleGetClassList(sessionStorage.getItem('accessToken'));
   }, []);
 
   return (
     <ClassBox>
       {isModalOpen && <ClassModal groupId={selectedGroupId} />}
       {classList.map((classItem) => (
-        <ClassItem key={classItem.group.groupId}>
+        <ClassItem key={classItem.id}>
           <ClassItemFirst>
             <EnterButton>
               <p>입장</p>
@@ -160,7 +131,7 @@ const ClassList = () => {
               </SvgBox>
             </EnterButton>
             <ClassTitle>
-              <p>{classItem.group.groupName}</p>
+              <p>{classItem.name}</p>
             </ClassTitle>
           </ClassItemFirst>
           <ClassItemSecond>
