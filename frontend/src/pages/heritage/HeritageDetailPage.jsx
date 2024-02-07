@@ -4,9 +4,10 @@ import heritageDetailImage from 'assets/images/Heritage/문화유산상세배경
 import Background from 'components/Basic/Background';
 import StarsImage from 'assets/images/stars.png';
 import HExample1Image from 'assets/images/HExample1.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { heritageState } from 'Recoil/HeritageState';
-import { useRecoilState } from 'recoil';
+import { selectedHeritageIdState } from 'Recoil/SelectedHeritageIdState';
 
 const MainBox = styled.main`
   display: flex;
@@ -139,15 +140,22 @@ const SvgBox = styled.div`
 
 const HeritageDetailPage = () => {
   // const navigate = useNavigate();
-  const [heritage, setHeritage] = useRecoilState(heritageState);
-
+  const selectedHeritageId = useRecoilValue(selectedHeritageIdState);
+  const heritageData = useRecoilValue(heritageState);
+  console.log(heritageData);
+  // const heritageDetail = heritageData.find(
+  //   (item) => item.heritageId.toString() === heritageId
+  // );
+  // console.log(heritageDetail);
   const handleBackClick = () => {
     // navigate('/heritage');
   };
   const handleThreeDClick = () => {
     // navigate(`/heritage/${heritage.heritageId}/3d`);
   };
-
+  useEffect(() => {
+    console.log(heritageData);
+  }, [heritageData]);
   return (
     <Background backgroundImage={heritageDetailImage}>
       <MainBox>
@@ -155,7 +163,7 @@ const HeritageDetailPage = () => {
           <FrameBox>
             <FrameOuter>
               <FrameInner>
-                <HeritageImage src={HExample1Image} />
+                <HeritageImage src={heritageData.heritageImageUrl} />
               </FrameInner>
             </FrameOuter>
           </FrameBox>
@@ -165,10 +173,10 @@ const HeritageDetailPage = () => {
               <SvgBox>
                 <img src={StarsImage} alt='' />
               </SvgBox>
-              <Title>{heritage.heritageName}</Title>
+              <Title>{heritageData.heritageName}</Title>
             </TitleBox>
             <Description>
-              <p>{heritage.heritageContent}</p>
+              <p>{heritageData.heritageContent}</p>
             </Description>
           </InfoBox>
         </HeritageBox>
