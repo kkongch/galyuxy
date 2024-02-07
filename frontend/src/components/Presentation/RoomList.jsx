@@ -1,6 +1,7 @@
 import { userTypeState } from 'Recoil/ClassState';
 import { roomListState } from 'Recoil/PresentationState';
-import React from 'react';
+import { getRoomList } from 'api/RoomApi';
+import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
@@ -75,6 +76,43 @@ const DeleteButton = styled.div`
 const RoomList = () => {
   const [roomList, setRoomList] = useRecoilState(roomListState);
   const userType = useRecoilValue(userTypeState);
+
+  const handleGetRoomList = async (roomId) => {
+    try {
+      const list = await getRoomList(roomId);
+      setRoomList(list);
+    } catch (error) {
+      console.error('Error handleGetRoomList: ', error);
+    }
+  };
+
+  useEffect(() => {
+    // (student) GET /presentation/:groupId 호출 뒤, active가 1인 presentationId 가져오기
+
+    // (teacher) GET /room/:presentationId
+
+    // setRoomList([
+    //   {
+    //     roomScript: '',
+    //     roomId: 1,
+    //     roomSubject: '이순신 장군과 함께하는 명량해전 이야기',
+    //   },
+    //   {
+    //     roomScript: '',
+    //     roomId: 2,
+    //     roomSubject: '이순신과 인터뷰하기',
+    //   },
+    //   {
+    //     roomScript: '',
+    //     roomId: 3,
+    //     roomSubject: '나의 죽음을 알리지 말라',
+    //   },
+    // ]);
+
+    const presentationId = 1;
+
+    handleGetRoomList(presentationId);
+  }, []);
 
   const handleDeleteClassClick = (roomId) => {
     const shouldDelete = window.confirm('정말로 삭제하시겠습니까?');
