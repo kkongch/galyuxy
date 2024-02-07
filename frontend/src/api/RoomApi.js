@@ -48,3 +48,15 @@ export const createRoomSession = async () => {
     throw error;
   }
 };
+
+export const createRoomConnection = async (sessionId) => {
+  try {
+    const response = await api.post(
+      `/openvidu/sessions/${sessionId}/connections`
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error createRoomConnection: ', error);
+    throw error;
+  }
+};
