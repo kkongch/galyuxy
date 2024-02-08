@@ -32,4 +32,7 @@ public interface TeacherService {
     void logout(String email);
 
     Optional<Teacher> getOne(Integer id);
+
+    void joinEmail(String email);
+    boolean CheckAuthNum(String email,String authCode);
 }

@@ -10,13 +10,23 @@ import com.ssafy.domain.classroom.repository.TeacherRepository;
 import com.ssafy.domain.classroom.request.TeacherReq;
 import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
 import com.ssafy.global.component.jwt.repository.RefreshRepository;
+import com.ssafy.global.redis.dto.RedisUtil;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +37,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     private final PasswordEncoder passwordEncoder;
     private final RefreshRepository refreshRepository;
+
+    private final JavaMailSender mailSender;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
 
 
     @Override
@@ -139,6 +155,92 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Optional<Teacher> getOne(Integer id) {
         return teacherRepository.findById(id);
+    }
+
+
+    // 인증번호 발급
+    private String createCode() {
+        int lenth = 6;
+        try {
+            Random random = SecureRandom.getInstanceStrong();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < lenth; i++) {
+                builder.append(random.nextInt(10));
+            }
+            System.out.println("random code " + builder.toString());
+            return builder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new ClassroomException("NO_SUCH_ALGORITHM");
+        }
+    }
+
+
+
+
+    // 메일 발신, 수신, 인증 번호 등 형식 지정
+    @Override
+    public void joinEmail(String email) {
+        String authCode = this.createCode();
+
+        String setFrom = "sinsigi00@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력
+        String toMail = email;
+        String title = "Galyuxy 이메일 인증 번호";
+        String content =
+                "Galyuxy를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 !
+                        "<br><br>" +
+                        "인증 번호는 " + authCode + "입니다." +
+                        "<br>" +
+                        "인증번호를 6자리를 입력해주세요"; //이메일 내용 삽입
+        mailSend(setFrom, toMail, title, content);
+//        return authCode;
+
+
+//        mailService.sendEmail(toEmail, title, authCode);
+//        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
+//        redisService.setValues(AUTH_CODE_PREFIX + email,
+//                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+    }
+
+    //이메일 전송
+    public void mailSend(String setFrom, String toMail, String title, String content) {
+        MimeMessage message = mailSender.createMimeMessage();//JavaMailSender 객체를 사용하여 MimeMessage 객체를 생성
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");//이메일 메시지와 관련된 설정을 수행합니다.
+            // true를 전달하여 multipart 형식의 메시지를 지원하고, "utf-8"을 전달하여 문자 인코딩을 설정
+            helper.setFrom(setFrom);//이메일의 발신자 주소 설정
+            helper.setTo(toMail);//이메일의 수신자 주소 설정
+            helper.setSubject(title);//이메일의 제목을 설정
+            helper.setText(content,true);//이메일의 내용 설정 두 번째 매개 변수에 true를 설정하여 html 설정으로한다.
+            mailSender.send(message);
+        } catch (MessagingException e) {//이메일 서버에 연결할 수 없거나, 잘못된 이메일 주소를 사용하거나, 인증 오류가 발생하는 등 오류
+            // 이러한 경우 MessagingException이 발생
+            e.printStackTrace();//e.printStackTrace()는 예외를 기본 오류 스트림에 출력하는 메서드
+//            throw new RuntimeException(e);
+            throw new ClassroomException(e.toString());
+        }
+
+    }
+
+//    public EmailVerificationResult verifiedCode(String email, String authCode) {
+//        this.emailDuplicateCheck(email);
+//        String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
+//        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
+//
+//        return EmailVerificationResult.of(authResult);
+//    }
+
+    // 인증 번호, 교사가 입력한 인증 번호 확인
+    @Override
+    public boolean CheckAuthNum(String email,String authCode){
+        if(redisUtil.getData(authCode)==null){
+            return false;
+        }
+        else if(redisUtil.getData(authCode).equals(email)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 

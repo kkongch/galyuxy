@@ -2,10 +2,7 @@ package com.ssafy.domain.classroom.controller;
 
 import java.util.Optional;
 
-import com.ssafy.domain.classroom.dto.TeacherDto;
-import com.ssafy.domain.classroom.dto.TeacherLoginActiveDto;
-import com.ssafy.domain.classroom.dto.TeacherLoginReqDto;
-import com.ssafy.domain.classroom.dto.TeacherLoginResDto;
+import com.ssafy.domain.classroom.dto.*;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.entity.enums.Role;
 import com.ssafy.domain.classroom.exception.ClassroomException;
@@ -16,8 +13,10 @@ import com.ssafy.global.common.dto.Message;
 import com.ssafy.global.component.jwt.dto.TokenDto;
 import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
 import com.ssafy.global.component.jwt.service.JwtService;
+import com.ssafy.global.email.service.MailService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,6 +34,7 @@ public class TeacherController {
 
     private final TeacherService teacherService;
     private final JwtService jwtService;
+    private final MailService mailService;
 
     @PostMapping
     ResponseEntity postTeacher(@RequestBody TeacherReq teacherReq) {
@@ -81,6 +81,27 @@ public class TeacherController {
         int emailCheck = teacherService.emailDuplicateCheck(teacherEmail);
         return ResponseEntity.ok().body(Message.success());
     }
+
+    // 이메일 전송
+    @PostMapping("/emailSend")
+    public String mailSend(@RequestBody  EmailCheckDto email){
+        System.out.println("이메일 인증 이메일 : "+ email.getEmail());
+        teacherService.joinEmail(email.getEmail());
+        return null;
+    }
+
+    // 이메일 인증 번호 확인
+    @PostMapping("/emailVerify")
+    public ResponseEntity<Message<Void>> AuthCheck(@RequestBody EmailCheckDto emailCheckDto){
+        boolean Checked= teacherService.CheckAuthNum(emailCheckDto.getEmail(),emailCheckDto.getAuthNum());
+        if(Checked){
+            return ResponseEntity.ok().body(Message.success());
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Message.fail(String.valueOf(HttpStatus.NOT_FOUND), "해당 그룹이 존재하지 않음"));
+        }
+    }
+
 
 
 
