@@ -6,7 +6,7 @@ import StarsImage from 'assets/images/stars.png';
 import HExample1Image from 'assets/images/HExample1.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { heritageState } from 'Recoil/HeritageState';
+import { heritageListState, heritageState } from 'Recoil/HeritageState';
 import { selectedHeritageIdState } from 'Recoil/SelectedHeritageIdState';
 
 const MainBox = styled.main`
@@ -139,23 +139,33 @@ const SvgBox = styled.div`
 `;
 
 const HeritageDetailPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const selectedHeritageId = useRecoilValue(selectedHeritageIdState);
-  const heritageData = useRecoilValue(heritageState);
-  console.log(heritageData);
+  // const heritageData = useRecoilValue(heritageState);
+  const [heritage, setHeritage] = useRecoilState(heritageState);
+  const [heritageList, setHeritageList] = useRecoilState(heritageListState);
+  // console.log(heritageData);
   // const heritageDetail = heritageData.find(
   //   (item) => item.heritageId.toString() === heritageId
   // );
   // console.log(heritageDetail);
+
+  useEffect(() => {
+    const heritageDetail = heritageList.find(
+      (item) => item.heritageId === selectedHeritageId
+    );
+    console.log(heritageDetail);
+
+    setHeritage(heritageDetail);
+  }, []);
+
   const handleBackClick = () => {
-    // navigate('/heritage');
+    // navigate('/heritage')
   };
   const handleThreeDClick = () => {
-    // navigate(`/heritage/${heritage.heritageId}/3d`);
+    // navigate(`/heritage/${heritage.heritageId}/3d`)
   };
-  useEffect(() => {
-    console.log(heritageData);
-  }, [heritageData]);
+
   return (
     <Background backgroundImage={heritageDetailImage}>
       <MainBox>
@@ -163,7 +173,7 @@ const HeritageDetailPage = () => {
           <FrameBox>
             <FrameOuter>
               <FrameInner>
-                <HeritageImage src={heritageData.heritageImageUrl} />
+                <HeritageImage src={heritage.heritageImageUrl} />
               </FrameInner>
             </FrameOuter>
           </FrameBox>
@@ -173,10 +183,10 @@ const HeritageDetailPage = () => {
               <SvgBox>
                 <img src={StarsImage} alt='' />
               </SvgBox>
-              <Title>{heritageData.heritageName}</Title>
+              <Title>{heritage.heritageName}</Title>
             </TitleBox>
             <Description>
-              <p>{heritageData.heritageContent}</p>
+              <p>{heritage.heritageContent}</p>
             </Description>
           </InfoBox>
         </HeritageBox>
