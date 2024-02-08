@@ -104,7 +104,7 @@ const ClassList = () => {
   const handleEnterClassClick = (groupId) => {
     const updatedTeacherData = { ...teacherData, groupId: groupId };
     setTeacherData(updatedTeacherData);
-    // console.log(updatedTeacherData);
+    console.log(updatedTeacherData);
     navigate('/main');
   };
 

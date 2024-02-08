@@ -12,6 +12,7 @@ import {
   getPresentationList,
   updatePresentation,
 } from 'api/PresentationApi';
+import { teacherDataState } from 'Recoil/UserState';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -111,19 +112,20 @@ const PresentationModal = ({ presentationId }) => {
   const [presentationList, setPresentationList] = useRecoilState(
     presentationListState
   );
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
 
   const handleCreatePresentation = async () => {
     try {
       const presentationData = {
         presentationTitle: presentationTitle,
         group: {
-          id: 1,
+          id: teacherData.groupId,
         },
       };
 
       await createPresentation(presentationData);
 
-      const list = await getPresentationList(1);
+      const list = await getPresentationList(teacherData.groupId);
       setPresentationList(list);
     } catch (error) {
       console.error('Error handleCreatePresentation:', error);

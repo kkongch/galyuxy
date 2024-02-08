@@ -138,6 +138,7 @@ const PresentationList = () => {
 
   useEffect(() => {
     const groupId = teacherData.groupId;
+    console.log(teacherData);
 
     handleGetPresentationList(groupId);
   }, []);
