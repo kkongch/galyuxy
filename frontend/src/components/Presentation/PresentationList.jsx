@@ -80,6 +80,8 @@ const PresentationList = () => {
   const [isRefactorModalOpen, setIsRefactorModalOpen] = useRecoilState(
     isRefactorModalOpenState
   );
+  const [isAddModalOpen, setIsAddModalOpen] =
+    useRecoilState(isAddModalOpenState);
   const [selectedPresentationId, setSelectedPresentationId] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
@@ -137,6 +139,14 @@ const PresentationList = () => {
 
     handleGetPresentationList(groupId);
   }, []);
+
+  // useEffect(() => {
+  //   const groupId = 1;
+  //   console.log(isAddModalOpen);
+  //   console.log(presentationList);
+
+  //   handleGetPresentationList(groupId);
+  // }, [isAddModalOpen]);
 
   return (
     <ClassBox>
