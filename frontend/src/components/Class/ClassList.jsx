@@ -3,9 +3,11 @@ import {
   isAddModalOpenState,
   isRefactorModalOpenState,
 } from 'Recoil/ClassState';
+import { teacherDataState } from 'Recoil/UserState';
 import { getClassList } from 'api/ClassApi';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -79,8 +81,8 @@ const ClassList = () => {
     isRefactorModalOpenState
   );
   const [selectedClassItem, setSelectedClassItem] = useState(null);
-  const [isAddModalOpen, setIsAddModalOpen] =
-    useRecoilState(isAddModalOpenState);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const navigate = useNavigate();
 
   const handleRefactorClassClick = (classItem) => {
     setIsModalOpen(true);
@@ -97,6 +99,13 @@ const ClassList = () => {
       setClassList(updatedClassList);
     }
     // PUT /group/deleteStudent
+  };
+
+  const handleEnterClassClick = (groupId) => {
+    const updatedTeacherData = { ...teacherData, groupId: groupId };
+    setTeacherData(updatedTeacherData);
+    // console.log(updatedTeacherData);
+    navigate('/main');
   };
 
   const handleGetClassList = async (accessToken) => {
@@ -118,7 +127,7 @@ const ClassList = () => {
       {classList.map((classItem) => (
         <ClassItem key={classItem.id}>
           <ClassItemFirst>
-            <EnterButton>
+            <EnterButton onClick={() => handleEnterClassClick(classItem.id)}>
               <p>입장</p>
               <SvgBox>
                 <svg

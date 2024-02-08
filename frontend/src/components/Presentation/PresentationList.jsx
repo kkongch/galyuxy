@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import PresentationModal from './PresentationModal';
 import { getPresentationList, deletePresentation } from 'api/PresentationApi';
+import { teacherDataState } from 'Recoil/UserState';
 
 const ClassBox = styled.div`
   display: flex;
@@ -85,6 +86,7 @@ const PresentationList = () => {
   const [selectedPresentationId, setSelectedPresentationId] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
 
   const handleGetPresentationList = async (groupId) => {
     try {
@@ -135,18 +137,10 @@ const PresentationList = () => {
   }, [isDeleteClicked, presentationIdToDelete]);
 
   useEffect(() => {
-    const groupId = 1;
+    const groupId = teacherData.groupId;
 
     handleGetPresentationList(groupId);
   }, []);
-
-  // useEffect(() => {
-  //   const groupId = 1;
-  //   console.log(isAddModalOpen);
-  //   console.log(presentationList);
-
-  //   handleGetPresentationList(groupId);
-  // }, [isAddModalOpen]);
 
   return (
     <ClassBox>
