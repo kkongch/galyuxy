@@ -16,7 +16,7 @@ import RoomPage from 'pages/presentation/RoomPage';
 import LoginPage from 'pages/user/LoginPage';
 import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
-
+import QuizEnterPage from 'pages/quiz/QuizEnter';
 function App() {
   return (
     <>
@@ -38,6 +38,7 @@ function App() {
             <Route path='/room' element={<RoomPage />} />
             <Route path='/art' element={<Coloring />} />
             <Route path='/drawing' element={<DrawingPage />} />
+            <Route path='/quizenter' element={<QuizEnterPage />} />
           </Routes>
         </div>
       </RecoilRoot>
