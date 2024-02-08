@@ -9,7 +9,7 @@ import {
   studentListState,
 } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
-import { createClass, getStudentList } from 'api/ClassApi';
+import { createClass, getClassList, getStudentList } from 'api/ClassApi';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -166,6 +166,7 @@ export const ClassModal = ({ classItem }) => {
   const [studentNo, setStudentNo] = useState('');
   const [studentName, setStudentName] = useState('');
   const [studentList, setStudentList] = useRecoilState(studentListState);
+  const [classList, setClassList] = useRecoilState(classListState);
 
   const handleGetStudentList = async (accessToken, classItem) => {
     try {
@@ -179,9 +180,11 @@ export const ClassModal = ({ classItem }) => {
   };
 
   const handleCreateClass = async (accessToken, classData) => {
-    console.log(classData);
     try {
       await createClass(accessToken, classData);
+
+      const list = await getClassList(sessionStorage.getItem('accessToken'));
+      setClassList(list);
     } catch (error) {
       console.error('Error handleCreateClass: ', error);
     }
@@ -191,7 +194,6 @@ export const ClassModal = ({ classItem }) => {
     if (classItem) {
       handleGetStudentList(sessionStorage.getItem('accessToken'), classItem);
     }
-    console.log(studentList);
   }, []);
 
   const handleCancel = () => {
@@ -226,8 +228,6 @@ export const ClassModal = ({ classItem }) => {
       name: studentName,
       no: studentNo,
     });
-
-    console.log(updatedStudentList);
 
     setStudentList(updatedStudentList);
     setStudentNo('');

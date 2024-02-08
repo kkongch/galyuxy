@@ -112,10 +112,6 @@ const ClassList = () => {
     handleGetClassList(sessionStorage.getItem('accessToken'));
   }, []);
 
-  useEffect(() => {
-    handleGetClassList(sessionStorage.getItem('accessToken'));
-  }, [isAddModalOpen]);
-
   return (
     <ClassBox>
       {isModalOpen && <ClassModal classItem={selectedClassItem} />}
