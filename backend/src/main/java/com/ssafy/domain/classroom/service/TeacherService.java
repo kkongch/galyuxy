@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.ssafy.domain.classroom.dto.TeacherDto;
 import com.ssafy.domain.classroom.dto.TeacherLoginReqDto;
-import com.ssafy.domain.classroom.dto.TeacherLoginResDto;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.request.TeacherReq;
 import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
@@ -34,5 +33,5 @@ public interface TeacherService {
     Optional<Teacher> getOne(Integer id);
 
     void joinEmail(String email);
-    boolean CheckAuthNum(String email,String authCode);
+    boolean CheckAuthCode(String email, String authCode);
 }
