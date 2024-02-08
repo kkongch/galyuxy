@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Background from 'components/Basic/Background';
 import heritageImage from 'assets/images/Heritage/문화유산메인배경.png';
-import { getHeritage } from 'api/HeritageApi';
+import { getHeritage, getHeritageList } from 'api/HeritageApi';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { heritageState } from 'Recoil/HeritageState';
+import { heritageListState, heritageState } from 'Recoil/HeritageState';
 import { selectedHeritageIdState } from 'Recoil/SelectedHeritageIdState';
 const Body = styled.div`
   margin: 0;
@@ -38,25 +38,27 @@ const Box = React.forwardRef(({ imageUrl, onClick }, ref) => {
   return <StyledbBox ref={ref} imageUrl={imageUrl} onClick={onClick} />;
 });
 
-function HeritageList() {
+const HeritageList = () => {
   const navigate = useNavigate();
   // const [HeritageData, setHeritageData] = useState([]);
-  const [HeritageData, setHeritageData] = useRecoilState(heritageState);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getHeritage();
-        setHeritageData(response.data.dataBody); // 데이터를 상태에 저장
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const [heritageList, setHeritageList] = useRecoilState(heritageListState);
+  const setSelectedHeritageId = useSetRecoilState(selectedHeritageIdState);
 
+  const fetchData = async () => {
+    try {
+      const response = await getHeritageList();
+      setHeritageList(response.dataBody); // 데이터를 상태에 저장
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
-  console.log(heritageState);
+
   const boxRefs = useRef([]);
-  boxRefs.current = HeritageData.map(
+  boxRefs.current = heritageList.map(
     (_, i) => boxRefs.current[i] || React.createRef()
   );
 
@@ -68,7 +70,7 @@ function HeritageList() {
   //     // key={index}
   //   />
   // ));
-  const boxes = HeritageData.map((data, index) => (
+  const boxes = heritageList.map((data, index) => (
     <Box
       key={data.heritageId} // 고유한 key 값으로 data.heritageId 사용
       imageUrl={data.heritageImageUrl}
@@ -98,18 +100,28 @@ function HeritageList() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  const setSelectedHeritageId = useSetRecoilState(selectedHeritageIdState);
+
   const handleDetailClick = (heritageId) => {
     setSelectedHeritageId(heritageId);
     navigate(`/heritage/${heritageId}`);
   };
+
   return (
     <Background backgroundImage={heritageImage}>
       <Body>
-        <Container>{boxes}</Container>
+        <Container>
+          {heritageList.map((heritageItem, index) => (
+            <Box
+              key={heritageItem.heritageId}
+              imageUrl={heritageItem.heritageImageUrl}
+              ref={boxRefs.current[index]}
+              onClick={() => handleDetailClick(heritageItem.heritageId)}
+            />
+          ))}
+        </Container>
       </Body>
     </Background>
   );
-}
+};
 
 export default HeritageList;

@@ -1,5 +1,9 @@
 import { atom } from 'recoil';
-export const heritageState = atom({
-  key: 'heritageDetail',
+export const heritageListState = atom({
+  key: 'heritageList',
   default: [],
+});
+export const heritageState = atom({
+  key: 'heritage',
+  default: {},
 });
