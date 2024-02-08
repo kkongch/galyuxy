@@ -132,13 +132,13 @@ const RoomModal = ({ roomId }) => {
         roomId: session,
         roomSubject: roomSubject,
         presentation: {
-          presentationId: 1,
+          presentationId: teacherData.presentationId,
         },
       };
 
       await createRoom(roomData);
 
-      const list = await getRoomList(1);
+      const list = await getRoomList(teacherData.presentationId);
       setRoomList(list);
     } catch (error) {
       console.error('Error handleCreateRoom:', error);
@@ -147,14 +147,6 @@ const RoomModal = ({ roomId }) => {
 
   const handleConfirm = () => {
     handleCreateRoomSession();
-
-    const roomData = {
-      roomSubject: roomSubject,
-      presentation: {
-        presentationId: 1,
-      },
-    };
-    setRoomList([...roomList, roomData]);
 
     setIsAddModalOpen(false);
   };

@@ -1,5 +1,6 @@
 import { userTypeState } from 'Recoil/ClassState';
 import { roomListState } from 'Recoil/PresentationState';
+import { teacherDataState } from 'Recoil/UserState';
 import { deleteRoom, getRoomList } from 'api/RoomApi';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -78,6 +79,7 @@ const RoomList = () => {
   const userType = useRecoilValue(userTypeState);
   const [roomIdToDelete, setRoomIdToDelete] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
 
   const handleGetRoomList = async (roomId) => {
     try {
@@ -116,7 +118,7 @@ const RoomList = () => {
     // (student) GET /presentation/:groupId 호출 뒤, active가 1인 presentationId 가져오기
     // (teacher) GET /room/:presentationId
 
-    const presentationId = 1;
+    const presentationId = teacherData.presentationId;
 
     handleGetRoomList(presentationId);
   }, []);

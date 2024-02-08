@@ -88,7 +88,6 @@ const BoardBackgroundOuter = styled.div`
 
 const RoomPage = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
-
   const userType = useRecoilValue(userTypeState);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -106,9 +105,7 @@ const RoomPage = () => {
         {isModalOpen && <RoomModal />}
         <ClassBox>
           <TopOfBoardBox>
-            <Title>
-              <p>이순신 인터뷰</p>
-            </Title>
+            <Title>{/* <p>이순신 인터뷰</p> */}</Title>
             {userType === 1 && (
               <ButtonBox>
                 <AddClassButton onClick={handleAddClassClick}>
