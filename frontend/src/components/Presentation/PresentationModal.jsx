@@ -7,7 +7,12 @@ import {
 } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
 import { presentationListState } from 'Recoil/PresentationState';
-import { createPresentation, updatePresentation } from 'api/PresentationApi';
+import {
+  createPresentation,
+  getPresentationList,
+  updatePresentation,
+} from 'api/PresentationApi';
+import { teacherDataState } from 'Recoil/UserState';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -107,17 +112,21 @@ const PresentationModal = ({ presentationId }) => {
   const [presentationList, setPresentationList] = useRecoilState(
     presentationListState
   );
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
 
   const handleCreatePresentation = async () => {
     try {
       const presentationData = {
         presentationTitle: presentationTitle,
         group: {
-          id: 1,
+          id: teacherData.groupId,
         },
       };
 
-      const createdPresentation = await createPresentation(presentationData);
+      await createPresentation(presentationData);
+
+      const list = await getPresentationList(teacherData.groupId);
+      setPresentationList(list);
     } catch (error) {
       console.error('Error handleCreatePresentation:', error);
     }
@@ -153,10 +162,20 @@ const PresentationModal = ({ presentationId }) => {
   };
 
   const handleConfirm = () => {
-    // PUT /presentation/:presentationId
+    if (isAddModalOpen && !isRefactorModalOpen) {
+      handleCreatePresentation();
+    } else if (!isAddModalOpen && isRefactorModalOpen) {
+      handleUpdatePresentation();
 
-    if (isAddModalOpen && !isRefactorModalOpen) handleCreatePresentation();
-    else if (isAddModalOpen && isRefactorModalOpen) handleUpdatePresentation();
+      const updatedList = presentationList.map((presentation) => {
+        if (presentation.presentationId === presentationId) {
+          return { ...presentation, presentationTitle: presentationTitle };
+        }
+        return presentation;
+      });
+      setPresentationList(updatedList);
+    }
+
     setIsAddModalOpen(false);
     setIsRefactorModalOpen(false);
   };
