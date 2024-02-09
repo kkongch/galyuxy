@@ -14,6 +14,8 @@ public class RedisUtil {
 
     public String getData(String key){//지정된 키(key)에 해당하는 데이터를 Redis에서 가져오는 메서드
         ValueOperations<String,String> valueOperations=redisTemplate.opsForValue();
+        System.out.println(valueOperations.get(key));
+//        System.out.println(key);
         return valueOperations.get(key);
     }
     public void setData(String key,String value){//지정된 키(key)에 값을 저장하는 메서드

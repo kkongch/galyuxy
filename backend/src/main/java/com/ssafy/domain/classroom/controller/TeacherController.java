@@ -13,7 +13,6 @@ import com.ssafy.global.common.dto.Message;
 import com.ssafy.global.component.jwt.dto.TokenDto;
 import com.ssafy.global.component.jwt.dto.TokenTeacherInfoDto;
 import com.ssafy.global.component.jwt.service.JwtService;
-import com.ssafy.global.email.service.MailService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,6 @@ public class TeacherController {
 
     private final TeacherService teacherService;
     private final JwtService jwtService;
-    private final MailService mailService;
 
     @PostMapping
     ResponseEntity postTeacher(@RequestBody TeacherReq teacherReq) {
@@ -83,10 +81,10 @@ public class TeacherController {
 
     // 이메일 전송
     @PostMapping("/emailSend")
-    public String mailSend(@RequestBody  EmailCheckDto email){
+    public ResponseEntity<Message<Void>> mailSend(@RequestBody  EmailCheckDto email){
         System.out.println("이메일 인증 이메일 : "+ email.getEmail());
         teacherService.joinEmail(email.getEmail());
-        return null;
+        return ResponseEntity.ok().body(Message.success());
     }
 
     // 이메일 인증 번호 확인
@@ -94,12 +92,12 @@ public class TeacherController {
     public ResponseEntity<Message<Void>> AuthCheck(@RequestBody EmailCheckDto emailCheckDto){
         boolean Checked= teacherService.CheckAuthCode(emailCheckDto.getEmail(),emailCheckDto.getAuthCode());
         if(Checked){
-            System.out.println("success ");
+//            System.out.println("success ");
             return ResponseEntity.ok().body(Message.success());
         }
         else{
-            System.out.println("fail");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Message.fail(String.valueOf(HttpStatus.NOT_FOUND), "해당 그룹이 존재하지 않음"));
+//            System.out.println("fail");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Message.fail(String.valueOf(HttpStatus.NOT_FOUND), "이메일 인증 실패"));
         }
     }
 
