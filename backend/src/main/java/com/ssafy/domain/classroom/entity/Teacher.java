@@ -2,11 +2,12 @@ package com.ssafy.domain.classroom.entity;
 
 import com.ssafy.domain.classroom.entity.enums.Role;
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +27,7 @@ public class Teacher {
     String name;
 
     @Column(name = "teacher_email")
+    @Email
     String email;
 
     @Column(name = "teacher_password")

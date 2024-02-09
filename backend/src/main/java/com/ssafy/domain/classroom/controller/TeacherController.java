@@ -2,10 +2,7 @@ package com.ssafy.domain.classroom.controller;
 
 import java.util.Optional;
 
-import com.ssafy.domain.classroom.dto.TeacherDto;
-import com.ssafy.domain.classroom.dto.TeacherLoginActiveDto;
-import com.ssafy.domain.classroom.dto.TeacherLoginReqDto;
-import com.ssafy.domain.classroom.dto.TeacherLoginResDto;
+import com.ssafy.domain.classroom.dto.*;
 import com.ssafy.domain.classroom.entity.Teacher;
 import com.ssafy.domain.classroom.entity.enums.Role;
 import com.ssafy.domain.classroom.exception.ClassroomException;
@@ -81,6 +78,29 @@ public class TeacherController {
         int emailCheck = teacherService.emailDuplicateCheck(teacherEmail);
         return ResponseEntity.ok().body(Message.success());
     }
+
+    // 이메일 전송
+    @PostMapping("/emailSend")
+    public ResponseEntity<Message<Void>> mailSend(@RequestBody  EmailCheckDto email){
+        System.out.println("이메일 인증 이메일 : "+ email.getEmail());
+        teacherService.joinEmail(email.getEmail());
+        return ResponseEntity.ok().body(Message.success());
+    }
+
+    // 이메일 인증 번호 확인
+    @PostMapping("/emailVerify")
+    public ResponseEntity<Message<Void>> AuthCheck(@RequestBody EmailCheckDto emailCheckDto){
+        boolean Checked= teacherService.CheckAuthCode(emailCheckDto.getEmail(),emailCheckDto.getAuthCode());
+        if(Checked){
+//            System.out.println("success ");
+            return ResponseEntity.ok().body(Message.success());
+        }
+        else{
+//            System.out.println("fail");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Message.fail(String.valueOf(HttpStatus.NOT_FOUND), "이메일 인증 실패"));
+        }
+    }
+
 
 
 
