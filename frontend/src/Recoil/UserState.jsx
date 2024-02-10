@@ -1,5 +1,4 @@
 import { atom } from 'recoil';
-
 export const teacherDataState = atom({
   key: 'teacherData',
   default: {

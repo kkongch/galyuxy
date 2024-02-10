@@ -17,6 +17,8 @@ import LoginPage from 'pages/user/LoginPage';
 import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
+import VideoPage from 'pages/presentation/VideoPage';
+
 function App() {
   return (
     <>
@@ -36,6 +38,7 @@ function App() {
             <Route path='/quiz/workbooklist' element={<WorkBookList />} />
             <Route path='/presentation' element={<PresentationPage />} />
             <Route path='/room' element={<RoomPage />} />
+            <Route path='/VideoPage' element={<VideoPage />} />
             <Route path='/art' element={<Coloring />} />
             <Route path='/drawing' element={<DrawingPage />} />
             <Route path='/quizenter' element={<QuizEnterPage />} />
