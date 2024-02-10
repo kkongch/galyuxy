@@ -5,6 +5,7 @@ import { deleteRoom, getRoomList } from 'api/RoomApi';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 
 const RoomBox = styled.div`
   display: flex;
@@ -80,6 +81,13 @@ const RoomList = () => {
   const [roomIdToDelete, setRoomIdToDelete] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const navigate = useNavigate();
+
+  const handleEnterRoom = (roomSubject, roomId) => {
+    navigate('/VideoPage', {
+      state: { roomSubject: roomSubject, roomId: roomId },
+    });
+  };
 
   const handleGetRoomList = async (roomId) => {
     try {
@@ -136,6 +144,8 @@ const RoomList = () => {
       {roomList.map((room) => (
         <RoomBox key={room.roomId}>
           <RoomContent>
+            <h1>{JSON.stringify(room)}</h1>
+
             <RoomTitle>
               <p>{room.roomSubject}</p>
             </RoomTitle>
@@ -143,7 +153,9 @@ const RoomList = () => {
               <p>참가자 : 3명</p>
             </Participate>
             <ButtonBox>
-              <EnterButton>
+              <EnterButton
+                onClick={() => handleEnterRoom(room.roomSubject, room.roomId)}
+              >
                 <p>입장</p>
               </EnterButton>
               {userType === 1 && (
