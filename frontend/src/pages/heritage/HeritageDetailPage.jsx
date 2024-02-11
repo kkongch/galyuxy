@@ -160,10 +160,10 @@ const HeritageDetailPage = () => {
   }, []);
 
   const handleBackClick = () => {
-    // navigate('/heritage')
+    navigate('/heritage')
   };
   const handleThreeDClick = () => {
-    // navigate(`/heritage/${heritage.heritageId}/3d`)
+    navigate(`/heritage/${heritage.heritageId}/3d`)
   };
 
   return (
