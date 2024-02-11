@@ -105,6 +105,8 @@ const ClassList = () => {
     const updatedTeacherData = { ...teacherData, groupId: groupId };
     setTeacherData(updatedTeacherData);
     console.log(updatedTeacherData);
+
+    localStorage.setItem('groupId', groupId);
     navigate('/main');
   };
 

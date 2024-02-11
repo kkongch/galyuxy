@@ -45,3 +45,15 @@ export const teacherSignUp = async (signUpData) => {
     throw error;
   }
 };
+
+export const getTeacherInfo = async (accessToken) => {
+  try {
+    const response = await api.get(`/teachers`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error getTeacherInfo: ', error);
+    throw error;
+  }
+};

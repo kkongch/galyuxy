@@ -1,9 +1,11 @@
-import { teacherLogin } from 'api/UserApi';
+import { teacherDataState } from 'Recoil/UserState';
+import { getTeacherInfo, teacherLogin } from 'api/UserApi';
 import Background from 'components/Basic/Background';
 import StyledInput from 'components/User/StyledInput';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const FlexBox = styled.div`
@@ -78,7 +80,7 @@ const LargeButton = styled.div`
 `;
 
 const LoginPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
   const navigate = useNavigate();
@@ -92,8 +94,6 @@ const LoginPage = () => {
 
       const response = await teacherLogin(loginData);
 
-      console.log(response.dataBody.token);
-
       sessionStorage.setItem(
         'accessToken',
         response.dataBody.token.accessToken
@@ -102,6 +102,15 @@ const LoginPage = () => {
         'refreshToken',
         response.dataBody.token.refreshToken
       );
+
+      const info = await getTeacherInfo(sessionStorage.getItem('accessToken'));
+      console.log(info);
+      setTeacherData({
+        ...teacherData,
+        name: info.dataBody.name,
+        email: info.dataBody.email,
+        id: info.dataBody.id,
+      });
 
       navigate('/class');
     } catch (error) {
