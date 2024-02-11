@@ -18,6 +18,7 @@ import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
 import VideoPage from 'pages/presentation/VideoPage';
+import ArtPage from 'pages/art/ArtPage'
 import StudentNav from 'components/Navbar/StudentNav';
 import ClassNav from 'components/Navbar/ClassNav';
 
