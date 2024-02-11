@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'assets/images/Logo.png';
 import LogoBox from './LogoBox';
@@ -7,6 +7,8 @@ import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
 import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
 import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
+import { useRecoilState } from 'recoil';
+import { teacherDataState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -150,6 +152,8 @@ const SubMenu = ({ to, children }) => {
 };
 
 const TeacherNav = () => {
+  const navigate = useNavigate();
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState({
     art: false,
@@ -172,24 +176,33 @@ const TeacherNav = () => {
   const [checkModal, setCheckModal] = useState(false);
   const toggleQRModal = () => setCheckModal(!checkModal);
 
+  const handleClassChoiceClick = () => {
+    navigate('/class');
+  };
+
+  const handleLogoutClick = () => {
+    navigate('/');
+    alert('로그아웃 되었습니다!');
+  };
+
   return (
     <>
       <NavContainer isOpen={isOpen}>
-        <Link to='/main'>
+        <Link to='/'>
           <FullLogo src={Logo} />
         </Link>
         <Profile>
           <LogoBox toggleQRModal={toggleQRModal} />
           <UserInfo>
-            <UserName>김나연</UserName>
+            <UserName>{teacherData.name}</UserName>
             <UserType>선생님</UserType>
           </UserInfo>
           <ProfileBtn>
-            <ClassChoice>
+            <ClassChoice onClick={handleClassChoiceClick}>
               <BookIcon />
               클래스 선택
             </ClassChoice>
-            <Logout>
+            <Logout onClick={handleLogoutClick}>
               <LogoutIcon />
               로그아웃
             </Logout>
