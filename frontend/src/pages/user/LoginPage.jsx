@@ -103,17 +103,15 @@ const LoginPage = () => {
         response.dataBody.token.refreshToken
       );
 
-      setIsLoggedIn(true);
+      navigate('/class');
     } catch (error) {
+      alert('아이디 혹은 비밀번호를 다시 확인해 주세요');
       console.error('Error handleTeacherLogin:', error);
     }
   };
 
   const handleConfirm = () => {
     handleLogin();
-    if (isLoggedIn) {
-      navigate('/class');
-    }
   };
 
   const handleSignupClick = () => {
