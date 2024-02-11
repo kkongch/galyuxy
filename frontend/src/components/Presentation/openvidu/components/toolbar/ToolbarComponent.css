@@ -1,13 +1,17 @@
 #header {
   color: #ffffff;
   height: 40px;
-  background-color: #333333;
   padding: 0 14px 0 0;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 76rem;
+  width: 73rem;
+  left: 15rem;
   z-index: 999999;
   min-width: 400px !important;
+  border-radius: 2.5rem;
+  border: 1px solid #000;
+
+  background: rgba(255, 255, 255, 0.5);
 }
 .toolbar {
   padding: 0 !important;
@@ -58,7 +62,7 @@
 }
 
 #session-title {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #point {
@@ -81,4 +85,29 @@
   #navChatButton {
     display: none;
   }
+}
+
+/* 비디오 부분 */
+.videoradiusBox {
+  width: 16.8125rem;
+  height: 6.4375rem;
+  border-radius: 3.21875rem;
+  background: #2cc143;
+  position: relative;
+  top: -2rem;
+  right: 14rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exitBox {
+  position: relative;
+  bottom: 1.75rem;
+  left: 16.5rem;
+}
+
+.micBox {
+  position: relative;
+  right: 10rem;
 }

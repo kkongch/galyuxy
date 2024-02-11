@@ -120,7 +120,7 @@ export default class ChatComponent extends Component {
                 /> */}
                 <div className='msg-detail'>
                   <div className='msg-info'>
-                    <p>{data.nickname}</p>
+                    <p>{data.nickname}:</p>
                   </div>
                   <div className='msg-content'>
                     <span className='triangle'></span>

@@ -83,7 +83,7 @@ export default class StreamComponent extends Component {
               >
                 <HighlightOffIcon />
               </IconButton>
-              <InputLabel htmlFor='nickname-input'>Nickname</InputLabel>
+              <InputLabel htmlFor='nickname-input'>역활</InputLabel>
               <Input
                 id='nickname-input'
                 value={this.state.nickname}
@@ -100,29 +100,29 @@ export default class StreamComponent extends Component {
           ) : (
             // 닉네임 표시 및 편집 버튼
             <div onClick={this.toggleNicknameForm} aria-label='Edit nickname'>
-              <span id='nickname'>{this.props.user.getNickname()}</span>
-              {this.props.user.isLocal() && <span> (edit)</span>}
+              <span id='nickname' style={{ fontSize: '25px' }}>
+                {this.props.user.getNickname()}
+              </span>
+              {this.props.user.isLocal() && <span> </span>}
             </div>
           )}
         </div>
 
         {this.props.user && this.props.user.getStreamManager() ? (
-          // 비디오 및 상태 아이콘 표시
           <div className='streamComponent'>
             <OvVideoComponent
               user={this.props.user}
               mutedSound={this.state.mutedSound}
             />
-            <div id='statusIcons'>
+            {/* <div id='statusIcons'>
               {!this.props.user.isVideoActive() && (
                 <VideocamOffIcon id='statusCam' aria-label='Camera is off' />
               )}
               {!this.props.user.isAudioActive() && (
                 <MicOffIcon id='statusMic' aria-label='Microphone is off' />
               )}
-            </div>
+            </div> */}
             {!this.props.user.isLocal() && (
-              // 음소거 버튼
               <IconButton
                 id='volumeButton'
                 onClick={this.toggleSound}

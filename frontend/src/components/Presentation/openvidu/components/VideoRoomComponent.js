@@ -28,9 +28,8 @@ class VideoRoomComponent extends Component {
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.roomId ? this.props.roomId : 'dsddsdsdsds';
-    let userName = this.props.user
-      ? this.props.user
-      : '1학년 1반' + Math.floor(Math.random() * 100);
+    //유저닉네임 수정 부분
+    let userName = this.props.user ? this.props.user : '역활';
     this.remotes = [];
     this.localUserAccessAllowed = false;
     this.state = {
