@@ -24,6 +24,7 @@ const NavContainer = styled.nav`
   border: 1px solid rgba(255, 255, 255, 0.53);
   background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(7.800000190734863px);
+  position: fixed;
 `;
 const ToggleButton = styled.button`
   position: fixed;
@@ -40,6 +41,7 @@ const ToggleButton = styled.button`
   color: white;
   cursor: pointer;
   transition: left 0.3s ease-out;
+  position: fixed;
 `;
 const FullLogo = styled.img`
   display: flex;
