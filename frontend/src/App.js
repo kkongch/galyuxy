@@ -18,6 +18,7 @@ import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
 import VideoPage from 'pages/presentation/VideoPage';
+import ArtPage from 'pages/art/ArtPage';
 
 function App() {
   return (
@@ -39,8 +40,9 @@ function App() {
             <Route path='/presentation' element={<PresentationPage />} />
             <Route path='/room' element={<RoomPage />} />
             <Route path='/VideoPage' element={<VideoPage />} />
-            <Route path='/art' element={<Coloring />} />
-            <Route path='/drawing' element={<DrawingPage />} />
+            <Route path='/art' element={<ArtPage />} />
+            <Route path='/art/coloring' element={<Coloring />} />
+            <Route path='/art/drawing' element={<DrawingPage />} />
             <Route path='/quizenter' element={<QuizEnterPage />} />
           </Routes>
         </div>
