@@ -74,6 +74,7 @@ const LargeButton = styled.div`
   text-align: center;
   font-size: 1.875rem;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const LoginPage = () => {
@@ -115,6 +116,14 @@ const LoginPage = () => {
     }
   };
 
+  const handleSignupClick = () => {
+    navigate('/signup');
+  };
+
+  const handlePwFindClick = () => {
+    navigate('/pwFind');
+  };
+
   return (
     <Background
       backgroundImage={require('assets/svg/main/Background.svg').default}
@@ -145,9 +154,13 @@ const LoginPage = () => {
                   onChange={setPassword}
                 />
                 <AccountBox>
-                  <AccountButton>회원가입</AccountButton>
-                  <span>&nbsp;|&nbsp;</span>
-                  <AccountButton>비밀번호 찾기</AccountButton>
+                  <AccountButton onClick={handleSignupClick}>
+                    회원가입
+                  </AccountButton>
+                  {/* <span>&nbsp;|&nbsp;</span>
+                  <AccountButton onClick={handlePwFindClick}>
+                    비밀번호 찾기
+                  </AccountButton> */}
                 </AccountBox>
               </LoginInputBox>
               <LargeButton onClick={handleConfirm}>로그인</LargeButton>
