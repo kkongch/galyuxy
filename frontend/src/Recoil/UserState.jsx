@@ -23,8 +23,8 @@ export const studentUserState = atom({
   key: 'studentUser',
   default: {
     groupId: 1,
-    studentId: null,
-    studentName: null,
-    studentNo: null,
+    id: 5,
+    name: '박학생',
+    no: 2,
   },
 });
