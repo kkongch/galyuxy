@@ -12,7 +12,7 @@ import { teacherDataState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
-  width: 30rem;
+  width: 40rem;
   flex-direction: column;
   flex-wrap: wrap;
   display: flex;
@@ -29,10 +29,10 @@ const ToggleButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  left: ${(props) => (props.isOpen ? '30rem' : '0')};
+  left: ${(props) => (props.isOpen ? '40rem' : '0')};
   top: 7%;
-  height: 8%;
-  width: 3%;
+  width: 4.375rem;
+  height: 7.3125rem;
   z-index: 2;
   border-radius: 0px 1.5rem 1.5rem 0px;
   background: #11235a;
@@ -47,8 +47,8 @@ const FullLogo = styled.img`
 `;
 const Profile = styled.div`
   display: grid;
-  height: 17rem;
-  width: 25rem;
+  height: 21rem;
+  width: 32rem;
   margin-bottom: 2rem;
   padding: 1.7rem 1.7rem 1.5rem;
   background: white;
@@ -72,10 +72,10 @@ const UserInfo = styled.div`
 `;
 const UserType = styled.div`
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
 `;
 const UserName = styled.div`
-  font-size: 2.3rem;
+  font-size: 2.8rem;
   font-weight: 800;
 `;
 const ProfileBtn = styled.div`
@@ -83,30 +83,32 @@ const ProfileBtn = styled.div`
   justify-content: space-between;
   grid-row: 3;
   grid-column: 1 / span 3;
-  font-size: 1.1rem;
-  font-weight: 900;
+  /* font-size: 1.1rem; */
+  font-weight: 800;
 `;
 const ClassChoice = styled.div`
   display: flex;
   background: #f6eca9;
-  width: 10rem;
-  height: 3.5rem;
+  width: 13.5rem;
+  height: 4.5rem;
   border-radius: 1.25rem;
   margin: 0.5rem 0 0;
   padding: 0 1rem;
   align-items: center;
   justify-content: space-evenly;
+  font-size: 1.75rem;
 `;
 const Logout = styled.div`
   display: flex;
   background: #f6eca9;
-  width: 10rem;
-  height: 3.5rem;
+  width: 13.5rem;
+  height: 4.5rem;
   border-radius: 1.25rem;
   margin: 0.5rem 0 0;
   padding: 0 1rem;
   align-items: center;
   justify-content: space-evenly;
+  font-size: 1.75rem;
 `;
 const MenuText = styled.div`
   display: flex;
@@ -199,11 +201,11 @@ const TeacherNav = () => {
           </UserInfo>
           <ProfileBtn>
             <ClassChoice onClick={handleClassChoiceClick}>
-              <BookIcon />
+              {/* <BookIcon /> */}
               클래스 선택
             </ClassChoice>
             <Logout onClick={handleLogoutClick}>
-              <LogoutIcon />
+              {/* <LogoutIcon /> */}
               로그아웃
             </Logout>
           </ProfileBtn>
