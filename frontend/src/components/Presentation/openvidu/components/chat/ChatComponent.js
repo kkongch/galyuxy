@@ -90,8 +90,8 @@ export default class ChatComponent extends Component {
         <div id='chatComponent' style={styleChat}>
           <div id='chatToolbar'>
             <span>
-              {this.props.user.getStreamManager().stream.session.sessionId} -
-              CHAT
+              {/* {this.props.user.getStreamManager().stream.session.sessionId} -
+              CHAT */}
             </span>
             <IconButton
               id='closeButton'
@@ -101,6 +101,10 @@ export default class ChatComponent extends Component {
               <HighlightOffIcon color='secondary' />
             </IconButton>
           </div>
+          <div className='title-box'>
+            <p>이순신 장군과 함께하는 명량해전 이야기</p>
+          </div>
+
           {/* 메시지 리스트 */}
           <div className='message-wrap' ref={this.chatScroll}>
             {this.state.messageList.map((data, i) => (
@@ -108,12 +112,12 @@ export default class ChatComponent extends Component {
                 key={i}
                 className={`message ${data.connectionId !== this.props.user.getConnectionId() ? 'left' : 'left'}`}
               >
-                <canvas
+                {/* <canvas
                   id={`userImg-${i}`}
                   width='60'
                   height='60'
                   className='user-img'
-                />
+                /> */}
                 <div className='msg-detail'>
                   <div className='msg-info'>
                     <p>{data.nickname}</p>
@@ -129,7 +133,7 @@ export default class ChatComponent extends Component {
           {/* 메시지 입력 필드 및 전송 버튼 */}
           <div id='messageInput'>
             <input
-              placeholder='Send a message'
+              placeholder='대사를 입력해주세요'
               id='chatInput'
               value={this.state.message}
               onChange={this.handleChange}
@@ -142,7 +146,7 @@ export default class ChatComponent extends Component {
                 onClick={this.sendMessage}
                 aria-label='Send message'
               >
-                <SendIcon />
+                <SendIcon style={{ fontSize: 40 }} />
               </Fab>
             </Tooltip>
           </div>
