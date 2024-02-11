@@ -25,11 +25,15 @@ public class PresentationService {
         this.presentationRepository = presentationRepository;
     }
 
-    public List<Map<String, Object>> getActivePresentationsByGroupId(int groupId) {
+    public List<Map<String, Object>> getPresentationsByGroupId(int groupId) {
         List<Presentation> presentations = presentationRepository.findByGroupIdAndPresentationIsDeletedFalse(groupId);
         return presentations.stream()
                 .map(this::mapPresentationToResponse)
                 .collect(Collectors.toList());
+    }
+
+    public List<Presentation> getActivePresentationByGroupId(int groupId) {
+        return presentationRepository.findByGroupIdAndPresentationIsActiveTrue(groupId);
     }
 
     private Map<String, Object> mapPresentationToResponse(Presentation presentation) {
@@ -54,5 +58,21 @@ public class PresentationService {
 
     public Optional<Presentation> getPresentationById(int presentationId) {
         return presentationRepository.findById(presentationId);
+    }
+
+    public void activatePresentation(Integer presentationId) {
+        presentationRepository.findById(presentationId)
+                .ifPresent(presentation -> {
+                    presentation.setPresentationIsActive(true);
+                    presentationRepository.save(presentation);
+                });
+    }
+
+    public void deactivatePresentation(Integer presentationId) {
+        presentationRepository.findById(presentationId)
+                .ifPresent(presentation -> {
+                    presentation.setPresentationIsActive(false);
+                    presentationRepository.save(presentation);
+                });
     }
 }
