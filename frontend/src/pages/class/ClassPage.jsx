@@ -58,8 +58,13 @@ const TopOfBoardBox = styled.div`
   display: flex;
   width: 90.1875rem;
   height: 5.125rem;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 1.19rem;
+`;
+const Title = styled.div`
+  text-align: center;
+  font-size: 3.75rem;
+  font-weight: 800;
 `;
 const SvgBox = styled.div`
   display: flex;
@@ -102,6 +107,9 @@ const Class = () => {
         <ClassBox>
           {userType === 1 ? (
             <TopOfBoardBox>
+              <Title>
+                <p>클래스 목록</p>
+              </Title>
               <AddClassButton onClick={handleAddClassClick}>
                 <SvgBox>
                   <svg
