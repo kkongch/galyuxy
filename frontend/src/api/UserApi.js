@@ -57,3 +57,15 @@ export const getTeacherInfo = async (accessToken) => {
     throw error;
   }
 };
+
+export const teacherLogout = async (accessToken) => {
+  try {
+    const response = await api.get(`/teachers/logout`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error teacherLogout: ', error);
+    throw error;
+  }
+};

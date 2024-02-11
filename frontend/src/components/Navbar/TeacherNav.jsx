@@ -9,6 +9,7 @@ import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
 import { teacherDataState } from 'Recoil/UserState';
+import { getTeacherInfo, teacherLogout } from 'api/UserApi';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -24,6 +25,7 @@ const NavContainer = styled.nav`
   border: 1px solid rgba(255, 255, 255, 0.53);
   background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(7.800000190734863px);
+  position: fixed;
 `;
 const ToggleButton = styled.button`
   position: fixed;
@@ -40,6 +42,7 @@ const ToggleButton = styled.button`
   color: white;
   cursor: pointer;
   transition: left 0.3s ease-out;
+  position: fixed;
 `;
 const FullLogo = styled.img`
   display: flex;
@@ -190,8 +193,34 @@ const TeacherNav = () => {
     navigate('/class');
   };
 
+  const handleLogout = async () => {
+    const accessToken = sessionStorage.getItem('accessToken');
+
+    try {
+      const response = await teacherLogout(accessToken);
+      console.log(response);
+    } catch (error) {
+      console.error('Error handleLogout:', error);
+    }
+  };
+
   const handleLogoutClick = () => {
-    navigate('/');
+    handleLogout();
+
+    localStorage.removeItem('groupId');
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('refreshToken');
+
+    setTeacherData({
+      id: null,
+      name: null,
+      email: null,
+      groupId: null,
+      presentationId: null,
+      roomId: null,
+    });
+
+    navigate('/login');
     alert('로그아웃 되었습니다!');
   };
 

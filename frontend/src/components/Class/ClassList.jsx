@@ -94,9 +94,11 @@ const ClassList = () => {
 
     if (shouldDelete) {
       const updatedClassList = classList.filter(
-        (classItem) => classItem.group.groupId !== groupId
+        (classItem) => classItem.id !== groupId
       );
       setClassList(updatedClassList);
+
+      console.log(updatedClassList);
     }
     // PUT /group/deleteStudent
   };
@@ -104,7 +106,6 @@ const ClassList = () => {
   const handleEnterClassClick = (groupId) => {
     const updatedTeacherData = { ...teacherData, groupId: groupId };
     setTeacherData(updatedTeacherData);
-    console.log(updatedTeacherData);
 
     localStorage.setItem('groupId', groupId);
     navigate('/main');
