@@ -143,8 +143,6 @@ const RoomList = () => {
       {roomList.map((room) => (
         <RoomBox key={room.roomId}>
           <RoomContent>
-            <h1>{JSON.stringify(room)}</h1>
-
             <RoomTitle>
               <p>{room.roomSubject}</p>
             </RoomTitle>
