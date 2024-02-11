@@ -57,7 +57,6 @@ const WaitFlag = styled.div`
   width: 76.8125rem;
   height: 51.1875rem;
   position: absolute;
-  background: url(${waitImage});
 `;
 const QuizEnter = () => {
   return (
