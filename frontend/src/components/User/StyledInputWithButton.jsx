@@ -47,6 +47,7 @@ const StyledInputWithButton = ({
   placeholder,
   onChange,
   onClick,
+  disabled,
 }) => {
   return (
     <FlexBox>
@@ -56,6 +57,7 @@ const StyledInputWithButton = ({
         name={name}
         placeholder={placeholder}
         onChange={onChange}
+        disabled={disabled}
       />
       <ConfirmButton onClick={onClick}>확인</ConfirmButton>
     </FlexBox>

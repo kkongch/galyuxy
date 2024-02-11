@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { disable } from 'workbox-navigation-preload';
 
 const Input = styled.input`
   padding: 10px;
@@ -20,7 +21,7 @@ const Input = styled.input`
   padding: 0 2rem;
 `;
 
-const StyledInput = ({ type, id, name, placeholder, onChange }) => {
+const StyledInput = ({ type, id, name, placeholder, onChange, disabled }) => {
   return (
     <Input
       type={type}
@@ -28,6 +29,7 @@ const StyledInput = ({ type, id, name, placeholder, onChange }) => {
       name={name}
       placeholder={placeholder}
       onChange={onChange}
+      disabled={disabled}
     />
   );
 };

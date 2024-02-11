@@ -1,10 +1,10 @@
-import { authCodeSend, emailVerify } from 'api/UserApi';
+import { authCodeSend, emailVerify, teacherSignUp } from 'api/UserApi';
 import Background from 'components/Basic/Background';
 import LargeButton from 'components/User/LargeButton';
 import StyledInput from 'components/User/StyledInput';
 import StyledInputWithButton from 'components/User/StyledInputWithButton';
 import useInput from 'hooks/useInput';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const FlexBox = styled.div`
@@ -65,6 +65,7 @@ const SignUpPage = () => {
   const [authCode, setAuthCode] = useInput('');
   const [password, setPassword] = useInput('');
   const [verifyPassword, setVerifyPassword] = useInput('');
+  const [isEmailVerify, setIsEmailVerify] = useState(false);
 
   const handleAuthCodeSend = async () => {
     try {
@@ -73,7 +74,6 @@ const SignUpPage = () => {
       };
       const response = await authCodeSend(emailData);
       alert('이메일로 인증번호가 전송되었습니다!');
-      console.log(response);
     } catch (error) {
       console.error('Error handleEmailSend: ', error);
     }
@@ -87,8 +87,11 @@ const SignUpPage = () => {
       };
 
       const response = await emailVerify(auth);
-      console.log(response);
+
+      alert('이메일로 인증이 완료되었습니다!');
+      setIsEmailVerify(true);
     } catch (error) {
+      alert('인증번호를 다시 입력해주세요 ㅠㅠ');
       console.error('Error handleEmailVerify: ', error);
     }
   };
@@ -111,6 +114,7 @@ const SignUpPage = () => {
                 name='name'
                 placeholder='이름'
                 onChange={setName}
+                disabled={isEmailVerify}
               />
               <Label>이메일</Label>
               <StyledInputWithButton
@@ -120,6 +124,7 @@ const SignUpPage = () => {
                 placeholder='ssafy@ssafy.com'
                 onChange={setEmail}
                 onClick={handleAuthCodeSend}
+                disabled={isEmailVerify}
               />
               <Label>인증번호</Label>
               <StyledInputWithButton
@@ -129,6 +134,7 @@ const SignUpPage = () => {
                 placeholder='인증번호'
                 onChange={setAuthCode}
                 onClick={handleEmailVerify}
+                disabled={isEmailVerify}
               />
               <Label>비밀번호</Label>
               <StyledInput
