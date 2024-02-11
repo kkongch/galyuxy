@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class PresentationController {
 
     @GetMapping("/{groupId}")
     public ResponseEntity<List<Map<String, Object>>> getActivePresentationsByGroupId(@PathVariable("groupId") int groupId) {
-        List<Map<String, Object>> activePresentations = presentationService.getActivePresentationsByGroupId(groupId);
+        List<Map<String, Object>> activePresentations = presentationService.getPresentationsByGroupId(groupId);
         return new ResponseEntity<>(activePresentations, HttpStatus.OK);
     }
 
@@ -53,6 +54,19 @@ public class PresentationController {
         } catch (DataIntegrityViolationException e) {
             return new ResponseEntity<>("Error: Presentation title must be unique within a group.", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/active/{groupId}")
+    public ResponseEntity<Message<PresentationDto>> getActivePresentationByGroupId(@PathVariable("groupId") int groupId) {
+        List<Presentation> presentationList = presentationService.getActivePresentationByGroupId(groupId);
+        PresentationDto presentationDto = null;
+        if (presentationList.size() >= 1) {
+            Presentation presentation = presentationList.get(0);
+            presentationDto = new PresentationDto();
+            presentationDto.setPresentationId(presentation.getPresentationId());
+            presentationDto.setPresentationTitle(presentation.getPresentationTitle());
+        }
+        return ResponseEntity.ok().body(Message.success(presentationDto, "OK", null));
     }
 
 
@@ -77,6 +91,28 @@ public class PresentationController {
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.ok().body(Message.fail(String.valueOf(HttpStatus.BAD_REQUEST), "Error: Presentation title must be unique within a group."));
         }
+    }
+
+    @PutMapping("/{presentationId}/activate")
+    public ResponseEntity<Message<PresentationDto>> activatePresentation(@PathVariable("presentationId") Integer presentationId) {
+        Optional<Presentation> optionalPresentation = presentationService.getPresentationById(presentationId);
+        if (optionalPresentation.isPresent()) {
+            presentationService.activatePresentation(presentationId);
+        }
+        PresentationDto presentationDto = new PresentationDto();
+        presentationDto.setPresentationId(presentationId);
+        return ResponseEntity.ok().body(Message.success(presentationDto, "OK", null));
+    }
+
+    @PutMapping("/{presentationId}/deactivate")
+    public ResponseEntity<Message<PresentationDto>> deactivatePresentation(@PathVariable("presentationId") Integer presentationId) {
+        Optional<Presentation> optionalPresentation = presentationService.getPresentationById(presentationId);
+        if (optionalPresentation.isPresent()) {
+            presentationService.deactivatePresentation(presentationId);
+        }
+        PresentationDto presentationDto = new PresentationDto();
+        presentationDto.setPresentationId(presentationId);
+        return ResponseEntity.ok().body(Message.success(presentationDto, "OK", null));
     }
 
     @DeleteMapping("/{presentationId}")
