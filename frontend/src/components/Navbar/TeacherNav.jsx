@@ -12,24 +12,25 @@ import { teacherDataState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
-  width: 40rem;
+  width: 38rem;
   flex-direction: column;
   flex-wrap: wrap;
   display: flex;
   align-items: center;
-  border-radius: 0rem 5rem 0rem 0rem;
-  border: 1px solid rgba(255, 255, 255, 0.53);
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(8px);
   transform: translateX(${(props) => (props.isOpen ? '0' : '-100%')});
   transition: transform 0.3s ease-out;
+
+  border-radius: 0rem 3.125rem 0rem 0rem;
+  border: 1px solid rgba(255, 255, 255, 0.53);
+  background: rgba(255, 255, 255, 0.53);
+  backdrop-filter: blur(7.800000190734863px);
 `;
 const ToggleButton = styled.button`
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  left: ${(props) => (props.isOpen ? '40rem' : '0')};
+  left: ${(props) => (props.isOpen ? '38rem' : '0')};
   top: 7%;
   width: 4.375rem;
   height: 7.3125rem;
@@ -42,7 +43,7 @@ const ToggleButton = styled.button`
 `;
 const FullLogo = styled.img`
   display: flex;
-  height: 8rem;
+  height: 9.5rem;
   margin: 3rem;
 `;
 const Profile = styled.div`
@@ -113,25 +114,32 @@ const Logout = styled.div`
 const MenuText = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: -3rem;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  /* margin-left: -3rem; */
 
   hr {
-    border: 0.1rem solid #fff;
-    margin: 1rem -4rem 1rem -1rem;
+    /* border: 0.1rem solid #fff; */
+    border: none;
+    background-color: white;
+    width: 90%;
+    height: 0.0625rem;
   }
 `;
 const Menu = styled(Link)`
   align-items: center;
   width: 100%;
-  padding: 1rem;
+  padding: 1.9rem 0 1.9rem 3.75rem;
   color: black;
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 2.6rem;
+  font-weight: 800;
   text-decoration: none;
   cursor: pointer;
 `;
 const SubMenuItem = styled(Link)`
-  margin: 1rem 2rem 0;
+  /* margin: 1rem 2rem 0; */
+  padding: 0.8rem 0 0.8rem 2rem;
   text-decoration: none;
   color: #545454;
   display: block;
