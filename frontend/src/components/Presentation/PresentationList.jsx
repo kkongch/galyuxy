@@ -8,6 +8,8 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import PresentationModal from './PresentationModal';
 import { getPresentationList, deletePresentation } from 'api/PresentationApi';
+import { teacherDataState } from 'Recoil/UserState';
+import { useNavigate } from 'react-router-dom';
 
 const ClassBox = styled.div`
   display: flex;
@@ -85,6 +87,8 @@ const PresentationList = () => {
   const [selectedPresentationId, setSelectedPresentationId] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const navigate = useNavigate();
 
   const handleGetPresentationList = async (groupId) => {
     try {
@@ -126,8 +130,17 @@ const PresentationList = () => {
     }
   };
 
+  const handleEnterPresentationClick = (presentationId) => {
+    const updatedTeacherData = {
+      ...teacherData,
+      presentationId: presentationId,
+    };
+    setTeacherData(updatedTeacherData);
+    console.log(updatedTeacherData);
+    navigate('/room');
+  };
+
   useEffect(() => {
-    console.log(presentationIdToDelete);
     if (isDeleteClicked && presentationIdToDelete !== null) {
       handleDeletePresentation(presentationIdToDelete);
       setIsDeleteClicked(false);
@@ -136,10 +149,11 @@ const PresentationList = () => {
   }, [isDeleteClicked, presentationIdToDelete]);
 
   useEffect(() => {
-    const groupId = 1;
+    const groupId = teacherData.groupId;
+    console.log(teacherData);
 
     handleGetPresentationList(groupId);
-  }, [isAddModalOpen, isRefactorModalOpen]);
+  }, []);
 
   return (
     <ClassBox>
@@ -149,7 +163,11 @@ const PresentationList = () => {
       {presentationList.map((presentationItem) => (
         <ClassItem key={presentationItem.presentationId}>
           <ClassItemFirst>
-            <EnterButton>
+            <EnterButton
+              onClick={() =>
+                handleEnterPresentationClick(presentationItem.presentationId)
+              }
+            >
               <p>입장</p>
               <SvgBox>
                 <svg

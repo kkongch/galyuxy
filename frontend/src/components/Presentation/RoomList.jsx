@@ -1,6 +1,8 @@
 import { userTypeState } from 'Recoil/ClassState';
 import { roomListState } from 'Recoil/PresentationState';
-import React from 'react';
+import { teacherDataState } from 'Recoil/UserState';
+import { deleteRoom, getRoomList } from 'api/RoomApi';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
@@ -75,8 +77,31 @@ const DeleteButton = styled.div`
 const RoomList = () => {
   const [roomList, setRoomList] = useRecoilState(roomListState);
   const userType = useRecoilValue(userTypeState);
+  const [roomIdToDelete, setRoomIdToDelete] = useState(null);
+  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
 
-  const handleDeleteClassClick = (roomId) => {
+  const handleGetRoomList = async (roomId) => {
+    try {
+      const list = await getRoomList(roomId);
+      setRoomList(list);
+    } catch (error) {
+      console.error('Error handleGetRoomList: ', error);
+    }
+  };
+
+  const handleDeleteRoom = async (roomId) => {
+    try {
+      await deleteRoom(roomId);
+      setRoomList((prevList) =>
+        prevList.filter((roomItem) => roomItem.roomId !== roomId)
+      );
+    } catch (error) {
+      console.error('Error handleDeleteRoom: ', error);
+    }
+  };
+
+  const handleDeleteRoomClick = (roomId) => {
     const shouldDelete = window.confirm('정말로 삭제하시겠습니까?');
 
     if (shouldDelete) {
@@ -84,9 +109,27 @@ const RoomList = () => {
         (roomItem) => roomItem.roomId !== roomId
       );
       setRoomList(updatedRoomList);
+      setRoomIdToDelete(roomId);
+      setIsDeleteClicked(true);
     }
-    // PUT /room/:roomId
   };
+
+  useEffect(() => {
+    // (student) GET /presentation/:groupId 호출 뒤, active가 1인 presentationId 가져오기
+    // (teacher) GET /room/:presentationId
+
+    const presentationId = teacherData.presentationId;
+
+    handleGetRoomList(presentationId);
+  }, []);
+
+  useEffect(() => {
+    if (isDeleteClicked && roomIdToDelete !== null) {
+      handleDeleteRoom(roomIdToDelete);
+      setIsDeleteClicked(false);
+      setRoomIdToDelete(null);
+    }
+  }, [isDeleteClicked, roomIdToDelete]);
 
   return (
     <>
@@ -105,7 +148,7 @@ const RoomList = () => {
               </EnterButton>
               {userType === 1 && (
                 <DeleteButton
-                  onClick={() => handleDeleteClassClick(room.roomId)}
+                  onClick={() => handleDeleteRoomClick(room.roomId)}
                 >
                   <p>삭제</p>
                 </DeleteButton>

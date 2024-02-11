@@ -1,6 +1,13 @@
-import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState';
+import {
+  classListState,
+  isAddModalOpenState,
+  isRefactorModalOpenState,
+} from 'Recoil/ClassState';
+import { teacherDataState } from 'Recoil/UserState';
+import { getClassList } from 'api/ClassApi';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -73,11 +80,13 @@ const ClassList = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(
     isRefactorModalOpenState
   );
-  const [selectedGroupId, setSelectedGroupId] = useState(null);
+  const [selectedClassItem, setSelectedClassItem] = useState(null);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const navigate = useNavigate();
 
-  const handleRefactorClassClick = (groupId) => {
+  const handleRefactorClassClick = (classItem) => {
     setIsModalOpen(true);
-    setSelectedGroupId(groupId);
+    setSelectedClassItem(classItem);
   };
 
   const handleDeleteClassClick = (groupId) => {
@@ -92,57 +101,33 @@ const ClassList = () => {
     // PUT /group/deleteStudent
   };
 
+  const handleEnterClassClick = (groupId) => {
+    const updatedTeacherData = { ...teacherData, groupId: groupId };
+    setTeacherData(updatedTeacherData);
+    console.log(updatedTeacherData);
+    navigate('/main');
+  };
+
+  const handleGetClassList = async (accessToken) => {
+    try {
+      const list = await getClassList(accessToken);
+      setClassList(list);
+    } catch (error) {
+      console.error('Error handleGetClassList: ', error);
+    }
+  };
+
   useEffect(() => {
-    // GET /group/:teacherId
-    setClassList([
-      {
-        group: {
-          groupId: 1,
-          groupName: '2024 1학기',
-        },
-
-        student: [
-          {
-            studentId: 1,
-            studentName: '김가인',
-            studentNo: 1,
-          },
-          {
-            studentId: 2,
-            studentName: '김나인',
-            studentNo: 2,
-          },
-        ],
-      },
-      {
-        group: {
-          groupId: 2,
-          groupName: '2024 2학기',
-        },
-
-        student: [
-          {
-            studentId: 1,
-            studentName: '이가인',
-            studentNo: '1',
-          },
-          {
-            studentId: 2,
-            studentName: '이나인',
-            studentNo: 2,
-          },
-        ],
-      },
-    ]);
+    handleGetClassList(sessionStorage.getItem('accessToken'));
   }, []);
 
   return (
     <ClassBox>
-      {isModalOpen && <ClassModal groupId={selectedGroupId} />}
+      {isModalOpen && <ClassModal classItem={selectedClassItem} />}
       {classList.map((classItem) => (
-        <ClassItem key={classItem.group.groupId}>
+        <ClassItem key={classItem.id}>
           <ClassItemFirst>
-            <EnterButton>
+            <EnterButton onClick={() => handleEnterClassClick(classItem.id)}>
               <p>입장</p>
               <SvgBox>
                 <svg
@@ -160,13 +145,11 @@ const ClassList = () => {
               </SvgBox>
             </EnterButton>
             <ClassTitle>
-              <p>{classItem.group.groupName}</p>
+              <p>{classItem.name}</p>
             </ClassTitle>
           </ClassItemFirst>
           <ClassItemSecond>
-            <RefactorButton
-              onClick={() => handleRefactorClassClick(classItem.group.groupId)}
-            >
+            <RefactorButton onClick={() => handleRefactorClassClick(classItem)}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='55'
@@ -180,9 +163,7 @@ const ClassList = () => {
                 />
               </svg>
             </RefactorButton>
-            <DeleteButton
-              onClick={() => handleDeleteClassClick(classItem.group.groupId)}
-            >
+            <DeleteButton onClick={() => handleDeleteClassClick(classItem.id)}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='55'

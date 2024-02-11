@@ -1,0 +1,62 @@
+import axios from 'axios';
+
+const baseURL = 'http://localhost:8080';
+
+const api = axios.create({
+  baseURL,
+});
+
+export const getRoomList = async (presentationId) => {
+  try {
+    const response = await api.get(`/room/${presentationId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getRoomList: ', error);
+    throw error;
+  }
+};
+
+export const deleteRoom = async (roomId) => {
+  try {
+    const response = await api.delete(`/room/${roomId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleteRoom: ', error);
+    throw error;
+  }
+};
+
+export const createRoom = async (roomData) => {
+  try {
+    const response = await api.post('/room', roomData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error('Error createRoom:', error);
+    throw error;
+  }
+};
+
+export const createRoomSession = async () => {
+  try {
+    const response = await api.post(`/openvidu/sessions`);
+    return response.data;
+  } catch (error) {
+    console.error('Error createRoomSession: ', error);
+    throw error;
+  }
+};
+
+export const createRoomConnection = async (sessionId) => {
+  try {
+    const response = await api.post(
+      `/openvidu/sessions/${sessionId}/connections`
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error createRoomConnection: ', error);
+    throw error;
+  }
+};

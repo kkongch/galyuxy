@@ -4,9 +4,10 @@ import heritageDetailImage from 'assets/images/Heritage/문화유산상세배경
 import Background from 'components/Basic/Background';
 import StarsImage from 'assets/images/stars.png';
 import HExample1Image from 'assets/images/HExample1.png';
-import { useNavigate } from 'react-router-dom';
-import { heritageState } from 'Recoil/HeritageState';
-import { useRecoilState } from 'recoil';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { heritageListState, heritageState } from 'Recoil/HeritageState';
+import { selectedHeritageIdState } from 'Recoil/SelectedHeritageIdState';
 
 const MainBox = styled.main`
   display: flex;
@@ -138,14 +139,31 @@ const SvgBox = styled.div`
 `;
 
 const HeritageDetailPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const selectedHeritageId = useRecoilValue(selectedHeritageIdState);
+  // const heritageData = useRecoilValue(heritageState);
   const [heritage, setHeritage] = useRecoilState(heritageState);
+  const [heritageList, setHeritageList] = useRecoilState(heritageListState);
+  // console.log(heritageData);
+  // const heritageDetail = heritageData.find(
+  //   (item) => item.heritageId.toString() === heritageId
+  // );
+  // console.log(heritageDetail);
+
+  useEffect(() => {
+    const heritageDetail = heritageList.find(
+      (item) => item.heritageId === selectedHeritageId
+    );
+    console.log(heritageDetail);
+
+    setHeritage(heritageDetail);
+  }, []);
 
   const handleBackClick = () => {
-    // navigate('/heritage');
+    // navigate('/heritage')
   };
   const handleThreeDClick = () => {
-    // navigate(`/heritage/${heritage.heritageId}/3d`);
+    // navigate(`/heritage/${heritage.heritageId}/3d`)
   };
 
   return (
@@ -155,7 +173,7 @@ const HeritageDetailPage = () => {
           <FrameBox>
             <FrameOuter>
               <FrameInner>
-                <HeritageImage src={HExample1Image} />
+                <HeritageImage src={heritage.heritageImageUrl} />
               </FrameInner>
             </FrameOuter>
           </FrameBox>

@@ -9,6 +9,7 @@ import {
   studentListState,
 } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
+import { createClass, getClassList, getStudentList } from 'api/ClassApi';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -155,7 +156,7 @@ const DeleteButton = styled.div`
   margin-left: 2rem;
 `;
 
-export const ClassModal = ({ groupId }) => {
+export const ClassModal = ({ classItem }) => {
   const [isAddModalOpen, setIsAddModalOpen] =
     useRecoilState(isAddModalOpenState);
   const [isRefactorModalOpen, setIsRefactorModalOpen] = useRecoilState(
@@ -167,26 +168,51 @@ export const ClassModal = ({ groupId }) => {
   const [studentList, setStudentList] = useRecoilState(studentListState);
   const [classList, setClassList] = useRecoilState(classListState);
 
-  useEffect(() => {
-    const groupWithId = classList.find(
-      (item) => item.group.groupId === groupId
-    );
+  const handleGetStudentList = async (accessToken, classItem) => {
+    try {
+      const list = await getStudentList(accessToken, classItem.id);
+      setStudentList(list);
+      setGroupName(classItem.name);
+      console.log(list);
+    } catch (error) {
+      console.error('Error handleGetStudentList: ', error);
+    }
+  };
 
-    if (groupWithId) {
-      setStudentList(groupWithId.student);
-      setGroupName(groupWithId.group.groupName);
-    } else {
-      setStudentList([]);
-      setGroupName('');
+  const handleCreateClass = async (accessToken, classData) => {
+    try {
+      await createClass(accessToken, classData);
+
+      const list = await getClassList(sessionStorage.getItem('accessToken'));
+      setClassList(list);
+    } catch (error) {
+      console.error('Error handleCreateClass: ', error);
+    }
+  };
+
+  useEffect(() => {
+    if (classItem) {
+      handleGetStudentList(sessionStorage.getItem('accessToken'), classItem);
     }
   }, []);
 
   const handleCancel = () => {
+    setStudentNo('');
+    setStudentName('');
+    setStudentList([]);
+
     setIsAddModalOpen(false);
     setIsRefactorModalOpen(false);
   };
 
   const handleConfirm = () => {
+    handleCreateClass(sessionStorage.getItem('accessToken'), {
+      group: {
+        name: groupName,
+      },
+      students: studentList,
+    });
+
     setStudentNo('');
     setStudentName('');
     setStudentList([]);
@@ -199,16 +225,13 @@ export const ClassModal = ({ groupId }) => {
     const updatedStudentList = [...studentList];
 
     updatedStudentList.push({
-      studentName: studentName,
-      studentNo: studentNo,
+      name: studentName,
+      no: studentNo,
     });
 
     setStudentList(updatedStudentList);
     setStudentNo('');
     setStudentName('');
-
-    // POST /group
-    // PUT /group
   };
 
   return (

@@ -2,16 +2,16 @@ spring:
   datasource:
 
     # LOCAL - MySQL DB
-    url: jdbc:mysql://localhost:3306/S10P12C206?useUnicode=true&characterEncoding=utf8
-    username: ssafy
-    password: ssafy
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/S10P12C206?useUnicode=true&characterEncoding=utf8
+#    username: ssafy
+#    password: ssafy
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 
     # SSAFY - Maria DB
-#    url: jdbc:mysql://stg-yswa-kr-practice-db-master.mariadb.database.azure.com:3306/S10P12C206?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
-#    username: S10P12C206@stg-yswa-kr-practice-db-master.mariadb.database.azure.com
-#    password: WfOCbU5Whr
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://stg-yswa-kr-practice-db-master.mariadb.database.azure.com:3306/S10P12C206?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: S10P12C206@stg-yswa-kr-practice-db-master.mariadb.database.azure.com
+    password: WfOCbU5Whr
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   sql:
     init:
@@ -20,7 +20,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -71,9 +71,16 @@ application:
   bucket:
     name: galyuxy
 
+# local
+#openvidu:
+#  url: http://localhost:4443/
+#  secret: T1BFTlZJRFVBUFA6TVlfU0VDUkVU
+
+# server
 openvidu:
-  url: http://localhost:4443/
+  url: http://i10c206.p.ssafy.io:5443/
   secret: T1BFTlZJRFVBUFA6TVlfU0VDUkVU
+
 jwt:
   secret-key:
     access: TestAccessKey111111122222222223333333333333aaaaaaaaabbbbbbbbccccccccdddddddddfqwrqwfqwifjaisfjoihfoiqwflasjdglkkjasdlgjlkasdgjiowejgliasjglasjdgio

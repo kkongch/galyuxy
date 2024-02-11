@@ -5,7 +5,7 @@ import {
 } from 'Recoil/ClassState';
 import ClassList from 'components/Class/ClassList';
 import { ClassModal } from 'components/Class/ClassModal';
-import { React, useEffect } from 'react';
+import { React } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import mainBackground from 'assets/images/mainBackground.png';
@@ -89,56 +89,6 @@ const Class = () => {
   const userType = useRecoilValue(userTypeState);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
   const [studentList, setStudentList] = useRecoilState(studentListState);
-
-  const dummy = {
-    group: {
-      groupId: 1,
-      groupName: '2024 1학기',
-    },
-
-    student: [
-      {
-        studentId: 1,
-        studentName: '김가인',
-        studentNo: 1,
-      },
-      {
-        studentId: 2,
-        studentName: '김나인',
-        studentNo: 2,
-      },
-      {
-        studentId: 3,
-        studentName: '김나인',
-        studentNo: 3,
-      },
-      {
-        studentId: 4,
-        studentName: '김나인',
-        studentNo: 4,
-      },
-      {
-        studentId: 5,
-        studentName: '김나인',
-        studentNo: 5,
-      },
-      {
-        studentId: 6,
-        studentName: '김나인',
-        studentNo: 6,
-      },
-      {
-        studentId: 7,
-        studentName: '김나인',
-        studentNo: 7,
-      },
-    ],
-  };
-
-  useEffect(() => {
-    // GET /group/:groupId
-    setStudentList(dummy.student);
-  }, []);
 
   const handleAddClassClick = () => {
     setStudentList([]);

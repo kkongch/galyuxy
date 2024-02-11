@@ -88,32 +88,8 @@ const BoardBackgroundOuter = styled.div`
 
 const RoomPage = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
-  const [roomList, setRoomList] = useRecoilState(roomListState);
   const userType = useRecoilValue(userTypeState);
   const [isRunning, setIsRunning] = useState(false);
-
-  useEffect(() => {
-    // (student) GET /presentation/:groupId 호출 뒤, active가 1인 presentationId 가져오기
-
-    // (teacher) GET /room/:presentationId
-    setRoomList([
-      {
-        roomScript: '',
-        roomId: 1,
-        roomSubject: '이순신 장군과 함께하는 명량해전 이야기',
-      },
-      {
-        roomScript: '',
-        roomId: 2,
-        roomSubject: '이순신과 인터뷰하기',
-      },
-      {
-        roomScript: '',
-        roomId: 3,
-        roomSubject: '나의 죽음을 알리지 말라',
-      },
-    ]);
-  }, []);
 
   const handleAddClassClick = () => {
     setIsModalOpen(true);
@@ -129,9 +105,7 @@ const RoomPage = () => {
         {isModalOpen && <RoomModal />}
         <ClassBox>
           <TopOfBoardBox>
-            <Title>
-              <p>이순신 인터뷰</p>
-            </Title>
+            <Title>{/* <p>이순신 인터뷰</p> */}</Title>
             {userType === 1 && (
               <ButtonBox>
                 <AddClassButton onClick={handleAddClassClick}>

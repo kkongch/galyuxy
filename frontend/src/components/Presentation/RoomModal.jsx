@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { isAddModalOpenState } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
 import { roomListState } from 'Recoil/PresentationState';
+import { createRoom, createRoomSession, getRoomList } from '../../api/RoomApi';
+import { teacherDataState } from 'Recoil/UserState';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -98,6 +100,7 @@ const RoomModal = ({ roomId }) => {
     useRecoilState(isAddModalOpenState);
   const [roomSubject, setRoomSubject] = useState('');
   const [roomList, setRoomList] = useRecoilState(roomListState);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
 
   useEffect(() => {
     const roomWithId = roomList.find((item) => item.roomId === roomId);
@@ -113,8 +116,37 @@ const RoomModal = ({ roomId }) => {
     setIsAddModalOpen(false);
   };
 
+  const handleCreateRoomSession = async () => {
+    try {
+      const createdSession = await createRoomSession();
+
+      await handleCreateRoom(createdSession);
+    } catch (error) {
+      console.error('Error handleCreatePresentation:', error);
+    }
+  };
+
+  const handleCreateRoom = async (session) => {
+    try {
+      const roomData = {
+        roomId: session,
+        roomSubject: roomSubject,
+        presentation: {
+          presentationId: teacherData.presentationId,
+        },
+      };
+
+      await createRoom(roomData);
+
+      const list = await getRoomList(teacherData.presentationId);
+      setRoomList(list);
+    } catch (error) {
+      console.error('Error handleCreateRoom:', error);
+    }
+  };
+
   const handleConfirm = () => {
-    // POST /room
+    handleCreateRoomSession();
 
     setIsAddModalOpen(false);
   };
