@@ -4,6 +4,7 @@ import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import TextImage from 'assets/images/Quiz/textimage.png';
 import TimeImage from 'assets/images/Quiz/timeimage1.png';
 import styled from 'styled-components';
+import waitImage from 'assets/images/Quiz/quizready.png';
 const TextBox = styled.div`
   top: 10.56rem;
   position: absolute;
