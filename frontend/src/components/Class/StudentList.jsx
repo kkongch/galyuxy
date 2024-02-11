@@ -1,12 +1,10 @@
 import { React } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import {
-  studentListState,
-  studentUserState,
-  userTypeState,
-} from 'Recoil/ClassState';
+
 import { useNavigate } from 'react-router-dom';
+import { studentListState } from 'Recoil/ClassState';
+import { studentUserState, userTypeState } from 'Recoil/UserState';
 
 const StudentBox = styled.div`
   display: flex;

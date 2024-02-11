@@ -1,6 +1,5 @@
-import { userTypeState } from 'Recoil/ClassState';
 import { roomListState } from 'Recoil/PresentationState';
-import { teacherDataState } from 'Recoil/UserState';
+import { teacherDataState, userTypeState } from 'Recoil/UserState';
 import { deleteRoom, getRoomList } from 'api/RoomApi';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';

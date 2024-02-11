@@ -1,4 +1,4 @@
-import { isAddModalOpenState, userTypeState } from 'Recoil/ClassState';
+import { isAddModalOpenState } from 'Recoil/ClassState';
 import { React, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -6,8 +6,8 @@ import mainBackground from 'assets/images/mainBackground.png';
 import Background from 'components/Basic/Background';
 import RoomList from 'components/Presentation/RoomList';
 import { roomListState } from 'Recoil/PresentationState';
-import { useEffect } from 'react';
 import RoomModal from 'components/Presentation/RoomModal';
+import { userTypeState } from 'Recoil/UserState';
 
 const MainBox = styled.main`
   height: 100vh;

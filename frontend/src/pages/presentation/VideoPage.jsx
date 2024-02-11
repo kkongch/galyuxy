@@ -1,4 +1,4 @@
-import { isAddModalOpenState, userTypeState } from 'Recoil/ClassState';
+import { isAddModalOpenState } from 'Recoil/ClassState';
 import { React, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import RoomModal from 'components/Presentation/RoomModal';
 import VideoRoomComponent from 'components/Presentation/openvidu/components/VideoRoomComponent';
 import { useLocation } from 'react-router';
+import { userTypeState } from 'Recoil/UserState';
 
 const MainBox = styled.main`
   height: 100vh;
