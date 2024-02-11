@@ -35,3 +35,13 @@ export const emailVerify = async (verifyData) => {
     throw error;
   }
 };
+
+export const teacherSignUp = async (signUpData) => {
+  try {
+    const response = await api.post('/teachers/signup', signUpData);
+    return response.data;
+  } catch (error) {
+    console.error('Error teacherSignUp: ', error);
+    throw error;
+  }
+};

@@ -5,6 +5,7 @@ import StyledInput from 'components/User/StyledInput';
 import StyledInputWithButton from 'components/User/StyledInputWithButton';
 import useInput from 'hooks/useInput';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FlexBox = styled.div`
@@ -60,6 +61,8 @@ const Label = styled.label`
 `;
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
+
   const [name, setName] = useInput('');
   const [email, setEmail] = useInput('');
   const [authCode, setAuthCode] = useInput('');
@@ -93,6 +96,22 @@ const SignUpPage = () => {
     } catch (error) {
       alert('인증번호를 다시 입력해주세요 ㅠㅠ');
       console.error('Error handleEmailVerify: ', error);
+    }
+  };
+
+  const handleTeacherSignUp = async () => {
+    try {
+      const signUpData = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      const response = await teacherSignUp(signUpData);
+
+      alert('회원가입이 완료되었습니다! 로그인 해주세요~~');
+      navigate('/login');
+    } catch (error) {
+      console.error('Error handleTeacherSignUp:', error);
     }
   };
 
@@ -153,7 +172,10 @@ const SignUpPage = () => {
                 onChange={setVerifyPassword}
               />
             </LoginInputBox>
-            <LargeButton text='확인'></LargeButton>
+            <LargeButton
+              text='확인'
+              onClick={handleTeacherSignUp}
+            ></LargeButton>
           </SignUp>
         </MainBox>
       </FlexBox>
