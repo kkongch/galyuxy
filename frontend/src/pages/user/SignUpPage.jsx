@@ -1,4 +1,4 @@
-import { authCodeSend } from 'api/UserApi';
+import { authCodeSend, emailVerify } from 'api/UserApi';
 import Background from 'components/Basic/Background';
 import LargeButton from 'components/User/LargeButton';
 import StyledInput from 'components/User/StyledInput';
@@ -79,6 +79,20 @@ const SignUpPage = () => {
     }
   };
 
+  const handleEmailVerify = async () => {
+    try {
+      const auth = {
+        email: email,
+        authCode: authCode,
+      };
+
+      const response = await emailVerify(auth);
+      console.log(response);
+    } catch (error) {
+      console.error('Error handleEmailVerify: ', error);
+    }
+  };
+
   return (
     <Background
       backgroundImage={require('assets/svg/main/Background.svg').default}
@@ -114,6 +128,7 @@ const SignUpPage = () => {
                 name='number'
                 placeholder='인증번호'
                 onChange={setAuthCode}
+                onClick={handleEmailVerify}
               />
               <Label>비밀번호</Label>
               <StyledInput
