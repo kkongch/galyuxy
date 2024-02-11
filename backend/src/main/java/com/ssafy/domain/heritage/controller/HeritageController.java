@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/heritage")
+@RequestMapping("/api/heritage")
 @Slf4j // 로깅
 public class HeritageController {
     private final HeritageService heritageService;
@@ -37,6 +37,4 @@ public class HeritageController {
                 ResponseEntity.ok().body(Message.success(heritage)))
                 .orElse(ResponseEntity.status(404).body(Message.fail("404", "Heritage not found")));
     }
-
-
 }
