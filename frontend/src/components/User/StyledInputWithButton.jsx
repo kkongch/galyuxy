@@ -40,11 +40,24 @@ const ConfirmButton = styled.div`
   border-radius: 1.25rem;
 `;
 
-const StyledInputWithButton = ({ type, id, name, placeholder }) => {
+const StyledInputWithButton = ({
+  type,
+  id,
+  name,
+  placeholder,
+  onChange,
+  onClick,
+}) => {
   return (
     <FlexBox>
-      <Input type={type} id={id} name={name} placeholder={placeholder} />
-      <ConfirmButton>확인</ConfirmButton>
+      <Input
+        type={type}
+        id={id}
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+      <ConfirmButton onClick={onClick}>확인</ConfirmButton>
     </FlexBox>
   );
 };
