@@ -99,7 +99,23 @@ const SignUpPage = () => {
     }
   };
 
+  const validateTeacherSignUp = () => {
+    if (!name || !email || !isEmailVerify || !password) {
+      alert('정보를 모두 입력해 주세요');
+      return false;
+    }
+    if (password !== verifyPassword) {
+      alert('비밀번호를 다시 확인해 주세요');
+      return false;
+    }
+    return true;
+  };
+
   const handleTeacherSignUp = async () => {
+    if (!validateTeacherSignUp()) {
+      return;
+    }
+
     try {
       const signUpData = {
         name: name,
