@@ -45,8 +45,9 @@ function App() {
             <Route path='/presentation' element={<PresentationPage />} />
             <Route path='/room' element={<RoomPage />} />
             <Route path='/VideoPage' element={<VideoPage />} />
-            <Route path='/art' element={<Coloring />} />
-            <Route path='/drawing' element={<DrawingPage />} />
+            <Route path='/art' element={<ArtPage />} />
+            <Route path='/art/coloring' element={<Coloring />} />
+            <Route path='/art/drawing' element={<DrawingPage />} />
             <Route path='/quizenter' element={<QuizEnterPage />} />
           </Routes>
         </div>
