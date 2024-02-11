@@ -48,7 +48,7 @@ public class GroupController {
 
     // 그룹 내 학생 리스트 조회
     @GetMapping("/detail/{groupId}")
-    @PreAuthorize("hasAuthority('TEACHER')")
+//    @PreAuthorize("hasAuthority('TEACHER')")
     ResponseEntity<Message<List<StudentDto>>> getGroupDetail(@PathVariable("groupId") Integer groupId) {
         List<StudentDto> studentDtoList = studentService.getStudentListByGroupId(groupId);
         return ResponseEntity.ok().body(Message.success(studentDtoList));
