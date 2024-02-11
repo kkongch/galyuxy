@@ -41,6 +41,7 @@ class VideoRoomComponent extends Component {
       subscribers: [],
       chatDisplay: 'none',
       currentVideoDevice: undefined,
+      chatDisplay: 'block',
     };
 
     // 메소드 바인딩
@@ -512,7 +513,7 @@ class VideoRoomComponent extends Component {
     let display = property;
 
     if (display === undefined) {
-      display = this.state.chatDisplay === 'none' ? 'block' : 'none';
+      display = this.state.chatDisplay === 'none' ? 'block' : 'block';
     }
     if (display === 'block') {
       this.setState({ chatDisplay: display, messageReceived: false });
