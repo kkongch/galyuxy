@@ -8,8 +8,7 @@ import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
 import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
-import { teacherDataState } from 'Recoil/UserState';
-import { getTeacherInfo, teacherLogout } from 'api/UserApi';
+import { studentUserState, teacherDataState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -152,6 +151,11 @@ const SubMenuItem = styled(Link)`
   line-height: normal;
   text-decoration: none;
 `;
+const StudentDinoImage = styled.div`
+  background-color: beige;
+  height: 180px;
+  width: 250px;
+`;
 const SubMenu = ({ to, children }) => {
   const handleSubMenuClick = (e) => {
     e.stopPropagation();
@@ -164,9 +168,10 @@ const SubMenu = ({ to, children }) => {
   );
 };
 
-const TeacherNav = () => {
+const StudentNav = () => {
   const navigate = useNavigate();
-  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  //   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const [studentData, setStudentData] = useRecoilState(studentUserState);
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState({
     art: false,
@@ -193,34 +198,8 @@ const TeacherNav = () => {
     navigate('/class');
   };
 
-  const handleLogout = async () => {
-    const accessToken = sessionStorage.getItem('accessToken');
-
-    try {
-      const response = await teacherLogout(accessToken);
-      console.log(response);
-    } catch (error) {
-      console.error('Error handleLogout:', error);
-    }
-  };
-
   const handleLogoutClick = () => {
-    handleLogout();
-
-    localStorage.removeItem('groupId');
-    sessionStorage.removeItem('accessToken');
-    sessionStorage.removeItem('refreshToken');
-
-    setTeacherData({
-      id: null,
-      name: null,
-      email: null,
-      groupId: null,
-      presentationId: null,
-      roomId: null,
-    });
-
-    navigate('/login');
+    navigate('/');
     alert('로그아웃 되었습니다!');
   };
 
@@ -231,15 +210,16 @@ const TeacherNav = () => {
           <FullLogo src={Logo} />
         </Link>
         <Profile>
-          <LogoBox toggleQRModal={toggleQRModal} />
+          {/* <LogoBox toggleQRModal={toggleQRModal} /> */}
+          <StudentDinoImage />
           <UserInfo>
-            <UserName>{teacherData.name}</UserName>
-            <UserType>선생님</UserType>
+            <UserName>{studentData.name}</UserName>
+            <UserType>{studentData.no}번</UserType>
           </UserInfo>
           <ProfileBtn>
             <ClassChoice onClick={handleClassChoiceClick}>
               {/* <BookIcon /> */}
-              클래스 선택
+              학생 선택
             </ClassChoice>
             <Logout onClick={handleLogoutClick}>
               {/* <LogoutIcon /> */}
@@ -262,16 +242,7 @@ const TeacherNav = () => {
           <hr />
           <Menu to='/presentation'>연극 발표 활동</Menu>
           <hr />
-          <Menu onClick={() => toggleSubmenu('quiz')}>
-            퀴즈
-            {openMenu.quiz && (
-              <>
-                <SubMenu to='/main'>문제집 목록</SubMenu>
-                <SubMenu href='#'>문제집 생성</SubMenu>
-                <SubMenu href='#'>퀴즈 결과</SubMenu>
-              </>
-            )}
-          </Menu>
+          <Menu onClick={() => toggleSubmenu('quiz')}>퀴즈</Menu>
         </MenuText>
       </NavContainer>
       {checkModal && <QRmodal toggleQRModal={toggleQRModal} />}
@@ -286,4 +257,4 @@ const TeacherNav = () => {
   );
 };
 
-export default TeacherNav;
+export default StudentNav;

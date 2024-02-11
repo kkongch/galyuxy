@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 const api = axios.create({
   baseURL,
@@ -42,6 +42,30 @@ export const teacherSignUp = async (signUpData) => {
     return response.data;
   } catch (error) {
     console.error('Error teacherSignUp: ', error);
+    throw error;
+  }
+};
+
+export const getTeacherInfo = async (accessToken) => {
+  try {
+    const response = await api.get(`/teachers`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error getTeacherInfo: ', error);
+    throw error;
+  }
+};
+
+export const teacherLogout = async (accessToken) => {
+  try {
+    const response = await api.get(`/teachers/logout`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error teacherLogout: ', error);
     throw error;
   }
 };

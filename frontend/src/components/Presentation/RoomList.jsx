@@ -1,6 +1,5 @@
-import { userTypeState } from 'Recoil/ClassState';
 import { roomListState } from 'Recoil/PresentationState';
-import { teacherDataState } from 'Recoil/UserState';
+import { teacherDataState, userTypeState } from 'Recoil/UserState';
 import { deleteRoom, getRoomList } from 'api/RoomApi';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -144,8 +143,6 @@ const RoomList = () => {
       {roomList.map((room) => (
         <RoomBox key={room.roomId}>
           <RoomContent>
-            <h1>{JSON.stringify(room)}</h1>
-
             <RoomTitle>
               <p>{room.roomSubject}</p>
             </RoomTitle>

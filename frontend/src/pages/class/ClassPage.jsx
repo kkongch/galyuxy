@@ -1,8 +1,4 @@
-import {
-  isAddModalOpenState,
-  studentListState,
-  userTypeState,
-} from 'Recoil/ClassState';
+import { isAddModalOpenState, studentListState } from 'Recoil/ClassState';
 import ClassList from 'components/Class/ClassList';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React } from 'react';
@@ -11,6 +7,7 @@ import styled from 'styled-components';
 import mainBackground from 'assets/images/mainBackground.png';
 import Background from 'components/Basic/Background';
 import StudentList from 'components/Class/StudentList';
+import { userTypeState } from 'Recoil/UserState';
 
 const MainBox = styled.main`
   height: 100vh;

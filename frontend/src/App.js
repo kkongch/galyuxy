@@ -11,23 +11,28 @@ import MainPage from 'pages/main/MainPage';
 import DrawingPage from 'pages/art/Drawing';
 import HeritageDetailPage from 'pages/heritage/HeritageDetailPage';
 import Heritage3D from 'pages/heritage/Heritage3D';
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot, useRecoilState } from 'recoil';
 import RoomPage from 'pages/presentation/RoomPage';
 import LoginPage from 'pages/user/LoginPage';
 import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
 import VideoPage from 'pages/presentation/VideoPage';
-import ArtPage from 'pages/art/ArtPage';
+import StudentNav from 'components/Navbar/StudentNav';
+import ClassNav from 'components/Navbar/ClassNav';
 
 function App() {
+  const accessToken = sessionStorage.getItem('accessToken');
+
   return (
     <>
       <RecoilRoot>
         <GlobalStyle />
         <div>
-          <TeacherNav />
+          {accessToken ? <TeacherNav /> : <StudentNav />}
+          {/* <ClassNav /> */}
           <Routes>
+            <Route path='/' element={<MainPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignUpPage />} />
             <Route path='/pwfind' element={<FindPasswordPage />} />

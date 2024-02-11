@@ -9,7 +9,6 @@ import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
 import { teacherDataState } from 'Recoil/UserState';
-import { getTeacherInfo, teacherLogout } from 'api/UserApi';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -20,7 +19,6 @@ const NavContainer = styled.nav`
   align-items: center;
   transform: translateX(${(props) => (props.isOpen ? '0' : '-100%')});
   transition: transform 0.3s ease-out;
-
   border-radius: 0rem 3.125rem 0rem 0rem;
   border: 1px solid rgba(255, 255, 255, 0.53);
   background: rgba(255, 255, 255, 0.53);
@@ -59,13 +57,6 @@ const Profile = styled.div`
   border-radius: 1.25rem;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
-// const ProfileImage = styled.img`
-//   grid-row: 1;
-//   grid-column: 1;
-//   height: 9rem;
-//   width: 9rem;
-//   border-radius: 1rem;
-// `;
 const UserInfo = styled.div`
   display: flex;
   grid-row: 1;
@@ -87,7 +78,6 @@ const ProfileBtn = styled.div`
   justify-content: space-between;
   grid-row: 3;
   grid-column: 1 / span 3;
-  /* font-size: 1.1rem; */
   font-weight: 800;
 `;
 const ClassChoice = styled.div`
@@ -120,10 +110,8 @@ const MenuText = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  /* margin-left: -3rem; */
 
   hr {
-    /* border: 0.1rem solid #fff; */
     border: none;
     background-color: white;
     width: 90%;
@@ -152,19 +140,8 @@ const SubMenuItem = styled(Link)`
   line-height: normal;
   text-decoration: none;
 `;
-const SubMenu = ({ to, children }) => {
-  const handleSubMenuClick = (e) => {
-    e.stopPropagation();
-  };
 
-  return (
-    <SubMenuItem to={to} onClick={handleSubMenuClick}>
-      {children}
-    </SubMenuItem>
-  );
-};
-
-const TeacherNav = () => {
+const ClassNav = () => {
   const navigate = useNavigate();
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [isOpen, setIsOpen] = useState(false);
@@ -179,13 +156,6 @@ const TeacherNav = () => {
     setIsOpen(!isOpen);
   };
 
-  const toggleSubmenu = (menu) => {
-    setOpenMenu((prevMenu) => ({
-      ...prevMenu,
-      [menu]: !prevMenu[menu],
-    }));
-  };
-
   const [checkModal, setCheckModal] = useState(false);
   const toggleQRModal = () => setCheckModal(!checkModal);
 
@@ -193,34 +163,8 @@ const TeacherNav = () => {
     navigate('/class');
   };
 
-  const handleLogout = async () => {
-    const accessToken = sessionStorage.getItem('accessToken');
-
-    try {
-      const response = await teacherLogout(accessToken);
-      console.log(response);
-    } catch (error) {
-      console.error('Error handleLogout:', error);
-    }
-  };
-
   const handleLogoutClick = () => {
-    handleLogout();
-
-    localStorage.removeItem('groupId');
-    sessionStorage.removeItem('accessToken');
-    sessionStorage.removeItem('refreshToken');
-
-    setTeacherData({
-      id: null,
-      name: null,
-      email: null,
-      groupId: null,
-      presentationId: null,
-      roomId: null,
-    });
-
-    navigate('/login');
+    navigate('/');
     alert('로그아웃 되었습니다!');
   };
 
@@ -248,30 +192,10 @@ const TeacherNav = () => {
           </ProfileBtn>
         </Profile>
         <MenuText>
-          <Menu to='/heritage'>문화유산 관람</Menu>
+          <Menu to='/class'>클래스</Menu>
           <hr />
-          <Menu onClick={() => toggleSubmenu('art')}>
-            미술 활동
-            {openMenu.art && (
-              <>
-                <SubMenu to='/art'>드로잉</SubMenu>
-                <SubMenu href='#'>컬러링북</SubMenu>
-              </>
-            )}
-          </Menu>
+          <Menu to='/pwfind'>비밀번호 변경</Menu>
           <hr />
-          <Menu to='/presentation'>연극 발표 활동</Menu>
-          <hr />
-          <Menu onClick={() => toggleSubmenu('quiz')}>
-            퀴즈
-            {openMenu.quiz && (
-              <>
-                <SubMenu to='/main'>문제집 목록</SubMenu>
-                <SubMenu href='#'>문제집 생성</SubMenu>
-                <SubMenu href='#'>퀴즈 결과</SubMenu>
-              </>
-            )}
-          </Menu>
         </MenuText>
       </NavContainer>
       {checkModal && <QRmodal toggleQRModal={toggleQRModal} />}
@@ -286,4 +210,4 @@ const TeacherNav = () => {
   );
 };
 
-export default TeacherNav;
+export default ClassNav;

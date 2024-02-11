@@ -19,18 +19,3 @@ export const isRefactorModalOpenState = atom({
   key: 'isRefactorModalOpen',
   default: false,
 });
-
-export const userTypeState = atom({
-  key: 'userType',
-  default: 1, // 1: teacher, 2: student
-});
-
-export const studentUserState = atom({
-  key: 'studentUser',
-  default: {
-    groupId: 1,
-    studentId: null,
-    studentName: null,
-    studentNo: null,
-  },
-});
