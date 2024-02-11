@@ -15,3 +15,13 @@ export const teacherLogin = async (loginData) => {
     throw error;
   }
 };
+
+export const authCodeSend = async (email) => {
+  try {
+    const response = await api.post('/teachers/emailSend', email);
+    return response.data;
+  } catch (error) {
+    console.error('Error teacherLogin: ', error);
+    throw error;
+  }
+};
