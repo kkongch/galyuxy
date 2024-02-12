@@ -1,7 +1,7 @@
 import { isAddModalOpenState, studentListState } from 'Recoil/ClassState';
 import ClassList from 'components/Class/ClassList';
 import { ClassModal } from 'components/Class/ClassModal';
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import mainBackground from 'assets/images/mainBackground.png';
@@ -94,6 +94,10 @@ const ClassPage = () => {
     setStudentList([]);
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    sessionStorage.removeItem('groupId');
+  }, []);
 
   return (
     <Background backgroundImage={mainBackground}>

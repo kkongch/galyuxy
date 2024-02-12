@@ -192,6 +192,7 @@ const TeacherNav = () => {
   const toggleQRModal = () => setCheckModal(!checkModal);
 
   const handleClassChoiceClick = () => {
+    setIsOpen(false);
     navigate('/class');
   };
 
@@ -200,6 +201,8 @@ const TeacherNav = () => {
 
     try {
       const response = await teacherLogout(accessToken);
+
+      setLogin(false);
 
       sessionStorage.removeItem('groupId');
       sessionStorage.removeItem('name');
@@ -222,7 +225,6 @@ const TeacherNav = () => {
   const handleLogoutClick = () => {
     handleLogout();
 
-    setLogin(false);
     setIsOpen(false);
 
     navigate('/login');

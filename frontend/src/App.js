@@ -38,7 +38,7 @@ function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
-      {login && accessToken ? <TeacherNav /> : <StudentNav />}
+      {accessToken ? <TeacherNav /> : <StudentNav />}
       <Routes>
         <Route path='/' element={<MainPage />} />
         <Route path='/login' element={<LoginPage />} />
