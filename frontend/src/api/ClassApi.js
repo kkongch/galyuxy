@@ -43,3 +43,14 @@ export const createClass = async (accessToken, classData) => {
     throw error;
   }
 };
+
+export const deleteClass = async (accessToken, groupId) => {
+  try {
+    const response = await api.put(`/group/delete/${groupId}`, null, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.error('Error deleteClass:', error);
+    throw error;
+  }
+};

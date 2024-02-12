@@ -183,7 +183,7 @@ export const ClassModal = ({ classItem }) => {
     try {
       await createClass(accessToken, classData);
 
-      const list = await getClassList(sessionStorage.getItem('accessToken'));
+      const list = await getClassList(accessToken);
       setClassList(list);
     } catch (error) {
       console.error('Error handleCreateClass: ', error);
