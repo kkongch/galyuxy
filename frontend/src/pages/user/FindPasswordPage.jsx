@@ -3,6 +3,7 @@ import LargeButton from 'components/User/LargeButton';
 import StyledInput from 'components/User/StyledInput';
 import React from 'react';
 import styled from 'styled-components';
+import background from 'assets/images/mainBackground.png';
 
 const FlexBox = styled.div`
   display: flex;
@@ -51,9 +52,7 @@ const Label = styled.label`
 
 const FindPasswordPage = () => {
   return (
-    <Background
-      backgroundImage={require('assets/svg/main/Background.svg').default}
-    >
+    <Background backgroundImage={background}>
       <FlexBox>
         <MainBox>
           <SignUp>
