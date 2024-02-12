@@ -120,7 +120,40 @@ const NextButton = styled(DirectionButton)`
   right: 4.44rem;
   bottom: 4.37rem;
 `
-
+const ChoiceBox = styled.div`
+  background: #fff;
+  width: 90rem;
+  height: 9.6875rem;
+  border-radius: 1.25rem;
+  align-items: center;
+  transition: border 0.3s;
+  &:hover {
+    border: 20px solid var(--sub1, #596FB7);
+  }
+`
+const QuestionBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 55.625rem;
+  /* margin-top: 10rem; */
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+`
+const Number = styled.div`
+  color: #0F70B7;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 600;
+  left: 3.44rem;
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;;
+  width: 1.75rem;
+  height: 4.0625rem;
+  display: flex;
+`
 const QuizSolve = () => {
   const [timeLeft, setTimeLeft] = useState(120); // 2분을 초 단위로 환산
 
@@ -149,10 +182,24 @@ const QuizSolve = () => {
         <MainContent>
           <QuizBox>
             <QuestionNumber />
-            <OXboxContainer>
+            <QuestionBox>
+              <ChoiceBox>
+                <Number>1</Number>
+              </ChoiceBox>
+              <ChoiceBox>
+                <Number>2</Number>
+              </ChoiceBox>
+              <ChoiceBox>
+                <Number>3</Number>
+              </ChoiceBox>
+              <ChoiceBox>
+                <Number>4</Number>
+              </ChoiceBox>
+            </QuestionBox>
+            {/* <OXboxContainer>
               <OXbox style={{color:'#0f70b7'}}>O</OXbox>
               <OXbox style={{color:'#f00'}}>X</OXbox>
-            </OXboxContainer>
+            </OXboxContainer> */}
           </QuizBox>
           <BackButton>이전 문제</BackButton>
           <NextButton>다음 문제</NextButton>
