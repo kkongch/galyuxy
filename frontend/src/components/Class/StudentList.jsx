@@ -1,10 +1,11 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 
 import { useNavigate } from 'react-router-dom';
 import { studentListState } from 'Recoil/ClassState';
 import { studentUserState, userTypeState } from 'Recoil/UserState';
+import { getStudentList } from 'api/ClassApi';
 
 const StudentBox = styled.div`
   display: flex;
@@ -60,19 +61,36 @@ const StudentInfoItem = styled.div`
 const StudentList = () => {
   const [studentList, setStudentList] = useRecoilState(studentListState);
   const [studentUser, setStudentUser] = useRecoilState(studentUserState);
-  const [userType, setUserType] = useRecoilState(userTypeState);
   const navigate = useNavigate();
 
+  const handleGetStudentList = async (groupId) => {
+    try {
+      const list = await getStudentList(groupId);
+
+      setStudentList(list);
+    } catch (error) {
+      console.error('Error handleGetStudentList: ', error);
+    }
+  };
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('accessToken')) {
+      handleGetStudentList(sessionStorage.getItem('groupId'));
+    }
+  }, []);
+
   const handleStudentItemClick = (student) => {
-    if (userType === 2) {
+    if (!sessionStorage.getItem('accessToken')) {
       const isConfirmed = window.confirm(
         `${student.no}번 ${student.name}이 맞나요?`
       );
 
       if (isConfirmed) {
-        navigate('/main');
+        navigate('/');
+        sessionStorage.setItem('name', student.name);
+        sessionStorage.setItem('no', student.no);
         setStudentUser({
-          groupId: 1,
+          groupId: sessionStorage.getItem('groupId'),
           studentId: student.id,
           studentName: student.name,
           studentNo: student.no,

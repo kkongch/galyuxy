@@ -88,7 +88,6 @@ const BoardBackgroundInner = styled.div`
 `;
 
 const Class = () => {
-  const userType = useRecoilValue(userTypeState);
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
   const [studentList, setStudentList] = useRecoilState(studentListState);
 
@@ -102,7 +101,7 @@ const Class = () => {
       <MainBox>
         {isModalOpen && <ClassModal />}
         <ClassBox>
-          {userType === 1 ? (
+          {sessionStorage.getItem('accessToken') ? (
             <TopOfBoardBox>
               <Title>
                 <p>클래스 목록</p>
@@ -135,7 +134,11 @@ const Class = () => {
 
           <BoardBackgroundOuter>
             <BoardBackgroundInner>
-              {userType === 1 ? <ClassList /> : <StudentList />}
+              {sessionStorage.getItem('accessToken') ? (
+                <ClassList />
+              ) : (
+                <StudentList />
+              )}
             </BoardBackgroundInner>
           </BoardBackgroundOuter>
         </ClassBox>

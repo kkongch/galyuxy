@@ -170,8 +170,6 @@ const SubMenu = ({ to, children }) => {
 
 const StudentNav = () => {
   const navigate = useNavigate();
-  //   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
-  const [studentData, setStudentData] = useRecoilState(studentUserState);
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState({
     art: false,
@@ -213,8 +211,8 @@ const StudentNav = () => {
           {/* <LogoBox toggleQRModal={toggleQRModal} /> */}
           <StudentDinoImage />
           <UserInfo>
-            <UserName>{studentData.name}</UserName>
-            <UserType>{studentData.no}번</UserType>
+            <UserName>{sessionStorage.getItem('name')}</UserName>
+            <UserType>{sessionStorage.getItem('no')}번</UserType>
           </UserInfo>
           <ProfileBtn>
             <ClassChoice onClick={handleClassChoiceClick}>

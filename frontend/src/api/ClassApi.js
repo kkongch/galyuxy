@@ -18,11 +18,9 @@ export const getClassList = async (accessToken) => {
   }
 };
 
-export const getStudentList = async (accessToken, groupId) => {
+export const getStudentList = async (groupId) => {
   try {
-    const response = await api.get(`/group/detail/${groupId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const response = await api.get(`/group/detail/${groupId}`);
     return response.data.dataBody;
   } catch (error) {
     console.error('Error getStudentList:', error);

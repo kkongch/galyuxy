@@ -173,9 +173,9 @@ export const ClassModal = ({ classItem }) => {
   const [studentList, setStudentList] = useRecoilState(studentListState);
   const [classList, setClassList] = useRecoilState(classListState);
 
-  const handleGetStudentList = async (accessToken, classItem) => {
+  const handleGetStudentList = async (classItem) => {
     try {
-      const list = await getStudentList(accessToken, classItem.id);
+      const list = await getStudentList(classItem.id);
       setStudentList(list);
       setGroupName(classItem.name);
       console.log(list);
@@ -215,7 +215,7 @@ export const ClassModal = ({ classItem }) => {
 
   useEffect(() => {
     if (classItem) {
-      handleGetStudentList(sessionStorage.getItem('accessToken'), classItem);
+      handleGetStudentList(classItem);
     }
   }, []);
 
