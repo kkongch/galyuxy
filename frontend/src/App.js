@@ -18,11 +18,11 @@ import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
 import VideoPage from 'pages/presentation/VideoPage';
-import ArtPage from 'pages/art/ArtPage'
+import ArtPage from 'pages/art/ArtPage';
 import StudentNav from 'components/Navbar/StudentNav';
 import ClassNav from 'components/Navbar/ClassNav';
-import QuizSolve from 'pages/quiz/QuizSolve'
-import QuizFinish from 'pages/quiz/QuizFinish'
+import QuizSolve from 'pages/quiz/QuizSolve';
+import QuizFinish from 'pages/quiz/QuizFinish';
 
 function App() {
   const accessToken = sessionStorage.getItem('accessToken');
@@ -53,7 +53,7 @@ function App() {
             <Route path='/art/drawing' element={<DrawingPage />} />
             <Route path='/quizenter' element={<QuizEnterPage />} />
             <Route path='/quizsolve' element={<QuizSolve />} />
-            <Route path='/quizfinish' element={<QuizFinish />}/>
+            <Route path='/quizfinish' element={<QuizFinish />} />
           </Routes>
         </div>
       </RecoilRoot>
