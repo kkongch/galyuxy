@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Background from 'components/Basic/Background';
 import FullnameImage from 'assets/svg/main/fullname.svg';
 import heritageImage from 'assets/svg/main/main1.svg';
@@ -32,7 +32,7 @@ const CardContainer = styled.div`
 // const StyledLink = styled(Link)`
 //   text-decoration: none;
 // `
-const CardLink = styled(Link)`
+const CardLink = styled.div`
   margin: 0 1rem;
   cursor: pointer;
 
@@ -47,21 +47,40 @@ const CardImage = styled.img`
   width: 100%;
 `;
 const MainPage = () => {
+  const navigate = useNavigate();
+
+  const handlePresentationLinkClick = () => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    const destination = accessToken ? '/presentation' : '/room';
+    navigate(destination);
+  };
+
+  const handleQuizLinkClick = () => {
+    navigate('/quiz');
+  };
+
+  const handleHeritageLinkClick = () => {
+    navigate('/heritage');
+  };
+  const handleArtLinkClick = () => {
+    navigate('/art');
+  };
+
   return (
     <Background backgroundImage={background}>
       <MainPageContainer>
         <Fullname src={FullnameImage} />
         <CardContainer>
-          <CardLink to='/heritage'>
+          <CardLink onClick={handleHeritageLinkClick}>
             <CardImage src={heritageImage} alt='Heritage' />
           </CardLink>
-          <CardLink to='/art'>
+          <CardLink onClick={handleArtLinkClick}>
             <CardImage src={artImage} alt='Art' />
           </CardLink>
-          <CardLink to='/presentation'>
+          <CardLink onClick={handlePresentationLinkClick}>
             <CardImage src={presentationImage} alt='Presentation' />
           </CardLink>
-          <CardLink to='/quiz'>
+          <CardLink onClick={handleQuizLinkClick}>
             <CardImage src={quizImage} alt='Quiz' />
           </CardLink>
         </CardContainer>
