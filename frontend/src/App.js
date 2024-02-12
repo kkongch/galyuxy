@@ -19,7 +19,6 @@ import QuizEnterPage from 'pages/quiz/QuizEnter';
 import VideoPage from 'pages/presentation/VideoPage';
 import ArtPage from 'pages/art/ArtPage';
 import StudentNav from 'components/Navbar/StudentNav';
-import ClassNav from 'components/Navbar/ClassNav';
 import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
 import IncorrectNote from 'pages/quiz/IncorrectNote';
@@ -40,7 +39,6 @@ function App() {
     <React.Fragment>
       <GlobalStyle />
       {accessToken ? <TeacherNav /> : <StudentNav />}
-      {/* <ClassNav /> */}
       <Routes>
         <Route path='/' element={<MainPage />} />
         <Route path='/login' element={<LoginPage />} />
