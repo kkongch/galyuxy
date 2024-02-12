@@ -1,8 +1,4 @@
-import {
-  classListState,
-  isAddModalOpenState,
-  isRefactorModalOpenState,
-} from 'Recoil/ClassState';
+import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState';
 import { teacherDataState } from 'Recoil/UserState';
 import { deleteClass, getClassList } from 'api/ClassApi';
 import { ClassModal } from 'components/Class/ClassModal';
@@ -131,7 +127,7 @@ const ClassList = () => {
     setTeacherData(updatedTeacherData);
 
     sessionStorage.setItem('groupId', groupId);
-    navigate('/main');
+    navigate('/');
   };
 
   useEffect(() => {

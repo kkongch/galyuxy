@@ -63,22 +63,6 @@ const StudentList = () => {
   const [studentUser, setStudentUser] = useRecoilState(studentUserState);
   const navigate = useNavigate();
 
-  const handleGetStudentList = async (groupId) => {
-    try {
-      const list = await getStudentList(groupId);
-
-      setStudentList(list);
-    } catch (error) {
-      console.error('Error handleGetStudentList: ', error);
-    }
-  };
-
-  useEffect(() => {
-    if (!sessionStorage.getItem('accessToken')) {
-      handleGetStudentList(sessionStorage.getItem('groupId'));
-    }
-  }, []);
-
   const handleStudentItemClick = (student) => {
     if (!sessionStorage.getItem('accessToken')) {
       const isConfirmed = window.confirm(

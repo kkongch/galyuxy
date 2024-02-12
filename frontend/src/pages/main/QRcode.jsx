@@ -1,7 +1,7 @@
-import { QRCodeCanvas } from 'qrcode.react'
-import { useNavigate } from 'react-router-dom'
-import React from 'react'
-import styled from 'styled-components'
+import { QRCodeCanvas } from 'qrcode.react';
+import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import styled from 'styled-components';
 
 // const QRcodeBox = styled.div`
 //   width: 100%;
@@ -12,8 +12,8 @@ import styled from 'styled-components'
 // `
 
 const QRcode = ({ id, onClick, size }) => {
-  const QRvalue = `localhost:3000/${id}`
-  return <QRCodeCanvas value={QRvalue} onClick={onClick} size={size} />
-}
+  const QRvalue = `localhost:3000/class/${id}`;
+  return <QRCodeCanvas value={QRvalue} onClick={onClick} size={size} />;
+};
 
-export default QRcode
+export default QRcode;

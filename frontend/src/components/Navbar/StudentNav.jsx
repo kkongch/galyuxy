@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'assets/images/Logo.png';
-import LogoBox from './LogoBox';
 import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
-import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
-import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
-import { useRecoilState } from 'recoil';
-import { studentUserState, teacherDataState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -197,7 +192,11 @@ const StudentNav = () => {
   };
 
   const handleLogoutClick = () => {
-    navigate('/');
+    sessionStorage.removeItem('groupId');
+    sessionStorage.removeItem('name');
+    sessionStorage.removeItem('no');
+
+    navigate('/login');
     alert('로그아웃 되었습니다!');
   };
 
