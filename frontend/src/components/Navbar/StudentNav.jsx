@@ -271,7 +271,7 @@ const StudentNav = () => {
             )}
           </Menu>
           <hr />
-          <Menu to='/presentation'>연극 발표 활동</Menu>
+          <Menu to='/room'>연극 발표 활동</Menu>
           <hr />
           <Menu onClick={() => toggleSubmenu('quiz')}>퀴즈</Menu>
         </MenuText>
