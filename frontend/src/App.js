@@ -22,12 +22,14 @@ import StudentNav from 'components/Navbar/StudentNav';
 import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
 import IncorrectNote from 'pages/quiz/IncorrectNote';
-import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher'; 
+import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher';
 import StudentLoginCameraPage from 'pages/user/StudentLoginCamera';
-import ArtCameraPage from 'pages/art/ArtCamera'; 
+import ArtCameraPage from 'pages/art/ArtCamera';
 import StudentInfoPage from 'pages/class/StudentInfoPage';
 import { loginState } from 'Recoil/UserState';
 import { useRecoilState } from 'recoil';
+import QuizDetailTeacher from 'pages/quiz/teacher/QuizDetailTeacher';
+import QuizResultTeacher from 'pages/quiz/teacher/QuizResultTeacher';
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -65,7 +67,8 @@ function App() {
         <Route path='/IncorrectNote' element={<IncorrectNote />} />
         <Route path='/quizlistteacher' element={<QuizListTeacher />} />
         <Route path='/artCamera' element={<ArtCameraPage />} />
-        <Route path='/studentLogin' element={<StudentLoginCameraPage />} />
+        <Route path='/quizdetailteacher' element={<QuizDetailTeacher />} />
+        <Route path='/quizresultteacher' element={<QuizResultTeacher />} />
       </Routes>
     </React.Fragment>
   );
