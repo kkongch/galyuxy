@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useNavigate } from 'react-router';
 import { Stage, Layer, Line, Text, Image, Rect } from 'react-konva';
 import styled from 'styled-components';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
@@ -51,6 +52,7 @@ const SaveButton = styled.div`
 `;
 const ARbutton = styled.div`
   margin-left: 3.06rem;
+  cursor: pointer;
 `;
 
 const ToolContainer = styled.div`
@@ -94,7 +96,9 @@ const DescriptionBox = styled.div`
 const Drawing = () => {
   const stageRef = useRef(null);
   const rectLayerRef = useRef(null);
-  // const navigate = useNavigate()
+  
+  const navigate = useNavigate();
+  // const navigate = useNavigate(); // useNavigate 훅 사용
   const [tool, setTool] = useState('pen'); // 도구 ('pen' 또는 'eraser')
   const [color, setColor] = useState('#000000'); // 색상
   const [size, setSize] = useState(5); // 선의 굵기 상태, 기본값은 5
@@ -197,7 +201,10 @@ const Drawing = () => {
     // navigate('/main');
   };
 
-  const handleArClick = () => {};
+  const handleArClick = () => {
+    navigate('/artCamera');
+    console.log("arar");
+  };
   return (
     <Background backgroundImage={backgroundImage}>
       <DescriptionBox>고려청자 그림을 그려주세요</DescriptionBox>
@@ -336,9 +343,5 @@ const Drawing = () => {
     </Background>
   );
 };
-
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<Drawing />);
 
 export default Drawing;

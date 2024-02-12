@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Logo from 'assets/images/Logo.png';
 import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
 import QRmodal from './QRmodal';
+import { useRecoilState } from 'recoil';
+import { navToggleState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -44,6 +46,7 @@ const FullLogo = styled.img`
   margin: 3rem;
 `;
 const Profile = styled.div`
+  position: relative;
   display: grid;
   height: 21rem;
   width: 32rem;
@@ -52,6 +55,26 @@ const Profile = styled.div`
   background: white;
   border-radius: 1.25rem;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+`;
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+const NoDataMessage = styled.p`
+  color: white;
+  font-size: 2.2rem;
 `;
 // const ProfileImage = styled.img`
 //   grid-row: 1;
@@ -165,7 +188,7 @@ const SubMenu = ({ to, children }) => {
 
 const StudentNav = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
   const [openMenu, setOpenMenu] = useState({
     art: false,
     culture: false,
@@ -195,6 +218,7 @@ const StudentNav = () => {
     sessionStorage.removeItem('groupId');
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('no');
+    setIsOpen(false);
 
     navigate('/login');
     alert('로그아웃 되었습니다!');
@@ -207,11 +231,21 @@ const StudentNav = () => {
           <FullLogo src={Logo} />
         </Link>
         <Profile>
-          {/* <LogoBox toggleQRModal={toggleQRModal} /> */}
+          {(!sessionStorage.getItem('name') ||
+            !sessionStorage.getItem('no') ||
+            !sessionStorage.getItem('groupId')) && (
+            <Overlay
+              onClick={() => {
+                navigate('/login');
+              }}
+            >
+              <NoDataMessage>로그인 후 이용해 주세요</NoDataMessage>
+            </Overlay>
+          )}
           <StudentDinoImage />
           <UserInfo>
-            <UserName>{sessionStorage.getItem('name')}</UserName>
-            <UserType>{sessionStorage.getItem('no')}번</UserType>
+            <UserName>{sessionStorage.getItem('name') || '김싸피'}</UserName>
+            <UserType>{sessionStorage.getItem('no') || 999}번</UserType>
           </UserInfo>
           <ProfileBtn>
             <ClassChoice onClick={handleClassChoiceClick}>
@@ -237,7 +271,7 @@ const StudentNav = () => {
             )}
           </Menu>
           <hr />
-          <Menu to='/presentation'>연극 발표 활동</Menu>
+          <Menu to='/room'>연극 발표 활동</Menu>
           <hr />
           <Menu onClick={() => toggleSubmenu('quiz')}>퀴즈</Menu>
         </MenuText>

@@ -1,4 +1,4 @@
-import { teacherDataState } from 'Recoil/UserState';
+import { loginState, teacherDataState, userTypeState } from 'Recoil/UserState';
 import { getTeacherInfo, teacherLogin } from 'api/UserApi';
 import Background from 'components/Basic/Background';
 import StyledInput from 'components/User/StyledInput';
@@ -7,6 +7,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import background from 'assets/images/mainBackground.png';
+
+import QRButton from 'assets/images/Login/qrButton.png';
 
 const FlexBox = styled.div`
   display: flex;
@@ -79,10 +82,24 @@ const LargeButton = styled.div`
   cursor: pointer;
 `;
 
+const StudentLoginButton = styled.div`
+  background: url(${QRButton});
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35rem;
+  height: 35rem; 
+  cursor: pointer;
+`;
+ 
+
 const LoginPage = () => {
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
+  const [login, setLogin] = useRecoilState(loginState);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -111,6 +128,7 @@ const LoginPage = () => {
         email: info.dataBody.email,
         id: info.dataBody.id,
       });
+      setLogin(true);
 
       sessionStorage.setItem('name', info.dataBody.name);
 
@@ -132,11 +150,12 @@ const LoginPage = () => {
   const handlePwFindClick = () => {
     navigate('/pwFind');
   };
+  const handleStudentLoginCamera = () => {
+    navigate('/studentLogin');
+  };
 
   return (
-    <Background
-      backgroundImage={require('assets/svg/main/Background.svg').default}
-    >
+    <Background backgroundImage={background}>
       <FlexBox>
         <MainBox>
           <LoginBox>
@@ -178,6 +197,8 @@ const LoginPage = () => {
               <Title>
                 <p>학생 로그인</p>
               </Title>
+              <StudentLoginButton onClick={handleStudentLoginCamera}> 
+              </StudentLoginButton>
             </UserLogin>
           </LoginBox>
         </MainBox>

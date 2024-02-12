@@ -28,3 +28,13 @@ export const studentUserState = atom({
     no: 2,
   },
 });
+
+export const loginState = atom({
+  key: 'login',
+  default: false,
+});
+
+export const navToggleState = atom({
+  key: 'navToggle',
+  default: true,
+});

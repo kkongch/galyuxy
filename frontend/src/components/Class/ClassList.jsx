@@ -1,5 +1,5 @@
 import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState';
-import { teacherDataState } from 'Recoil/UserState';
+import { navToggleState, teacherDataState } from 'Recoil/UserState';
 import { deleteClass, getClassList } from 'api/ClassApi';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React, useEffect, useState } from 'react';
@@ -81,6 +81,7 @@ const ClassList = () => {
   const [selectedClassId, setSelectedClassId] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [classIdToDelete, setClassIdToDelete] = useState(null);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
   const navigate = useNavigate();
 
   const handleGetClassList = async (accessToken) => {
@@ -128,6 +129,7 @@ const ClassList = () => {
 
     sessionStorage.setItem('groupId', groupId);
     navigate('/');
+    setIsOpen(true);
   };
 
   useEffect(() => {

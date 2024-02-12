@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import GlobalStyle from 'styles/GlobalStyle';
 import TeacherNav from 'components/Navbar/TeacherNav';
 import { Routes, Route, Link, Router, BrowserRouter } from 'react-router-dom';
@@ -11,7 +11,6 @@ import MainPage from 'pages/main/MainPage';
 import DrawingPage from 'pages/art/Drawing';
 import HeritageDetailPage from 'pages/heritage/HeritageDetailPage';
 import Heritage3D from 'pages/heritage/Heritage3D';
-import { RecoilRoot, useRecoilState } from 'recoil';
 import RoomPage from 'pages/presentation/RoomPage';
 import LoginPage from 'pages/user/LoginPage';
 import SignUpPage from 'pages/user/SignUpPage';
@@ -20,22 +19,31 @@ import QuizEnterPage from 'pages/quiz/QuizEnter';
 import VideoPage from 'pages/presentation/VideoPage';
 import ArtPage from 'pages/art/ArtPage';
 import StudentNav from 'components/Navbar/StudentNav';
-import ClassNav from 'components/Navbar/ClassNav';
 import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
 import IncorrectNote from 'pages/quiz/IncorrectNote';
 import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher';
+import StudentLoginCameraPage from 'pages/user/StudentLoginCamera';
+import ArtCameraPage from 'pages/art/ArtCamera';
+import StudentInfoPage from 'pages/class/StudentInfoPage';
+import { loginState } from 'Recoil/UserState';
+import { useRecoilState } from 'recoil';
+import QuizDetailTeacher from 'pages/quiz/teacher/QuizDetailTeacher';
+import QuizResultTeacher from 'pages/quiz/teacher/QuizResultTeacher';
 import QuizCreate from 'pages/quiz/QuizCreate';
 
-
 function App() {
-  const accessToken = sessionStorage.getItem('accessToken');
+  const [accessToken, setAccessToken] = useState(null);
+  const [login, setLogin] = useRecoilState(loginState);
+
+  useEffect(() => {
+    setAccessToken(sessionStorage.getItem('accessToken'));
+  }, [login]);
 
   return (
     <>
-      <RecoilRoot>
+      <React.Fragment>
         <GlobalStyle />
-        <div>
           {accessToken ? <TeacherNav /> : <StudentNav />}
           {/* <ClassNav /> */}
           <Routes>
@@ -45,6 +53,7 @@ function App() {
             <Route path='/pwfind' element={<FindPasswordPage />} />
             <Route path='/main' element={<MainPage />} />
             <Route path='/class' element={<ClassPage />} />
+            <Route path='/class/:id' element={<StudentInfoPage />} />
             <Route path='/heritage' element={<HeritageList />} />
             <Route path='/heritage/:id' element={<HeritageDetailPage />} />
             <Route path='/heritage/:id/3d' element={<Heritage3D />} />
@@ -60,10 +69,12 @@ function App() {
             <Route path='/quizfinish' element={<QuizFinish />} />
             <Route path='/IncorrectNote' element={<IncorrectNote />} />
             <Route path='/quizlistteacher' element={<QuizListTeacher />} />
+            <Route path='/artCamera' element={<ArtCameraPage />} />
+            <Route path='/quizdetailteacher' element={<QuizDetailTeacher />} />
+            <Route path='/quizresultteacher' element={<QuizResultTeacher />} />
             <Route path='/quizcreate' element={<QuizCreate />} />
           </Routes>
-        </div>
-      </RecoilRoot>
+        </React.Fragment>
     </>
   );
 }
