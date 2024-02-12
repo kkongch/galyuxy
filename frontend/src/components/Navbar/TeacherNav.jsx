@@ -192,6 +192,7 @@ const TeacherNav = () => {
   const toggleQRModal = () => setCheckModal(!checkModal);
 
   const handleClassChoiceClick = () => {
+    setIsOpen(false);
     navigate('/class');
   };
 
