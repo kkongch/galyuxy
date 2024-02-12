@@ -54,3 +54,16 @@ export const deleteClass = async (accessToken, groupId) => {
     throw error;
   }
 };
+
+export const updateClass = async (accessToken, newData) => {
+  try {
+    const response = await api.put(`/group/modify`, newData, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      'Content-Type': 'application/json',
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updateClass:', error);
+    throw error;
+  }
+};
