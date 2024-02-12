@@ -8,7 +8,7 @@ export const userTypeState = atom({
 export const teacherDataState = atom({
   key: 'teacherData',
   default: {
-    id: 1,
+    id: null,
     name: null,
     email: null,
     password: null,
@@ -27,4 +27,14 @@ export const studentUserState = atom({
     name: '박학생',
     no: 2,
   },
+});
+
+export const loginState = atom({
+  key: 'login',
+  default: false,
+});
+
+export const navToggleState = atom({
+  key: 'navToggle',
+  default: true,
 });

@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import React from 'react'
-import QRcode from 'pages/main/QRcode'
-import Close from 'assets/images/close.png'
+import styled from 'styled-components';
+import React from 'react';
+import QRcode from 'pages/main/QRcode';
+import Close from 'assets/images/close.png';
 const Modal = styled.div`
   position: fixed;
   display: flex;
@@ -13,7 +13,7 @@ const Modal = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.66);
   z-index: 10;
-`
+`;
 const CloseButton = styled.img`
   position: absolute;
   top: 20px;
@@ -21,14 +21,14 @@ const CloseButton = styled.img`
   width: 150px;
   height: 150px;
   z-index: 11;
-`
+`;
 function QRmodal({ toggleQRModal }) {
   return (
     <Modal>
-      <QRcode size={512} />
+      <QRcode size={512} id={sessionStorage.getItem('groupId')} />
       <CloseButton src={Close} alt='close' onClick={toggleQRModal} />
     </Modal>
-  )
+  );
 }
 
-export default QRmodal
+export default QRmodal;

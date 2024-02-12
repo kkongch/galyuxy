@@ -2,7 +2,7 @@ import { isAddModalOpenState } from 'Recoil/ClassState';
 import { React, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import mainBackground from 'assets/images/mainBackground.png';
+import background from 'assets/images/presentationBackground.png';
 import Background from 'components/Basic/Background';
 import RoomList from 'components/Presentation/RoomList';
 import { roomListState } from 'Recoil/PresentationState';
@@ -100,13 +100,13 @@ const RoomPage = () => {
   };
 
   return (
-    <Background backgroundImage={mainBackground}>
+    <Background backgroundImage={background}>
       <MainBox>
         {isModalOpen && <RoomModal />}
         <ClassBox>
           <TopOfBoardBox>
             <Title>{/* <p>이순신 인터뷰</p> */}</Title>
-            {userType === 1 && (
+            {sessionStorage.getItem('accessToken') && (
               <ButtonBox>
                 <AddClassButton onClick={handleAddClassClick}>
                   <SvgBox>

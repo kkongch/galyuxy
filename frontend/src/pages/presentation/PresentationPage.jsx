@@ -2,7 +2,7 @@ import { isAddModalOpenState } from 'Recoil/ClassState';
 import { React } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import mainBackground from 'assets/images/mainBackground.png';
+import background from 'assets/images/presentationBackground.png';
 import Background from 'components/Basic/Background';
 import PresentationList from '../../components/Presentation/PresentationList';
 import PresentationModal from 'components/Presentation/PresentationModal';
@@ -53,8 +53,13 @@ const TopOfBoardBox = styled.div`
   display: flex;
   width: 90.1875rem;
   height: 5.125rem;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 1.19rem;
+`;
+const Title = styled.div`
+  text-align: center;
+  font-size: 3.75rem;
+  font-weight: 800;
 `;
 const SvgBox = styled.div`
   display: flex;
@@ -88,11 +93,14 @@ const PresentationPage = () => {
   };
 
   return (
-    <Background backgroundImage={mainBackground}>
+    <Background backgroundImage={background}>
       <MainBox>
         {isModalOpen && <PresentationModal />}
         <ClassBox>
           <TopOfBoardBox>
+            <Title>
+              <p>연극·발표 활동 목록</p>
+            </Title>
             <AddClassButton onClick={handleAddClassClick}>
               <SvgBox>
                 <svg

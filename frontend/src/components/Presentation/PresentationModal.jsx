@@ -119,13 +119,13 @@ const PresentationModal = ({ presentationId }) => {
       const presentationData = {
         presentationTitle: presentationTitle,
         group: {
-          id: teacherData.groupId,
+          id: sessionStorage.getItem('groupId'),
         },
       };
 
       await createPresentation(presentationData);
 
-      const list = await getPresentationList(teacherData.groupId);
+      const list = await getPresentationList(sessionStorage.getItem('groupId'));
       setPresentationList(list);
     } catch (error) {
       console.error('Error handleCreatePresentation:', error);
@@ -162,18 +162,20 @@ const PresentationModal = ({ presentationId }) => {
   };
 
   const handleConfirm = () => {
-    if (isAddModalOpen && !isRefactorModalOpen) {
-      handleCreatePresentation();
-    } else if (!isAddModalOpen && isRefactorModalOpen) {
-      handleUpdatePresentation();
+    if (sessionStorage.getItem('groupId')) {
+      if (isAddModalOpen && !isRefactorModalOpen) {
+        handleCreatePresentation();
+      } else if (!isAddModalOpen && isRefactorModalOpen) {
+        handleUpdatePresentation();
 
-      const updatedList = presentationList.map((presentation) => {
-        if (presentation.presentationId === presentationId) {
-          return { ...presentation, presentationTitle: presentationTitle };
-        }
-        return presentation;
-      });
-      setPresentationList(updatedList);
+        const updatedList = presentationList.map((presentation) => {
+          if (presentation.presentationId === presentationId) {
+            return { ...presentation, presentationTitle: presentationTitle };
+          }
+          return presentation;
+        });
+        setPresentationList(updatedList);
+      }
     }
 
     setIsAddModalOpen(false);

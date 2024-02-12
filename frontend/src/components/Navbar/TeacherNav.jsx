@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'assets/images/Logo.png';
 import LogoBox from './LogoBox';
@@ -8,7 +8,7 @@ import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
 import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
-import { teacherDataState } from 'Recoil/UserState';
+import { loginState, navToggleState, teacherDataState } from 'Recoil/UserState';
 import { getTeacherInfo, teacherLogout } from 'api/UserApi';
 const NavContainer = styled.nav`
   position: absolute;
@@ -166,8 +166,10 @@ const SubMenu = ({ to, children }) => {
 
 const TeacherNav = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
+  const [login, setLogin] = useRecoilState(loginState);
   const [openMenu, setOpenMenu] = useState({
     art: false,
     culture: false,
@@ -190,6 +192,7 @@ const TeacherNav = () => {
   const toggleQRModal = () => setCheckModal(!checkModal);
 
   const handleClassChoiceClick = () => {
+    setIsOpen(false);
     navigate('/class');
   };
 
@@ -198,7 +201,21 @@ const TeacherNav = () => {
 
     try {
       const response = await teacherLogout(accessToken);
-      console.log(response);
+      sessionStorage.removeItem('groupId');
+      sessionStorage.removeItem('name');
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('refreshToken');
+
+      setLogin(false);
+
+      setTeacherData({
+        id: null,
+        name: null,
+        email: null,
+        groupId: null,
+        presentationId: null,
+        roomId: null,
+      });
     } catch (error) {
       console.error('Error handleLogout:', error);
     }
@@ -206,19 +223,6 @@ const TeacherNav = () => {
 
   const handleLogoutClick = () => {
     handleLogout();
-
-    localStorage.removeItem('groupId');
-    sessionStorage.removeItem('accessToken');
-    sessionStorage.removeItem('refreshToken');
-
-    setTeacherData({
-      id: null,
-      name: null,
-      email: null,
-      groupId: null,
-      presentationId: null,
-      roomId: null,
-    });
 
     navigate('/login');
     alert('로그아웃 되었습니다!');
@@ -233,7 +237,7 @@ const TeacherNav = () => {
         <Profile>
           <LogoBox toggleQRModal={toggleQRModal} />
           <UserInfo>
-            <UserName>{teacherData.name}</UserName>
+            <UserName>{sessionStorage.getItem('name')}</UserName>
             <UserType>선생님</UserType>
           </UserInfo>
           <ProfileBtn>
@@ -247,32 +251,41 @@ const TeacherNav = () => {
             </Logout>
           </ProfileBtn>
         </Profile>
-        <MenuText>
-          <Menu to='/heritage'>문화유산 관람</Menu>
-          <hr />
-          <Menu onClick={() => toggleSubmenu('art')}>
-            미술 활동
-            {openMenu.art && (
-              <>
-                <SubMenu to='/art'>드로잉</SubMenu>
-                <SubMenu href='#'>컬러링북</SubMenu>
-              </>
-            )}
-          </Menu>
-          <hr />
-          <Menu to='/presentation'>연극 발표 활동</Menu>
-          <hr />
-          <Menu onClick={() => toggleSubmenu('quiz')}>
-            퀴즈
-            {openMenu.quiz && (
-              <>
-                <SubMenu to='/main'>문제집 목록</SubMenu>
-                <SubMenu href='#'>문제집 생성</SubMenu>
-                <SubMenu href='#'>퀴즈 결과</SubMenu>
-              </>
-            )}
-          </Menu>
-        </MenuText>
+        {location.pathname === '/class' || location.pathname === '/pwfind' ? (
+          <MenuText>
+            <Menu to='/class'>클래스</Menu>
+            <hr />
+            <Menu to='/pwfind'>비밀번호 변경</Menu>
+            <hr />
+          </MenuText>
+        ) : (
+          <MenuText>
+            <Menu to='/heritage'>문화유산 관람</Menu>
+            <hr />
+            <Menu onClick={() => toggleSubmenu('art')}>
+              미술 활동
+              {openMenu.art && (
+                <>
+                  <SubMenu to='/art'>드로잉</SubMenu>
+                  <SubMenu href='#'>컬러링북</SubMenu>
+                </>
+              )}
+            </Menu>
+            <hr />
+            <Menu to='/presentation'>연극 발표 활동</Menu>
+            <hr />
+            <Menu onClick={() => toggleSubmenu('quiz')}>
+              퀴즈
+              {openMenu.quiz && (
+                <>
+                  <SubMenu to='/main'>문제집 목록</SubMenu>
+                  <SubMenu href='#'>문제집 생성</SubMenu>
+                  <SubMenu href='#'>퀴즈 결과</SubMenu>
+                </>
+              )}
+            </Menu>
+          </MenuText>
+        )}
       </NavContainer>
       {checkModal && <QRmodal toggleQRModal={toggleQRModal} />}
       <ToggleButton isOpen={isOpen} onClick={toggleNavbar}>
