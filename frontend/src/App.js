@@ -25,6 +25,8 @@ import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
 import IncorrectNote from 'pages/quiz/IncorrectNote';
 import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher';
+import QuizDetailTeacher from 'pages/quiz/teacher/QuizDetailTeacher';
+import QuizResultTeacher from 'pages/quiz/teacher/QuizResultTeacher';
 
 function App() {
   const accessToken = sessionStorage.getItem('accessToken');
@@ -52,12 +54,14 @@ function App() {
             <Route path='/VideoPage' element={<VideoPage />} />
             <Route path='/art' element={<ArtPage />} />
             <Route path='/art/coloring' element={<Coloring />} />
-            <Route path='/art/drawing' element={<DrawingPage />} />
+            <Route path='/art/drawi ng' element={<DrawingPage />} />
             <Route path='/quizenter' element={<QuizEnterPage />} />
             <Route path='/quizsolve' element={<QuizSolve />} />
             <Route path='/quizfinish' element={<QuizFinish />} />
             <Route path='/IncorrectNote' element={<IncorrectNote />} />
             <Route path='/quizlistteacher' element={<QuizListTeacher />} />
+            <Route path='/quizdetailteacher' element={<QuizDetailTeacher />} />
+            <Route path='/quizresultteacher' element={<QuizResultTeacher />} />
           </Routes>
         </div>
       </RecoilRoot>
