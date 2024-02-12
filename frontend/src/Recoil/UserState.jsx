@@ -36,5 +36,5 @@ export const loginState = atom({
 
 export const navToggleState = atom({
   key: 'navToggle',
-  default: false,
+  default: true,
 });
