@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import Background from 'components/Basic/Background';
 import styled from 'styled-components';
@@ -20,20 +20,20 @@ const QuizBox = styled.div`
   background: rgba(220, 242, 255, 0.9);
   border-radius: 1.25rem;
   top: 11.06rem;
-  left : 14rem;
+  left: 14rem;
   position: absolute;
   display: flex;
   flex-direction: column;
   /* justify-content: space-around;
   align-items: center; */
-`
+`;
 const OXboxContainer = styled.div`
   display: flex;
   position: relative;
   justify-content: space-around;
   width: 100%;
   margin-top: 5rem;
-`
+`;
 const OXbox = styled.div`
   width: 45rem;
   height: 45rem;
@@ -49,9 +49,9 @@ const OXbox = styled.div`
   justify-content: center;
   transition: border 0.3s;
   &:hover {
-    border: 20px solid var(--sub1, #596FB7);
+    border: 20px solid var(--sub1, #596fb7);
   }
-`
+`;
 const QuestionNumber = styled.div`
   width: 7.5rem;
   height: 7.5rem;
@@ -60,7 +60,7 @@ const QuestionNumber = styled.div`
   margin-left: 2rem;
   margin-top: 2rem;
   border-radius: 1.25rem;
-`
+`;
 const QuizNavbar = styled.div`
   width: 26.125rem;
   height: 100%;
@@ -70,7 +70,7 @@ const QuizNavbar = styled.div`
   justify-content: flex-start;
   align-items: center;
   display: flex;
-`
+`;
 const QuizName = styled.div`
   width: 22.625rem;
   height: 5.9375rem;
@@ -78,20 +78,20 @@ const QuizName = styled.div`
   background: rgba(220, 242, 255, 1);
   position: relative;
   margin-top: 4.38rem;
-`
+`;
 const Timer = styled.div`
   font-size: 2rem;
   color: #000;
   margin: 1rem;
   position: relative;
-`
+`;
 const SubmitButton = styled.button`
   width: 22.5rem;
   height: 7.5rem;
   border-radius: 1.25rem;
   background: #ff5050;
   bottom: 4.37rem;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-size: 3rem;
   font-style: normal;
@@ -99,7 +99,7 @@ const SubmitButton = styled.button`
   line-height: normal;
   margin-top: auto;
   position: absolute;
-`
+`;
 const DirectionButton = styled.button`
   width: 22.5rem;
   height: 7.5rem;
@@ -110,16 +110,16 @@ const DirectionButton = styled.button`
   font-size: 2.375rem;
   font-style: normal;
   font-weight: 700;
-`
+`;
 const BackButton = styled(DirectionButton)`
   margin-left: 4.44rem;
   bottom: 4.37rem;
-`
+`;
 const NextButton = styled(DirectionButton)`
   position: absolute;
   right: 4.44rem;
   bottom: 4.37rem;
-`
+`;
 const ChoiceBox = styled.div`
   background: #fff;
   width: 90rem;
@@ -128,9 +128,9 @@ const ChoiceBox = styled.div`
   align-items: center;
   transition: border 0.3s;
   &:hover {
-    border: 20px solid var(--sub1, #596FB7);
+    border: 20px solid var(--sub1, #596fb7);
   }
-`
+`;
 const QuestionBox = styled.div`
   position: relative;
   width: 100%;
@@ -140,21 +140,21 @@ const QuestionBox = styled.div`
   align-items: center;
   flex-direction: column;
   display: flex;
-`
+`;
 const Number = styled.div`
-  color: #0F70B7;
+  color: #0f70b7;
   font-size: 3rem;
   font-style: normal;
   font-weight: 600;
   left: 3.44rem;
   top: 50%;
   transform: translateY(-50%);
-  position: relative;;
+  position: relative;
   width: 1.75rem;
   height: 4.0625rem;
   display: flex;
-`
-const QuizSolve = () => {
+`;
+const QuizListTeacher = () => {
   const [timeLeft, setTimeLeft] = useState(120); // 2분을 초 단위로 환산
 
   useEffect(() => {
@@ -211,7 +211,7 @@ const QuizSolve = () => {
         </QuizNavbar>
       </Layout>
     </Background>
-  )
-}
+  );
+};
 
-export default QuizSolve
+export default QuizListTeacher;

@@ -1,8 +1,10 @@
-import React, {useState,useEffect} from 'react'
+import React from 'react'
 import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import Background from 'components/Basic/Background';
 import styled from 'styled-components';
-
+import ListIcon from 'assets/svg/listicon.svg'
+import AnswerListIcon from 'assets/svg/answerlisticon.svg'
+import IncorrectListIcon from 'assets/svg/incorrectlisticon.svg'
 const Layout = styled.div`
   display: flex;
   width: 100%;
@@ -47,10 +49,10 @@ const OXbox = styled.div`
   font-weight: 600;
   align-items: center;
   justify-content: center;
-  transition: border 0.3s;
-  &:hover {
+  /* transition: border 0.3s; */
+  /* &:hover {
     border: 20px solid var(--sub1, #596FB7);
-  }
+  } */
 `
 const QuestionNumber = styled.div`
   width: 7.5rem;
@@ -78,12 +80,6 @@ const QuizName = styled.div`
   background: rgba(220, 242, 255, 1);
   position: relative;
   margin-top: 4.38rem;
-`
-const Timer = styled.div`
-  font-size: 2rem;
-  color: #000;
-  margin: 1rem;
-  position: relative;
 `
 const SubmitButton = styled.button`
   width: 22.5rem;
@@ -154,64 +150,60 @@ const Number = styled.div`
   height: 4.0625rem;
   display: flex;
 `
-const QuizSolve = () => {
-  const [timeLeft, setTimeLeft] = useState(120); // 2분을 초 단위로 환산
-
-  useEffect(() => {
-    // 타이머가 0이 되면 중지
-    if (timeLeft === 0) return;
-
-    // 매초마다 timeLeft 감소
-    const timerId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
-    }, 1000);
-
-    // 컴포넌트 언마운트 또는 업데이트 시 타이머 정리
-    return () => clearInterval(timerId);
-  }, [timeLeft]); // timeLeft가 변경될 때마다 useEffect 실행
-
-  // 시간 포맷 변경 (예: 120 -> 02:00)
-  const formatTimeLeft = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
+const SvgContainer = styled.div`
+	width: 4.375rem;
+	height: 4.375rem;
+	position: absolute;
+	display: flex;
+	top: 2.12rem;
+	left: 2.12rem;
+`
+const IncorrectNote = () => {
   return (
     <Background backgroundImage={QuizMainImage}>
       <Layout>
         <MainContent>
           <QuizBox>
             <QuestionNumber />
-            <QuestionBox>
+            {/* <QuestionBox>
               <ChoiceBox>
-                <Number>1</Number>
+                <Number><img src={ListIcon} alt='icon'/></Number>
               </ChoiceBox>
               <ChoiceBox>
-                <Number>2</Number>
+                <Number><img src={AnswerListIcon} alt='aicon'/></Number>
               </ChoiceBox>
               <ChoiceBox>
-                <Number>3</Number>
+                <Number><img src={ListIcon} alt='icon'/></Number>
               </ChoiceBox>
               <ChoiceBox>
-                <Number>4</Number>
+                <Number><img src={IncorrectListIcon} alt='icon'/></Number>
               </ChoiceBox>
-            </QuestionBox>
-            {/* <OXboxContainer>
-              <OXbox style={{color:'#0f70b7'}}>O</OXbox>
-              <OXbox style={{color:'#f00'}}>X</OXbox>
-            </OXboxContainer> */}
+            </QuestionBox> */}
+            <OXboxContainer>
+              <OXbox style={{color:'#0f70b7'}}>
+								<SvgContainer>
+									<img src={AnswerListIcon} alt="icon" />
+								</SvgContainer>
+								O
+							</OXbox>
+              <OXbox style={{color:'#f00'}}>
+								<SvgContainer>
+									<img src={IncorrectListIcon} alt="icon" />
+								</SvgContainer>
+								X
+							</OXbox>
+            </OXboxContainer>
           </QuizBox>
           <BackButton>이전 문제</BackButton>
           <NextButton>다음 문제</NextButton>
         </MainContent>
         <QuizNavbar>
           <QuizName />
-          <Timer> 제한시간 : {formatTimeLeft(timeLeft)}</Timer>
-          <SubmitButton>제출하기</SubmitButton>
+          <SubmitButton>나가기</SubmitButton>
         </QuizNavbar>
       </Layout>
     </Background>
   )
 }
 
-export default QuizSolve
+export default IncorrectNote

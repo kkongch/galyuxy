@@ -29,7 +29,7 @@ const StyledbBox = styled.div`
   height: 25vh;
   background-image: url(${(props) => props.imageUrl});
   background-size: cover;
-  border: 2px solid black;
+  border: 25px ridge #a5733d;
   margin: 10vh 1%;
   transform-origin: center;
 `;
