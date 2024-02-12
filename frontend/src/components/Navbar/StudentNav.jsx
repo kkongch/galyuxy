@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Logo from 'assets/images/Logo.png';
 import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
 import QRmodal from './QRmodal';
+import { useRecoilState } from 'recoil';
+import { navToggleState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -165,7 +167,7 @@ const SubMenu = ({ to, children }) => {
 
 const StudentNav = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
   const [openMenu, setOpenMenu] = useState({
     art: false,
     culture: false,

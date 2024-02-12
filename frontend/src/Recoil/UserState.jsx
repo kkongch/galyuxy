@@ -33,3 +33,8 @@ export const loginState = atom({
   key: 'login',
   default: false,
 });
+
+export const navToggleState = atom({
+  key: 'navToggle',
+  default: false,
+});

@@ -8,7 +8,7 @@ import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
 import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
-import { loginState, teacherDataState } from 'Recoil/UserState';
+import { loginState, navToggleState, teacherDataState } from 'Recoil/UserState';
 import { getTeacherInfo, teacherLogout } from 'api/UserApi';
 const NavContainer = styled.nav`
   position: absolute;
@@ -167,7 +167,7 @@ const SubMenu = ({ to, children }) => {
 const TeacherNav = () => {
   const navigate = useNavigate();
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
   const [login, setLogin] = useRecoilState(loginState);
   const [openMenu, setOpenMenu] = useState({
     art: false,
