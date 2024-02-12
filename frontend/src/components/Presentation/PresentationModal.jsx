@@ -119,13 +119,13 @@ const PresentationModal = ({ presentationId }) => {
       const presentationData = {
         presentationTitle: presentationTitle,
         group: {
-          id: teacherData.groupId,
+          id: sessionStorage.getItem('groupId'),
         },
       };
 
       await createPresentation(presentationData);
 
-      const list = await getPresentationList(teacherData.groupId);
+      const list = await getPresentationList(sessionStorage.getItem('groupId'));
       setPresentationList(list);
     } catch (error) {
       console.error('Error handleCreatePresentation:', error);

@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'assets/images/Logo.png';
-import LogoBox from './LogoBox';
 import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
-import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
-import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
-import { useRecoilState } from 'recoil';
-import { studentUserState, teacherDataState } from 'Recoil/UserState';
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -170,8 +165,6 @@ const SubMenu = ({ to, children }) => {
 
 const StudentNav = () => {
   const navigate = useNavigate();
-  //   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
-  const [studentData, setStudentData] = useRecoilState(studentUserState);
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState({
     art: false,
@@ -199,7 +192,11 @@ const StudentNav = () => {
   };
 
   const handleLogoutClick = () => {
-    navigate('/');
+    sessionStorage.removeItem('groupId');
+    sessionStorage.removeItem('name');
+    sessionStorage.removeItem('no');
+
+    navigate('/login');
     alert('로그아웃 되었습니다!');
   };
 
@@ -213,8 +210,8 @@ const StudentNav = () => {
           {/* <LogoBox toggleQRModal={toggleQRModal} /> */}
           <StudentDinoImage />
           <UserInfo>
-            <UserName>{studentData.name}</UserName>
-            <UserType>{studentData.no}번</UserType>
+            <UserName>{sessionStorage.getItem('name')}</UserName>
+            <UserType>{sessionStorage.getItem('no')}번</UserType>
           </UserInfo>
           <ProfileBtn>
             <ClassChoice onClick={handleClassChoiceClick}>

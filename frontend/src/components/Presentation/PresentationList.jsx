@@ -149,7 +149,7 @@ const PresentationList = () => {
   }, [isDeleteClicked, presentationIdToDelete]);
 
   useEffect(() => {
-    const groupId = teacherData.groupId;
+    const groupId = sessionStorage.getItem('groupId');
     console.log(teacherData);
 
     handleGetPresentationList(groupId);

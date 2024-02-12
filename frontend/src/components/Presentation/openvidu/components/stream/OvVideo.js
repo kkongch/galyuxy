@@ -52,12 +52,14 @@ export default class OvVideoComponent extends Component {
   render() {
     // 비디오 요소 렌더링. autoPlay와 muted 속성을 사용하여 자동 재생 및 음소거 설정
     return (
-      <video
-        autoPlay={true} // 비디오 자동 재생 활성화
-        id={'video-' + this.props.user.getStreamManager().stream.streamId} // 고유 ID 할당
-        ref={this.videoRef} // ref 사용하여 비디오 요소 참조
-        muted={this.props.mutedSound} // props를 통해 받은 음소거 상태 적용
-      />
+      <div className='videoBox'>
+        <video
+          autoPlay={true} // 비디오 자동 재생 활성화
+          id={'video-' + this.props.user.getStreamManager().stream.streamId} // 고유 ID 할당
+          ref={this.videoRef} // ref 사용하여 비디오 요소 참조
+          muted={this.props.mutedSound} // props를 통해 받은 음소거 상태 적용
+        />
+      </div>
     );
   }
 }

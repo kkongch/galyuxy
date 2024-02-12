@@ -207,7 +207,8 @@ const TeacherNav = () => {
   const handleLogoutClick = () => {
     handleLogout();
 
-    localStorage.removeItem('groupId');
+    sessionStorage.removeItem('groupId');
+    sessionStorage.removeItem('name');
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('refreshToken');
 
@@ -233,7 +234,7 @@ const TeacherNav = () => {
         <Profile>
           <LogoBox toggleQRModal={toggleQRModal} />
           <UserInfo>
-            <UserName>{teacherData.name}</UserName>
+            <UserName>{sessionStorage.getItem('name')}</UserName>
             <UserType>선생님</UserType>
           </UserInfo>
           <ProfileBtn>

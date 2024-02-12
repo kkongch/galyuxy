@@ -18,11 +18,9 @@ export const getClassList = async (accessToken) => {
   }
 };
 
-export const getStudentList = async (accessToken, groupId) => {
+export const getStudentList = async (groupId) => {
   try {
-    const response = await api.get(`/group/detail/${groupId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const response = await api.get(`/group/detail/${groupId}`);
     return response.data.dataBody;
   } catch (error) {
     console.error('Error getStudentList:', error);
@@ -40,6 +38,30 @@ export const createClass = async (accessToken, classData) => {
     });
   } catch (error) {
     console.error('Error createClass:', error);
+    throw error;
+  }
+};
+
+export const deleteClass = async (accessToken, groupId) => {
+  try {
+    const response = await api.put(`/group/delete/${groupId}`, null, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.error('Error deleteClass:', error);
+    throw error;
+  }
+};
+
+export const updateClass = async (accessToken, newData) => {
+  try {
+    const response = await api.put(`/group/modify`, newData, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      'Content-Type': 'application/json',
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updateClass:', error);
     throw error;
   }
 };

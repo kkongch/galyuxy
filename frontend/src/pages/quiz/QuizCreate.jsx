@@ -29,7 +29,6 @@ const Choice = styled.div`
   background: #FFF;
   position: absolute;
   display: flex;
-  flex-direction: column;
 
 `
 const QuizCreate = () => {

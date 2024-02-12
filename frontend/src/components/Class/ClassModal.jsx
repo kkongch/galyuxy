@@ -9,7 +9,12 @@ import {
   studentListState,
 } from 'Recoil/ClassState';
 import { useRecoilState } from 'recoil';
-import { createClass, getClassList, getStudentList } from 'api/ClassApi';
+import {
+  createClass,
+  getClassList,
+  getStudentList,
+  updateClass,
+} from 'api/ClassApi';
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -168,9 +173,9 @@ export const ClassModal = ({ classItem }) => {
   const [studentList, setStudentList] = useRecoilState(studentListState);
   const [classList, setClassList] = useRecoilState(classListState);
 
-  const handleGetStudentList = async (accessToken, classItem) => {
+  const handleGetStudentList = async (classItem) => {
     try {
-      const list = await getStudentList(accessToken, classItem.id);
+      const list = await getStudentList(classItem.id);
       setStudentList(list);
       setGroupName(classItem.name);
       console.log(list);
@@ -183,16 +188,34 @@ export const ClassModal = ({ classItem }) => {
     try {
       await createClass(accessToken, classData);
 
-      const list = await getClassList(sessionStorage.getItem('accessToken'));
+      const list = await getClassList(accessToken);
       setClassList(list);
     } catch (error) {
       console.error('Error handleCreateClass: ', error);
     }
   };
 
+  const handleUpdateClass = async (accessToken) => {
+    try {
+      const newData = {
+        group: {
+          id: classItem.id,
+          name: groupName,
+        },
+        students: studentList,
+      };
+
+      console.log(newData);
+
+      await updateClass(accessToken, newData);
+    } catch (error) {
+      console.error('Error handleUpdateClass: ', error);
+    }
+  };
+
   useEffect(() => {
     if (classItem) {
-      handleGetStudentList(sessionStorage.getItem('accessToken'), classItem);
+      handleGetStudentList(classItem);
     }
   }, []);
 
@@ -206,12 +229,24 @@ export const ClassModal = ({ classItem }) => {
   };
 
   const handleConfirm = () => {
-    handleCreateClass(sessionStorage.getItem('accessToken'), {
-      group: {
-        name: groupName,
-      },
-      students: studentList,
-    });
+    if (isAddModalOpen && !isRefactorModalOpen) {
+      handleCreateClass(sessionStorage.getItem('accessToken'), {
+        group: {
+          name: groupName,
+        },
+        students: studentList,
+      });
+    } else if (!isAddModalOpen && isRefactorModalOpen) {
+      handleUpdateClass(sessionStorage.getItem('accessToken'));
+
+      const updatedList = classList.map((classI) => {
+        if (classI.id === classItem.id) {
+          return { ...classItem, name: groupName };
+        }
+        return classI;
+      });
+      setClassList(updatedList);
+    }
 
     setStudentNo('');
     setStudentName('');

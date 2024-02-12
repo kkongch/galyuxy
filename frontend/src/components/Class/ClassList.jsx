@@ -1,10 +1,6 @@
-import {
-  classListState,
-  isAddModalOpenState,
-  isRefactorModalOpenState,
-} from 'Recoil/ClassState';
+import { classListState, isRefactorModalOpenState } from 'Recoil/ClassState';
 import { teacherDataState } from 'Recoil/UserState';
-import { getClassList } from 'api/ClassApi';
+import { deleteClass, getClassList } from 'api/ClassApi';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -82,7 +78,31 @@ const ClassList = () => {
   );
   const [selectedClassItem, setSelectedClassItem] = useState(null);
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const [selectedClassId, setSelectedClassId] = useState(null);
+  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+  const [classIdToDelete, setClassIdToDelete] = useState(null);
   const navigate = useNavigate();
+
+  const handleGetClassList = async (accessToken) => {
+    try {
+      const list = await getClassList(accessToken);
+      setClassList(list);
+    } catch (error) {
+      console.error('Error handleGetClassList: ', error);
+    }
+  };
+
+  const handleDeleteClass = async (groupId) => {
+    try {
+      await deleteClass(sessionStorage.getItem('accessToken'), groupId);
+
+      setClassList((prevList) =>
+        prevList.filter((classItem) => classItem.id !== groupId)
+      );
+    } catch (error) {
+      console.error('Error handleDeleteClass: ', error);
+    }
+  };
 
   const handleRefactorClassClick = (classItem) => {
     setIsModalOpen(true);
@@ -97,28 +117,26 @@ const ClassList = () => {
         (classItem) => classItem.id !== groupId
       );
       setClassList(updatedClassList);
-
-      console.log(updatedClassList);
+      setClassIdToDelete(groupId);
+      setIsDeleteClicked(true);
     }
-    // PUT /group/deleteStudent
   };
 
   const handleEnterClassClick = (groupId) => {
     const updatedTeacherData = { ...teacherData, groupId: groupId };
     setTeacherData(updatedTeacherData);
 
-    localStorage.setItem('groupId', groupId);
-    navigate('/main');
+    sessionStorage.setItem('groupId', groupId);
+    navigate('/');
   };
 
-  const handleGetClassList = async (accessToken) => {
-    try {
-      const list = await getClassList(accessToken);
-      setClassList(list);
-    } catch (error) {
-      console.error('Error handleGetClassList: ', error);
+  useEffect(() => {
+    if (isDeleteClicked && classIdToDelete !== null) {
+      handleDeleteClass(classIdToDelete);
+      setIsDeleteClicked(false);
+      setClassIdToDelete(null);
     }
-  };
+  }, [isDeleteClicked, classIdToDelete]);
 
   useEffect(() => {
     handleGetClassList(sessionStorage.getItem('accessToken'));

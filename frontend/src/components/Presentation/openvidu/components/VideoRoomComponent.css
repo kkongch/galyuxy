@@ -27,7 +27,7 @@
 }
 
 .toolbar {
-  min-height: 40px !important;
+  min-height: 10rem !important;
 }
 
 #titleContent {
@@ -45,6 +45,7 @@
   text-align: center;
   margin: auto;
   min-width: 400px;
+  display: flex;
 }
 .navButton {
   height: 40px !important;
@@ -61,7 +62,7 @@
 
 .bounds {
   /* background-color: #494949; */
-  border: solid;
+  /* border: solid; */
   overflow: hidden;
   position: absolute;
   left: 0;

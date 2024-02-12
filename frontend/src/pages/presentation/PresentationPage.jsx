@@ -2,7 +2,7 @@ import { isAddModalOpenState } from 'Recoil/ClassState';
 import { React } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import mainBackground from 'assets/images/mainBackground.png';
+import background from 'assets/images/presentationBackground.png';
 import Background from 'components/Basic/Background';
 import PresentationList from '../../components/Presentation/PresentationList';
 import PresentationModal from 'components/Presentation/PresentationModal';
@@ -88,7 +88,7 @@ const PresentationPage = () => {
   };
 
   return (
-    <Background backgroundImage={mainBackground}>
+    <Background backgroundImage={background}>
       <MainBox>
         {isModalOpen && <PresentationModal />}
         <ClassBox>

@@ -112,6 +112,8 @@ const LoginPage = () => {
         id: info.dataBody.id,
       });
 
+      sessionStorage.setItem('name', info.dataBody.name);
+
       navigate('/class');
     } catch (error) {
       alert('아이디 혹은 비밀번호를 다시 확인해 주세요');

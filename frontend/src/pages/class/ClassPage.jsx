@@ -2,12 +2,11 @@ import { isAddModalOpenState, studentListState } from 'Recoil/ClassState';
 import ClassList from 'components/Class/ClassList';
 import { ClassModal } from 'components/Class/ClassModal';
 import { React } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import mainBackground from 'assets/images/mainBackground.png';
 import Background from 'components/Basic/Background';
 import StudentList from 'components/Class/StudentList';
-import { userTypeState } from 'Recoil/UserState';
 
 const MainBox = styled.main`
   height: 100vh;
@@ -87,8 +86,7 @@ const BoardBackgroundInner = styled.div`
   padding: 0 4.3rem;
 `;
 
-const Class = () => {
-  const userType = useRecoilValue(userTypeState);
+const ClassPage = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
   const [studentList, setStudentList] = useRecoilState(studentListState);
 
@@ -102,7 +100,7 @@ const Class = () => {
       <MainBox>
         {isModalOpen && <ClassModal />}
         <ClassBox>
-          {userType === 1 ? (
+          {sessionStorage.getItem('accessToken') ? (
             <TopOfBoardBox>
               <Title>
                 <p>클래스 목록</p>
@@ -135,7 +133,11 @@ const Class = () => {
 
           <BoardBackgroundOuter>
             <BoardBackgroundInner>
-              {userType === 1 ? <ClassList /> : <StudentList />}
+              {sessionStorage.getItem('accessToken') ? (
+                <ClassList />
+              ) : (
+                <StudentList />
+              )}
             </BoardBackgroundInner>
           </BoardBackgroundOuter>
         </ClassBox>
@@ -144,4 +146,4 @@ const Class = () => {
   );
 };
 
-export default Class;
+export default ClassPage;
