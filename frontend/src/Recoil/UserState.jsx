@@ -13,6 +13,9 @@ export const teacherDataState = atom({
     email: null,
     password: null,
     role: 'TEACHER',
+    groupId: null,
+    presentationId: null,
+    roomId: null,
   },
 });
 

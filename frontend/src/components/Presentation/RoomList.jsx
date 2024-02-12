@@ -127,6 +127,12 @@ const RoomList = () => {
 
     const presentationId = teacherData.presentationId;
 
+    if (presentationId === null) {
+      alert('발표활동을 먼저 선택해주세요');
+      navigate('/presentation');
+
+      return;
+    }
     handleGetRoomList(presentationId);
   }, []);
 
@@ -137,6 +143,8 @@ const RoomList = () => {
       setRoomIdToDelete(null);
     }
   }, [isDeleteClicked, roomIdToDelete]);
+
+  useEffect(() => {}, []);
 
   return (
     <>
