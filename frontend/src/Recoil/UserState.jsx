@@ -28,3 +28,8 @@ export const studentUserState = atom({
     no: 2,
   },
 });
+
+export const loginState = atom({
+  key: 'login',
+  default: false,
+});

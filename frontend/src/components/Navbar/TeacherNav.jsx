@@ -8,7 +8,7 @@ import { ReactComponent as BookIcon } from 'assets/svg/nav/book.svg';
 import { ReactComponent as LogoutIcon } from 'assets/svg/nav/logout.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
-import { teacherDataState } from 'Recoil/UserState';
+import { loginState, teacherDataState } from 'Recoil/UserState';
 import { getTeacherInfo, teacherLogout } from 'api/UserApi';
 const NavContainer = styled.nav`
   position: absolute;
@@ -168,6 +168,7 @@ const TeacherNav = () => {
   const navigate = useNavigate();
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [isOpen, setIsOpen] = useState(false);
+  const [login, setLogin] = useRecoilState(loginState);
   const [openMenu, setOpenMenu] = useState({
     art: false,
     culture: false,
@@ -198,7 +199,22 @@ const TeacherNav = () => {
 
     try {
       const response = await teacherLogout(accessToken);
-      console.log(response);
+
+      sessionStorage.removeItem('groupId');
+      sessionStorage.removeItem('name');
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('refreshToken');
+
+      setLogin(false);
+
+      setTeacherData({
+        id: null,
+        name: null,
+        email: null,
+        groupId: null,
+        presentationId: null,
+        roomId: null,
+      });
     } catch (error) {
       console.error('Error handleLogout:', error);
     }
@@ -206,20 +222,6 @@ const TeacherNav = () => {
 
   const handleLogoutClick = () => {
     handleLogout();
-
-    sessionStorage.removeItem('groupId');
-    sessionStorage.removeItem('name');
-    sessionStorage.removeItem('accessToken');
-    sessionStorage.removeItem('refreshToken');
-
-    setTeacherData({
-      id: null,
-      name: null,
-      email: null,
-      groupId: null,
-      presentationId: null,
-      roomId: null,
-    });
 
     navigate('/login');
     alert('로그아웃 되었습니다!');
