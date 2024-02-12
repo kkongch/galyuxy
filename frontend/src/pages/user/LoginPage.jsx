@@ -9,6 +9,8 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import background from 'assets/images/mainBackground.png';
 
+import QRButton from 'assets/images/Login/qrButton.png';
+
 const FlexBox = styled.div`
   display: flex;
   justify-content: center;
@@ -80,6 +82,19 @@ const LargeButton = styled.div`
   cursor: pointer;
 `;
 
+const StudentLoginButton = styled.div`
+  background: url(${QRButton});
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35rem;
+  height: 35rem; 
+  cursor: pointer;
+`;
+ 
+
 const LoginPage = () => {
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [email, setEmail] = useInput('');
@@ -135,6 +150,9 @@ const LoginPage = () => {
   const handlePwFindClick = () => {
     navigate('/pwFind');
   };
+  const handleStudentLoginCamera = () => {
+    navigate('/studentLogin');
+  };
 
   return (
     <Background backgroundImage={background}>
@@ -179,6 +197,8 @@ const LoginPage = () => {
               <Title>
                 <p>학생 로그인</p>
               </Title>
+              <StudentLoginButton onClick={handleStudentLoginCamera}> 
+              </StudentLoginButton>
             </UserLogin>
           </LoginBox>
         </MainBox>
