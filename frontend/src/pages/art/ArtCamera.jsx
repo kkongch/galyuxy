@@ -126,7 +126,7 @@ const ArtCameraPage = () => {
             ...videoConstraints,
             facingMode: cameraFacingMode,
           }}
-          style={{ width: '100%', height: '100%' }} //갤탭에서 사진 크기 확인해보고 나중에 변경
+          style={{ width: '100%', height: '1600px' }} //갤탭에서 사진 크기 확인해보고 나중에 변경
         />
 
         <CaptureButton onClick={capture}>Capture</CaptureButton>
