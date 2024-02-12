@@ -21,8 +21,9 @@ import VideoPage from 'pages/presentation/VideoPage';
 import ArtPage from 'pages/art/ArtPage';
 import StudentNav from 'components/Navbar/StudentNav';
 import ClassNav from 'components/Navbar/ClassNav';
-import QuizSolve from 'pages/quiz/QuizSolve';
-import QuizFinish from 'pages/quiz/QuizFinish';
+import QuizSolve from 'pages/quiz/QuizSolve'
+import QuizFinish from 'pages/quiz/QuizFinish'
+import IncorrectNote from 'pages/quiz/IncorrectNote';
 
 function App() {
   const accessToken = sessionStorage.getItem('accessToken');
@@ -53,7 +54,8 @@ function App() {
             <Route path='/art/drawing' element={<DrawingPage />} />
             <Route path='/quizenter' element={<QuizEnterPage />} />
             <Route path='/quizsolve' element={<QuizSolve />} />
-            <Route path='/quizfinish' element={<QuizFinish />} />
+            <Route path='/quizfinish' element={<QuizFinish />}/>
+            <Route path='/IncorrectNote' element={<IncorrectNote />}/>
           </Routes>
         </div>
       </RecoilRoot>
