@@ -1,4 +1,4 @@
-import { teacherDataState } from 'Recoil/UserState';
+import { loginState, teacherDataState, userTypeState } from 'Recoil/UserState';
 import { getTeacherInfo, teacherLogin } from 'api/UserApi';
 import Background from 'components/Basic/Background';
 import StyledInput from 'components/User/StyledInput';
@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import background from 'assets/images/mainBackground.png';
 
 import QRButton from 'assets/images/Login/qrButton.png';
 
@@ -98,6 +99,7 @@ const LoginPage = () => {
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
+  const [login, setLogin] = useRecoilState(loginState);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -126,6 +128,7 @@ const LoginPage = () => {
         email: info.dataBody.email,
         id: info.dataBody.id,
       });
+      setLogin(true);
 
       sessionStorage.setItem('name', info.dataBody.name);
 
@@ -152,9 +155,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Background
-      backgroundImage={require('assets/svg/main/Background.svg').default}
-    >
+    <Background backgroundImage={background}>
       <FlexBox>
         <MainBox>
           <LoginBox>
