@@ -53,8 +53,13 @@ const TopOfBoardBox = styled.div`
   display: flex;
   width: 90.1875rem;
   height: 5.125rem;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 1.19rem;
+`;
+const Title = styled.div`
+  text-align: center;
+  font-size: 3.75rem;
+  font-weight: 800;
 `;
 const SvgBox = styled.div`
   display: flex;
@@ -93,6 +98,9 @@ const PresentationPage = () => {
         {isModalOpen && <PresentationModal />}
         <ClassBox>
           <TopOfBoardBox>
+            <Title>
+              <p>연극·발표 활동 목록</p>
+            </Title>
             <AddClassButton onClick={handleAddClassClick}>
               <SvgBox>
                 <svg
