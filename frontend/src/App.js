@@ -25,6 +25,7 @@ import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
 import IncorrectNote from 'pages/quiz/IncorrectNote';
 import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher';
+import QuizCreate from 'pages/quiz/QuizCreate';
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
             <Route path='/quizfinish' element={<QuizFinish />} />
             <Route path='/IncorrectNote' element={<IncorrectNote />} />
             <Route path='/quizlistteacher' element={<QuizListTeacher />} />
+            <Route path='/quizcreate' element={<QuizCreate />} />
           </Routes>
         </div>
       </RecoilRoot>

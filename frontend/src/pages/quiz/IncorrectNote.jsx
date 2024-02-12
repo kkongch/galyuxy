@@ -2,9 +2,9 @@ import React from 'react'
 import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import Background from 'components/Basic/Background';
 import styled from 'styled-components';
-import ListIcon from 'assets/svg/listicon.svg'
-import AnswerListIcon from 'assets/svg/answerlisticon.svg'
-import IncorrectListIcon from 'assets/svg/incorrectlisticon.svg'
+import ListIcon from 'assets/svg/quiz/listicon.svg'
+import AnswerListIcon from 'assets/svg/quiz/answerlisticon.svg'
+import IncorrectListIcon from 'assets/svg/quiz/incorrectlisticon.svg'
 const Layout = styled.div`
   display: flex;
   width: 100%;
