@@ -208,6 +208,7 @@ const TeacherNav = () => {
     handleLogout();
 
     sessionStorage.removeItem('groupId');
+    sessionStorage.removeItem('name');
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('refreshToken');
 
