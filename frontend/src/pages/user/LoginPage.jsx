@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import background from 'assets/images/mainBackground.png';
 
 const FlexBox = styled.div`
   display: flex;
@@ -136,9 +137,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Background
-      backgroundImage={require('assets/svg/main/Background.svg').default}
-    >
+    <Background backgroundImage={background}>
       <FlexBox>
         <MainBox>
           <LoginBox>

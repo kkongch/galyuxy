@@ -206,8 +206,6 @@ const TeacherNav = () => {
       sessionStorage.removeItem('accessToken');
       sessionStorage.removeItem('refreshToken');
 
-      setLogin(false);
-
       setTeacherData({
         id: null,
         name: null,
@@ -223,6 +221,9 @@ const TeacherNav = () => {
 
   const handleLogoutClick = () => {
     handleLogout();
+
+    setLogin(false);
+    setIsOpen(false);
 
     navigate('/login');
     alert('로그아웃 되었습니다!');
