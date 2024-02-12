@@ -24,8 +24,9 @@ import ClassNav from 'components/Navbar/ClassNav';
 import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
 import IncorrectNote from 'pages/quiz/IncorrectNote';
-import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher';
-import CameraPage from 'pages/art/Camera';
+import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher'; 
+import StudentLoginCameraPage from 'pages/user/StudentLoginCamera';
+import ArtCameraPage from 'pages/art/ArtCamera';
 
 
 function App() {
@@ -60,7 +61,9 @@ function App() {
             <Route path='/quizfinish' element={<QuizFinish />} />
             <Route path='/IncorrectNote' element={<IncorrectNote />} />
             <Route path='/quizlistteacher' element={<QuizListTeacher />} />
-            <Route path='/camera' element={<CameraPage />} />
+            <Route path='/artCamera' element={<ArtCameraPage />} />
+            <Route path='/studentLogin' element={<StudentLoginCameraPage />} />
+
           </Routes>
         </div>
       </RecoilRoot>

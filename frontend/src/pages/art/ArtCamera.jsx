@@ -61,7 +61,7 @@ const videoConstraints = {
     facingMode: "user"
   };
 
-const CameraPage = () => {
+const ArtCameraPage = () => {
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate('/main');
@@ -111,4 +111,4 @@ const CameraPage = () => {
   );
 };
 
-export default CameraPage;
+export default ArtCameraPage;
