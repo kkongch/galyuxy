@@ -8,14 +8,11 @@ export const userTypeState = atom({
 export const teacherDataState = atom({
   key: 'teacherData',
   default: {
-    id: 1,
+    id: null,
     name: null,
     email: null,
     password: null,
     role: 'TEACHER',
-    groupId: null,
-    presentationId: null,
-    roomId: null,
   },
 });
 

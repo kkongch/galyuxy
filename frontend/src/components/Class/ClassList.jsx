@@ -130,7 +130,7 @@ const ClassList = () => {
     const updatedTeacherData = { ...teacherData, groupId: groupId };
     setTeacherData(updatedTeacherData);
 
-    localStorage.setItem('groupId', groupId);
+    sessionStorage.setItem('groupId', groupId);
     navigate('/main');
   };
 
