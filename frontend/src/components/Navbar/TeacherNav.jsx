@@ -192,7 +192,6 @@ const TeacherNav = () => {
   const toggleQRModal = () => setCheckModal(!checkModal);
 
   const handleClassChoiceClick = () => {
-    setIsOpen(false);
     navigate('/class');
   };
 
@@ -201,13 +200,12 @@ const TeacherNav = () => {
 
     try {
       const response = await teacherLogout(accessToken);
-
-      setLogin(false);
-
       sessionStorage.removeItem('groupId');
       sessionStorage.removeItem('name');
       sessionStorage.removeItem('accessToken');
       sessionStorage.removeItem('refreshToken');
+
+      setLogin(false);
 
       setTeacherData({
         id: null,
@@ -224,8 +222,6 @@ const TeacherNav = () => {
 
   const handleLogoutClick = () => {
     handleLogout();
-
-    setIsOpen(false);
 
     navigate('/login');
     alert('로그아웃 되었습니다!');
