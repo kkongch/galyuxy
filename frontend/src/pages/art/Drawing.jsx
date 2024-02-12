@@ -202,7 +202,7 @@ const Drawing = () => {
   };
 
   const handleArClick = () => {
-    navigate('/camera');
+    navigate('/artCamera');
     console.log("arar");
   };
   return (
