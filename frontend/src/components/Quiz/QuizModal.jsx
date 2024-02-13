@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import {
   isAddModalOpenState,
   isQuizStartState,
-  isWorkbookState,
+  isWorkbookStartState,
 } from 'Recoil/QuizState';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getQuizStart } from 'api/QuizApi';
@@ -179,34 +179,51 @@ export const QuizModal = () => {
           parseInt(endTime.minute, 10)
         )
       );
-      const startDateTime = format(formattedStartDate, 'yyyy-MM-dd HH:mm:ss');
-      const endDateTime = format(formattedEndDate, 'yyyy-MM-dd HH:mm:ss');
+      const startDateTime = formattedStartDate.toISOString();
+      const endDateTime = formattedEndDate.toISOString();
+      //   const groupId = sessionStorage.getItem('groupId');
+      //   console.log(groupId);
+      //   setWorkbookData({
+      //     groupId: groupId,
+      //     workbookId: 1,
+      //     activeWorkbookStart: startDateTime,
+      //     activeWorkbookEnd: endDateTime,
+      //   });
+      //   console.log(workbookData);
+      //   await getQuizStart(workbookData);
+      //   setQuizStart(!quizStart);
+      // } else {
+      //   alert('모든 필드를 올바르게 입력해주세요.');
+      // }
+      const updatedWorkbookData = {
+        groupId: sessionStorage.getItem('groupId'), // groupId를 sessionStorage에서 가져옴
+        workbookId: 1,
+        activeWorkbookStart: startDateTime,
+        activeWorkbookEnd: endDateTime,
+      };
 
-      setWorkbookData({
-        ...workbookData,
-        group_id: 5,
-        workbook_id: 1,
-        runtime: 5,
-        active_workbook_start: startDateTime,
-        active_workbook_end: endDateTime,
-      });
-
-      await getQuizStart(workbookData);
-      setQuizStart(!quizStart);
+      const response = await getQuizStart(updatedWorkbookData);
+      console.log(response);
+      if (response) {
+        // 응답 성공 여부에 따라 조건을 적절히 조정\
+        setWorkbookData(updatedWorkbookData);
+        console.log(workbookData);
+        setQuizStart(true); // 퀴즈 시작 상태를 true로 설정
+      }
     } else {
       alert('모든 필드를 올바르게 입력해주세요.');
     }
   };
 
-  const [workbookData, setWorkbookData] = useRecoilState(isWorkbookState);
-
+  const [workbookData, setWorkbookData] = useRecoilState(isWorkbookStartState);
+  const data = useRecoilValue(isWorkbookStartState);
   const [startTime, setStartTime] = useState({ hour: '', minute: '' });
   const [endTime, setEndTime] = useState({ hour: '', minute: '' });
-
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
   return (
     <ModalDiv>
       <ModalBox>

@@ -5,9 +5,9 @@ import TextImage from 'assets/images/Quiz/textimage.png';
 import TimeImage from 'assets/images/Quiz/timeimage1.png';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom/dist';
-import { isWorkbookState } from 'Recoil/QuizState';
+import { isWorkbookStartState } from 'Recoil/QuizState';
 import { useRecoilValue } from 'recoil';
-import { getWorkBook } from 'api/QuizApi';
+import { getActiveWorkBook } from 'api/QuizApi';
 const TextBox = styled.div`
   top: 10.56rem;
   position: absolute;
@@ -63,25 +63,28 @@ const QuizEnter = () => {
   const HandelEnterClick = () => {
     navigate('/quizsolve');
   };
-  const workbook = useRecoilValue(isWorkbookState);
+  const workbook = useRecoilValue(isWorkbookStartState);
+
   const [title, setTitle] = useState('');
   const fetchData = async () => {
     try {
-      const response = await getWorkBook(workbook.workbook_id);
-      setTitle(response.dataBody.workbookRes.workbookTitle);
+      const response = await getActiveWorkBook(workbook.groupId);
+      console.log(response);
+      setTitle(response.dataBody.workbookId);
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
     fetchData();
-  }, []);
+    console.log(workbook);
+  }, [workbook]);
   return (
     <Background backgroundImage={QuizMainImage}>
       <TextBox>{title}</TextBox>
       <TimeBox>
-        Quiz 접근 시간 : {workbook.active_workbook_start}~
-        {workbook.active_workbook_end}
+        Quiz 접근 시간 : {workbook.activeWorkbookStart}~
+        {workbook.activeWorkbookEnd}
       </TimeBox>
       <Comment>'입장하기' 버튼을 클릭하면 Quiz가 시작됩니다.</Comment>
       <EnterButton onClick={HandelEnterClick}>입장하기</EnterButton>

@@ -10,13 +10,12 @@ export const isQuizStartState = atom({
   default: false,
 });
 
-export const isWorkbookState = atom({
+export const isWorkbookStartState = atom({
   key: 'isWorkbook',
   default: {
-    group_id: null,
-    workbook_id: null,
-    runtime: null,
-    active_workbook_start: '',
-    active_workbook_end: '',
+    groupId: null,
+    workbookId: null,
+    activeWorkbookStart: '',
+    activeWorkbookEnd: '',
   },
 });
