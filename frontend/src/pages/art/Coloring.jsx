@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
+import { artworkState } from 'Recoil/ArtworkState';
+import { useRecoilState } from 'recoil';
 import { createRoot } from 'react-dom/client';
 import { useNavigate } from 'react-router';
 import { Stage, Layer, Line, Text, Image, Rect } from 'react-konva';
-import useImage from 'use-image';
-import Gimage from 'assets/images/고려청자컬러링북.png';
+import useImage from 'use-image'; 
 import Konva from 'konva';
 import styled from 'styled-components';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
@@ -113,6 +114,8 @@ const DescriptionBox = styled.div`
 `;
 
 const Coloring = () => {
+  const [artworkOne, setArtworkOne] = useRecoilState(artworkState);
+  // console.log(artworkOne);
   const stageRef = useRef(null);
   const rectLayerRef = useRef(null);
   const navigate = useNavigate();
@@ -121,7 +124,7 @@ const Coloring = () => {
   const [size, setSize] = useState(5); // 선의 굵기 상태, 기본값은 5
   const [lines, setLines] = useState([]); // 선들의 배열
   const isDrawing = useRef(false); // 그리기 상태
-  const [coloringImage] = useImage(Gimage); // 이미지 경로 수정 필요
+  const [coloringImage] = useImage(artworkOne.imageUrl); // 이미지 경로 수정 필요
   const imageWidth = coloringImage ? coloringImage.width * 1.2 : 0;
   const imageHeight = coloringImage ? coloringImage.height * 1.2 : 0;
   const imageX = window.innerWidth / 2 - imageWidth / 2;
@@ -206,7 +209,7 @@ const Coloring = () => {
   };
 
   const handleBackClick = () => {
-    // navigate('/main');
+    navigate('/art');
   };
 
   const handleArClick = () => {
@@ -216,7 +219,7 @@ const Coloring = () => {
   
   return (
     <Background backgroundImage={backgroundImage}>
-      <DescriptionBox>고려청자</DescriptionBox>
+      <DescriptionBox>{artworkOne.heritageName}</DescriptionBox>
       <Stage
         width={window.innerWidth}
         height={window.innerHeight}
@@ -241,8 +244,8 @@ const Coloring = () => {
             {coloringImage && (
               <Image
                 image={coloringImage}
-                width={coloringImage.width * 1.2} // 원본 너비에 배율을 적용
-                height={coloringImage.height * 1.2} // 원본 높이에 배율을 적용
+                width={coloringImage.width } // 원본 너비에 배율을 적용
+                height={coloringImage.height} // 원본 높이에 배율을 적용
                 // x={window.innerWidth / 2 - (coloringImage?.width ?? 0) / 2}
                 // y={window.innerHeight / 2 - (coloringImage?.height ?? 0) / 2}
                 x={imageX}
