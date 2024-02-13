@@ -13,14 +13,10 @@ import ToolbarComponent from './toolbar/ToolbarComponent';
 import { styled } from 'styled-components';
 
 var localUser = new UserModel();
-// const APPLICATION_SERVER_URL =
-//   process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000/';
-
-// const APPLICATION_SERVER_URL =
-//   process.env.NODE_ENV === 'production' ? 'http://localhost:8080/openvidu/' : 'http://localhost:8080/openvidu/';
-
 const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000/';
+  process.env.NODE_ENV === 'production'
+    ? ''
+    : `${process.env.REACT_APP_BASE_URL}`;
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -33,7 +29,7 @@ class VideoRoomComponent extends Component {
     // 상태 및 바인딩 초기화
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
-    let sessionName = this.props.roomId ? this.props.roomId : 'ses_TxDgZU7aIB';
+    let sessionName = this.props.roomId ? this.props.roomId : 'dsddsdsdsds';
     //유저닉네임 수정 부분
     let userName = this.props.user ? this.props.user : '역활';
     this.remotes = [];
