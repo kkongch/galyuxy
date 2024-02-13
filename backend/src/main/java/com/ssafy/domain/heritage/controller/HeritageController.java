@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/heritage")
+@RequestMapping("/heritage")
 @Slf4j // 로깅
 public class HeritageController {
     private final HeritageService heritageService;
