@@ -195,6 +195,7 @@ const StudentNav = () => {
     theater: false,
     quiz: false,
   });
+   
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -202,9 +203,9 @@ const StudentNav = () => {
 
   const toggleSubmenu = (menu) => {
     setOpenMenu((prevMenu) => ({
-      ...prevMenu,
-      [menu]: !prevMenu[menu],
-    }));
+        ...prevMenu,
+        [menu]: !prevMenu[menu],
+      }));
   };
 
   const [checkModal, setCheckModal] = useState(false);
@@ -260,16 +261,17 @@ const StudentNav = () => {
         </Profile>
         <MenuText>
           <Menu to='/heritage'>문화유산 관람</Menu>
-          <hr />
-          <Menu onClick={() => toggleSubmenu('art')}>
+          <hr />          
+          <Menu to='/art'>미술 활동</Menu>
+          {/* <Menu onClick={() => toggleSubmenu('art')}>
             미술 활동
             {openMenu.art && (
               <>
-                <SubMenu to='/art'>드로잉</SubMenu>
-                <SubMenu href='#'>컬러링북</SubMenu>
+                <SubMenu to='/menuDrawing'>드로잉</SubMenu>
+                <SubMenu to='/menuColoring'>컬러링북</SubMenu>
               </>
             )}
-          </Menu>
+          </Menu> */}
           <hr />
           <Menu to='/room'>연극 발표 활동</Menu>
           <hr />

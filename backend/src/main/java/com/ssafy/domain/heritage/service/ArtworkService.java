@@ -7,6 +7,9 @@ import com.ssafy.domain.heritage.entity.Artwork;
 import java.util.List;
 
 public interface ArtworkService {
+
+    List<ArtworkDto> getAll();
+
     List<Artwork> getByType(int type);
 
     ArtworkDto getById(int id);

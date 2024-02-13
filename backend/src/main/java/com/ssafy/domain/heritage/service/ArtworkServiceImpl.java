@@ -31,6 +31,12 @@ public class ArtworkServiceImpl implements ArtworkService{
     private final StudentRepository studentRepository;
 
     @Override
+    public List<ArtworkDto> getAll() {
+        List<Artwork> artworkList = artworkRepository.findAll();
+        return ArtworkMapper.toDtoList(artworkList);
+    }
+
+    @Override
     public List<Artwork> getByType(int type) {
         return artworkRepository.findByArtworkType(type);
     }

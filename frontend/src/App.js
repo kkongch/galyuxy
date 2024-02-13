@@ -16,8 +16,7 @@ import LoginPage from 'pages/user/LoginPage';
 import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
-import VideoPage from 'pages/presentation/VideoPage';
-import ArtPage from 'pages/art/ArtPage';
+import VideoPage from 'pages/presentation/VideoPage'; 
 import StudentNav from 'components/Navbar/StudentNav';
 import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
@@ -27,10 +26,11 @@ import StudentLoginCameraPage from 'pages/user/StudentLoginCamera';
 import ArtCameraPage from 'pages/art/ArtCamera';
 import StudentInfoPage from 'pages/class/StudentInfoPage';
 import { loginState } from 'Recoil/UserState';
-import { useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil'; 
 import QuizDetailTeacher from 'pages/quiz/teacher/QuizDetailTeacher';
 import QuizResultTeacher from 'pages/quiz/teacher/QuizResultTeacher';
 import QuizCreate from 'pages/quiz/QuizCreate';
+import ArtPage from 'pages/art/ArtPage';
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -52,6 +52,7 @@ function App() {
             <Route path='/signup' element={<SignUpPage />} />
             <Route path='/pwfind' element={<FindPasswordPage />} />
             <Route path='/main' element={<MainPage />} />
+            <Route path='/studentLogin' element={<StudentLoginCameraPage />} />
             <Route path='/class' element={<ClassPage />} />
             <Route path='/class/:id' element={<StudentInfoPage />} />
             <Route path='/heritage' element={<HeritageList />} />
