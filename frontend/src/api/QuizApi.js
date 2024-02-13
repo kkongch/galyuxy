@@ -1,5 +1,37 @@
-import axios from "axios";
+import axios from 'axios';
 
-export function getQuizList() {
-
+export async function getQuizList() {
+  try {
+    const response = await axios.get(
+      'http://i10c206.p.ssafy.io:8080/quiz/question'
+    );
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
 }
+
+export async function getQuizStart(data) {
+  try {
+    const response = await axios.put(
+      'http://i10c206.p.ssafy.io:8080/quiz/activeWorkbook/start',
+      data
+    );
+    console.log(response);
+
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export const getWorkBook = async (workbook_id) => {
+  try {
+    const response = await axios.get(
+      `http://i10c206.p.ssafy.io:8080/quiz/workbook/${workbook_id}`
+    );
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
