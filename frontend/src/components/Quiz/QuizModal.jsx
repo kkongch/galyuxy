@@ -1,11 +1,16 @@
 import { React, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
-import { isAddModalOpenState } from 'Recoil/QuizState';
+import {
+  isAddModalOpenState,
+  isQuizStartState,
+  isWorkbookState,
+} from 'Recoil/QuizState';
 import { useRecoilState } from 'recoil';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import { getQuizStart } from 'api/QuizApi';
+import { format } from 'date-fns';
 const ModalDiv = styled.div`
   width: 100vw;
   height: 100%;
@@ -150,10 +155,51 @@ const TimeInput = styled.input`
 export const QuizModal = () => {
   const [isAddModalOpen, setIsAddModalOpen] =
     useRecoilState(isAddModalOpenState);
-
   const handleCancel = () => {
-    setIsAddModalOpen(false);
+    setIsAddModalOpen(!isAddModalOpen);
   };
+  const [quizStart, setQuizStart] = useRecoilState(isQuizStartState);
+  const handleStart = async () => {
+    if (
+      selectedDate &&
+      startTime.hour.trim() !== '' &&
+      startTime.minute.trim() !== '' &&
+      endTime.hour.trim() !== '' &&
+      endTime.minute.trim() !== ''
+    ) {
+      const formattedStartDate = new Date(
+        selectedDate.setHours(
+          parseInt(startTime.hour, 10),
+          parseInt(startTime.minute, 10)
+        )
+      );
+      const formattedEndDate = new Date(
+        selectedDate.setHours(
+          parseInt(endTime.hour, 10),
+          parseInt(endTime.minute, 10)
+        )
+      );
+      const startDateTime = format(formattedStartDate, 'yyyy-MM-dd HH:mm:ss');
+      const endDateTime = format(formattedEndDate, 'yyyy-MM-dd HH:mm:ss');
+
+      setWorkbookData({
+        ...workbookData,
+        group_id: 5,
+        workbook_id: 1,
+        runtime: 5,
+        active_workbook_start: startDateTime,
+        active_workbook_end: endDateTime,
+      });
+
+      await getQuizStart(workbookData);
+      setQuizStart(!quizStart);
+    } else {
+      alert('모든 필드를 올바르게 입력해주세요.');
+    }
+  };
+
+  const [workbookData, setWorkbookData] = useRecoilState(isWorkbookState);
+
   const [startTime, setStartTime] = useState({ hour: '', minute: '' });
   const [endTime, setEndTime] = useState({ hour: '', minute: '' });
 
@@ -215,7 +261,7 @@ export const QuizModal = () => {
 
         <ButtonBox>
           <CancelButton onClick={handleCancel}>취소</CancelButton>
-          <ConfirmButton>확인</ConfirmButton>
+          <ConfirmButton onClick={handleStart}>확인</ConfirmButton>
         </ButtonBox>
       </ModalBox>
     </ModalDiv>

@@ -1,10 +1,13 @@
 import Background from 'components/Basic/Background';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import TextImage from 'assets/images/Quiz/textimage.png';
 import TimeImage from 'assets/images/Quiz/timeimage1.png';
 import styled from 'styled-components';
-import waitImage from 'assets/images/Quiz/quizready.png';
+import { useNavigate } from 'react-router-dom/dist';
+import { isWorkbookState } from 'Recoil/QuizState';
+import { useRecoilValue } from 'recoil';
+import { getWorkBook } from 'api/QuizApi';
 const TextBox = styled.div`
   top: 10.56rem;
   position: absolute;
@@ -54,18 +57,34 @@ const EnterButton = styled.button`
   font-style: normal;
   font-weight: 700;
 `;
-const WaitFlag = styled.div`
-  width: 76.8125rem;
-  height: 51.1875rem;
-  position: absolute;
-`;
+
 const QuizEnter = () => {
+  const navigate = useNavigate();
+  const HandelEnterClick = () => {
+    navigate('/quizsolve');
+  };
+  const workbook = useRecoilValue(isWorkbookState);
+  const [title, setTitle] = useState('');
+  const fetchData = async () => {
+    try {
+      const response = await getWorkBook(workbook.workbook_id);
+      setTitle(response.dataBody.workbookRes.workbookTitle);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <Background backgroundImage={QuizMainImage}>
-      <TextBox>임진왜란 퀴즈으으으으으으</TextBox>
-      <TimeBox>111111111111111111111</TimeBox>
+      <TextBox>{title}</TextBox>
+      <TimeBox>
+        Quiz 접근 시간 : {workbook.active_workbook_start}~
+        {workbook.active_workbook_end}
+      </TimeBox>
       <Comment>'입장하기' 버튼을 클릭하면 Quiz가 시작됩니다.</Comment>
-      <EnterButton>입장하기</EnterButton>
+      <EnterButton onClick={HandelEnterClick}>입장하기</EnterButton>
     </Background>
   );
 };
