@@ -1,20 +1,16 @@
-import React, { useRef } from 'react';
-
-import { useEffect, useState } from 'react';
-import { artworkListState } from 'Recoil/ArtworkState';
+import React, { useRef, useEffect } from 'react';
+import { artworkListState, artworkState } from 'Recoil/ArtworkState';
+import { eraListState } from 'Recoil/HeritageState';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import FlipPage from 'react-pageflip';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
 import Background from 'components/Basic/Background';
 import Logo from 'assets/images/Logo.png';
-import Fullname from 'assets/svg/main/fullname.svg';
-import P1 from 'assets/images/Group1.png';
-import P2 from 'assets/images/Group2.png';
-import P4 from 'assets/images/Group3.png';
-import P3 from 'assets/images/Group4.png';
+import Fullname from 'assets/svg/main/fullname.svg'; 
 import { useNavigate } from 'react-router-dom';
-import { getArtworkList } from 'api/ArtworkApi';
+import { getArtworkList } from 'api/ArtworkApi'; 
+import { getEraList } from 'api/HeritageApi'; 
 
 const PageContent = styled.div`
   display: flex;
@@ -26,8 +22,8 @@ const PageContent = styled.div`
   border: 0.1rem solid #6d6d6d;
   box-shadow: inset 0 0 50px 10px rgba(0, 0, 0, 0.5);
   font-size: large;
-  color: 'black';
-`;
+  color: black;
+`; 
 
 const PageCoverStyle = styled.div`
   display: flex;
@@ -41,10 +37,11 @@ const PageCoverStyle = styled.div`
     inset 0 0 100px 30px rgba(0, 0, 0, 0.4),
     0 0 50px 10px rgba(0, 0, 0, 0.3);
   font-size: large;
-  color: 'black';
+  color: black;
 `;
 const TextBox = styled.span`
   display: flex;
+  align-self: flex-start; 
   margin: 2rem 2rem 0.5rem;
 `;
 const Text1 = styled.span`
@@ -103,95 +100,84 @@ const FinalLogo = styled.img`
 `;
 const ArtPage = () => {
   const [artworkList, setArtworkList] = useRecoilState(artworkListState);
-
-  const pages = [
-    {
-      title: '고조선',
-      content: '기원전 2333년',
-      images: [P1, P2, P3, P4],
-    },
-    {
-      title: '고구려',
-      content: '2번',
-      images: [P2, P3, P4, P1],
-    },
-    {
-      title: '신라',
-      content: '3번',
-      images: [P3, P4, P1, P2],
-    },
-    {
-      title: '백제',
-      content: '4번',
-      images: [P4, P1, P2, P3],
-    },
-    {
-      title: '통일신라',
-      content: '5번',
-      images: [P1, P2, P3, P4],
-    },
-    {
-      title: '발해',
-      content: '6번',
-      images: [P2, P3, P4, P1],
-    },
-    {
-      title: '고려',
-      content: '7번',
-      images: [P3, P4, P1, P2],
-    },
-    {
-      title: '조선',
-      content: '8번',
-      images: [P4, P1, P2, P3],
-    },
-  ];
-
+  const [artworkOne, setArtworkOne] = useRecoilState(artworkState);
+  const [eraList, setEraList] = useRecoilState(eraListState);
+ 
   const navigate = useNavigate();
   const flipBookRef = useRef(null);
 
-  const PageCover = React.forwardRef((props, ref) => {
-    return (
-      <div ref={ref} data-density='hard'>
-        <PageCoverStyle>
-          <h2>{props.children}</h2>
-        </PageCoverStyle>
-      </div>
-    );
-  });
+  // const PageCover = React.forwardRef((props, ref) => {
+  //   return (
+  //     <div ref={ref} data-density='hard'>
+  //       <PageCoverStyle>
+  //         <h2>{props.children}</h2>
+  //       </PageCoverStyle>
+  //     </div>
+  //   );
+  // });
+  class PageCover extends React.Component {
+    constructor(props) {
+      super(props);
+      this.ref = React.createRef();
+    }
 
-  const handleGetArtworkList = async () => {
+    componentDidMount() {
+      const { flipBookRef } = this.props;
+      flipBookRef.current.addPage(this.ref.current, 0);
+    }
+
+    render() {
+      return (
+        <div ref={this.ref} data-density='hard'>
+          <PageCoverStyle>
+            <h2>{this.props.children}</h2>
+          </PageCoverStyle>
+        </div>
+      );
+    }
+  }
+
+  const handleGetArtworkList = async () => { 
+
     try {
       const list = await getArtworkList();
       setArtworkList(list);
+      console.log(list);
     } catch (error) {
       console.error('Error handleGetArtworkList: ', error);
     }
   };
 
-  const handlePageClick = (e) => {};
-
-  const handleImageClick = (imageSrc) => {
-    let destinationPath;
-
-    switch (imageSrc) {
-      case P1:
-        destinationPath = '/art/coloring';
-        break;
-      case P2:
-        destinationPath = '/art/drawing';
-        break;
-      default:
-        destinationPath = '/';
-        break;
+  const handleGetEraList = async () => {
+    try {
+      const list =  await getEraList();
+      setEraList(list);
+      console.log(list); 
+      // console.log(eraList);
+    } catch (error) {
+      console.error('Error handleGetEraList: ', error);
     }
-
-    navigate(destinationPath);
   };
 
-  useEffect(() => {
+  const handlePageClick = (e) => {};
+
+  const handleImageClick = (artwork) => {
+    let destinationPath;
+    setArtworkOne(artwork); 
+    destinationPath = artwork.type === 0 ? '/art/coloring' : '/art/drawing';
+    navigate(destinationPath);
+  };
+ 
+
+  useEffect(() => { 
+    handleGetEraList();  
+  }, []);
+
+  
+  useEffect(() => { 
     handleGetArtworkList();
   }, []);
+   
 
   return (
     <Background backgroundImage={backgroundImage}>
@@ -210,10 +196,35 @@ const ArtPage = () => {
           ref={flipBookRef}
           showCover={true}
         >
-          <PageCover>
-            <FirstLogo src={Logo} />
-          </PageCover>
-          {pages.map((page, index) => (
+          {/* 첫 페이지로 커버 페이지를 사용 */}
+          <div data-density='hard'>
+            <PageCoverStyle>
+              <FirstLogo src={Logo} />
+            </PageCoverStyle>
+          </div>
+ 
+          {eraList.map((era) => (
+            <div key={era.eraId}>
+              <PageContent> 
+                <TextBox>
+                  <Text1>{era.eraName}</Text1>
+                  <Text2>{era.eraCountry}</Text2>
+                </TextBox> 
+                <PhotoGrid> 
+                  {artworkList
+                    .filter((artwork) => artwork.eraId === era.eraId)
+                    .map((artwork) => (
+                      <Photo
+                        key={artwork.id}
+                        src={artwork.imageUrl}
+                        onClick={() => handleImageClick(artwork)}
+                      />
+                    ))}
+                </PhotoGrid>
+              </PageContent>
+            </div>
+          ))}
+          {/* {pages.map((page, index) => (
             <PageContent key={index}>
               <TextBox>
                 <Text1>{page.title}</Text1>
@@ -225,10 +236,14 @@ const ArtPage = () => {
                 ))}
               </PhotoGrid>
             </PageContent>
-          ))}
-          <PageCover>
-            <FinalLogo src={Fullname} />
-          </PageCover>
+          ))} */}
+
+          {/* 마지막 페이지로 커버 페이지를 사용 */}
+          {/* <div data-density='hard'>
+            <PageCoverStyle>
+              <FirstLogo src={Logo} />
+            </PageCoverStyle>
+          </div>   */}
         </FlipPage>
       </BookContainer>
     </Background>

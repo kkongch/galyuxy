@@ -7,3 +7,9 @@ export const heritageState = atom({
   key: 'heritage',
   default: {},
 });
+
+
+export const eraListState = atom({
+  key: 'eraList',
+  default: [],
+}); 

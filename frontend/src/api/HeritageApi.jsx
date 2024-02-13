@@ -19,3 +19,14 @@ export const getHeritageList = async (presentationId) => {
     throw error;
   }
 };
+
+export const getEraList = async () => {
+  try {
+    // const response = await axios.get(`http://i10c206.p.ssafy.io:8080/era`);
+    const response = await axios.get(`http://localhost:8080/era`);
+    return response.data.dataBody;
+  } catch (error) {
+    console.error('Error getEraList: ', error);
+    throw error;
+  }
+};
