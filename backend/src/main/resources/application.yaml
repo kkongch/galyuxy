@@ -2,16 +2,16 @@ spring:
   datasource:
 
     # LOCAL - MySQL DB
-#    url: jdbc:mysql://localhost:3306/S10P12C206?useUnicode=true&characterEncoding=utf8
-#    username: ssafy
-#    password: ssafy
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/S10P12C206?useUnicode=true&characterEncoding=utf8
+    username: ssafy
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
     # SSAFY - Maria DB
-    url: jdbc:mysql://stg-yswa-kr-practice-db-master.mariadb.database.azure.com:3306/S10P12C206?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
-    username: S10P12C206@stg-yswa-kr-practice-db-master.mariadb.database.azure.com
-    password: WfOCbU5Whr
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://stg-yswa-kr-practice-db-master.mariadb.database.azure.com:3306/S10P12C206?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+#    username: S10P12C206@stg-yswa-kr-practice-db-master.mariadb.database.azure.com
+#    password: WfOCbU5Whr
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 
   sql:
     init:

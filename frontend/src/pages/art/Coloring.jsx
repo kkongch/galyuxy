@@ -4,7 +4,8 @@ import { useRecoilState } from 'recoil';
 import { createRoot } from 'react-dom/client';
 import { useNavigate } from 'react-router';
 import { Stage, Layer, Line, Text, Image, Rect } from 'react-konva';
-import useImage from 'use-image'; 
+import useImage from 'use-image';
+import Gimage from 'assets/images/Geobukseon.PNG';
 import Konva from 'konva';
 import styled from 'styled-components';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
@@ -125,13 +126,39 @@ const Coloring = () => {
   const [lines, setLines] = useState([]); // 선들의 배열
   const isDrawing = useRef(false); // 그리기 상태
   const [coloringImage] = useImage(artworkOne.imageUrl); // 이미지 경로 수정 필요
-  const imageWidth = coloringImage ? coloringImage.width * 1.2 : 0;
-  const imageHeight = coloringImage ? coloringImage.height * 1.2 : 0;
-  const imageX = window.innerWidth / 2 - imageWidth / 2;
-  const imageY = window.innerHeight / 2 - imageHeight / 2;
+  // const [coloringImage] = useImage(Gimage); // 이미지 경로 수정 필요
   // Rect 크기를 rem 단위에서 px 단위로 설정
   const rectWidth = remToPixels(90); // 90rem을 px로 변환
   const rectHeight = remToPixels(56.25); // 56.25rem을 px로 변환
+  
+  //artwork 이미지 크기 조정
+  // const artworkWidth = coloringImage ? (coloringImage.width < rectWidth ? coloringImage.width :  coloringImage.width * ((rectWidth-100)/coloringImage.width)) : 0; 
+  // const artworkHeight = coloringImage ? (coloringImage.height < rectHeight ? coloringImage.height :  coloringImage.height * ((rectHeight-100)/coloringImage.height)) : 0;
+
+  const calcArtworkSize = () =>{
+    let newWidth, newHeight = 0;
+    if(!coloringImage) return  { width: 0, height: 0 };
+    if(coloringImage.width > rectWidth-100 || coloringImage.height > rectHeight-100 ){
+      let widthSize = (rectWidth-100)/coloringImage.width;
+      let heightSize = (rectHeight-100)/coloringImage.height;
+
+      let rate = widthSize > heightSize ? heightSize : widthSize;
+      newWidth = coloringImage.width * rate;
+      newHeight = coloringImage.height * rate;
+    }else{
+      newWidth = coloringImage.width;
+      newHeight = coloringImage.height;
+    }
+    return { width: newWidth, height: newHeight };
+  }
+  const {width : artworkWidth, height: artworkHeight} = calcArtworkSize();
+  console.log(artworkWidth);
+  console.log(artworkHeight);
+
+ 
+  const imageX = window.innerWidth / 2 - artworkWidth / 2;
+  const imageY = window.innerHeight / 2 - artworkHeight / 2;
+
 
   const rectX = window.innerWidth / 2 - rectWidth / 2;
   const rectY = window.innerHeight / 2 - rectHeight / 2;
@@ -189,24 +216,53 @@ const Coloring = () => {
   //   };
   //   image.src = stageRef.current.toDataURL();
   // };
-  const saveImage = () => {
-    // Rect가 포함된 Layer의 visible 속성을 false로 설정
-    rectLayerRef.current.visible(false);
-    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+  // const saveImage = () => {
+  //   // Rect가 포함된 Layer의 visible 속성을 false로 설정
+  //   rectLayerRef.current.visible(false);
+  //   stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
 
-    // 이미지 저장 로직
-    const dataURL = stageRef.current.toDataURL();
+  //   // 이미지 저장 로직
+  //   const dataURL = stageRef.current.toDataURL();
+  //   const link = document.createElement('a');
+  //   link.download = 'coloring-book.png';
+  //   link.href = dataURL;
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+
+  //   // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
+  //   rectLayerRef.current.visible(true);
+  //   stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+  // };
+
+ 
+
+// 이미지를 다운로드할 함수
+const saveImage = async () => {
+  try {
+    // 이미지 데이터를 불러옴
+    const response = await fetch(artworkOne.imageUrl);
+    const blob = await response.blob();
+
+    // Blob을 파일로 변환
+    const blobUrl = URL.createObjectURL(blob);
+
+    // 파일 다운로드 링크 생성
     const link = document.createElement('a');
-    link.download = 'coloring-book.png';
-    link.href = dataURL;
+    link.href = blobUrl;
+    link.download = 'image.jpg'; // 다운로드될 파일의 이름
     document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
 
-    // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
-    rectLayerRef.current.visible(true);
-    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
-  };
+    // 파일 다운로드
+    link.click();
+
+    // 다운로드 후 링크 제거
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error('이미지를 다운로드하는 동안 오류가 발생했습니다:', error);
+  }
+};
+ 
 
   const handleBackClick = () => {
     navigate('/art');
@@ -244,8 +300,8 @@ const Coloring = () => {
             {coloringImage && (
               <Image
                 image={coloringImage}
-                width={coloringImage.width } // 원본 너비에 배율을 적용
-                height={coloringImage.height} // 원본 높이에 배율을 적용
+                width={artworkWidth } // 원본 너비에 배율을 적용
+                height={artworkHeight } // 원본 높이에 배율을 적용
                 // x={window.innerWidth / 2 - (coloringImage?.width ?? 0) / 2}
                 // y={window.innerHeight / 2 - (coloringImage?.height ?? 0) / 2}
                 x={imageX}
