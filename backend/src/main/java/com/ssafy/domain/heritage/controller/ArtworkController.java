@@ -24,6 +24,13 @@ public class ArtworkController {
 
     private final ArtworkService artworkService;
 
+    //미술활동 전체 목록 불러오기
+    @GetMapping()
+    public ResponseEntity<Message<List<ArtworkDto>>> getAll(){
+        List<ArtworkDto> artworkList = artworkService.getAll();
+        return ResponseEntity.ok().body(Message.success(artworkList));
+    }
+
     //미술활동 type별 전체 목록 불러오기
     @GetMapping("/{artworkType}")
     public ResponseEntity<Message<List<Artwork>>> getByType(@PathVariable("artworkType") int type){

@@ -14,7 +14,9 @@ import { styled } from 'styled-components';
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000/';
+  process.env.NODE_ENV === 'production'
+    ? ''
+    : `${process.env.REACT_APP_BASE_URL}`;
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -618,27 +620,30 @@ class VideoRoomComponent extends Component {
 
   async getToken() {
     // 토큰 생성을 위한 서버 요청
-    const sessionId = await this.createSession(this.state.mySessionId);
-    return await this.createToken(sessionId);
+    // const sessionId = await this.createSession(this.state.mySessionId);
+    return await this.createToken(this.props.roomId);
   }
 
-  async createSession(sessionId) {
-    // 세션 생성 요청
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + 'api/sessions',
-      { customSessionId: sessionId },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-    console.log('세션아이디: ', response);
-    return response.data; // 세션 ID 반환
-  }
+  // async createSession(sessionId) {
+  //   // 세션 생성 요청
+  //   const response = await axios.post(
+  //     APPLICATION_SERVER_URL + 'openvidu/sessions',
+  //     { customSessionId: sessionId },
+  //     {
+  //       headers: { 'Content-Type': 'application/json' },
+  //     }
+  //   );
+  //   console.log('세션아이디: ', response);
+  //   return response.data; // 세션 ID 반환
+  // }
 
   async createToken(sessionId) {
     // 토큰 생성 요청
     const response = await axios.post(
-      APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
+      APPLICATION_SERVER_URL +
+        '/openvidu/sessions/' +
+        sessionId +
+        '/connections',
       {},
       {
         headers: { 'Content-Type': 'application/json' },

@@ -106,7 +106,7 @@ const RoomPage = () => {
         <ClassBox>
           <TopOfBoardBox>
             <Title>{/* <p>이순신 인터뷰</p> */}</Title>
-            {userType === 1 && (
+            {sessionStorage.getItem('accessToken') && (
               <ButtonBox>
                 <AddClassButton onClick={handleAddClassClick}>
                   <SvgBox>

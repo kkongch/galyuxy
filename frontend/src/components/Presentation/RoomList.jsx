@@ -128,8 +128,13 @@ const RoomList = () => {
     const presentationId = teacherData.presentationId;
 
     if (presentationId === null) {
-      alert('발표활동을 먼저 선택해주세요');
-      navigate('/presentation');
+      if (sessionStorage.getItem('accessToken')) {
+        alert('발표활동을 먼저 선택해주세요');
+        navigate('/presentation');
+      } else {
+        alert('선생님이 아직 발표 활동을 시작하지 않았어요!');
+        navigate('/');
+      }
 
       return;
     }
