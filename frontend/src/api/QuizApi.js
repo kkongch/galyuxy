@@ -47,13 +47,13 @@ export const getWorkBook = async () => {
   }
 };
 
-// export const getQuizStart = async (groupId) => {
-//   try {
-//     const response = await axios.get(
-//       `http://i10c206.p.ssafy.io:8080/quiz/activeWorkbook/${groupId}`
-//     );
-//     return response;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
+export const getDetailWorkBook = async (workbookId) => {
+  try {
+    const response = await axios.get(
+      `http://i10c206.p.ssafy.io:8080/quiz/workbook/${workbookId}/questions`
+    );
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
