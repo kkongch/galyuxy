@@ -63,7 +63,7 @@ const MainPage = () => {
     navigate('/heritage');
   };
   const handleArtLinkClick = () => {
-    navigate('/menuDrawing');
+    navigate('/art');
   };
 
   return (

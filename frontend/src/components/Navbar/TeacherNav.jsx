@@ -23,8 +23,7 @@ const NavContainer = styled.nav`
 
   border-radius: 0rem 3.125rem 0rem 0rem;
   border: 1px solid rgba(255, 255, 255, 0.53);
-  /* background: rgba(255, 255, 255, 0.53); */
-  background: red;
+  background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(7.800000190734863px);
   position: fixed;
 `;
@@ -263,15 +262,16 @@ const TeacherNav = () => {
           <MenuText>
             <Menu to='/heritage'>문화유산 관람</Menu>
             <hr />
-            <Menu onClick={() => toggleSubmenu('art')}>
-              미술 활동
-              {openMenu.art && (
-                <>
-                  <SubMenu to='/menuDrawing'>드로잉</SubMenu>
-                  <SubMenu to='/menuColoring'>컬러링북</SubMenu>
-                </>
-              )}
-            </Menu>
+            <Menu to='/art'>미술 활동</Menu>
+            {/* <Menu onClick={() => toggleSubmenu('art')}>
+            미술 활동
+            {openMenu.art && (
+              <>
+                <SubMenu to='/menuDrawing'>드로잉</SubMenu>
+                <SubMenu to='/menuColoring'>컬러링북</SubMenu>
+              </>
+            )}
+          </Menu> */}
             <hr />
             <Menu to='/presentation'>연극 발표 활동</Menu>
             <hr />

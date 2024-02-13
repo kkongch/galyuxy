@@ -261,8 +261,9 @@ const StudentNav = () => {
         </Profile>
         <MenuText>
           <Menu to='/heritage'>문화유산 관람</Menu>
-          <hr />
-          <Menu onClick={() => toggleSubmenu('art')}>
+          <hr />          
+          <Menu to='/art'>미술 활동</Menu>
+          {/* <Menu onClick={() => toggleSubmenu('art')}>
             미술 활동
             {openMenu.art && (
               <>
@@ -270,7 +271,7 @@ const StudentNav = () => {
                 <SubMenu to='/menuColoring'>컬러링북</SubMenu>
               </>
             )}
-          </Menu>
+          </Menu> */}
           <hr />
           <Menu to='/room'>연극 발표 활동</Menu>
           <hr />

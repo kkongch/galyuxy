@@ -1,4 +1,8 @@
 import React, { useRef } from 'react';
+
+import { useEffect, useState } from 'react';
+import { artworkListState } from 'Recoil/ArtworkState';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import FlipPage from 'react-pageflip';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
@@ -10,6 +14,7 @@ import P2 from 'assets/images/Group2.png';
 import P4 from 'assets/images/Group3.png';
 import P3 from 'assets/images/Group4.png';
 import { useNavigate } from 'react-router-dom';
+import { getArtworkList } from 'api/ArtworkApi';
 
 const PageContent = styled.div`
   display: flex;
@@ -96,7 +101,9 @@ const FinalLogo = styled.img`
   height: 7rem;
   margin: 20rem auto;
 `;
-const MenuDrawingPage = () => {
+const ArtPage = () => {
+  const [artworkList, setArtworkList] = useRecoilState(artworkListState);
+
   const pages = [
     {
       title: '고조선',
@@ -153,6 +160,15 @@ const MenuDrawingPage = () => {
     );
   });
 
+  const handleGetArtworkList = async () => {
+    try {
+      const list = await getArtworkList();
+      setArtworkList(list);
+    } catch (error) {
+      console.error('Error handleGetArtworkList: ', error);
+    }
+  };
+
   const handlePageClick = (e) => {};
 
   const handleImageClick = (imageSrc) => {
@@ -172,6 +188,10 @@ const MenuDrawingPage = () => {
 
     navigate(destinationPath);
   };
+
+  useEffect(() => {
+    handleGetArtworkList();
+  }, []);
 
   return (
     <Background backgroundImage={backgroundImage}>
@@ -215,4 +235,4 @@ const MenuDrawingPage = () => {
   );
 };
 
-export default MenuDrawingPage;
+export default ArtPage;
