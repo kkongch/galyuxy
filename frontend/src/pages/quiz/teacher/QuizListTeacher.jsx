@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import Background from 'components/Basic/Background';
 import styled from 'styled-components';
-
+import DeleteSvg from 'assets/svg/quiz/deletesvg.svg';
+import { getWorkBook } from 'api/QuizApi';
+import { useNavigate } from 'react-router-dom';
 const Layout = styled.div`
   display: flex;
   width: 100%;
@@ -81,7 +83,7 @@ const QuestionBox = styled.div`
   position: relative;
   width: 100%;
   height: 55.625rem;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   display: flex;
@@ -114,6 +116,23 @@ const Pagetitle = styled.div`
 `;
 
 const QuizListTeacher = () => {
+  const [workbook, setWorkbook] = useState([]);
+  const navigate = useNavigate();
+  const fetchWorkbookData = async () => {
+    try {
+      const response = await getWorkBook();
+      setWorkbook(response.data.dataBody);
+      console.log(response.data.dataBody);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const HandleWorkbookClick = (index) => {
+    navigate(`/quizdetailteacher`);
+  };
+  useEffect(() => {
+    fetchWorkbookData();
+  }, []);
   return (
     <Background backgroundImage={QuizMainImage}>
       <Layout>
@@ -124,74 +143,21 @@ const QuizListTeacher = () => {
           <QuizBox>
             <QuestionNumber />
             <QuestionBox>
-              <ChoiceBox>
-                <Number>1.</Number>
-                <SvgBox>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='99'
-                    height='100'
-                    viewBox='0 0 99 100'
-                    fill='none'
+              {workbook.map((data, index) => (
+                <ChoiceBox>
+                  <Number>{index}.</Number>
+                  <div
+                    onClick={() => {
+                      HandleWorkbookClick(index);
+                    }}
                   >
-                    <path
-                      d='M78.375 26.709L72.5588 20.834L49.5 44.1257L26.4412 20.834L20.625 26.709L43.6838 50.0007L20.625 73.2923L26.4412 79.1673L49.5 55.8756L72.5588 79.1673L78.375 73.2923L55.3162 50.0007L78.375 26.709Z'
-                      fill='black'
-                    />
-                  </svg>
-                </SvgBox>
-              </ChoiceBox>
-              <ChoiceBox>
-                <Number>2.</Number>
-                <SvgBox>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='99'
-                    height='100'
-                    viewBox='0 0 99 100'
-                    fill='none'
-                  >
-                    <path
-                      d='M78.375 26.709L72.5588 20.834L49.5 44.1257L26.4412 20.834L20.625 26.709L43.6838 50.0007L20.625 73.2923L26.4412 79.1673L49.5 55.8756L72.5588 79.1673L78.375 73.2923L55.3162 50.0007L78.375 26.709Z'
-                      fill='black'
-                    />
-                  </svg>
-                </SvgBox>
-              </ChoiceBox>
-              <ChoiceBox>
-                <Number>3.</Number>
-                <SvgBox>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='99'
-                    height='100'
-                    viewBox='0 0 99 100'
-                    fill='none'
-                  >
-                    <path
-                      d='M78.375 26.709L72.5588 20.834L49.5 44.1257L26.4412 20.834L20.625 26.709L43.6838 50.0007L20.625 73.2923L26.4412 79.1673L49.5 55.8756L72.5588 79.1673L78.375 73.2923L55.3162 50.0007L78.375 26.709Z'
-                      fill='black'
-                    />
-                  </svg>
-                </SvgBox>
-              </ChoiceBox>
-              <ChoiceBox>
-                <Number>4.</Number>
-                <SvgBox>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='99'
-                    height='100'
-                    viewBox='0 0 99 100'
-                    fill='none'
-                  >
-                    <path
-                      d='M78.375 26.709L72.5588 20.834L49.5 44.1257L26.4412 20.834L20.625 26.709L43.6838 50.0007L20.625 73.2923L26.4412 79.1673L49.5 55.8756L72.5588 79.1673L78.375 73.2923L55.3162 50.0007L78.375 26.709Z'
-                      fill='black'
-                    />
-                  </svg>
-                </SvgBox>
-              </ChoiceBox>
+                    {data.workbookTitle}
+                  </div>
+                  <SvgBox>
+                    <img src={DeleteSvg} alt='svg' />
+                  </SvgBox>
+                </ChoiceBox>
+              ))}
             </QuestionBox>
           </QuizBox>
         </MainContent>

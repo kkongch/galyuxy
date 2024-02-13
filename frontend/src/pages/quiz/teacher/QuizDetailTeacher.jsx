@@ -7,6 +7,7 @@ import QuizImage from 'assets/images/Quiz/퀴즈풍선.png';
 import NumberImage from 'assets/images/Quiz/문제번호풍선.png';
 import { useRecoilState } from 'recoil';
 import { QuizModal } from 'components/Quiz/QuizModal';
+import { getDetailWorkBook } from 'api/QuizApi';
 
 const Layout = styled.div`
   display: flex;
@@ -147,11 +148,22 @@ const dataBody = [
 
 const QuizDetailTeacher = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
-
+  const [workbook, setWorkbook] = useState({});
   const handleAddClassClick = () => {
     setIsModalOpen(true);
   };
-
+  const fetchWorkbookData = async () => {
+    try {
+      const response = await getDetailWorkBook();
+      setWorkbook(response.data.dataBody);
+      console.log(response.data.dataBody);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchWorkbookData();
+  }, []);
   return (
     <Background backgroundImage={QuizMainImage}>
       <Layout>
