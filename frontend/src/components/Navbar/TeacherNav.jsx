@@ -26,6 +26,8 @@ const NavContainer = styled.nav`
   background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(7.800000190734863px);
   position: fixed;
+
+  z-index: 8;
 `;
 const ToggleButton = styled.button`
   position: fixed;

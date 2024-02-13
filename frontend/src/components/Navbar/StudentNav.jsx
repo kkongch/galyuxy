@@ -22,6 +22,8 @@ const NavContainer = styled.nav`
   background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(7.800000190734863px);
   position: fixed;
+
+  z-index: 8;
 `;
 const ToggleButton = styled.button`
   position: fixed;
@@ -195,7 +197,6 @@ const StudentNav = () => {
     theater: false,
     quiz: false,
   });
-   
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -203,9 +204,9 @@ const StudentNav = () => {
 
   const toggleSubmenu = (menu) => {
     setOpenMenu((prevMenu) => ({
-        ...prevMenu,
-        [menu]: !prevMenu[menu],
-      }));
+      ...prevMenu,
+      [menu]: !prevMenu[menu],
+    }));
   };
 
   const [checkModal, setCheckModal] = useState(false);
@@ -261,7 +262,7 @@ const StudentNav = () => {
         </Profile>
         <MenuText>
           <Menu to='/heritage'>문화유산 관람</Menu>
-          <hr />          
+          <hr />
           <Menu to='/art'>미술 활동</Menu>
           {/* <Menu onClick={() => toggleSubmenu('art')}>
             미술 활동
