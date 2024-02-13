@@ -40,14 +40,13 @@ const Box = React.forwardRef(({ imageUrl, onClick }, ref) => {
 
 const HeritageList = () => {
   const navigate = useNavigate();
-  // const [HeritageData, setHeritageData] = useState([]);
   const [heritageList, setHeritageList] = useRecoilState(heritageListState);
   const setSelectedHeritageId = useSetRecoilState(selectedHeritageIdState);
 
   const fetchData = async () => {
     try {
       const response = await getHeritageList();
-      setHeritageList(response.dataBody); // 데이터를 상태에 저장
+      setHeritageList(response.dataBody);
     } catch (error) {
       console.error(error);
     }
@@ -61,23 +60,6 @@ const HeritageList = () => {
   boxRefs.current = heritageList.map(
     (_, i) => boxRefs.current[i] || React.createRef()
   );
-
-  // const boxes = HeritageData.map((data, index) => (
-  //   <Box
-  //     imageUrl={data.heritageImageUrl}
-  //     ref={boxRefs.current[index]}
-  //     onClick={() => handleDetailClick(data.heritageId)}
-  //     // key={index}
-  //   />
-  // ));
-  const boxes = heritageList.map((data, index) => (
-    <Box
-      key={data.heritageId} // 고유한 key 값으로 data.heritageId 사용
-      imageUrl={data.heritageImageUrl}
-      ref={boxRefs.current[index]}
-      onClick={() => handleDetailClick(data.heritageId)}
-    />
-  ));
 
   useEffect(() => {
     const handleScroll = () => {
