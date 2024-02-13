@@ -20,7 +20,7 @@ const QuizContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 84rem;
+  width: 101rem;
   height: 100vh;
 `;
 
@@ -39,7 +39,7 @@ const ImageBox = styled.div`
   height: 16.3125rem;
   background-image: url(${QuizImage});
   position: relative;
-  right: 8rem;
+  right: 15rem;
 `;
 const QuizTitle = styled.div`
   position: relative;
@@ -49,7 +49,8 @@ const QuizTitle = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  right: 5rem;
+  right: 12rem;
+  top: 1rem;
 `;
 
 const StartButton = styled.button`
@@ -72,7 +73,7 @@ const StartButton = styled.button`
 const QuestionsContainer = styled.div`
   overflow-y: auto;
   width: 100%; // Adjust the width as needed
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 5px;
   padding: 20px;
   height: auto;
