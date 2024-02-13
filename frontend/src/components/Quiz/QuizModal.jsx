@@ -9,7 +9,7 @@ import {
 import { useRecoilState, useRecoilValue } from 'recoil';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { getQuizStart } from 'api/QuizApi';
+import { putQuizStart } from 'api/QuizApi';
 import { format } from 'date-fns';
 const ModalDiv = styled.div`
   width: 100vw;
@@ -202,12 +202,11 @@ export const QuizModal = () => {
         activeWorkbookEnd: endDateTime,
       };
 
-      const response = await getQuizStart(updatedWorkbookData);
+      const response = await putQuizStart(updatedWorkbookData);
       console.log(response);
       if (response) {
         // 응답 성공 여부에 따라 조건을 적절히 조정\
         setWorkbookData(updatedWorkbookData);
-        console.log(workbookData);
         setQuizStart(true); // 퀴즈 시작 상태를 true로 설정
       }
     } else {
@@ -216,14 +215,15 @@ export const QuizModal = () => {
   };
 
   const [workbookData, setWorkbookData] = useRecoilState(isWorkbookStartState);
-  const data = useRecoilValue(isWorkbookStartState);
   const [startTime, setStartTime] = useState({ hour: '', minute: '' });
   const [endTime, setEndTime] = useState({ hour: '', minute: '' });
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-
+  useEffect(()=>{
+    console.log(workbookData)
+  },[workbookData])
   return (
     <ModalDiv>
       <ModalBox>
