@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { artworkState } from 'Recoil/ArtworkState';
 import { useRecoilState } from 'recoil';
 import { createRoot } from 'react-dom/client';
@@ -116,6 +116,27 @@ const DescriptionBox = styled.div`
 
 const Coloring = () => {
   const [artworkOne, setArtworkOne] = useRecoilState(artworkState);
+  const [imageSrc, setImageSrc] = useState(null);
+  useEffect(() => {
+    // 이미지를 요청하는 함수
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(artworkOne.imageUrl); // Spring Boot 서버의 이미지 엔드포인트 URL
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          setImageSrc(url);
+        } else {
+          console.error('이미지를 불러오는데 실패했습니다.');
+        }
+      } catch (error) {
+        console.error('이미지 요청 중 오류 발생:', error);
+      }
+    };
+
+    fetchImage();
+  }, []);
+
   // console.log(artworkOne);
   const stageRef = useRef(null);
   const rectLayerRef = useRef(null);
@@ -125,7 +146,8 @@ const Coloring = () => {
   const [size, setSize] = useState(5); // 선의 굵기 상태, 기본값은 5
   const [lines, setLines] = useState([]); // 선들의 배열
   const isDrawing = useRef(false); // 그리기 상태
-  const [coloringImage] = useImage(artworkOne.imageUrl); // 이미지 경로 수정 필요
+  const [coloringImage] = useImage(imageSrc); // 이미지 경로 수정 필요
+  // const [coloringImage] = useImage(artworkOne.imageUrl); // 이미지 경로 수정 필요
   // const [coloringImage] = useImage(Gimage); // 이미지 경로 수정 필요
   // Rect 크기를 rem 단위에서 px 단위로 설정
   const rectWidth = remToPixels(90); // 90rem을 px로 변환
@@ -151,9 +173,7 @@ const Coloring = () => {
     }
     return { width: newWidth, height: newHeight };
   }
-  const {width : artworkWidth, height: artworkHeight} = calcArtworkSize();
-  console.log(artworkWidth);
-  console.log(artworkHeight);
+  const {width : artworkWidth, height: artworkHeight} = calcArtworkSize(); 
 
  
   const imageX = window.innerWidth / 2 - artworkWidth / 2;
@@ -235,11 +255,16 @@ const Coloring = () => {
   //   stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
   // };
 
+
  
 
 // 이미지를 다운로드할 함수
 const saveImage = async () => {
   try {
+    // Rect가 포함된 Layer의 visible 속성을 false로 설정
+    rectLayerRef.current.visible(false);    
+    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+
     // 이미지 데이터를 불러옴
     const response = await fetch(artworkOne.imageUrl);
     const blob = await response.blob();
@@ -247,9 +272,13 @@ const saveImage = async () => {
     // Blob을 파일로 변환
     const blobUrl = URL.createObjectURL(blob);
 
+    // Canvas에 그려진 이미지 데이터를 가져옴
+    const canvas = stageRef.current.toCanvas();
+    const canvasDataUrl = canvas.toDataURL();
+
     // 파일 다운로드 링크 생성
     const link = document.createElement('a');
-    link.href = blobUrl;
+    link.href = canvasDataUrl;
     link.download = 'image.jpg'; // 다운로드될 파일의 이름
     document.body.appendChild(link);
 
@@ -258,11 +287,16 @@ const saveImage = async () => {
 
     // 다운로드 후 링크 제거
     document.body.removeChild(link);
+
+    // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
+    rectLayerRef.current.visible(true);
+    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+
   } catch (error) {
     console.error('이미지를 다운로드하는 동안 오류가 발생했습니다:', error);
   }
 };
- 
+
 
   const handleBackClick = () => {
     navigate('/art');
