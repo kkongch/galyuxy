@@ -96,7 +96,7 @@ const FinalLogo = styled.img`
   height: 7rem;
   margin: 20rem auto;
 `;
-const ArtPage = () => {
+const MenuDrawingPage = () => {
   const pages = [
     {
       title: '고조선',
@@ -215,4 +215,4 @@ const ArtPage = () => {
   );
 };
 
-export default ArtPage;
+export default MenuDrawingPage;

@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useNavigate } from 'react-router';
 import { Stage, Layer, Line, Text, Image, Rect } from 'react-konva';
 import useImage from 'use-image';
 import Gimage from 'assets/images/고려청자컬러링북.png';
 import Konva from 'konva';
 import styled from 'styled-components';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
-import Background from 'components/Basic/Background';
-import { useNavigate } from 'react-router-dom';
+import Background from 'components/Basic/Background'; 
 
 const ButtonBox = styled.div`
   display: flex;
@@ -55,6 +55,7 @@ const SaveButton = styled.div`
 `;
 const ARbutton = styled.div`
   margin-left: 3.06rem;
+  cursor: pointer;
 `;
 const Exampleimage = styled.div`
   justify-content: center;
@@ -114,7 +115,7 @@ const DescriptionBox = styled.div`
 const Coloring = () => {
   const stageRef = useRef(null);
   const rectLayerRef = useRef(null);
-  // const navigate = useNavigate()
+  const navigate = useNavigate();
   const [tool, setTool] = useState('pen'); // 도구 ('pen' 또는 'eraser')
   const [color, setColor] = useState('#000000'); // 색상
   const [size, setSize] = useState(5); // 선의 굵기 상태, 기본값은 5
@@ -208,7 +209,11 @@ const Coloring = () => {
     // navigate('/main');
   };
 
-  const handleArClick = () => {};
+  const handleArClick = () => {
+    navigate('/artCamera');
+    console.log("arar");
+  };
+  
   return (
     <Background backgroundImage={backgroundImage}>
       <DescriptionBox>고려청자</DescriptionBox>
@@ -346,10 +351,6 @@ const Coloring = () => {
       </ButtonBox>
     </Background>
   );
-};
-
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<Coloring />);
+}; 
 
 export default Coloring;

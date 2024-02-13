@@ -55,7 +55,7 @@ const MainPage = () => {
           <CardLink to='/heritage'>
             <CardImage src={heritageImage} alt='Heritage' />
           </CardLink>
-          <CardLink to='/art'>
+          <CardLink to='/menuDrawing'>
             <CardImage src={artImage} alt='Art' />
           </CardLink>
           <CardLink to='/presentation'>

@@ -16,8 +16,7 @@ import LoginPage from 'pages/user/LoginPage';
 import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
-import VideoPage from 'pages/presentation/VideoPage';
-import ArtPage from 'pages/art/ArtPage';
+import VideoPage from 'pages/presentation/VideoPage'; 
 import StudentNav from 'components/Navbar/StudentNav';
 import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
@@ -28,6 +27,8 @@ import ArtCameraPage from 'pages/art/ArtCamera';
 import StudentInfoPage from 'pages/class/StudentInfoPage';
 import { loginState } from 'Recoil/UserState';
 import { useRecoilState } from 'recoil';
+import MenuDrawingPage from 'pages/art/MenuDrawing';
+import MenuColoringPage from 'pages/art/MenuColoring';
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -56,7 +57,8 @@ function App() {
         <Route path='/presentation' element={<PresentationPage />} />
         <Route path='/room' element={<RoomPage />} />
         <Route path='/VideoPage' element={<VideoPage />} />
-        <Route path='/art' element={<ArtPage />} />
+        <Route path='/menuDrawing' element={<MenuDrawingPage />} />
+        <Route path='/menuColoring' element={<MenuColoringPage />} />
         <Route path='/art/coloring' element={<Coloring />} />
         <Route path='/art/drawing' element={<DrawingPage />} />
         <Route path='/quizenter' element={<QuizEnterPage />} />

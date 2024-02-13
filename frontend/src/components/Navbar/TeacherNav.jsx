@@ -23,7 +23,8 @@ const NavContainer = styled.nav`
 
   border-radius: 0rem 3.125rem 0rem 0rem;
   border: 1px solid rgba(255, 255, 255, 0.53);
-  background: rgba(255, 255, 255, 0.53);
+  /* background: rgba(255, 255, 255, 0.53); */
+  background: red;
   backdrop-filter: blur(7.800000190734863px);
   position: fixed;
 `;
@@ -269,8 +270,8 @@ const TeacherNav = () => {
               미술 활동
               {openMenu.art && (
                 <>
-                  <SubMenu to='/art'>드로잉</SubMenu>
-                  <SubMenu href='#'>컬러링북</SubMenu>
+                  <SubMenu to='/menuDrawing'>드로잉</SubMenu>
+                  <SubMenu to='/menuColoring'>컬러링북</SubMenu>
                 </>
               )}
             </Menu>
