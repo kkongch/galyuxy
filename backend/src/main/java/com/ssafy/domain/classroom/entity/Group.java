@@ -1,5 +1,6 @@
 package com.ssafy.domain.classroom.entity;
 
+import com.ssafy.domain.quiz.entity.ActiveWorkbook;
 import com.ssafy.domain.quiz.entity.QuizResult;
 import jakarta.persistence.*;
 
@@ -38,6 +39,10 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     List<QuizResult> quizResults = new ArrayList<QuizResult>();
+
+    @OneToOne
+    @JoinColumn(name = "active_workbook_id")
+    ActiveWorkbook activeWorkbook;
 
     public Group(String groupName, Teacher teacher) {
         this.name = groupName;
