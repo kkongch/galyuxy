@@ -16,7 +16,6 @@ var localUser = new UserModel();
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-
 // const APPLICATION_SERVER_URL =
 //   process.env.NODE_ENV === 'production'
 //   ? "http://localhost:8080"
@@ -24,8 +23,8 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === 'production'
-  ? "http://i10c206.p.ssafy.io:8080"
-  : "http://i10c206.p.ssafy.io:8080";
+    ? 'http://i10c206.p.ssafy.io:8080'
+    : 'http://i10c206.p.ssafy.io:8080';
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -615,6 +614,7 @@ class VideoRoomComponent extends Component {
                 style={chatDisplay}
               >
                 <ChatComponent
+                  title={this.props.roomSubject}
                   user={localUser}
                   chatDisplay={this.state.chatDisplay}
                   close={this.toggleChat}
@@ -656,8 +656,9 @@ class VideoRoomComponent extends Component {
       {},
       {
         headers: {
-          "Authorization": "Basic T1BFTlZJRFVBUFA6TVlfU0VDUkVU", 
-          'Content-Type': 'application/json' },
+          Authorization: 'Basic T1BFTlZJRFVBUFA6TVlfU0VDUkVU',
+          'Content-Type': 'application/json',
+        },
       }
     );
     return response.data; // 토큰 반환

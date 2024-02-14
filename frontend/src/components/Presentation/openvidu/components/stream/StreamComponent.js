@@ -108,7 +108,7 @@ export default class StreamComponent extends Component {
             // 닉네임 표시 및 편집 버튼
             <div onClick={this.toggleNicknameForm} aria-label='Edit nickname'>
               <span id='nickname' style={{ fontSize: '25px' }}>
-                {/* {this.props.user.getNickname()} */}
+                {this.props.user.getNickname()}
               </span>
               {this.props.user.isLocal() && <span> </span>}
             </div>
