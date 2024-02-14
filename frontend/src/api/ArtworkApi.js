@@ -6,8 +6,6 @@ const api = axios.create({
   baseURL,
 });
 
-
-
 export const getArtworkList = async () => {
     console.log("get artwork list api");
     try {
