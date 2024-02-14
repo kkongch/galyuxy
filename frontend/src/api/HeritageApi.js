@@ -25,3 +25,13 @@ export const getHeritage = async (heritageId) => {
     throw error;
   }
 };
+
+export const getEraList = async () => {
+  try {
+    const response = await api.get(`/era`);
+    return response.data.dataBody;
+  } catch (error) {
+    console.error('Error getEraList: ', error);
+    throw error;
+  }
+};
