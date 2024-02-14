@@ -201,13 +201,13 @@ export default function Heritage3D(props) {
               zoomSpeed={1.2}
               target={[0, 0.6, 0]}
             />
-            {/* <axesHelper args={[500, 500, 500]} /> */}
+            <axesHelper args={[500, 500, 500]} />
             <directionalLight />
             <Suspense fallback={null}>
               {id === '16' ? (
                 <>
                   <Model16 props={props} />
-                  <CameraController x={0} y={0} z={0} />
+                  <CameraController x={4} y={1} z={6} />
                   <ambientLight intensity={20} />
                 </>
               ) : id === '27' ? (
