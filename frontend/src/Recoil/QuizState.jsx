@@ -19,3 +19,16 @@ export const isWorkbookStartState = atom({
     activeWorkbookEnd: '',
   },
 });
+export const isQuizScoreState = atom({
+  key: 'scoere',
+  default: 0,
+});
+export const userAnswersState = atom({
+  key: 'userAnswers',
+  default: [],
+});
+
+export const userWrongAnswerState = atom({
+  key: 'wrongAnswers',
+  default: [],
+});

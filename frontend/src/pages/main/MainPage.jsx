@@ -48,15 +48,18 @@ const CardImage = styled.img`
 `;
 const MainPage = () => {
   const navigate = useNavigate();
-
+  const accessToken = sessionStorage.getItem('accessToken');
   const handlePresentationLinkClick = () => {
-    const accessToken = sessionStorage.getItem('accessToken');
     const destination = accessToken ? '/presentation' : '/room';
     navigate(destination);
   };
 
   const handleQuizLinkClick = () => {
-    navigate('/quiz');
+    if (accessToken) {
+      navigate('/quizlistteacher');
+    } else {
+      navigate('/quizenter');
+    }
   };
 
   const handleHeritageLinkClick = () => {
