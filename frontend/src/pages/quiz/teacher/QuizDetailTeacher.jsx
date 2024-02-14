@@ -23,6 +23,7 @@ const QuizContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 101rem;
+  max-width: 101rem;
   height: 100vh;
   position: relative;
 `;
@@ -98,7 +99,7 @@ const Question = styled.div`
   border-radius: 3.125rem;
   border: 3px solid #dadada;
   background: #fff;
-
+  max-width: 100%;
   width: 101rem;
   height: auto;
 `;
@@ -151,6 +152,7 @@ const QuestionFooter = styled.div`
 
 const SelectQuizContainer = styled.div`
   width: 101rem;
+  margin-top: 3rem;
   overflow-y: scroll;
   justify-content: space-around;
   align-items: center;
@@ -177,6 +179,15 @@ const QuizDetailTeacher = () => {
   useEffect(() => {
     fetchWorkbookData();
   }, []);
+  const ModalContainer = styled.div`
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
   const renderQuestion = (data, index) => {
     switch (data.questionType) {
       case 1:
@@ -223,13 +234,17 @@ const QuizDetailTeacher = () => {
     <Background backgroundImage={QuizMainImage}>
       <Layout>
         <StartButton onClick={handleAddClassClick}>시작</StartButton>
+        {isModalOpen && (
+          <ModalContainer>
+            <QuizModal />
+          </ModalContainer>
+        )}
         <QuizContainer>
           <Header>
             <ImageBox></ImageBox>
-            <QuizTitle>문제 제목</QuizTitle>
+            <QuizTitle style={{ zIndex: 1 }}>문제 제목</QuizTitle>
           </Header>
 
-          {isModalOpen && <QuizModal />}
           <SelectQuizContainer>
             {workbook.map((data, index) => renderQuestion(data, index))}
           </SelectQuizContainer>
