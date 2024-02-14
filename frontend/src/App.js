@@ -68,7 +68,7 @@ function App() {
           <Route path='/quizenter' element={<QuizEnterPage />} />
           <Route path='/quizsolve/:id/:number' element={<QuizSolve />} />
           <Route path='/quizfinish' element={<QuizFinish />} />
-          <Route path='/IncorrectNote' element={<IncorrectNote />} />
+          <Route path='/IncorrectNote/:id' element={<IncorrectNote />} />
           <Route path='/quizlistteacher' element={<QuizListTeacher />} />
           <Route path='/artCamera' element={<ArtCameraPage />} />
           <Route

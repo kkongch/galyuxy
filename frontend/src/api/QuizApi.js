@@ -23,9 +23,9 @@ export async function putQuizStart(data) {
   }
 }
 
-export const getActiveWorkBook = async (groupId) => {
+export const getActiveWorkBook = async (workbookId) => {
   try {
-    const response = await api.get(`/quiz/activeWorkbook/${groupId}`);
+    const response = await api.get(`/quiz/activeWorkbook/${workbookId}`);
     return response;
   } catch (e) {
     console.log(e);
@@ -44,6 +44,15 @@ export const getWorkBook = async () => {
 export const getDetailWorkBook = async (workbookId) => {
   try {
     const response = await api.get(`/quiz/workbook/${workbookId}/questions`);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const postWrongAnswer = async () => {
+  try {
+    const response = await api.post('/quiz/wrongAnswer');
     return response;
   } catch (e) {
     console.log(e);
