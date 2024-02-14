@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { artworkState } from 'Recoil/ArtworkState';
+import { artworkState, artworkARState } from 'Recoil/ArtworkState';
 import { useRecoilState } from 'recoil';
 import { createRoot } from 'react-dom/client';
 import { useNavigate } from 'react-router';
@@ -116,6 +116,7 @@ const DescriptionBox = styled.div`
 
 const Coloring = () => {
   const [artworkOne, setArtworkOne] = useRecoilState(artworkState);
+  const [artworkAR, setArtworkAR] = useRecoilState(artworkARState);
   const [imageSrc, setImageSrc] = useState(null);
   useEffect(() => {
     // 이미지를 요청하는 함수
@@ -266,11 +267,16 @@ const saveImage = async () => {
     stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
 
     // 이미지 데이터를 불러옴
-    const response = await fetch(artworkOne.imageUrl);
+    // const response = await fetch(artworkOne.imageUrl);
+    const response = await fetch(imageSrc);
     const blob = await response.blob();
 
     // Blob을 파일로 변환
     const blobUrl = URL.createObjectURL(blob);
+    // setArtworkAR(blobUrl);
+    // console.log("blbo");
+    // console.log(blobUrl);
+    // console.log(artworkAR);
 
     // Canvas에 그려진 이미지 데이터를 가져옴
     const canvas = stageRef.current.toCanvas();
@@ -284,6 +290,9 @@ const saveImage = async () => {
 
     // 파일 다운로드
     link.click();
+
+    // artworkAR에 저장    
+    setArtworkAR(canvasDataUrl);
 
     // 다운로드 후 링크 제거
     document.body.removeChild(link);

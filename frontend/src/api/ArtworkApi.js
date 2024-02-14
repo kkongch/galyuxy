@@ -11,11 +11,9 @@ const api = axios.create({
 export const getArtworkList = async () => {
     console.log("get artwork list api");
     try {
-    //   const response = await api.get('/artwork', { 
-    //   });
-      const response = await axios.get(`http://localhost:8080/artwork`);
-
-    //   console.log(response.data.dataBody);
+      const response = await api.get('/artwork', { 
+      });
+      
       return response.data.dataBody;
     } catch (error) {
       console.error('Error getClassList:', error);
