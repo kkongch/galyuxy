@@ -14,8 +14,9 @@ import { getEraList } from 'api/HeritageApi';
 
 const PageContent = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   width: 100%;
   height: 100%;
   background-color: rgb(226, 223, 204);
@@ -65,19 +66,24 @@ const BookContainer = styled.div`
 `;
 
 const PhotoGrid = styled.div`
-  height: 90%;
+  /* height: 90%; */
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap:20px;
+  /* align-items: center; */
   flex-wrap: wrap;
   z-index: 0;
 `;
 
 const Photo = styled.img`
-  width: 25%;
-  object-fit: cover;
-  margin: 3% 6%;
+  width: 45%;
+  /* height: auto;   */
+  height: auto;
+  margin: 10px; /* 사진 사이의 간격을 조정합니다. */
+  object-fit: contain;
+  /* margin: 3% 6%; */
   cursor: pointer;
+  aspect-ratio: 1;
   z-index: 1;
 
   &:active {
@@ -86,6 +92,7 @@ const Photo = styled.img`
     color: white;
   }
 `;
+
 const FirstLogo = styled.img`
   display: flex;
   justify-content: center;

@@ -64,6 +64,7 @@ const MainPage = () => {
   };
   const handleArtLinkClick = () => {
     navigate('/art');
+    // navigate('/test');
   };
 
   return (
