@@ -21,6 +21,7 @@ const ButtonBox = styled.div`
   left: 0; /* 화면 왼쪽 끝에서 시작 */
   padding: 0 20px; /* 양쪽에 20px 패딩 추가 */
   box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
+  z-index: 8;
 `;
 const BackButton = styled.div`
   display: flex;
@@ -72,16 +73,20 @@ const Exampleimage = styled.div`
 `;
 const ToolContainer = styled.div`
   position: fixed;
-  top: 2rem;
+  top: 20rem;
   right: 2rem;
   /* height: 80%; */
-  width: 40rem;
-  height: 12rem;
+  /* width: 50rem;
+  height: 12rem; */
+  width: 12rem;
+  height: 50rem;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #000000;
+  background-color: #000000ba;
+  border-radius: 3.5rem;
+  padding: 5rem 0;
 `;
 const SvgBox = styled.div`
   display: flex;
@@ -90,7 +95,6 @@ const SvgBox = styled.div`
   width: auto;
   height: 4.6875rem;
 `;
-const DrawingTool = styled.div``;
 
 const remToPixels = (rem) => {
   // 기본 폰트 크기를 가정하여 rem을 px로 변환
@@ -100,11 +104,7 @@ const DescriptionBox = styled.div`
   background-color: #917159;
   width: 100%;
   height: 15rem;
-  position: absolute;
-  /* top: ${remToPixels(6.81)}px; */
-  /* margin-bottom: ${remToPixels(4.44)}px; */
-  /* transform: translate(-50%, 0); */
-  /* left: 50%; */
+  /* position: absolute; */
   box-sizing: border-box;
   /* border-radius: ${remToPixels(1.25)}px; */
   text-align: center;
@@ -129,29 +129,21 @@ const StyledInput = styled.input`
   }
 `;
 const StyledSlide = styled.input`
-  width: 100%;
   background: #8d8080;
-  border-radius: 8px;
+  border-radius: 2rem;
   outline: none;
-  /* transition: background 450ms ease-in; */
-  /* -webkit-appearance: none; */
+  -webkit-appearance: none;
   accent-color: #ffca1d;
-  height: 100%;
-  border: 2rem solid #ff96ab;
+  /* border: 2rem solid #ff96ab; */
   cursor: pointer;
-  /* border: 5rem; */
-  /* border-width: 10rem; */
+  height: 1.6rem;
+  margin-top: 3.3rem;
 `;
-const StyledOption = styled.option`
-  font-size: 1rem;
-  width: 2rem;
-`;
-const StyledSelect = styled.select`
-  height: 4rem;
-  width: 20rem;
-  font-size: 3rem; // 폰트 크기 증가
-  /* margin-bottom: 10px; // 아래 요소와의 간격 */
-  /* padding: 5px 10px; // 내부 여백 증가 */
+const DivBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 `;
 const Coloring = () => {
   const [artworkOne, setArtworkOne] = useRecoilState(artworkState);
@@ -182,7 +174,7 @@ const Coloring = () => {
   const rectLayerRef = useRef(null);
   const navigate = useNavigate();
   const [tool, setTool] = useState('pen'); // 도구 ('pen' 또는 'eraser')
-  const [color, setColor] = useState('#000000'); // 색상
+  const [color, setColor] = useState('#d53e66'); // 색상
   const [size, setSize] = useState(5); // 선의 굵기 상태, 기본값은 5
   const [lines, setLines] = useState([]); // 선들의 배열
   const isDrawing = useRef(false); // 그리기 상태
@@ -257,47 +249,6 @@ const Coloring = () => {
     isDrawing.current = false;
   };
 
-  // const saveImage = () => {
-  //   const tempCanvas = document.createElement('canvas');
-  //   tempCanvas.width = stageRef.current.width();
-  //   tempCanvas.height = stageRef.current.height();
-  //   const ctx = tempCanvas.getContext('2d');
-
-  //   // Konva 캔버스의 이미지를 임시 캔버스에 그림
-  //   const image = new window.Image(); // 'window.'를 사용하여 Image 생성자를 명시적으로 참조
-  //   image.onload = () => {
-  //     ctx.drawImage(image, 0, 0);
-  //     // 임시 캔버스의 데이터 URL을 사용하여 이미지 저장 로직 진행
-  //     const dataURL = tempCanvas.toDataURL();
-  //     const link = document.createElement('a');
-  //     link.download = 'coloring-book.png';
-  //     link.href = dataURL;
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //   };
-  //   image.src = stageRef.current.toDataURL();
-  // };
-  // const saveImage = () => {
-  //   // Rect가 포함된 Layer의 visible 속성을 false로 설정
-  //   rectLayerRef.current.visible(false);
-  //   stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
-
-  //   // 이미지 저장 로직
-  //   const dataURL = stageRef.current.toDataURL();
-  //   const link = document.createElement('a');
-  //   link.download = 'coloring-book.png';
-  //   link.href = dataURL;
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-
-  //   // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
-  //   rectLayerRef.current.visible(true);
-  //   stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
-  // };
-
-  // 이미지를 다운로드할 함수
   const saveImage = async () => {
     try {
       // Rect가 포함된 Layer의 visible 속성을 false로 설정
@@ -352,103 +303,124 @@ const Coloring = () => {
     console.log('arar');
   };
 
-  const sizes = [10, 20, 30, 40, 50];
-
   return (
     <Background backgroundImage={backgroundImage}>
-      <DescriptionBox>{artworkOne.heritageName}</DescriptionBox>
-      <Stage
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onMouseDown={handleMouseDown}
-        onMousemove={handleMouseMove}
-        onMouseup={handleMouseUp}
-        ref={stageRef}
-      >
-        <Layer ref={rectLayerRef}>
-          <Rect
-            x={450}
-            y={420}
-            width={1700}
-            height={1000}
-            fill='white' // 하얀색 배경
-            cornerRadius={40}
-          />
-        </Layer>
-        {/* 배경 이미지용 Layer */}
-        <Layer>
-          <Exampleimage>
-            {coloringImage && (
-              <Image
-                image={coloringImage}
-                width={artworkWidth} // 원본 너비에 배율을 적용
-                height={artworkHeight} // 원본 높이에 배율을 적용
-                // x={window.innerWidth / 2 - (coloringImage?.width ?? 0) / 2}
-                // y={window.innerHeight / 2 - (coloringImage?.height ?? 0) / 2}
-                x={imageX}
-                y={imageY + 100}
-              />
-            )}
-          </Exampleimage>
-        </Layer>
-
-        {/* 그리기 동작용 Layer */}
-        <Layer>
-          {lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.color}
-              strokeWidth={line.size}
-              tension={0.5}
-              lineCap='round'
-              lineJoin='round'
-              globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
-              }
+      <DivBox>
+        <DescriptionBox>{artworkOne.heritageName}</DescriptionBox>
+        <Stage
+          width={window.innerWidth}
+          height={window.innerHeight}
+          onMouseDown={handleMouseDown}
+          onMousemove={handleMouseMove}
+          onMouseup={handleMouseUp}
+          ref={stageRef}
+        >
+          <Layer ref={rectLayerRef}>
+            <Rect
+              x={270}
+              y={150}
+              width={2000}
+              height={1000}
+              fill='white' // 하얀색 배경
+              cornerRadius={40}
             />
-          ))}
-        </Layer>
-      </Stage>
-      <ToolContainer>
-        {/* <StyledSelect value={tool} onChange={(e) => setTool(e.target.value)}>
-          <StyledOption value='pen'>Pen</StyledOption>
-          <StyledOption value='eraser'>Eraser</StyledOption>
-        </StyledSelect> */}
-        <StyledTypeDiv
-          onClick={() => {
-            setTool('pen');
-          }}
-        >
-          펜
-        </StyledTypeDiv>
-        <StyledTypeDiv
-          onClick={() => {
-            setTool('eraser');
-          }}
-        >
-          지우개
-        </StyledTypeDiv>
-        <StyledInput
-          type='color'
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-        />
-        <input
-          type='range'
-          min='1'
-          max='50'
-          value={size}
-          onChange={(e) => setSize(e.target.value)}
-        />
-        {/* 
-        {sizes.map((item) => (
-          <StyledColorDiv
-            key={item}
-            onClick={() => setSize(item)}
-          ></StyledColorDiv>
-        ))} */}
-      </ToolContainer>
+          </Layer>
+          {/* 배경 이미지용 Layer */}
+          <Layer>
+            <Exampleimage>
+              {coloringImage && (
+                <Image
+                  image={coloringImage}
+                  width={artworkWidth} // 원본 너비에 배율을 적용
+                  height={artworkHeight} // 원본 높이에 배율을 적용
+                  // x={window.innerWidth / 2 - (coloringImage?.width ?? 0) / 2}
+                  // y={window.innerHeight / 2 - (coloringImage?.height ?? 0) / 2}
+                  x={imageX}
+                  y={imageY + 100}
+                />
+              )}
+            </Exampleimage>
+          </Layer>
+
+          {/* 그리기 동작용 Layer */}
+          <Layer>
+            {lines.map((line, i) => (
+              <Line
+                key={i}
+                points={line.points}
+                stroke={line.color}
+                strokeWidth={line.size}
+                tension={0.5}
+                lineCap='round'
+                lineJoin='round'
+                globalCompositeOperation={
+                  line.tool === 'eraser' ? 'destination-out' : 'source-over'
+                }
+              />
+            ))}
+          </Layer>
+        </Stage>
+        <ToolContainer>
+          <StyledTypeDiv
+            onClick={() => {
+              setTool('pen');
+            }}
+          >
+            <StyledSVG>
+              <svg
+                width='110'
+                height='110'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M4.67958 16.3295L4.67932 16.3293C3.87972 15.7343 3.41992 14.7397 3.41992 13.5098C3.41992 12.3561 4.04779 10.9234 4.73072 9.70239C5.06929 9.09707 5.41603 8.55286 5.69428 8.13308C5.82249 7.93966 5.93919 7.76832 6.03359 7.62972C6.13875 7.47533 6.21623 7.36158 6.2511 7.30321C6.39852 7.06242 6.61093 6.71365 6.71925 6.39547C6.77302 6.23753 6.81025 6.06223 6.7835 5.90016C6.75401 5.72146 6.64796 5.57214 6.45574 5.49469C6.30069 5.43041 6.13383 5.47375 5.99992 5.53261C5.85811 5.59494 5.70482 5.69615 5.54898 5.81644C5.27775 6.02576 4.97249 6.31364 4.6678 6.61806L3.19301 5.17698C3.39086 4.95189 3.64192 4.70061 3.94134 4.40119C4.05638 4.28615 4.3929 3.98502 4.8592 3.71392C5.3266 3.44217 5.90865 3.20977 6.51992 3.20977C6.91037 3.20977 7.49095 3.36721 7.97116 3.778C8.44402 4.18248 8.82992 4.84125 8.82992 5.86977C8.82992 7.1623 8.34494 7.89672 7.56486 9.03683L7.56468 9.0371C7.11223 9.70069 6.0491 11.4894 5.68975 12.6078C5.50148 13.1783 5.47249 13.6959 5.56122 14.0832C5.64569 14.4519 5.86773 14.7898 6.23992 14.7898C6.53314 14.7898 6.79637 14.61 6.99589 14.4312C7.1841 14.2626 7.35092 14.0616 7.4712 13.9167C7.48088 13.9051 7.49025 13.8938 7.49932 13.8829C7.75118 13.6173 9.21854 11.8815 9.79567 11.1552C10.1675 10.7004 10.8262 10.0054 11.6649 9.42552C12.5056 8.84429 13.5109 8.38977 14.5799 8.38977C15.9817 8.38977 16.8937 8.99317 17.4801 9.7896C18.073 10.5948 18.3378 11.606 18.4107 12.4079L18.4273 12.5898H18.6099H20.8799V14.6898H18.6199H18.436L18.4206 14.8731C18.2236 17.2224 17.4727 18.6996 16.594 19.5879C15.7139 20.4775 14.6931 20.7898 13.9299 20.7898C12.2633 20.7898 10.9199 19.4824 10.9199 17.8998C10.9199 16.2945 12.4523 13.3502 16.1333 12.727L16.3251 12.6945L16.298 12.5018C16.2914 12.4551 16.285 12.406 16.2785 12.3552C16.2337 12.0089 16.1784 11.5805 15.9587 11.235C15.6885 10.81 15.2 10.5398 14.3399 10.5398C13.9771 10.5398 13.6053 10.6804 13.243 10.8958C12.879 11.1123 12.5095 11.4134 12.1475 11.7557C11.424 12.4398 10.7086 13.31 10.1047 14.0537L10.1045 14.0539L10.0974 14.0627C9.54309 14.7468 9.05547 15.3486 8.57496 15.8194C8.09281 16.2918 7.63352 16.6159 7.14427 16.7577L7.14426 16.7577L7.14245 16.7582C6.30223 17.0103 5.37808 16.8511 4.67958 16.3295ZM16.2887 15.1019L16.321 14.8126L16.0393 14.8863C14.9275 15.1772 14.1741 15.741 13.6982 16.3174C13.2286 16.8862 13.0199 17.4797 13.0199 17.8398C13.0199 18.1382 13.1612 18.3714 13.3452 18.5256C13.525 18.6762 13.7548 18.7598 13.9599 18.7598C14.8219 18.7598 15.9856 17.8194 16.2887 15.1019Z'
+                  fill={color}
+                  stroke='black'
+                  stroke-width='0.08'
+                />
+              </svg>
+            </StyledSVG>
+          </StyledTypeDiv>
+          <StyledTypeDiv
+            onClick={() => {
+              setTool('eraser');
+            }}
+          >
+            <StyledSVG>
+              <svg
+                width='100'
+                height='100'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M15.6384 16.33C15.6429 16.3255 15.6468 16.3207 15.651 16.3161L20.7166 11.2494C21.1416 10.8245 21.3754 10.2585 21.375 9.65566C21.3746 9.05375 21.1407 8.48906 20.7167 8.06605L16.8946 4.24285C16.4707 3.81922 15.9054 3.58594 15.3029 3.58594C14.7003 3.58594 14.1351 3.8193 13.7114 4.24297L3.2834 14.6692C2.85836 15.0942 2.62453 15.6607 2.625 16.2645C2.62551 16.867 2.85945 17.4318 3.28336 17.8543L5.72836 20.2998C5.73074 20.3022 5.73332 20.3042 5.7357 20.3065C5.7425 20.313 5.74934 20.3195 5.75656 20.3254C5.75977 20.328 5.76324 20.3303 5.76652 20.3328C5.77336 20.3381 5.78016 20.3434 5.78731 20.3482C5.79004 20.3501 5.79297 20.3516 5.7957 20.3533C5.80371 20.3584 5.8118 20.3635 5.8202 20.368C5.82219 20.369 5.82422 20.3699 5.82621 20.3709C5.83555 20.3757 5.84504 20.3803 5.85481 20.3844C5.85609 20.385 5.85742 20.3854 5.85875 20.3859C5.86926 20.3901 5.87984 20.394 5.89074 20.3973C5.89207 20.3977 5.89348 20.398 5.89481 20.3984C5.90559 20.4015 5.91652 20.4044 5.92766 20.4066C5.93086 20.4073 5.9341 20.4075 5.93731 20.4081C5.94664 20.4097 5.95602 20.4114 5.96559 20.4123C5.97848 20.4136 5.99148 20.4143 6.00457 20.4143H11.3917H17.6146C17.8304 20.4143 18.0053 20.2393 18.0053 20.0236C18.0053 19.8079 17.8304 19.633 17.6146 19.633H12.3346L15.6245 16.3425C15.6291 16.3384 15.6339 16.3345 15.6384 16.33ZM11.2299 19.633H6.16641L3.83535 17.3014C3.55895 17.0259 3.40656 16.6574 3.40625 16.2638C3.40594 15.8691 3.55848 15.4989 3.83578 15.2216L8.90707 10.1512L14.8091 16.0532L11.2299 19.633ZM9.45957 9.59879L14.2638 4.79539C14.5399 4.51926 14.9089 4.36715 15.3029 4.36715C15.6968 4.36715 16.066 4.5193 16.3423 4.79535L20.1645 8.61879C20.4411 8.89469 20.5935 9.26305 20.5938 9.65617C20.594 10.0501 20.4415 10.4197 20.1642 10.697L15.3614 15.5007L9.45957 9.59879Z'
+                  fill='black'
+                  stroke='black'
+                  stroke-width='1.2'
+                />
+              </svg>
+            </StyledSVG>
+          </StyledTypeDiv>
+
+          <StyledInput
+            type='color'
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
+          <StyledSlide
+            type='range'
+            min='1'
+            max='50'
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
+          />
+          <StyledP>{size}</StyledP>
+        </ToolContainer>
+      </DivBox>
       <ButtonBox>
         <BackButton onClick={handleBackClick}>
           <SvgBox>
@@ -513,14 +485,24 @@ const Coloring = () => {
 };
 
 const StyledTypeDiv = styled.div`
-  font-size: 2rem;
-  text-align: center;
+  /* font-size: 2rem; */
+  /* text-align: center; */
   width: 8rem;
   height: 8rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   background-color: white;
   border: 0.3rem solid black;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledSVG = styled.div``;
+const StyledP = styled.p`
+  font-size: 2rem;
+  padding: 0;
+  margin: 0;
+  color: white;
 `;
 
 export default Coloring;
