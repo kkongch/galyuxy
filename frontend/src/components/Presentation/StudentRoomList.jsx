@@ -82,7 +82,10 @@ const StudentRoomList = () => {
 
   useEffect(() => {
     const PresentationIdAndRoomList = async () => {
-      const groupId = studentUser.groupId;
+      const groupId = sessionStorage.getItem('groupId');
+      //   테스트용 그룹아이디
+      //   const groupId = studentUser.groupId;
+      console.log('groupId', groupId);
       if (groupId === null) {
         alert('로그인이 필요합니다');
         navigate('/');
