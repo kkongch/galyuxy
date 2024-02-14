@@ -46,6 +46,41 @@ function App() {
     <>
       <React.Fragment>
         <GlobalStyle />
+        {accessToken ? <TeacherNav /> : <StudentNav />}
+        {/* <ClassNav /> */}
+        <Routes>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+          <Route path='/pwfind' element={<FindPasswordPage />} />
+          <Route path='/main' element={<MainPage />} />
+          <Route path='/studentLogin' element={<StudentLoginCameraPage />} />
+          <Route path='/class' element={<ClassPage />} />
+          <Route path='/class/:id' element={<StudentInfoPage />} />
+          <Route path='/heritage' element={<HeritageList />} />
+          <Route path='/heritage/:id' element={<HeritageDetailPage />} />
+          <Route path='/heritage/:id/3d' element={<Heritage3D />} />
+          <Route path='/quiz/workbooklist' element={<WorkBookList />} />
+          <Route path='/presentation' element={<PresentationPage />} />
+          <Route path='/room' element={<RoomPage />} />
+          <Route path='/VideoPage' element={<VideoPage />} />
+          <Route path='/art' element={<ArtPage />} />
+          <Route path='/art/coloring' element={<Coloring />} />
+          <Route path='/art/drawing' element={<DrawingPage />} />
+          <Route path='/quizenter' element={<QuizEnterPage />} />
+          <Route path='/quizsolve/:id/:number' element={<QuizSolve />} />
+          <Route path='/quizfinish' element={<QuizFinish />} />
+          <Route path='/IncorrectNote' element={<IncorrectNote />} />
+          <Route path='/quizlistteacher' element={<QuizListTeacher />} />
+          <Route path='/artCamera' element={<ArtCameraPage />} />
+          <Route
+            path='/quizdetailteacher/:id'
+            element={<QuizDetailTeacher />}
+          />
+          <Route path='/quizresultteacher' element={<QuizResultTeacher />} />
+          <Route path='/quizcreate' element={<QuizCreate />} />
+        </Routes>
+      </React.Fragment>
           {accessToken ? <TeacherNav /> : <StudentNav />}
           {/* <ClassNav /> */}
           <Routes>

@@ -1,8 +1,10 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import Background from 'components/Basic/Background';
 import styled from 'styled-components';
-
+import { getDetailWorkBook, getActiveWorkBook } from 'api/QuizApi';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom/dist';
 const Layout = styled.div`
   display: flex;
   width: 100%;
@@ -20,20 +22,20 @@ const QuizBox = styled.div`
   background: rgba(220, 242, 255, 0.9);
   border-radius: 1.25rem;
   top: 11.06rem;
-  left : 14rem;
+  left: 14rem;
   position: absolute;
   display: flex;
   flex-direction: column;
   /* justify-content: space-around;
   align-items: center; */
-`
+`;
 const OXboxContainer = styled.div`
   display: flex;
   position: relative;
   justify-content: space-around;
   width: 100%;
   margin-top: 5rem;
-`
+`;
 const OXbox = styled.div`
   width: 45rem;
   height: 45rem;
@@ -49,49 +51,60 @@ const OXbox = styled.div`
   justify-content: center;
   transition: border 0.3s;
   &:hover {
-    border: 20px solid var(--sub1, #596FB7);
+    border: 20px solid var(--sub1, #596fb7);
   }
-`
+`;
 const QuestionNumber = styled.div`
   width: 7.5rem;
   height: 7.5rem;
   background: #0f70b7;
-  position: relative;
-  margin-left: 2rem;
-  margin-top: 2rem;
+  /* position: absolute; */
+  display: flex;
   border-radius: 1.25rem;
-`
+  margin-left: 2rem;
+`;
 const QuizNavbar = styled.div`
   width: 26.125rem;
   height: 100%;
   flex-direction: column;
   right: 0;
   background: #fff;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   align-items: center;
   display: flex;
-`
+  position: relative;
+`;
 const QuizName = styled.div`
   width: 22.625rem;
   height: 5.9375rem;
   border-radius: 1.25rem;
   background: rgba(220, 242, 255, 1);
-  position: relative;
+  position: absolute;
+  display: flex;
   margin-top: 4.38rem;
-`
+  color: #000;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-family: 'Noto Sans';
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 400;
+`;
 const Timer = styled.div`
+  top: 10rem;
   font-size: 2rem;
   color: #000;
   margin: 1rem;
-  position: relative;
-`
+  position: absolute;
+`;
 const SubmitButton = styled.button`
   width: 22.5rem;
   height: 7.5rem;
   border-radius: 1.25rem;
   background: #ff5050;
   bottom: 4.37rem;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-size: 3rem;
   font-style: normal;
@@ -99,7 +112,7 @@ const SubmitButton = styled.button`
   line-height: normal;
   margin-top: auto;
   position: absolute;
-`
+`;
 const DirectionButton = styled.button`
   width: 22.5rem;
   height: 7.5rem;
@@ -110,53 +123,110 @@ const DirectionButton = styled.button`
   font-size: 2.375rem;
   font-style: normal;
   font-weight: 700;
-`
+`;
 const BackButton = styled(DirectionButton)`
   margin-left: 4.44rem;
   bottom: 4.37rem;
-`
+`;
 const NextButton = styled(DirectionButton)`
   position: absolute;
   right: 4.44rem;
   bottom: 4.37rem;
-`
+`;
 const ChoiceBox = styled.div`
   background: #fff;
   width: 90rem;
   height: 9.6875rem;
   border-radius: 1.25rem;
   align-items: center;
+  position: relative;
   transition: border 0.3s;
   &:hover {
-    border: 20px solid var(--sub1, #596FB7);
+    border: 20px solid var(--sub1, #596fb7);
   }
-`
+`;
 const QuestionBox = styled.div`
   position: relative;
   width: 100%;
-  height: 55.625rem;
+  height: 53.625rem;
   /* margin-top: 10rem; */
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
   display: flex;
-`
+`;
 const Number = styled.div`
-  color: #0F70B7;
+  color: #0f70b7;
   font-size: 3rem;
   font-style: normal;
   font-weight: 600;
-  left: 3.44rem;
-  top: 50%;
-  transform: translateY(-50%);
-  position: relative;;
-  width: 1.75rem;
-  height: 4.0625rem;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 7rem;
+  height: 100%;
   display: flex;
-`
+`;
+const Selection = styled.div`
+  position: relative;
+  margin-left: 7rem;
+  width: 83rem;
+  height: 100%;
+  align-items: center;
+  color: #000;
+  text-align: center;
+  font-family: 'Noto Sans';
+  font-size: 2.25rem;
+  font-weight: 700;
+`;
+const Header = styled.div`
+  height: 12rem;
+  width: 100%;
+  max-width: 105rem;
+  align-items: center;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+`;
+const TitleBox = styled.div`
+  width: 95.5rem;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  padding: 1rem;
+  color: #000;
+
+  text-align: center;
+  font-family: 'Noto Sans';
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
 const QuizSolve = () => {
   const [timeLeft, setTimeLeft] = useState(120); // 2분을 초 단위로 환산
-
+  const [workbook, setWorkbook] = useState([]);
+  const [title, setTitle] = useState();
+  const params = useParams();
+  const navigate = useNavigate();
+  const fetchWorkbookData = async (params) => {
+    try {
+      const response = await getDetailWorkBook(params);
+      console.log(response.data);
+      setWorkbook(response.data.dataBody);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const fetchActivWorkbookData = async (params) => {
+    try {
+      const response = await getActiveWorkBook(params);
+      console.log(response.data.dataBody);
+      setTitle(response.data.dataBody.workbookTitle);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
     // 타이머가 0이 되면 중지
     if (timeLeft === 0) return;
@@ -169,49 +239,109 @@ const QuizSolve = () => {
     // 컴포넌트 언마운트 또는 업데이트 시 타이머 정리
     return () => clearInterval(timerId);
   }, [timeLeft]); // timeLeft가 변경될 때마다 useEffect 실행
-
+  useEffect(() => {
+    fetchWorkbookData(params.id);
+    fetchActivWorkbookData(params.id);
+    console.log(params.number);
+  }, []);
   // 시간 포맷 변경 (예: 120 -> 02:00)
   const formatTimeLeft = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
+
+  // const renderQuestion = (index) => {
+  //   if (index === 1) {
+  //     return (
+  //       <QuestionBox>
+  //         <OXboxContainer>
+  //           <OXbox style={{ color: '#0f70b7' }}>O</OXbox>
+  //           <OXbox style={{ color: '#f00' }}>X</OXbox>
+  //         </OXboxContainer>
+  //       </QuestionBox>
+  //     );
+  //   } else if (index === 2) {
+  //     const indexArray = [1, 2, 3, 4];
+  //     return (
+  //       <QuestionBox>
+  //         {indexArray.map((number, index) => (
+  //           <ChoiceBox>
+  //             <Number>{number}</Number>
+  //             <Selection>
+  //               {workbook[params.number][`questionChoice${number}`]}
+  //             </Selection>
+  //           </ChoiceBox>
+  //         ))}
+  //       </QuestionBox>
+  //     );
+  //   }
+  // };
+  const questionIndex = parseInt(params.number, 10) - 1;
+  const renderQuestion = () => {
+    // 현재 문제 번호에 해당하는 문제 데이터를 가져옵니다.
+    // params.number는 문자열이므로 정수로 변환
+    const questionData = workbook[questionIndex]; // 문제 데이터
+
+    // questionData가 유효한지 확인
+    if (!questionData) {
+      return <p>문제를 불러올 수 없습니다.</p>;
+    }
+
+    // questionType에 따라 다른 컴포넌트를 렌더링
+    switch (questionData.questionType) {
+      case 1:
+        return (
+          <QuestionBox>
+            <OXboxContainer>
+              <OXbox style={{ color: '#0f70b7' }}>O</OXbox>
+              <OXbox style={{ color: '#f00' }}>X</OXbox>
+            </OXboxContainer>
+          </QuestionBox>
+        );
+      case 2:
+        const indexArray = [1, 2, 3, 4];
+        return (
+          <QuestionBox>
+            {indexArray.map((number, index) => (
+              <ChoiceBox>
+                <Number>{number}</Number>
+                <Selection>
+                  {workbook[params.number - 1][`questionChoice${number}`]}
+                </Selection>
+              </ChoiceBox>
+            ))}
+          </QuestionBox>
+        );
+      default:
+        return <p>지원되지 않는 문제 유형입니다.</p>;
+    }
+  };
+  const HandelNext = () => {
+    navigate(`/quizsolve/${params.id}/${parseInt(params.number, 10) + 1}`);
+  };
   return (
     <Background backgroundImage={QuizMainImage}>
       <Layout>
         <MainContent>
           <QuizBox>
-            <QuestionNumber />
-            <QuestionBox>
-              <ChoiceBox>
-                <Number>1</Number>
-              </ChoiceBox>
-              <ChoiceBox>
-                <Number>2</Number>
-              </ChoiceBox>
-              <ChoiceBox>
-                <Number>3</Number>
-              </ChoiceBox>
-              <ChoiceBox>
-                <Number>4</Number>
-              </ChoiceBox>
-            </QuestionBox>
-            {/* <OXboxContainer>
-              <OXbox style={{color:'#0f70b7'}}>O</OXbox>
-              <OXbox style={{color:'#f00'}}>X</OXbox>
-            </OXboxContainer> */}
+            <Header>
+              <QuestionNumber />
+              <TitleBox>{title}</TitleBox>
+            </Header>
+            {renderQuestion()}
           </QuizBox>
           <BackButton>이전 문제</BackButton>
-          <NextButton>다음 문제</NextButton>
+          <NextButton onClick={HandelNext}>다음 문제</NextButton>
         </MainContent>
         <QuizNavbar>
-          <QuizName />
+          <QuizName>{title}</QuizName>
           <Timer> 제한시간 : {formatTimeLeft(timeLeft)}</Timer>
           <SubmitButton>제출하기</SubmitButton>
         </QuizNavbar>
       </Layout>
     </Background>
-  )
-}
+  );
+};
 
-export default QuizSolve
+export default QuizSolve;
