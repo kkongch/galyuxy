@@ -10,3 +10,8 @@ export const artworkState = atom({
   default: {},
 }); 
 
+export const artworkARState = atom({
+  key: 'artworkAR',
+  default: {},
+}); 
+
