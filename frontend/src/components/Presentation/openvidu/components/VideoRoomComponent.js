@@ -15,8 +15,8 @@ import { styled } from 'styled-components';
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === 'production'
-    ? ''
-    : `${process.env.REACT_APP_BASE_URL}`;
+  ? "http://localhost:8080"
+  : "http://localhost:8080";
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -646,7 +646,9 @@ class VideoRoomComponent extends Component {
         '/connections',
       {},
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          "Authorization": "Basic T1BFTlZJRFVBUFA6TVlfU0VDUkVU", 
+          'Content-Type': 'application/json' },
       }
     );
     return response.data; // 토큰 반환
