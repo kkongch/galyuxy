@@ -61,16 +61,18 @@ const EnterButton = styled.button`
 const QuizEnter = () => {
   const navigate = useNavigate();
   const HandelEnterClick = () => {
-    navigate('/quizsolve');
+    navigate(`/quizsolve/${workbookId}/1`);
   };
   const [workbook, setWorkbook] = useState({});
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState(null);
   const [title, setTitle] = useState();
   const groupId = sessionStorage.getItem('groupId');
+  const [workbookId, setWorkbookId] = useState();
   const fetchActiveWorkBookData = async () => {
     try {
       const response = await getActiveWorkBook(groupId);
+      setWorkbookId(response.data.dataBody.workbookId);
       const formattedStartTime = response.data.dataBody.activeWorkbookStart
         .replace('T', ' ')
         .split('.')[0];
