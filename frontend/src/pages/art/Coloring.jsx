@@ -79,14 +79,14 @@ const ToolContainer = styled.div`
   /* width: 50rem;
   height: 12rem; */
   width: 12rem;
-  height: 50rem;
+  height: 49rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   background-color: #000000ba;
   border-radius: 3.5rem;
-  padding: 5rem 0;
+  padding: 4rem 0;
 `;
 const SvgBox = styled.div`
   display: flex;
@@ -317,10 +317,10 @@ const Coloring = () => {
         >
           <Layer ref={rectLayerRef}>
             <Rect
-              x={270}
-              y={150}
-              width={2000}
-              height={1000}
+              x={330}
+              y={120}
+              width={1900}
+              height={1050}
               fill='white' // 하얀색 배경
               cornerRadius={40}
             />
@@ -336,7 +336,7 @@ const Coloring = () => {
                   // x={window.innerWidth / 2 - (coloringImage?.width ?? 0) / 2}
                   // y={window.innerHeight / 2 - (coloringImage?.height ?? 0) / 2}
                   x={imageX}
-                  y={imageY + 100}
+                  y={imageY - 150}
                 />
               )}
             </Exampleimage>
