@@ -37,6 +37,7 @@ public class ActiveWorkbookController {
         if (activeWorkbookProjectionList.size() >= 1) {
             ActiveWorkbookProjection activeWorkbookProjection = activeWorkbookProjectionList.get(0);
             activeWorkbookDTO = new ActiveWorkbookDTO();
+            activeWorkbookDTO.setWorkbookId(activeWorkbookProjection.getActiveWorkbookId());
             activeWorkbookDTO.setWorkbookTitle(activeWorkbookProjection.getWorkbookTitle());
             activeWorkbookDTO.setActiveWorkbookStart(activeWorkbookProjection.getActiveWorkbookStart());
             activeWorkbookDTO.setActiveWorkbookEnd(activeWorkbookProjection.getActiveWorkbookEnd());
