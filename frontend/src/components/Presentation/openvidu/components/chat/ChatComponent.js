@@ -10,6 +10,7 @@ import './ChatComponent.css'; // 채팅 컴포넌트 스타일
 
 export default class ChatComponent extends Component {
   constructor(props) {
+    console.log('채팅프롭스여깄다', props);
     super(props);
     this.state = {
       messageList: [], // 채팅 메시지 리스트
@@ -83,6 +84,8 @@ export default class ChatComponent extends Component {
   }
 
   render() {
+    const title = this.props.title;
+    console.log('title:', title);
     const styleChat = { display: this.props.chatDisplay }; // 채팅 창 표시 여부
     return (
       <div id='chatContainer'>
@@ -102,7 +105,7 @@ export default class ChatComponent extends Component {
             </IconButton>
           </div>
           <div className='title-box'>
-            <p>이순신 장군과 함께하는 명량해전 이야기</p>
+            <p>{title}</p>
           </div>
 
           {/* 메시지 리스트 */}
