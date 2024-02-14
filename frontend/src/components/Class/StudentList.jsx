@@ -73,6 +73,7 @@ const StudentList = () => {
         navigate('/');
         sessionStorage.setItem('name', student.name);
         sessionStorage.setItem('no', student.no);
+        sessionStorage.setItem('id', student.id);
         setStudentUser({
           groupId: sessionStorage.getItem('groupId'),
           studentId: student.id,
