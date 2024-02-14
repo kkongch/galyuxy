@@ -10,6 +10,8 @@ import { Canvas } from '@react-three/fiber';
 import { styled } from 'styled-components';
 import { useThree } from '@react-three/fiber';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getHeritage } from 'api/HeritageApi';
+import { AmbientLight } from 'three';
 
 const Background = styled.div`
   background-color: black;
@@ -71,32 +73,56 @@ const SvgBox = styled.div`
   height: 4.6875rem;
 `;
 
-// useGLTF 훅을 사용하여 'images/Heritage/poly.glb' 경로의 GLB 모델을 로드합니다.
-// 이 훅은 로드된 모델의 노드와 재질 정보를 반환합니다.
 const Model = (props) => {
-  const { nodes, materials } = useGLTF(process.env.PUBLIC_URL + '/3dpea.gltf');
+  const { nodes, materials } = useGLTF(
+    process.env.PUBLIC_URL + '/goldcrown.gltf'
+  );
+  console.log(useGLTF(process.env.PUBLIC_URL + '/goldcrown.gltf'));
+
+  // const { nodes, materials } = useGLTF(
+  // 'https://galyuxy.s3.ap-northeast-2.amazonaws.com/3d/goldcrown.gltf'
+  // );
 
   // 컴포넌트가 렌더링하는 JSX를 반환합니다.
   // 'group'은 three.js에서 3D 객체를 그룹화하기 위한 컨테이너입니다.
   // 여기서는 모든 전달받은 props를 group 요소에 전달하고, dispose 함수를 null로 설정하여
-  // GLTF 모델이 메모리에서 자동 해제되는 것을 방지합니다.
+
   return (
     <group {...props} dispose={null} scale={[1, 1, 1]}>
-      {/* 'mesh'는 3D 모델의 형상을 렌더링하기 위한 요소입니다.
-            여기서는 로드된 GLB 모델의 첫 번째 메쉬의 geometry와 material을 사용하여 메쉬를 생성합니다. */}
-      <mesh geometry={nodes.mesh_0.geometry} material={nodes.mesh_0.material} />
+      <mesh
+        geometry={nodes.Object_2.geometry}
+        material={nodes.Object_2.material}
+      />
+      <mesh
+        geometry={nodes.Object_3.geometry}
+        material={nodes.Object_3.material}
+      />
+      <mesh
+        geometry={nodes.Object_4.geometry}
+        material={nodes.Object_4.material}
+      />
+      <mesh
+        geometry={nodes.Object_5.geometry}
+        material={nodes.Object_5.material}
+      />
+      <mesh
+        geometry={nodes.Object_6.geometry}
+        material={nodes.Object_6.material}
+      />
+      <mesh
+        geometry={nodes.Object_7.geometry}
+        material={nodes.Object_7.material}
+      />
     </group>
   );
 };
 const CameraController = () => {
   const { camera, gl } = useThree();
-  // 카메라의 위치를 조정하여 모델이 화면 가운데에 오도록 설정
   camera.position.set(0, 0, 5);
   gl.setSize(window.innerWidth, window.innerHeight);
   return null;
 };
 
-// Heritage3D라는 이름의 함수형 컴포넌트를 선언하고, 외부에서 전달받은 props를 사용합니다.
 export default function Heritage3D(props) {
   const params = useParams();
   const navigate = useNavigate();
@@ -117,7 +143,9 @@ export default function Heritage3D(props) {
               zoomSpeed={1}
               target={[0, 0.6, 0]}
             />
-            <ambientLight intensity={0.5} />
+            {/* <axesHelper args={[200, 200, 200]} /> */}
+            <ambientLight intensity={15} />
+            <directionalLight />
             <Suspense fallback={null}>
               {/* 로딩 중에 보여줄 컴포넌트를 fallback에 넣습니다. */}
               <Model props={props} />
@@ -150,4 +178,4 @@ export default function Heritage3D(props) {
 
 // 'useGLTF.preload'를 사용하여 컴포넌트가 마운트되기 전에 'images/Heritage/poly.glb' 모델을 사전 로드합니다.
 // 이렇게 하면 나중에 컴포넌트를 사용할 때 모델이 이미 로드되어 있어 렌더링 속도가 빨라집니다.
-// useGLTF.preload('/3dpea.gltf');
+useGLTF.preload('/goldcrown.gltf');
