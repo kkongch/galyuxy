@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import PresentationModal from './PresentationModal';
 import { getPresentationList, deletePresentation } from 'api/PresentationApi';
-import { teacherDataState } from 'Recoil/UserState';
+import { navToggleState, teacherDataState } from 'Recoil/UserState';
 import { useNavigate } from 'react-router-dom';
 
 const ClassBox = styled.div`
@@ -91,6 +91,7 @@ const PresentationList = () => {
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [presentationIdToDelete, setPresentationIdToDelete] = useState(null);
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
   const navigate = useNavigate();
 
   const handleGetPresentationList = async (groupId) => {
@@ -156,6 +157,7 @@ const PresentationList = () => {
 
     if (groupId) {
       handleGetPresentationList(groupId);
+      setIsOpen(false);
     }
   }, []);
 

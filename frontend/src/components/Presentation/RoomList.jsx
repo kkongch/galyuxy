@@ -1,5 +1,9 @@
 import { roomListState } from 'Recoil/PresentationState';
-import { teacherDataState, userTypeState } from 'Recoil/UserState';
+import {
+  navToggleState,
+  teacherDataState,
+  userTypeState,
+} from 'Recoil/UserState';
 import { deleteRoom, getRoomList } from 'api/RoomApi';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -80,6 +84,7 @@ const RoomList = () => {
   const [roomIdToDelete, setRoomIdToDelete] = useState(null);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
   const navigate = useNavigate();
 
   const handleEnterRoom = (roomSubject, roomId) => {
@@ -139,6 +144,7 @@ const RoomList = () => {
       return;
     }
     handleGetRoomList(presentationId);
+    setIsOpen(false);
   }, []);
 
   useEffect(() => {
