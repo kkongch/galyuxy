@@ -9,7 +9,7 @@ import Gimage from 'assets/images/Geobukseon.PNG';
 import Konva from 'konva';
 import styled from 'styled-components';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
-import Background from 'components/Basic/Background'; 
+import Background from 'components/Basic/Background';
 
 const ButtonBox = styled.div`
   display: flex;
@@ -72,11 +72,16 @@ const Exampleimage = styled.div`
 `;
 const ToolContainer = styled.div`
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 2rem;
+  right: 2rem;
+  /* height: 80%; */
+  width: 40rem;
+  height: 12rem;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: space-around;
+  background-color: #000000;
 `;
 const SvgBox = styled.div`
   display: flex;
@@ -86,34 +91,68 @@ const SvgBox = styled.div`
   height: 4.6875rem;
 `;
 const DrawingTool = styled.div``;
-const StyledSelect = styled.select`
-  height: 40px; // 높이 증가
-  font-size: 16px; // 폰트 크기 증가
-  margin-bottom: 10px; // 아래 요소와의 간격
-  padding: 5px 10px; // 내부 여백 증가
-`;
+
 const remToPixels = (rem) => {
   // 기본 폰트 크기를 가정하여 rem을 px로 변환
   return rem * 16;
 };
 const DescriptionBox = styled.div`
   background-color: #917159;
-  width: ${remToPixels(90)}px;
-  height: ${remToPixels(15.4375)}px;
-  position: absolute; /* Change 'fixed' to 'absolute' */
-  top: ${remToPixels(6.81)}px;
-  margin-bottom: ${remToPixels(4.44)}px;
-  transform: translate(-50%, 0); /* Remove vertical translation */
-  left: 50%; /* Center horizontally */
+  width: 100%;
+  height: 15rem;
+  position: absolute;
+  /* top: ${remToPixels(6.81)}px; */
+  /* margin-bottom: ${remToPixels(4.44)}px; */
+  /* transform: translate(-50%, 0); */
+  /* left: 50%; */
   box-sizing: border-box;
-  border-radius: ${remToPixels(1.25)}px;
+  /* border-radius: ${remToPixels(1.25)}px; */
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 50px;
+  font-size: 4.2rem;
+  color: white;
 `;
+const StyledInput = styled.input`
+  width: 8rem;
+  height: 8rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
 
+  &::-webkit-color-swatch {
+    border-radius: 2rem;
+    border: 0.3rem solid white;
+  }
+`;
+const StyledSlide = styled.input`
+  width: 100%;
+  background: #8d8080;
+  border-radius: 8px;
+  outline: none;
+  /* transition: background 450ms ease-in; */
+  /* -webkit-appearance: none; */
+  accent-color: #ffca1d;
+  height: 100%;
+  border: 2rem solid #ff96ab;
+  cursor: pointer;
+  /* border: 5rem; */
+  /* border-width: 10rem; */
+`;
+const StyledOption = styled.option`
+  font-size: 1rem;
+  width: 2rem;
+`;
+const StyledSelect = styled.select`
+  height: 4rem;
+  width: 20rem;
+  font-size: 3rem; // 폰트 크기 증가
+  /* margin-bottom: 10px; // 아래 요소와의 간격 */
+  /* padding: 5px 10px; // 내부 여백 증가 */
+`;
 const Coloring = () => {
   const [artworkOne, setArtworkOne] = useRecoilState(artworkState);
   const [artworkAR, setArtworkAR] = useRecoilState(artworkARState);
@@ -153,33 +192,35 @@ const Coloring = () => {
   // Rect 크기를 rem 단위에서 px 단위로 설정
   const rectWidth = remToPixels(90); // 90rem을 px로 변환
   const rectHeight = remToPixels(56.25); // 56.25rem을 px로 변환
-  
+
   //artwork 이미지 크기 조정
-  // const artworkWidth = coloringImage ? (coloringImage.width < rectWidth ? coloringImage.width :  coloringImage.width * ((rectWidth-100)/coloringImage.width)) : 0; 
+  // const artworkWidth = coloringImage ? (coloringImage.width < rectWidth ? coloringImage.width :  coloringImage.width * ((rectWidth-100)/coloringImage.width)) : 0;
   // const artworkHeight = coloringImage ? (coloringImage.height < rectHeight ? coloringImage.height :  coloringImage.height * ((rectHeight-100)/coloringImage.height)) : 0;
 
-  const calcArtworkSize = () =>{
-    let newWidth, newHeight = 0;
-    if(!coloringImage) return  { width: 0, height: 0 };
-    if(coloringImage.width > rectWidth-100 || coloringImage.height > rectHeight-100 ){
-      let widthSize = (rectWidth-100)/coloringImage.width;
-      let heightSize = (rectHeight-100)/coloringImage.height;
+  const calcArtworkSize = () => {
+    let newWidth,
+      newHeight = 0;
+    if (!coloringImage) return { width: 0, height: 0 };
+    if (
+      coloringImage.width > rectWidth - 100 ||
+      coloringImage.height > rectHeight - 100
+    ) {
+      let widthSize = (rectWidth - 100) / coloringImage.width;
+      let heightSize = (rectHeight - 100) / coloringImage.height;
 
       let rate = widthSize > heightSize ? heightSize : widthSize;
       newWidth = coloringImage.width * rate;
       newHeight = coloringImage.height * rate;
-    }else{
+    } else {
       newWidth = coloringImage.width;
       newHeight = coloringImage.height;
     }
     return { width: newWidth, height: newHeight };
-  }
-  const {width : artworkWidth, height: artworkHeight} = calcArtworkSize(); 
+  };
+  const { width: artworkWidth, height: artworkHeight } = calcArtworkSize();
 
- 
   const imageX = window.innerWidth / 2 - artworkWidth / 2;
   const imageY = window.innerHeight / 2 - artworkHeight / 2;
-
 
   const rectX = window.innerWidth / 2 - rectWidth / 2;
   const rectY = window.innerHeight / 2 - rectHeight / 2;
@@ -256,56 +297,51 @@ const Coloring = () => {
   //   stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
   // };
 
+  // 이미지를 다운로드할 함수
+  const saveImage = async () => {
+    try {
+      // Rect가 포함된 Layer의 visible 속성을 false로 설정
+      rectLayerRef.current.visible(false);
+      stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
 
- 
+      // 이미지 데이터를 불러옴
+      // const response = await fetch(artworkOne.imageUrl);
+      const response = await fetch(imageSrc);
+      const blob = await response.blob();
 
-// 이미지를 다운로드할 함수
-const saveImage = async () => {
-  try {
-    // Rect가 포함된 Layer의 visible 속성을 false로 설정
-    rectLayerRef.current.visible(false);    
-    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+      // Blob을 파일로 변환
+      const blobUrl = URL.createObjectURL(blob);
+      // setArtworkAR(blobUrl);
+      // console.log("blbo");
+      // console.log(blobUrl);
+      // console.log(artworkAR);
 
-    // 이미지 데이터를 불러옴
-    // const response = await fetch(artworkOne.imageUrl);
-    const response = await fetch(imageSrc);
-    const blob = await response.blob();
+      // Canvas에 그려진 이미지 데이터를 가져옴
+      const canvas = stageRef.current.toCanvas();
+      const canvasDataUrl = canvas.toDataURL();
 
-    // Blob을 파일로 변환
-    const blobUrl = URL.createObjectURL(blob);
-    // setArtworkAR(blobUrl);
-    // console.log("blbo");
-    // console.log(blobUrl);
-    // console.log(artworkAR);
+      // 파일 다운로드 링크 생성
+      const link = document.createElement('a');
+      link.href = canvasDataUrl;
+      link.download = 'image.jpg'; // 다운로드될 파일의 이름
+      document.body.appendChild(link);
 
-    // Canvas에 그려진 이미지 데이터를 가져옴
-    const canvas = stageRef.current.toCanvas();
-    const canvasDataUrl = canvas.toDataURL();
+      // 파일 다운로드
+      link.click();
 
-    // 파일 다운로드 링크 생성
-    const link = document.createElement('a');
-    link.href = canvasDataUrl;
-    link.download = 'image.jpg'; // 다운로드될 파일의 이름
-    document.body.appendChild(link);
+      // artworkAR에 저장
+      setArtworkAR(canvasDataUrl);
 
-    // 파일 다운로드
-    link.click();
+      // 다운로드 후 링크 제거
+      document.body.removeChild(link);
 
-    // artworkAR에 저장    
-    setArtworkAR(canvasDataUrl);
-
-    // 다운로드 후 링크 제거
-    document.body.removeChild(link);
-
-    // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
-    rectLayerRef.current.visible(true);
-    stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
-
-  } catch (error) {
-    console.error('이미지를 다운로드하는 동안 오류가 발생했습니다:', error);
-  }
-};
-
+      // Rect가 포함된 Layer의 visible 속성을 다시 true로 설정하고 Stage를 다시 그림
+      rectLayerRef.current.visible(true);
+      stageRef.current.draw(); // 변경사항 적용을 위해 Stage를 다시 그림
+    } catch (error) {
+      console.error('이미지를 다운로드하는 동안 오류가 발생했습니다:', error);
+    }
+  };
 
   const handleBackClick = () => {
     navigate('/art');
@@ -313,9 +349,11 @@ const saveImage = async () => {
 
   const handleArClick = () => {
     navigate('/artCamera');
-    console.log("arar");
+    console.log('arar');
   };
-  
+
+  const sizes = [10, 20, 30, 40, 50];
+
   return (
     <Background backgroundImage={backgroundImage}>
       <DescriptionBox>{artworkOne.heritageName}</DescriptionBox>
@@ -329,12 +367,12 @@ const saveImage = async () => {
       >
         <Layer ref={rectLayerRef}>
           <Rect
-            x={rectX}
-            y={rectY + 100}
-            width={rectWidth}
-            height={rectHeight}
+            x={450}
+            y={420}
+            width={1700}
+            height={1000}
             fill='white' // 하얀색 배경
-            cornerRadius={50}
+            cornerRadius={40}
           />
         </Layer>
         {/* 배경 이미지용 Layer */}
@@ -343,8 +381,8 @@ const saveImage = async () => {
             {coloringImage && (
               <Image
                 image={coloringImage}
-                width={artworkWidth } // 원본 너비에 배율을 적용
-                height={artworkHeight } // 원본 높이에 배율을 적용
+                width={artworkWidth} // 원본 너비에 배율을 적용
+                height={artworkHeight} // 원본 높이에 배율을 적용
                 // x={window.innerWidth / 2 - (coloringImage?.width ?? 0) / 2}
                 // y={window.innerHeight / 2 - (coloringImage?.height ?? 0) / 2}
                 x={imageX}
@@ -373,15 +411,28 @@ const saveImage = async () => {
         </Layer>
       </Stage>
       <ToolContainer>
-        <select value={tool} onChange={(e) => setTool(e.target.value)}>
-          <option value='pen'>Pen</option>
-          <option value='eraser'>Eraser</option>
-        </select>
-        <input
+        {/* <StyledSelect value={tool} onChange={(e) => setTool(e.target.value)}>
+          <StyledOption value='pen'>Pen</StyledOption>
+          <StyledOption value='eraser'>Eraser</StyledOption>
+        </StyledSelect> */}
+        <StyledTypeDiv
+          onClick={() => {
+            setTool('pen');
+          }}
+        >
+          펜
+        </StyledTypeDiv>
+        <StyledTypeDiv
+          onClick={() => {
+            setTool('eraser');
+          }}
+        >
+          지우개
+        </StyledTypeDiv>
+        <StyledInput
           type='color'
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          style={{ marginLeft: '10px' }}
         />
         <input
           type='range'
@@ -389,8 +440,14 @@ const saveImage = async () => {
           max='50'
           value={size}
           onChange={(e) => setSize(e.target.value)}
-          style={{ marginLeft: '10px' }}
         />
+        {/* 
+        {sizes.map((item) => (
+          <StyledColorDiv
+            key={item}
+            onClick={() => setSize(item)}
+          ></StyledColorDiv>
+        ))} */}
       </ToolContainer>
       <ButtonBox>
         <BackButton onClick={handleBackClick}>
@@ -453,6 +510,17 @@ const saveImage = async () => {
       </ButtonBox>
     </Background>
   );
-}; 
+};
+
+const StyledTypeDiv = styled.div`
+  font-size: 2rem;
+  text-align: center;
+  width: 8rem;
+  height: 8rem;
+  margin-bottom: 1rem;
+  background-color: white;
+  border: 0.3rem solid black;
+  border-radius: 50%;
+`;
 
 export default Coloring;
