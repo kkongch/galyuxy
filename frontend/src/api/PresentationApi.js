@@ -30,6 +30,7 @@ export const createPresentation = async (presentationData) => {
   try {
     const response = await api.post('/presentation', presentationData, {
       headers: {
+        "Authorization": "Basic T1BFTlZJRFVBUFA6TVlfU0VDUkVU",
         'Content-Type': 'application/json',
       },
     });

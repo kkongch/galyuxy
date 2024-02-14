@@ -5,9 +5,9 @@ import TextImage from 'assets/images/Quiz/textimage.png';
 import TimeImage from 'assets/images/Quiz/timeimage1.png';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom/dist';
-import { isWorkbookState } from 'Recoil/QuizState';
+import { isWorkbookStartState } from 'Recoil/QuizState';
 import { useRecoilValue } from 'recoil';
-import { getWorkBook } from 'api/QuizApi';
+import { getActiveWorkBook } from 'api/QuizApi';
 const TextBox = styled.div`
   top: 10.56rem;
   position: absolute;
@@ -63,25 +63,40 @@ const QuizEnter = () => {
   const HandelEnterClick = () => {
     navigate('/quizsolve');
   };
-  const workbook = useRecoilValue(isWorkbookState);
-  const [title, setTitle] = useState('');
-  const fetchData = async () => {
+  const [workbook, setWorkbook] = useState({});
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState(null);
+  const [title, setTitle] = useState();
+  const groupId = sessionStorage.getItem('groupId');
+  const fetchActiveWorkBookData = async () => {
     try {
-      const response = await getWorkBook(workbook.workbook_id);
-      setTitle(response.dataBody.workbookRes.workbookTitle);
+      const response = await getActiveWorkBook(groupId);
+      const formattedStartTime = response.data.dataBody.activeWorkbookStart
+        .replace('T', ' ')
+        .split('.')[0];
+      const formattedEndTime = response.data.dataBody.activeWorkbookEnd
+        .replace('T', ' ')
+        .split('.')[0];
+      setStartTime(formattedStartTime);
+      setEndTime(formattedEndTime);
+      console.log(startTime);
+      setWorkbook(response.data.dataBody);
+      setTitle(response.data.dataBody.workbookTitle);
+      // console.log(response.data.dataBody.activeWorkbookStart);
     } catch (e) {
       console.log(e);
     }
   };
+
   useEffect(() => {
-    fetchData();
+    fetchActiveWorkBookData();
   }, []);
+
   return (
     <Background backgroundImage={QuizMainImage}>
       <TextBox>{title}</TextBox>
       <TimeBox>
-        Quiz 접근 시간 : {workbook.active_workbook_start}~
-        {workbook.active_workbook_end}
+        {startTime}~{endTime}
       </TimeBox>
       <Comment>'입장하기' 버튼을 클릭하면 Quiz가 시작됩니다.</Comment>
       <EnterButton onClick={HandelEnterClick}>입장하기</EnterButton>

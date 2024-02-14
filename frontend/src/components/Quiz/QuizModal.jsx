@@ -4,13 +4,16 @@ import styled from 'styled-components';
 import {
   isAddModalOpenState,
   isQuizStartState,
-  isWorkbookState,
+  isWorkbookStartState,
 } from 'Recoil/QuizState';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { getQuizStart } from 'api/QuizApi';
+import { putQuizStart } from 'api/QuizApi';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router';
+import { getDetailWorkBook } from 'api/QuizApi';
+import { useParams } from 'react-router-dom';
 const ModalDiv = styled.div`
   width: 100vw;
   height: 100%;
@@ -158,7 +161,19 @@ export const QuizModal = () => {
   const handleCancel = () => {
     setIsAddModalOpen(!isAddModalOpen);
   };
+  const params = useParams();
+  const navigate = useNavigate();
   const [quizStart, setQuizStart] = useRecoilState(isQuizStartState);
+  const [workbook, setWorkbook] = useState({});
+  const fetchWorkbookData = async () => {
+    try {
+      const response = await getDetailWorkBook(params.id);
+      setWorkbook(response.data.dataBody);
+      console.log(response.data.dataBody);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const handleStart = async () => {
     if (
       selectedDate &&
@@ -167,52 +182,56 @@ export const QuizModal = () => {
       endTime.hour.trim() !== '' &&
       endTime.minute.trim() !== ''
     ) {
-      const formattedStartDate = new Date(
-        selectedDate.setHours(
-          parseInt(startTime.hour, 10),
-          parseInt(startTime.minute, 10)
-        )
-      );
-      const formattedEndDate = new Date(
-        selectedDate.setHours(
-          parseInt(endTime.hour, 10),
-          parseInt(endTime.minute, 10)
-        )
-      );
-      const startDateTime = format(formattedStartDate, 'yyyy-MM-dd HH:mm:ss');
-      const endDateTime = format(formattedEndDate, 'yyyy-MM-dd HH:mm:ss');
+      const startDate = new Date(selectedDate);
+      const endDate = new Date(selectedDate);
 
-      setWorkbookData({
-        ...workbookData,
-        group_id: 5,
-        workbook_id: 1,
-        runtime: 5,
-        active_workbook_start: startDateTime,
-        active_workbook_end: endDateTime,
-      });
+      startDate.setHours(
+        parseInt(startTime.hour, 10),
+        parseInt(startTime.minute, 10)
+      );
+      endDate.setHours(
+        parseInt(endTime.hour, 10),
+        parseInt(endTime.minute, 10)
+      );
 
-      await getQuizStart(workbookData);
-      setQuizStart(!quizStart);
+      const startDateTime = format(startDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+      const endDateTime = format(endDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+      const updatedWorkbookData = {
+        groupId: sessionStorage.getItem('groupId'),
+        workbookId: 1,
+        activeWorkbookStart: startDateTime,
+        activeWorkbookEnd: endDateTime,
+      };
+
+      const response = await putQuizStart(updatedWorkbookData);
+      console.log(response);
+      if (response) {
+        setWorkbookData(updatedWorkbookData);
+        setQuizStart(true);
+      }
     } else {
       alert('모든 필드를 올바르게 입력해주세요.');
     }
+    navigate('/quizenter');
   };
 
-  const [workbookData, setWorkbookData] = useRecoilState(isWorkbookState);
-
+  const [workbookData, setWorkbookData] = useRecoilState(isWorkbookStartState);
   const [startTime, setStartTime] = useState({ hour: '', minute: '' });
   const [endTime, setEndTime] = useState({ hour: '', minute: '' });
-
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+  useEffect(() => {
+    console.log(workbookData);
+  }, [workbookData]);
   return (
     <ModalDiv>
       <ModalBox>
         <ClassNameBox>
           <Title>
-            <p>"고조선 퀴즈"를 시작하시겠습니까?</p>
+            <p>"{}"를 시작하시겠습니까?</p>
           </Title>
         </ClassNameBox>
         <MainBox>

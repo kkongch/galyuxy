@@ -41,7 +41,13 @@ export const createRoom = async (roomData) => {
 
 export const createRoomSession = async () => {
   try {
-    const response = await api.post(`/openvidu/sessions`);
+    const response = await api.post(`/openvidu/sessions`, 
+    {
+      headers: {
+        "Authorization": "Basic T1BFTlZJRFVBUFA6TVlfU0VDUkVU",
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error createRoomSession: ', error);
@@ -52,7 +58,13 @@ export const createRoomSession = async () => {
 export const createRoomConnection = async (sessionId) => {
   try {
     const response = await api.post(
-      `/openvidu/sessions/${sessionId}/connections`
+      `/openvidu/sessions/${sessionId}/connections`,
+      {
+        headers: {
+          "Authorization": "Basic T1BFTlZJRFVBUFA6TVlfU0VDUkVU",
+          'Content-Type': 'application/json',
+        },
+      }
     );
     return response.data;
   } catch (error) {
