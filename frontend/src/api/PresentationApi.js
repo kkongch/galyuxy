@@ -52,7 +52,7 @@ export const updatePresentation = async (presentationId, newData) => {
 
 export const activatePresentation = async (presentationId) => {
   try {
-    console.log('액티브성공', presentationId);
+    console.log('activate', presentationId);
     const response = await api.put(`/presentation/${presentationId}/activate`);
   } catch (error) {
     console.error('Error activePresentation:', error);
@@ -62,10 +62,27 @@ export const activatePresentation = async (presentationId) => {
 
 export const deactivatePresentation = async (presentationId) => {
   try {
-    console.log('디액티브성공', presentationId);
+    console.log('deactivate', presentationId);
     const response = await api.put(
       `/presentation/${presentationId}/deactivate`
     );
+  } catch (error) {
+    console.error('Error deactivatePresentation:', error);
+    throw error;
+  }
+};
+
+export const activePresentation = async (groupId) => {
+  try {
+    console.log('groupId:', groupId);
+    const response = await api.get(`/presentation/active/${groupId}`);
+    console.log('response', response);
+
+    if (response.data.dataBody === null) {
+      return null;
+    } else {
+      return response.data.dataBody.presentationId;
+    }
   } catch (error) {
     console.error('Error deactivatePresentation:', error);
     throw error;

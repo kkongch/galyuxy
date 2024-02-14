@@ -12,6 +12,7 @@ import {
   activatePresentation,
   deactivatePresentation,
 } from 'api/PresentationApi';
+import StudentRoomList from 'components/Presentation/StudentRoomList';
 
 const MainBox = styled.main`
   height: 100vh;
@@ -157,9 +158,15 @@ const RoomPage = () => {
             )}
           </TopOfBoardBox>
 
-          <BoardBackgroundOuter>
-            <RoomList />
-          </BoardBackgroundOuter>
+          {sessionStorage.getItem('accessToken') ? (
+            <BoardBackgroundOuter>
+              <RoomList />
+            </BoardBackgroundOuter>
+          ) : (
+            <BoardBackgroundOuter>
+              <StudentRoomList />
+            </BoardBackgroundOuter>
+          )}
         </ClassBox>
       </MainBox>
     </Background>
