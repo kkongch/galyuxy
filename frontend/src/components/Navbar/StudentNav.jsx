@@ -6,6 +6,8 @@ import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
 import { navToggleState } from 'Recoil/UserState';
+import profile from 'assets/images/kingProfile.png';
+
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -171,7 +173,7 @@ const SubMenuItem = styled(Link)`
   line-height: normal;
   text-decoration: none;
 `;
-const StudentDinoImage = styled.div`
+const StudentProfile = styled.img`
   background-color: beige;
   height: 180px;
   width: 250px;
@@ -220,6 +222,7 @@ const StudentNav = () => {
     sessionStorage.removeItem('groupId');
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('no');
+    sessionStorage.removeItem('id');
     setIsOpen(false);
 
     navigate('/login');
@@ -244,7 +247,7 @@ const StudentNav = () => {
               <NoDataMessage>로그인 후 이용해 주세요</NoDataMessage>
             </Overlay>
           )}
-          <StudentDinoImage />
+          <StudentProfile src={profile} />
           <UserInfo>
             <UserName>{sessionStorage.getItem('name') || '김싸피'}</UserName>
             <UserType>{sessionStorage.getItem('no') || 999}번</UserType>
