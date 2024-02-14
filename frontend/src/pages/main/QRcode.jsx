@@ -12,7 +12,7 @@ import styled from 'styled-components';
 // `
 
 const QRcode = ({ id, onClick, size }) => {
-  const QRvalue = `localhost:3000/class/${id}`;
+  const QRvalue = `${process.env.REACT_APP_BASE_URL_CLIENT}/class/${id}`;
   return <QRCodeCanvas value={QRvalue} onClick={onClick} size={size} />;
 };
 
