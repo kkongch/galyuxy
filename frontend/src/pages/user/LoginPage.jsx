@@ -1,4 +1,9 @@
-import { loginState, teacherDataState, userTypeState } from 'Recoil/UserState';
+import {
+  loginState,
+  navToggleState,
+  teacherDataState,
+  userTypeState,
+} from 'Recoil/UserState';
 import { getTeacherInfo, teacherLogin } from 'api/UserApi';
 import Background from 'components/Basic/Background';
 import StyledInput from 'components/User/StyledInput';
@@ -90,16 +95,16 @@ const StudentLoginButton = styled.div`
   justify-content: center;
   align-items: center;
   width: 35rem;
-  height: 35rem; 
+  height: 35rem;
   cursor: pointer;
 `;
- 
 
 const LoginPage = () => {
   const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
   const [login, setLogin] = useRecoilState(loginState);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -154,6 +159,10 @@ const LoginPage = () => {
     navigate('/studentLogin');
   };
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
     <Background backgroundImage={background}>
       <FlexBox>
@@ -197,8 +206,9 @@ const LoginPage = () => {
               <Title>
                 <p>학생 로그인</p>
               </Title>
-              <StudentLoginButton onClick={handleStudentLoginCamera}> 
-              </StudentLoginButton>
+              <StudentLoginButton
+                onClick={handleStudentLoginCamera}
+              ></StudentLoginButton>
             </UserLogin>
           </LoginBox>
         </MainBox>
