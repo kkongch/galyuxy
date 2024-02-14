@@ -16,7 +16,7 @@ import LoginPage from 'pages/user/LoginPage';
 import SignUpPage from 'pages/user/SignUpPage';
 import FindPasswordPage from 'pages/user/FindPasswordPage';
 import QuizEnterPage from 'pages/quiz/QuizEnter';
-import VideoPage from 'pages/presentation/VideoPage'; 
+import VideoPage from 'pages/presentation/VideoPage';
 import StudentNav from 'components/Navbar/StudentNav';
 import QuizSolve from 'pages/quiz/QuizSolve';
 import QuizFinish from 'pages/quiz/QuizFinish';
@@ -26,7 +26,7 @@ import StudentLoginCameraPage from 'pages/user/StudentLoginCamera';
 import ArtCameraPage from 'pages/art/ArtCamera';
 import StudentInfoPage from 'pages/class/StudentInfoPage';
 import { loginState } from 'Recoil/UserState';
-import { useRecoilState } from 'recoil'; 
+import { useRecoilState } from 'recoil';
 import QuizDetailTeacher from 'pages/quiz/teacher/QuizDetailTeacher';
 import QuizResultTeacher from 'pages/quiz/teacher/QuizResultTeacher';
 import QuizCreate from 'pages/quiz/QuizCreate';
@@ -76,7 +76,6 @@ function App() {
             <Route path='/quizdetailteacher' element={<QuizDetailTeacher />} />
             <Route path='/quizresultteacher' element={<QuizResultTeacher />} />
             <Route path='/quizcreate' element={<QuizCreate />} />
-            <Route path='/test' element={<TestPage />} />
           </Routes>
         </React.Fragment>
     </>

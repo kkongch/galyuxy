@@ -1,7 +1,12 @@
 import axios from 'axios';
+const baseURL = process.env.REACT_APP_BASE_URL;
+
+const api = axios.create({
+  baseURL,
+});
 export async function getHeritage() {
   try {
-    const response = await axios.get('http://i10c206.p.ssafy.io:8080/heritage');
+    const response = await axios.get('/heritage');
     // const response = await axios.get(`http://localhost:8080/api/heritage`);
     return response;
   } catch (e) {
@@ -11,7 +16,7 @@ export async function getHeritage() {
 
 export const getHeritageList = async (presentationId) => {
   try {
-    const response = await axios.get(`http://i10c206.p.ssafy.io:8080/heritage`);
+    const response = await axios.get(`/heritage`);
     // const response = await axios.get(`http://localhost:8080/api/heritage`);
     return response.data;
   } catch (error) {
@@ -23,7 +28,7 @@ export const getHeritageList = async (presentationId) => {
 export const getEraList = async () => {
   try {
     // const response = await axios.get(`http://i10c206.p.ssafy.io:8080/era`);
-    const response = await axios.get(`http://localhost:8080/era`);
+    const response = await axios.get(`/era`);
     return response.data.dataBody;
   } catch (error) {
     console.error('Error getEraList: ', error);

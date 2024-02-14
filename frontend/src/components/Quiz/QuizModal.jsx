@@ -167,36 +167,23 @@ export const QuizModal = () => {
       endTime.hour.trim() !== '' &&
       endTime.minute.trim() !== ''
     ) {
-      const formattedStartDate = new Date(
-        selectedDate.setHours(
-          parseInt(startTime.hour, 10),
-          parseInt(startTime.minute, 10)
-        )
+      const startDate = new Date(selectedDate);
+      const endDate = new Date(selectedDate);
+
+      startDate.setHours(
+        parseInt(startTime.hour, 10),
+        parseInt(startTime.minute, 10)
       );
-      const formattedEndDate = new Date(
-        selectedDate.setHours(
-          parseInt(endTime.hour, 10),
-          parseInt(endTime.minute, 10)
-        )
+      endDate.setHours(
+        parseInt(endTime.hour, 10),
+        parseInt(endTime.minute, 10)
       );
-      const startDateTime = formattedStartDate.toISOString();
-      const endDateTime = formattedEndDate.toISOString();
-      //   const groupId = sessionStorage.getItem('groupId');
-      //   console.log(groupId);
-      //   setWorkbookData({
-      //     groupId: groupId,
-      //     workbookId: 1,
-      //     activeWorkbookStart: startDateTime,
-      //     activeWorkbookEnd: endDateTime,
-      //   });
-      //   console.log(workbookData);
-      //   await getQuizStart(workbookData);
-      //   setQuizStart(!quizStart);
-      // } else {
-      //   alert('모든 필드를 올바르게 입력해주세요.');
-      // }
+
+      const startDateTime = format(startDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+      const endDateTime = format(endDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+
       const updatedWorkbookData = {
-        groupId: sessionStorage.getItem('groupId'), // groupId를 sessionStorage에서 가져옴
+        groupId: sessionStorage.getItem('groupId'),
         workbookId: 1,
         activeWorkbookStart: startDateTime,
         activeWorkbookEnd: endDateTime,
@@ -205,9 +192,8 @@ export const QuizModal = () => {
       const response = await putQuizStart(updatedWorkbookData);
       console.log(response);
       if (response) {
-        // 응답 성공 여부에 따라 조건을 적절히 조정\
         setWorkbookData(updatedWorkbookData);
-        setQuizStart(true); // 퀴즈 시작 상태를 true로 설정
+        setQuizStart(true);
       }
     } else {
       alert('모든 필드를 올바르게 입력해주세요.');
@@ -221,9 +207,9 @@ export const QuizModal = () => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-  useEffect(()=>{
-    console.log(workbookData)
-  },[workbookData])
+  useEffect(() => {
+    console.log(workbookData);
+  }, [workbookData]);
   return (
     <ModalDiv>
       <ModalBox>
