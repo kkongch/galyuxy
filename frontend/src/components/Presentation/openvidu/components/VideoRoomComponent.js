@@ -13,10 +13,19 @@ import ToolbarComponent from './toolbar/ToolbarComponent';
 import { styled } from 'styled-components';
 
 var localUser = new UserModel();
+
+const baseURL = process.env.REACT_APP_BASE_URL;
+
+
+// const APPLICATION_SERVER_URL =
+//   process.env.NODE_ENV === 'production'
+//   ? "http://localhost:8080"
+//   : "http://localhost:8080";
+
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === 'production'
-  ? "http://localhost:8080"
-  : "http://localhost:8080";
+  ? "http://i10c206.p.ssafy.io:8080"
+  : "http://i10c206.p.ssafy.io:8080";
 
 class VideoRoomComponent extends Component {
   constructor(props) {
