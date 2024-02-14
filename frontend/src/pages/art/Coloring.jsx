@@ -58,6 +58,7 @@ const SaveButton = styled.div`
 `;
 const ARbutton = styled.div`
   margin-left: 3.06rem;
+  font-weight: 700;
   cursor: pointer;
 `;
 const Exampleimage = styled.div`
