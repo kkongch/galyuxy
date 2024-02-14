@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import heritageDetailImage from 'assets/images/Heritage/문화유산상세배경.png';
 import Background from 'components/Basic/Background';
 import StarsImage from 'assets/images/stars.png';
-import HExample1Image from 'assets/images/HExample1.png';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { heritageListState, heritageState } from 'Recoil/HeritageState';
-import { selectedHeritageIdState } from 'Recoil/SelectedHeritageIdState';
+import { useRecoilState } from 'recoil';
+import { heritageState } from 'Recoil/HeritageState';
+import { getHeritage } from 'api/HeritageApi';
 
 const MainBox = styled.main`
   display: flex;
@@ -51,7 +50,7 @@ const FrameInner = styled.div`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 const HeritageImage = styled.img`
-  width: auto;
+  max-width: 72.25rem;
   height: 41.44125rem;
 `;
 const InfoBox = styled.div`
@@ -140,30 +139,30 @@ const SvgBox = styled.div`
 
 const HeritageDetailPage = () => {
   const navigate = useNavigate();
-  const selectedHeritageId = useRecoilValue(selectedHeritageIdState);
-  // const heritageData = useRecoilValue(heritageState);
+  const params = useParams();
+
   const [heritage, setHeritage] = useRecoilState(heritageState);
-  const [heritageList, setHeritageList] = useRecoilState(heritageListState);
-  // console.log(heritageData);
-  // const heritageDetail = heritageData.find(
-  //   (item) => item.heritageId.toString() === heritageId
-  // );
-  // console.log(heritageDetail);
+
+  const handleGetHeritage = async (heritageId) => {
+    try {
+      const item = await getHeritage(heritageId);
+      setHeritage(item.dataBody);
+
+      console.log(item);
+    } catch (error) {
+      console.error('Error handleGetClassList: ', error);
+    }
+  };
 
   useEffect(() => {
-    const heritageDetail = heritageList.find(
-      (item) => item.heritageId === selectedHeritageId
-    );
-    console.log(heritageDetail);
-
-    setHeritage(heritageDetail);
+    handleGetHeritage(params.id);
   }, []);
 
   const handleBackClick = () => {
-    navigate('/heritage')
+    navigate(-1);
   };
   const handleThreeDClick = () => {
-    navigate(`/heritage/${heritage.heritageId}/3d`)
+    navigate(`/heritage/${params.id}/3d`);
   };
 
   return (

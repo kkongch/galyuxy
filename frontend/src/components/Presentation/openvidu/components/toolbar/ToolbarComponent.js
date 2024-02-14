@@ -75,14 +75,6 @@ class ToolbarComponent extends Component {
     return (
       <AppBar className='toolbar' id='header'>
         <Toolbar className='toolbar'>
-          <div id='navSessionInfo'>
-            {this.props.sessionId && (
-              <div id='titleContent'>
-                <span id='session-title'>{mySessionId}</span>
-              </div>
-            )}
-          </div>
-
           <div className='buttonsContent'>
             {/* 마이크 및 비디오 상태, 화면 공유, 카메라 전환, 풀스크린 토글, 세션 나가기, 채팅 토글 버튼 */}
             <div className='videoradiusBox' onClick={this.camStatusChanged}>

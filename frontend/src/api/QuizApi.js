@@ -1,10 +1,11 @@
 import axios from 'axios';
-
+const baseURL = process.env.REACT_APP_BASE_URL;
+const api = axios.create({
+  baseURL,
+});
 export async function getQuizList() {
   try {
-    const response = await axios.get(
-      'http://i10c206.p.ssafy.io:8080/quiz/question'
-    );
+    const response = await api.get('/quiz/question');
     return response;
   } catch (e) {
     console.log(e);
@@ -13,10 +14,7 @@ export async function getQuizList() {
 
 export async function putQuizStart(data) {
   try {
-    const response = await axios.put(
-      'http://i10c206.p.ssafy.io:8080/quiz/activeWorkbook/start',
-      data
-    );
+    const response = await api.put('/quiz/activeWorkbook/start', data);
     console.log(response);
 
     return response;
@@ -27,9 +25,7 @@ export async function putQuizStart(data) {
 
 export const getActiveWorkBook = async (groupId) => {
   try {
-    const response = await axios.get(
-      `http://i10c206.p.ssafy.io:8080/quiz/activeWorkbook/${groupId}`
-    );
+    const response = await api.get(`/quiz/activeWorkbook/${groupId}`);
     return response;
   } catch (e) {
     console.log(e);
@@ -38,22 +34,18 @@ export const getActiveWorkBook = async (groupId) => {
 
 export const getWorkBook = async () => {
   try {
-    const response = await axios.get(
-      'http://i10c206.p.ssafy.io:8080/quiz/workbook'
-    );
+    const response = await api.get('/quiz/workbook');
     return response;
   } catch (e) {
     console.log(e);
   }
 };
 
-// export const getQuizStart = async (groupId) => {
-//   try {
-//     const response = await axios.get(
-//       `http://i10c206.p.ssafy.io:8080/quiz/activeWorkbook/${groupId}`
-//     );
-//     return response;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
+export const getDetailWorkBook = async (workbookId) => {
+  try {
+    const response = await api.get(`/quiz/workbook/${workbookId}/questions`);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};

@@ -6,6 +6,8 @@ import { ReactComponent as ArrowSimpleImage } from 'assets/svg/arrowsimple.svg';
 import QRmodal from './QRmodal';
 import { useRecoilState } from 'recoil';
 import { navToggleState } from 'Recoil/UserState';
+import profile from 'assets/images/kingProfile.png';
+
 const NavContainer = styled.nav`
   position: absolute;
   height: 100%;
@@ -22,6 +24,8 @@ const NavContainer = styled.nav`
   background: rgba(255, 255, 255, 0.53);
   backdrop-filter: blur(7.800000190734863px);
   position: fixed;
+
+  z-index: 8;
 `;
 const ToggleButton = styled.button`
   position: fixed;
@@ -169,7 +173,7 @@ const SubMenuItem = styled(Link)`
   line-height: normal;
   text-decoration: none;
 `;
-const StudentDinoImage = styled.div`
+const StudentProfile = styled.img`
   background-color: beige;
   height: 180px;
   width: 250px;
@@ -195,7 +199,6 @@ const StudentNav = () => {
     theater: false,
     quiz: false,
   });
-   
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -203,9 +206,9 @@ const StudentNav = () => {
 
   const toggleSubmenu = (menu) => {
     setOpenMenu((prevMenu) => ({
-        ...prevMenu,
-        [menu]: !prevMenu[menu],
-      }));
+      ...prevMenu,
+      [menu]: !prevMenu[menu],
+    }));
   };
 
   const [checkModal, setCheckModal] = useState(false);
@@ -219,6 +222,7 @@ const StudentNav = () => {
     sessionStorage.removeItem('groupId');
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('no');
+    sessionStorage.removeItem('id');
     setIsOpen(false);
 
     navigate('/login');
@@ -243,7 +247,7 @@ const StudentNav = () => {
               <NoDataMessage>로그인 후 이용해 주세요</NoDataMessage>
             </Overlay>
           )}
-          <StudentDinoImage />
+          <StudentProfile src={profile} />
           <UserInfo>
             <UserName>{sessionStorage.getItem('name') || '김싸피'}</UserName>
             <UserType>{sessionStorage.getItem('no') || 999}번</UserType>
@@ -261,7 +265,7 @@ const StudentNav = () => {
         </Profile>
         <MenuText>
           <Menu to='/heritage'>문화유산 관람</Menu>
-          <hr />          
+          <hr />
           <Menu to='/art'>미술 활동</Menu>
           {/* <Menu onClick={() => toggleSubmenu('art')}>
             미술 활동
