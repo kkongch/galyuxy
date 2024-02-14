@@ -159,7 +159,7 @@ const HeritageDetailPage = () => {
   }, []);
 
   const handleBackClick = () => {
-    navigate('/heritage');
+    navigate(-1);
   };
   const handleThreeDClick = () => {
     navigate(`/heritage/${params.id}/3d`);
