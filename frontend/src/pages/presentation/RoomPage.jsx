@@ -7,7 +7,12 @@ import Background from 'components/Basic/Background';
 import RoomList from 'components/Presentation/RoomList';
 import { roomListState } from 'Recoil/PresentationState';
 import RoomModal from 'components/Presentation/RoomModal';
-import { userTypeState } from 'Recoil/UserState';
+import { teacherDataState, userTypeState } from 'Recoil/UserState';
+import {
+  activatePresentation,
+  deactivatePresentation,
+} from 'api/PresentationApi';
+import StudentRoomList from 'components/Presentation/StudentRoomList';
 
 const MainBox = styled.main`
   height: 100vh;
@@ -90,13 +95,34 @@ const RoomPage = () => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isAddModalOpenState);
   const userType = useRecoilValue(userTypeState);
   const [isRunning, setIsRunning] = useState(false);
+  const [teacherData, setTeacherData] = useRecoilState(teacherDataState);
+
+  const presentationId = teacherData.presentationId;
+
+  console.log('presentationId:', presentationId);
 
   const handleAddClassClick = () => {
     setIsModalOpen(true);
   };
 
-  const handleButtonClick = () => {
-    setIsRunning(!isRunning);
+  const handleButtonClick = async () => {
+    if (!isRunning) {
+      console.log('발표활성화요청');
+      try {
+        activatePresentation(presentationId);
+        setIsRunning(true);
+      } catch (error) {
+        console.error('발표 활성화 실패:', error);
+      }
+    } else {
+      console.log('발표비활성화');
+      try {
+        deactivatePresentation(presentationId);
+        setIsRunning(false);
+      } catch (error) {
+        console.error('발표 비활성화 실패:', error);
+      }
+    }
   };
 
   return (
@@ -132,9 +158,15 @@ const RoomPage = () => {
             )}
           </TopOfBoardBox>
 
-          <BoardBackgroundOuter>
-            <RoomList />
-          </BoardBackgroundOuter>
+          {sessionStorage.getItem('accessToken') ? (
+            <BoardBackgroundOuter>
+              <RoomList />
+            </BoardBackgroundOuter>
+          ) : (
+            <BoardBackgroundOuter>
+              <StudentRoomList />
+            </BoardBackgroundOuter>
+          )}
         </ClassBox>
       </MainBox>
     </Background>

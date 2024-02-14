@@ -7,15 +7,17 @@ import FlipPage from 'react-pageflip';
 import backgroundImage from 'assets/images/Art/artbackgroundimage.png';
 import Background from 'components/Basic/Background';
 import Logo from 'assets/images/Logo.png';
-import Fullname from 'assets/svg/main/fullname.svg'; 
+import Fullname from 'assets/svg/main/fullname.svg';
 import { useNavigate } from 'react-router-dom';
-import { getArtworkList } from 'api/ArtworkApi'; 
-import { getEraList } from 'api/HeritageApi'; 
+import { getArtworkList } from 'api/ArtworkApi';
+import { getEraList } from 'api/HeritageApi';
+import { navToggleState } from 'Recoil/UserState';
 
 const PageContent = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   width: 100%;
   height: 100%;
   background-color: rgb(226, 223, 204);
@@ -23,7 +25,7 @@ const PageContent = styled.div`
   box-shadow: inset 0 0 50px 10px rgba(0, 0, 0, 0.5);
   font-size: large;
   color: black;
-`; 
+`;
 
 const PageCoverStyle = styled.div`
   display: flex;
@@ -41,7 +43,7 @@ const PageCoverStyle = styled.div`
 `;
 const TextBox = styled.span`
   display: flex;
-  align-self: flex-start; 
+  align-self: flex-start;
   margin: 2rem 2rem 0.5rem;
 `;
 const Text1 = styled.span`
@@ -65,19 +67,24 @@ const BookContainer = styled.div`
 `;
 
 const PhotoGrid = styled.div`
-  height: 90%;
+  /* height: 90%; */
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 20px;
+  /* align-items: center; */
   flex-wrap: wrap;
   z-index: 0;
 `;
 
 const Photo = styled.img`
-  width: 25%;
-  object-fit: cover;
-  margin: 3% 6%;
+  width: 45%;
+  /* height: auto;   */
+  height: auto;
+  margin: 10px; /* 사진 사이의 간격을 조정합니다. */
+  object-fit: contain;
+  /* margin: 3% 6%; */
   cursor: pointer;
+  aspect-ratio: 1;
   z-index: 1;
 
   &:active {
@@ -86,6 +93,7 @@ const Photo = styled.img`
     color: white;
   }
 `;
+
 const FirstLogo = styled.img`
   display: flex;
   justify-content: center;
@@ -102,7 +110,8 @@ const ArtPage = () => {
   const [artworkList, setArtworkList] = useRecoilState(artworkListState);
   const [artworkOne, setArtworkOne] = useRecoilState(artworkState);
   const [eraList, setEraList] = useRecoilState(eraListState);
- 
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
+
   const navigate = useNavigate();
   const flipBookRef = useRef(null);
 
@@ -137,8 +146,7 @@ const ArtPage = () => {
     }
   }
 
-  const handleGetArtworkList = async () => { 
-
+  const handleGetArtworkList = async () => {
     try {
       const list = await getArtworkList();
       setArtworkList(list);
@@ -150,9 +158,9 @@ const ArtPage = () => {
 
   const handleGetEraList = async () => {
     try {
-      const list =  await getEraList();
+      const list = await getEraList();
       setEraList(list);
-      console.log(list); 
+      console.log(list);
       // console.log(eraList);
     } catch (error) {
       console.error('Error handleGetEraList: ', error);
@@ -163,21 +171,19 @@ const ArtPage = () => {
 
   const handleImageClick = (artwork) => {
     let destinationPath;
-    setArtworkOne(artwork); 
+    setArtworkOne(artwork);
     destinationPath = artwork.type === 0 ? '/art/coloring' : '/art/drawing';
     navigate(destinationPath);
   };
- 
 
-  useEffect(() => { 
-    handleGetEraList();  
+  useEffect(() => {
+    handleGetEraList();
+    setIsOpen(false);
   }, []);
 
-  
-  useEffect(() => { 
+  useEffect(() => {
     handleGetArtworkList();
   }, []);
-   
 
   return (
     <Background backgroundImage={backgroundImage}>
@@ -202,15 +208,15 @@ const ArtPage = () => {
               <FirstLogo src={Logo} />
             </PageCoverStyle>
           </div>
- 
+
           {eraList.map((era) => (
             <div key={era.eraId}>
-              <PageContent> 
+              <PageContent>
                 <TextBox>
                   <Text1>{era.eraName}</Text1>
                   <Text2>{era.eraCountry}</Text2>
-                </TextBox> 
-                <PhotoGrid> 
+                </TextBox>
+                <PhotoGrid>
                   {artworkList
                     .filter((artwork) => artwork.eraId === era.eraId)
                     .map((artwork) => (

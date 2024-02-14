@@ -31,6 +31,8 @@ import QuizDetailTeacher from 'pages/quiz/teacher/QuizDetailTeacher';
 import QuizResultTeacher from 'pages/quiz/teacher/QuizResultTeacher';
 import QuizCreate from 'pages/quiz/QuizCreate';
 import ArtPage from 'pages/art/ArtPage';
+import TestPage from 'pages/art/TestTest';
+
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -77,6 +79,7 @@ function App() {
           />
           <Route path='/quizresultteacher' element={<QuizResultTeacher />} />
           <Route path='/quizcreate' element={<QuizCreate />} />
+          <Route path='/test' element={<TestPage />} />
         </Routes>
       </React.Fragment>
     </>

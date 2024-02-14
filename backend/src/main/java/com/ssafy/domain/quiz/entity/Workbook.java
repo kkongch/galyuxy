@@ -43,9 +43,9 @@ public class Workbook {
     @OneToMany(mappedBy = "workbook")
     List<Question> questions = new ArrayList<Question>();
 
-    @OneToOne
-    @JoinColumn(name = "active_workbook_id")
-    ActiveWorkbook activeWorkbook;
+//    @OneToOne
+//    @JoinColumn(name = "active_workbook_id")
+//    ActiveWorkbook activeWorkbook;
 
     @Builder
     public Workbook(String title, int totalPoint, Teacher teacher) {
