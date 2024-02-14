@@ -128,7 +128,7 @@ const QuizListTeacher = () => {
     }
   };
   const HandleWorkbookClick = (index) => {
-    navigate(`/quizdetailteacher`);
+    navigate(`/quizdetailteacher/${index}`);
   };
   useEffect(() => {
     fetchWorkbookData();
@@ -148,7 +148,7 @@ const QuizListTeacher = () => {
                   <Number>{index}.</Number>
                   <div
                     onClick={() => {
-                      HandleWorkbookClick(index);
+                      HandleWorkbookClick(index + 1);
                     }}
                   >
                     {data.workbookTitle}
