@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { heritageListState, heritageState } from 'Recoil/HeritageState';
 import { selectedHeritageIdState } from 'Recoil/SelectedHeritageIdState';
+import { navToggleState } from 'Recoil/UserState';
 const Body = styled.div`
   margin: 0;
   padding: 0;
@@ -42,6 +43,7 @@ const HeritageList = () => {
   const navigate = useNavigate();
   const [heritageList, setHeritageList] = useRecoilState(heritageListState);
   const setSelectedHeritageId = useSetRecoilState(selectedHeritageIdState);
+  const [isOpen, setIsOpen] = useRecoilState(navToggleState);
 
   const fetchData = async () => {
     try {
@@ -54,6 +56,7 @@ const HeritageList = () => {
 
   useEffect(() => {
     fetchData();
+    setIsOpen(false);
   }, []);
 
   const boxRefs = useRef([]);
