@@ -67,11 +67,14 @@ const QuizEnter = () => {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState(null);
   const [title, setTitle] = useState();
-  const groupId = sessionStorage.getItem('groupId');
+
   const [workbookId, setWorkbookId] = useState();
+  const Id = sessionStorage.getItem('workbookId');
   const fetchActiveWorkBookData = async () => {
     try {
-      const response = await getActiveWorkBook(groupId);
+      console.log(Id);
+      const response = await getActiveWorkBook(Id);
+      console.log(response);
       setWorkbookId(response.data.dataBody.workbookId);
       const formattedStartTime = response.data.dataBody.activeWorkbookStart
         .replace('T', ' ')
@@ -81,7 +84,6 @@ const QuizEnter = () => {
         .split('.')[0];
       setStartTime(formattedStartTime);
       setEndTime(formattedEndTime);
-      console.log(startTime);
       setWorkbook(response.data.dataBody);
       setTitle(response.data.dataBody.workbookTitle);
       // console.log(response.data.dataBody.activeWorkbookStart);

@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import QuizMainImage from 'assets/images/Quiz/퀴즈메인화면.png';
 import FinishImage from 'assets/images/Quiz/수고했어요.png';
 import Background from 'components/Basic/Background';
 import ScoreBalloon from 'assets/images/Quiz/말풍선.png';
 import styled from 'styled-components';
-
+import {
+  isQuizScoreState,
+  userAnswersState,
+  userWrongAnswerState,
+} from 'Recoil/QuizState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { getDetailWorkBook } from 'api/QuizApi';
 const FinishBox = styled.img`
   position: absolute;
   width: 83.625rem;
@@ -48,13 +55,66 @@ const ScoreText = styled.div`
   font-weight: 700;
 `;
 const QuizFinish = () => {
+  const score = useRecoilValue(isQuizScoreState);
+  const list = useRecoilValue(userAnswersState);
+  const [wrongList, setWrongList] = useRecoilState(userWrongAnswerState);
+  const [workbook, setWorkbook] = useState([]);
+  const navigate = useNavigate();
+  const handleEnter = () => {
+    navigate(`/incorrectnote/${wrongList[0]}`);
+  };
+  // const fetchWorkbookData = async () => {
+  //   try {
+  //     const response = await getDetailWorkBook(
+  //       sessionStorage.getItem('workbookId')
+  //     );
+  //     console.log(response.data.dataBody);
+  //     setWorkbook(response.data.dataBody);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // workbook.map((data, index) => {
+  //   if (workbook[index].questionAnswer === list.index) {
+  //     console.log(1);
+  //     setWrongList(list[index]);
+  //   }
+  // });
+  console.log(list);
+  const fetchWorkbookData = async () => {
+    try {
+      const response = await getDetailWorkBook(
+        sessionStorage.getItem('workbookId')
+      );
+      const workbookData = response.data.dataBody;
+      console.log(workbookData);
+      setWorkbook(workbookData);
+
+      // 데이터를 성공적으로 불러온 후, 여기에서 오답 목록 계산
+      const newWrongList = workbookData.reduce((acc, data, index) => {
+        if (data.questionAnswer !== list[index + 1]) {
+          // index + 1로 접근하는 이유는 list 상태가 1부터 시작하는 인덱스를 사용할 수 있기 때문입니다.
+          acc.push(index + 1); // 잘못된 답변의 인덱스를 오답 목록에 추가
+        }
+        return acc;
+      }, []);
+
+      setWrongList(newWrongList);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchWorkbookData();
+  }, []);
   return (
     <Background backgroundImage={QuizMainImage}>
       <FinishBox src={FinishImage} />
       <ScoreBox>
-        <ScoreText>점수4/5</ScoreText>
+        <ScoreText>점수{score}</ScoreText>
       </ScoreBox>
-      <EnterButton>오답노트 확인하기</EnterButton>
+      <EnterButton onClick={handleEnter}>오답노트 확인하기</EnterButton>
     </Background>
   );
 };

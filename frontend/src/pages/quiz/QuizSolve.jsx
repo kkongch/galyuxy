@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { getDetailWorkBook, getActiveWorkBook } from 'api/QuizApi';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom/dist';
+import { isQuizScoreState, userAnswersState } from 'Recoil/QuizState';
+import { useRecoilState, useRecoilValue } from 'recoil';
 const Layout = styled.div`
   display: flex;
   width: 100%;
@@ -62,6 +64,15 @@ const QuestionNumber = styled.div`
   display: flex;
   border-radius: 1.25rem;
   margin-left: 2rem;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Noto Sans';
+  font-size: 2.375rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 const QuizNavbar = styled.div`
   width: 26.125rem;
@@ -206,23 +217,54 @@ const TitleBox = styled.div`
 const QuizSolve = () => {
   const [timeLeft, setTimeLeft] = useState(120); // 2분을 초 단위로 환산
   const [workbook, setWorkbook] = useState([]);
+  const [question, setQuestion] = useState();
   const [title, setTitle] = useState();
   const params = useParams();
+  const [questionNumber, setQuestionNumber] = useState(0);
   const navigate = useNavigate();
-  const fetchWorkbookData = async (params) => {
+  const [userAnswers, setUserAnswers] = useRecoilState(userAnswersState);
+  const userPick = useRecoilValue(userAnswersState);
+  const [quizScore, setQuizScore] = useRecoilState(isQuizScoreState);
+  const handleAnswerSelect = (questionNumber, selectedAnswer) => {
+    console.log(selectedAnswer);
+    setUserAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionNumber]: selectedAnswer,
+    }));
+  };
+
+  const calculateScore = () => {
+    const correctAnswers = workbook.map(
+      (question, index) => question.questionAnswer
+    );
+    let score = 0;
+    console.log(correctAnswers);
+    correctAnswers.forEach((answer, index) => {
+      const userAnswer = userAnswers[index + 1]; // userAnswers는 1부터 시작하는 문제 번호를 키로 사용
+      if (answer === userAnswer) {
+        score += 1; // 정답을 맞힌 경우 점수 증가
+      }
+    });
+
+    // 최종 점수 상태 업데이트
+    setQuizScore(score);
+    navigate('/quizfinish');
+  };
+  const fetchWorkbookData = async () => {
     try {
-      const response = await getDetailWorkBook(params);
-      console.log(response.data);
+      const response = await getDetailWorkBook(params.id);
+      console.log(response.data.dataBody);
       setWorkbook(response.data.dataBody);
+      setQuestion(response.data.dataBody[questionNumber].questionInstruction);
     } catch (e) {
       console.log(e);
     }
   };
-  const fetchActivWorkbookData = async (params) => {
+  const fetchActivWorkbookData = async () => {
     try {
-      const response = await getActiveWorkBook(params);
-      console.log(response.data.dataBody);
+      const response = await getActiveWorkBook(params.id);
       setTitle(response.data.dataBody.workbookTitle);
+      console.log(response.data.dataBody);
     } catch (e) {
       console.log(e);
     }
@@ -240,10 +282,9 @@ const QuizSolve = () => {
     return () => clearInterval(timerId);
   }, [timeLeft]); // timeLeft가 변경될 때마다 useEffect 실행
   useEffect(() => {
-    fetchWorkbookData(params.id);
-    fetchActivWorkbookData(params.id);
-    console.log(params.number);
-  }, []);
+    fetchWorkbookData();
+    fetchActivWorkbookData();
+  }, [questionNumber]);
   // 시간 포맷 변경 (예: 120 -> 02:00)
   const formatTimeLeft = (time) => {
     const minutes = Math.floor(time / 60);
@@ -251,32 +292,6 @@ const QuizSolve = () => {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  // const renderQuestion = (index) => {
-  //   if (index === 1) {
-  //     return (
-  //       <QuestionBox>
-  //         <OXboxContainer>
-  //           <OXbox style={{ color: '#0f70b7' }}>O</OXbox>
-  //           <OXbox style={{ color: '#f00' }}>X</OXbox>
-  //         </OXboxContainer>
-  //       </QuestionBox>
-  //     );
-  //   } else if (index === 2) {
-  //     const indexArray = [1, 2, 3, 4];
-  //     return (
-  //       <QuestionBox>
-  //         {indexArray.map((number, index) => (
-  //           <ChoiceBox>
-  //             <Number>{number}</Number>
-  //             <Selection>
-  //               {workbook[params.number][`questionChoice${number}`]}
-  //             </Selection>
-  //           </ChoiceBox>
-  //         ))}
-  //       </QuestionBox>
-  //     );
-  //   }
-  // };
   const questionIndex = parseInt(params.number, 10) - 1;
   const renderQuestion = () => {
     // 현재 문제 번호에 해당하는 문제 데이터를 가져옵니다.
@@ -294,8 +309,18 @@ const QuizSolve = () => {
         return (
           <QuestionBox>
             <OXboxContainer>
-              <OXbox style={{ color: '#0f70b7' }}>O</OXbox>
-              <OXbox style={{ color: '#f00' }}>X</OXbox>
+              <OXbox
+                onClick={() => handleAnswerSelect(questionNumber, 1)}
+                style={{ color: '#0f70b7' }}
+              >
+                O
+              </OXbox>
+              <OXbox
+                onClick={() => handleAnswerSelect(questionNumber, 2)}
+                style={{ color: '#f00' }}
+              >
+                X
+              </OXbox>
             </OXboxContainer>
           </QuestionBox>
         );
@@ -304,7 +329,9 @@ const QuizSolve = () => {
         return (
           <QuestionBox>
             {indexArray.map((number, index) => (
-              <ChoiceBox>
+              <ChoiceBox
+                onClick={() => handleAnswerSelect(questionNumber, number)}
+              >
                 <Number>{number}</Number>
                 <Selection>
                   {workbook[params.number - 1][`questionChoice${number}`]}
@@ -318,7 +345,21 @@ const QuizSolve = () => {
     }
   };
   const HandelNext = () => {
-    navigate(`/quizsolve/${params.id}/${parseInt(params.number, 10) + 1}`);
+    if (parseInt(params.number, 10) + 1 > workbook.length) {
+      alert('마지막 문제입니다');
+    } else {
+      navigate(`/quizsolve/${params.id}/${parseInt(params.number, 10) + 1}`);
+      handleAnswerSelect();
+      setQuestionNumber(questionNumber + 1);
+    }
+  };
+  const HandelBack = () => {
+    if (parseInt(params.number, 10) - 1 < 1) {
+      alert('첫 번째 문제입니다');
+    } else {
+      navigate(`/quizsolve/${params.id}/${parseInt(params.number, 10) - 1}`);
+      setQuestionNumber(questionNumber - 1);
+    }
   };
   return (
     <Background backgroundImage={QuizMainImage}>
@@ -326,18 +367,18 @@ const QuizSolve = () => {
         <MainContent>
           <QuizBox>
             <Header>
-              <QuestionNumber />
-              <TitleBox>{title}</TitleBox>
+              <QuestionNumber>Q{params.number}</QuestionNumber>
+              <TitleBox>{question}</TitleBox>
             </Header>
             {renderQuestion()}
           </QuizBox>
-          <BackButton>이전 문제</BackButton>
+          <BackButton onClick={HandelBack}>이전 문제</BackButton>
           <NextButton onClick={HandelNext}>다음 문제</NextButton>
         </MainContent>
         <QuizNavbar>
           <QuizName>{title}</QuizName>
           <Timer> 제한시간 : {formatTimeLeft(timeLeft)}</Timer>
-          <SubmitButton>제출하기</SubmitButton>
+          <SubmitButton onClick={calculateScore}>제출하기</SubmitButton>
         </QuizNavbar>
       </Layout>
     </Background>

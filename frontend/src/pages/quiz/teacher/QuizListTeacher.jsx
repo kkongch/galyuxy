@@ -83,7 +83,7 @@ const QuestionBox = styled.div`
   position: relative;
   width: 100%;
   height: 55.625rem;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
   display: flex;
@@ -114,7 +114,18 @@ const Pagetitle = styled.div`
   font-weight: 400;
   line-height: normal;
 `;
-
+const Content = styled.div`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  color: #000;
+  font-family: 'Noto Sans';
+  font-size: 3.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+`;
 const QuizListTeacher = () => {
   const [workbook, setWorkbook] = useState([]);
   const navigate = useNavigate();
@@ -127,8 +138,8 @@ const QuizListTeacher = () => {
       console.log(e);
     }
   };
-  const HandleWorkbookClick = (index) => {
-    navigate(`/quizdetailteacher/${index}`);
+  const HandleWorkbookClick = (workbookId) => {
+    navigate(`/quizdetailteacher/${workbookId}`);
   };
   useEffect(() => {
     fetchWorkbookData();
@@ -145,14 +156,19 @@ const QuizListTeacher = () => {
             <QuestionBox>
               {workbook.map((data, index) => (
                 <ChoiceBox>
-                  <Number>{index}.</Number>
-                  <div
-                    onClick={() => {
-                      HandleWorkbookClick(index + 1);
-                    }}
-                  >
-                    {data.workbookTitle}
-                  </div>
+                  <Content>
+                    <div
+                      onClick={() => {
+                        HandleWorkbookClick(workbook[index].workbookId);
+                        sessionStorage.setItem(
+                          'workbookId',
+                          workbook[index].workbookId
+                        );
+                      }}
+                    >
+                      {index + 1}. {data.workbookTitle}
+                    </div>
+                  </Content>
                   <SvgBox>
                     <img src={DeleteSvg} alt='svg' />
                   </SvgBox>

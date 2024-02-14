@@ -196,10 +196,10 @@ export const QuizModal = () => {
 
       const startDateTime = format(startDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
       const endDateTime = format(endDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
-
+      console.log(sessionStorage.getItem('workbookId'));
       const updatedWorkbookData = {
         groupId: sessionStorage.getItem('groupId'),
-        workbookId: 1,
+        workbookId: sessionStorage.getItem('workbookId'),
         activeWorkbookStart: startDateTime,
         activeWorkbookEnd: endDateTime,
       };
@@ -224,14 +224,15 @@ export const QuizModal = () => {
     setSelectedDate(date);
   };
   useEffect(() => {
+    fetchWorkbookData();
     console.log(workbookData);
-  }, [workbookData]);
+  }, []);
   return (
     <ModalDiv>
       <ModalBox>
         <ClassNameBox>
           <Title>
-            <p>"{}"를 시작하시겠습니까?</p>
+            <p>퀴즈를 시작하시겠습니까?</p>
           </Title>
         </ClassNameBox>
         <MainBox>
