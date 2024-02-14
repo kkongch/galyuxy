@@ -1,6 +1,3 @@
-//  비디오 세션의 생성, 사용자 연결,
-// 비디오 및 오디오 관리, 채팅 기능, 화면 공유 등 다양한 기능을 구현
-
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import React, { Component } from 'react';
@@ -28,11 +25,6 @@ const APPLICATION_SERVER_URL =
 
 class VideoRoomComponent extends Component {
   constructor(props) {
-    // 1
-    console.log('프롭스여깄다', props);
-    console.log('프롭스여깄다', props.roomSubject);
-    console.log('프롭스여깄다', props.roomId);
-
     super(props);
     // 상태 및 바인딩 초기화
     this.hasBeenUpdated = false;
@@ -65,14 +57,12 @@ class VideoRoomComponent extends Component {
     this.switchCamera = this.switchCamera.bind(this);
     this.screenShare = this.screenShare.bind(this);
     this.stopScreenShare = this.stopScreenShare.bind(this);
-    // this.closeDialogExtension = this.closeDialogExtension.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
   }
 
   componentDidMount() {
-    // 레이아웃 설정 및 이벤트 리스너 추가
     const openViduLayoutOptions = {
       maxRatio: 3 / 2,
       minRatio: 9 / 16,
@@ -97,7 +87,6 @@ class VideoRoomComponent extends Component {
   }
 
   componentWillUnmount() {
-    // 이벤트 리스너 제거 및 세션 종료
     window.removeEventListener('beforeunload', this.onbeforeunload);
     window.removeEventListener('resize', this.updateLayout);
     window.removeEventListener('resize', this.checkSize);
@@ -109,7 +98,6 @@ class VideoRoomComponent extends Component {
   }
 
   joinSession() {
-    // 세션 참여 및 스트림 구독
     this.OV = new OpenVidu();
     this.setState(
       {
@@ -123,7 +111,6 @@ class VideoRoomComponent extends Component {
   }
 
   async connectToSession() {
-    // 세션 연결 시도, 토큰이 필요
     if (this.props.token !== undefined) {
       console.log('token received: ', this.props.token);
       this.connect(this.props.token);
@@ -144,7 +131,6 @@ class VideoRoomComponent extends Component {
   }
 
   connect(token) {
-    // 세션에 연결
     this.state.session
       .connect(token, { clientData: this.state.myUserName })
       .then(() => {
@@ -161,7 +147,6 @@ class VideoRoomComponent extends Component {
   }
 
   async connectWebCam() {
-    // 웹캠 연결 및 스트림 발행
     await this.OV.getUserMedia({
       audioSource: undefined,
       videoSource: undefined,
@@ -214,7 +199,6 @@ class VideoRoomComponent extends Component {
   }
 
   updateSubscribers() {
-    // 구독자 목록 업데이트
     var subscribers = this.remotes;
     this.setState(
       {
@@ -235,7 +219,6 @@ class VideoRoomComponent extends Component {
   }
 
   leaveSession() {
-    // 세션에서 나가기
     const mySession = this.state.session;
 
     if (mySession) {
@@ -254,7 +237,6 @@ class VideoRoomComponent extends Component {
       this.props.leaveSession();
     }
   }
-  // 카메라 상태 변경
   camStatusChanged() {
     localUser.setVideoActive(!localUser.isVideoActive());
     localUser.getStreamManager().publishVideo(localUser.isVideoActive());
@@ -262,7 +244,6 @@ class VideoRoomComponent extends Component {
     this.setState({ localUser: localUser });
   }
 
-  // 마이크 상태 변경
   micStatusChanged() {
     localUser.setAudioActive(!localUser.isAudioActive());
     localUser.getStreamManager().publishAudio(localUser.isAudioActive());
@@ -270,7 +251,6 @@ class VideoRoomComponent extends Component {
     this.setState({ localUser: localUser });
   }
 
-  // 닉네임 변경
   nicknameChanged(nickname) {
     let localUser = this.state.localUser;
     localUser.setNickname(nickname);
@@ -280,7 +260,6 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  // 구독자 삭제
   deleteSubscriber(stream) {
     const remoteUsers = this.state.subscribers;
     const userStream = remoteUsers.filter(
@@ -295,7 +274,6 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  // 스트림 생성 구독
   subscribeToStreamCreated() {
     this.state.session.on('streamCreated', (event) => {
       const subscriber = this.state.session.subscribe(event.stream, undefined);
@@ -318,7 +296,6 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  // 스트림 소멸 구독
   subscribeToStreamDestroyed() {
     this.state.session.on('streamDestroyed', (event) => {
       this.deleteSubscriber(event.stream);
@@ -330,7 +307,6 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  // 사용자 변경 구독
   subscribeToUserChanged() {
     this.state.session.on('signal:userChanged', (event) => {
       let remoteUsers = this.state.subscribers;
@@ -360,14 +336,12 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  // 레이아웃 업데이트
   updateLayout() {
     setTimeout(() => {
       this.layout.updateLayout();
     }, 20);
   }
 
-  // 사용자 변경 신호 보내기
   sendSignalUserChanged(data) {
     const signalOptions = {
       data: JSON.stringify(data),
@@ -376,7 +350,6 @@ class VideoRoomComponent extends Component {
     this.state.session.signal(signalOptions);
   }
 
-  // 전체 화면 토글
   toggleFullscreen() {
     const document = window.document;
     const fs = document.getElementById('container');
@@ -408,7 +381,6 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  // 카메라 전환
   async switchCamera() {
     try {
       const devices = await this.OV.getDevices();
@@ -446,7 +418,6 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  // 화면 공유 시작
   screenShare() {
     const videoSource =
       navigator.userAgent.indexOf('Firefox') !== -1 ? 'window' : 'screen';
@@ -495,7 +466,6 @@ class VideoRoomComponent extends Component {
     this.connectWebCam();
   }
 
-  // 화면 공유 여부 확인
   checkSomeoneShareScreen() {
     let isScreenShared;
     isScreenShared =
@@ -517,7 +487,6 @@ class VideoRoomComponent extends Component {
     this.updateLayout();
   }
 
-  // 채팅 토글
   toggleChat(property) {
     let display = property;
 
@@ -532,14 +501,12 @@ class VideoRoomComponent extends Component {
     this.updateLayout();
   }
 
-  // 채팅 알림 확인
   checkNotification(event) {
     this.setState({
       messageReceived: this.state.chatDisplay === 'none',
     });
   }
 
-  // 창 크기 변경 확인
   checkSize() {
     if (
       document.getElementById('layout').offsetWidth <= 700 &&
@@ -557,7 +524,6 @@ class VideoRoomComponent extends Component {
   }
 
   render() {
-    // 렌더링 로직, 스트림 및 채팅 컴포넌트 포함
     const mySessionId = this.state.mySessionId;
     const title = this.props.roomSubject;
     const localUser = this.state.localUser;
