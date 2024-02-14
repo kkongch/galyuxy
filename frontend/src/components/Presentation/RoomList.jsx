@@ -165,9 +165,7 @@ const RoomList = () => {
             <RoomTitle>
               <p>{room.roomSubject}</p>
             </RoomTitle>
-            <Participate>
-              <p>참가자 : 3명</p>
-            </Participate>
+            <Participate>{/* <p>참가자 : 3명</p> */}</Participate>
             <ButtonBox>
               <EnterButton
                 onClick={() => handleEnterRoom(room.roomSubject, room.roomId)}
