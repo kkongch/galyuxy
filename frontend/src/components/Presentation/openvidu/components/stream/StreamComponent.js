@@ -57,7 +57,7 @@ export default class StreamComponent extends Component {
   handlePressKey(event) {
     // 엔터 키를 눌러 닉네임 변경 적용
     if (event.key === 'Enter') {
-      if (this.state.nickname.length >= 3 && this.state.nickname.length <= 20) {
+      if (this.state.nickname.length >= 2 && this.state.nickname.length <= 20) {
         this.props.handleNickname(this.state.nickname);
         this.toggleNicknameForm();
         this.setState({ isFormValid: true });
@@ -84,16 +84,23 @@ export default class StreamComponent extends Component {
                 <HighlightOffIcon />
               </IconButton>
               <InputLabel htmlFor='nickname-input'>역활</InputLabel>
+
               <Input
-                id='nickname-input'
+                style={{
+                  fontSize: '25px',
+                  color: '#ffffff',
+                }}
                 value={this.state.nickname}
                 onChange={this.handleChange}
                 onKeyPress={this.handlePressKey}
                 aria-describedby='nickname-helper-text'
               />
               {!this.state.isFormValid && (
-                <FormHelperText id='nickname-helper-text'>
-                  Nickname must be between 3 and 20 characters!
+                <FormHelperText
+                  id='nickname-helper-text'
+                  style={{ color: 'white' }}
+                >
+                  2글자 이상 작성해주세요
                 </FormHelperText>
               )}
             </FormControl>
@@ -101,7 +108,7 @@ export default class StreamComponent extends Component {
             // 닉네임 표시 및 편집 버튼
             <div onClick={this.toggleNicknameForm} aria-label='Edit nickname'>
               <span id='nickname' style={{ fontSize: '25px' }}>
-                {this.props.user.getNickname()}
+                {/* {this.props.user.getNickname()} */}
               </span>
               {this.props.user.isLocal() && <span> </span>}
             </div>
