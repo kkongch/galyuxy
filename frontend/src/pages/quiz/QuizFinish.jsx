@@ -105,6 +105,7 @@ const QuizFinish = () => {
       console.log(e);
     }
   };
+  console.log(wrongList);
   useEffect(() => {
     fetchWorkbookData();
   }, []);
@@ -112,7 +113,10 @@ const QuizFinish = () => {
     <Background backgroundImage={QuizMainImage}>
       <FinishBox src={FinishImage} />
       <ScoreBox>
-        <ScoreText>점수{score}</ScoreText>
+        <ScoreText>
+          점수
+          {score}/{workbook.length}
+        </ScoreText>
       </ScoreBox>
       <EnterButton onClick={handleEnter}>오답노트 확인하기</EnterButton>
     </Background>

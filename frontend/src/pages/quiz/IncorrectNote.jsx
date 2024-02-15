@@ -180,7 +180,7 @@ const TitleBox = styled.div`
   padding: 1rem;
   color: #000;
 
-  text-align: center;
+  text-align: left;
   font-family: 'Noto Sans';
   font-size: 4rem;
   font-style: normal;
@@ -254,7 +254,7 @@ const IncorrectNote = () => {
     const questionIndex = wrongList[arrayIndex] - 1;
     const questionData = workbook[questionIndex];
     const userAnswer = checkSheet[questionIndex];
-    // const isAnswerCorrect = questionData.questionAnswer === userAnswer;
+    const isAnswerCorrect = questionData?.questionAnswer === userAnswer;
     if (!questionData) {
       return <p>문제를 불러올 수 없습니다.</p>;
     }
@@ -267,21 +267,21 @@ const IncorrectNote = () => {
             <OXboxContainer>
               <OXbox style={{ color: '#0f70b7' }}>
                 <SvgContainer>
-                  {/* {isAnswerCorrect ? (
+                  {isAnswerCorrect ? (
                     <img src={IncorrectListIcon} alt='Correct' />
                   ) : (
                     <img src={AnswerListIcon} alt='Incorrect' />
-                  )} */}
+                  )}
                 </SvgContainer>
                 O
               </OXbox>
               <OXbox style={{ color: '#f00' }}>
                 <SvgContainer>
-                  {/* {!isAnswerCorrect ? (
+                  {!isAnswerCorrect ? (
                     <img src={IncorrectListIcon} alt='Correct' />
                   ) : (
                     <img src={AnswerListIcon} alt='Incorrect' />
-                  )} */}
+                  )}
                 </SvgContainer>
                 X
               </OXbox>
@@ -295,14 +295,25 @@ const IncorrectNote = () => {
             {indexArray.map((number, index) => (
               <ChoiceBox>
                 <SvgContainer>
-                  {/* {!isAnswerCorrect ? (
-                    <img src={IncorrectListIcon} alt='Correct' />
+                  {userAnswer === number ? (
+                    <img src={IncorrectListIcon} alt='User Answer' />
+                  ) : questionData.questionAnswer === number ? (
+                    <img src={AnswerListIcon} alt='Correct Answer' />
                   ) : (
-                    <img src={AnswerListIcon} alt='Incorrect' />
-                  )} */}
+                    <img src={ListIcon} alt='User Incorrect Answer' />
+                  )}
+                  {/* {questionData.questionAnswer === number ? (
+                    userAnswer === number ? (
+                      <img src={ListIcon} alt='User Correct Answer' />
+                    ) : (
+                      <img src={AnswerListIcon} alt='Correct Answer' />
+                    )
+                  ) : userAnswer === number ? (
+                    <img src={IncorrectListIcon} alt='User Incorrect Answer' />
+                  ) : null} */}
                 </SvgContainer>
                 <Selection>
-                  {/* {workbook[params.number - 1][`questionChoice${number}`]} */}
+                  {workbook[params.id - 1][`questionChoice${number}`]}
                 </Selection>
               </ChoiceBox>
             ))}
@@ -312,6 +323,7 @@ const IncorrectNote = () => {
         return <p>지원되지 않는 문제 유형입니다.</p>;
     }
   };
+
   return (
     <Background backgroundImage={QuizMainImage}>
       <Layout>
@@ -320,7 +332,7 @@ const IncorrectNote = () => {
             <Header>
               <QuestionNumber>Q{wrongList[arrayIndex]}</QuestionNumber>
               <TitleBox>
-                {/* {workbook[wrongList[arrayIndex] - 1].questionInstruction} */}
+                {workbook[wrongList[arrayIndex] - 1]?.questionInstruction}
               </TitleBox>
             </Header>
             {renderQuestion()}
@@ -329,7 +341,7 @@ const IncorrectNote = () => {
           <NextButton onClick={handleNext}>다음 문제</NextButton>
         </MainContent>
         <QuizNavbar>
-          <QuizName />
+          <QuizName></QuizName>
           <SubmitButton onClick={handleClose}>나가기</SubmitButton>
         </QuizNavbar>
       </Layout>
