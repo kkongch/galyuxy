@@ -88,3 +88,10 @@ jwt:
   expired-min:
     access: 60
     refresh: 10000000
+
+server:
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:SSL/keystore.p12
+    key-store-password: SSAFY
