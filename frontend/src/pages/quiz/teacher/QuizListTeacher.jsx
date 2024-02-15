@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import DeleteSvg from 'assets/svg/quiz/deletesvg.svg';
 import { getWorkBook } from 'api/QuizApi';
 import { useNavigate } from 'react-router-dom';
+import { navToggleState } from 'Recoil/UserState';
+import { useRecoilState } from 'recoil';
 const Layout = styled.div`
   display: flex;
   width: 100%;
@@ -129,6 +131,7 @@ const Content = styled.div`
 const QuizListTeacher = () => {
   const [workbook, setWorkbook] = useState([]);
   const navigate = useNavigate();
+  const [toggleNav, setToggleNav] = useRecoilState(navToggleState);
   const fetchWorkbookData = async () => {
     try {
       const response = await getWorkBook();
@@ -143,6 +146,7 @@ const QuizListTeacher = () => {
   };
   useEffect(() => {
     fetchWorkbookData();
+    setToggleNav(false);
   }, []);
   return (
     <Background backgroundImage={QuizMainImage}>

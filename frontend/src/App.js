@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import GlobalStyle from 'styles/GlobalStyle';
 import TeacherNav from 'components/Navbar/TeacherNav';
-import { Routes, Route, Link, Router, BrowserRouter } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Link,
+  Router,
+  BrowserRouter,
+  Navigate,
+} from 'react-router-dom';
 import Coloring from 'pages/art/Coloring';
 import PresentationPage from 'pages/presentation/PresentationPage';
 import ClassPage from 'pages/class/ClassPage';

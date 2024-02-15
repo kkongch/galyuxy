@@ -245,7 +245,7 @@ const StudentNav = () => {
                 setIsOpen(false);
               }}
             >
-              <NoDataMessage>로그인 후 이용해 주세요</NoDataMessage>
+              <NoDataMessage>클릭 시 로그인으로 이동</NoDataMessage>
             </Overlay>
           )}
           <StudentProfile src={profile} />

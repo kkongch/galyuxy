@@ -6,9 +6,9 @@ import Webcam from 'react-webcam';
 import Background from 'components/Basic/Background';
 
 const CameraContainer = styled.div`
-  width: 100%; 
-  position: relative; 
-`; 
+  width: 100%;
+  position: relative;
+`;
 
 const BackButton = styled.div`
   display: flex;
@@ -24,9 +24,9 @@ const BackButton = styled.div`
   margin-left: 3.06rem;
   padding: 0 3.5rem;
   font-weight: 700;
-  position: absolute; 
+  position: absolute;
   bottom: 20px;
-  left: 20px; 
+  left: 20px;
   cursor: pointer;
 `;
 const SvgBox = styled.div`
@@ -37,20 +37,20 @@ const SvgBox = styled.div`
   height: 4.6875rem;
 `;
 const videoConstraints = {
-    width: '100%',  
-    height: '100%', 
-    facingMode: "user" //전면카메라
-    // facingMode: { exact: "environment" } // 후면 카메라 : 현재 테스트할 수 없어서 전면으로 설정해둠
-  };
+  width: '100%',
+  height: '100%',
+  // facingMode: "user" //전면카메라
+  facingMode: { exact: 'environment' }, // 후면 카메라 : 현재 테스트할 수 없어서 전면으로 설정해둠
+};
 
 const StudentLoginCameraPage = () => {
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate('/login');
   };
-  
+
   const webcamRef = React.useRef(null);
- 
+
   return (
     <Background>
       <CameraContainer>
@@ -60,7 +60,8 @@ const StudentLoginCameraPage = () => {
           mirrored={true}
           screenshotFormat='image/jpeg'
           videoConstraints={videoConstraints}
-          style={{ width:'100%', height:'1600px'}} /> 
+          style={{ width: '100%', height: '1600px' }}
+        />
         <BackButton onClick={handleBackClick}>
           <SvgBox>
             <svg

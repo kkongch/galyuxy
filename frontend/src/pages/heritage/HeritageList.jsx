@@ -49,6 +49,7 @@ const HeritageList = () => {
     try {
       const response = await getHeritageList();
       setHeritageList(response.dataBody);
+      console.log(response.dataBody);
     } catch (error) {
       console.error(error);
     }

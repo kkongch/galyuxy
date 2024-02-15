@@ -281,9 +281,8 @@ const TeacherNav = () => {
               퀴즈
               {openMenu.quiz && (
                 <>
-                  <SubMenu to='/main'>문제집 목록</SubMenu>
-                  <SubMenu href='#'>문제집 생성</SubMenu>
-                  <SubMenu href='#'>퀴즈 결과</SubMenu>
+                  <SubMenu to='/quizlistteacher'>문제집 목록</SubMenu>
+                  <SubMenu to='#'>문제집 생성</SubMenu>
                 </>
               )}
             </Menu>

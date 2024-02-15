@@ -263,7 +263,9 @@ const QuizSolve = () => {
   };
   const fetchActivWorkbookData = async () => {
     try {
-      const response = await getActiveWorkBook(params.id);
+      const response = await getActiveWorkBook(
+        sessionStorage.getItem('groupId')
+      );
       setTitle(response.data.dataBody.workbookTitle);
       console.log(response.data.dataBody);
     } catch (e) {
