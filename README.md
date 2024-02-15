@@ -18,6 +18,7 @@
 - Infra : AWS EC2, Nginx, SSL
 - Database : MariaDB
 - WebRTC : Openvidu 2.29.0
+  <br>
 
 ## 🖥️ 협업툴 및 협업환경
 
@@ -45,6 +46,8 @@
 
 ### 5. AR기능
 
+<br>
+
 ## 🌐 전체기능
 
 ### 교사
@@ -66,6 +69,7 @@
 
 2. 로그인 후 화면
    ![Alt text](./Readmeassets/학생메인.png)
+   <br>
 
 ## 👨‍👩‍👧 팀원 소개 및 담당 역할
 
@@ -95,6 +99,7 @@
   - UCC 제작
   - 중간 발표 제작 및 발표
   - 그룹 채팅
+    <br>
 
 ## 📑 Planning & Design
 
@@ -117,5 +122,5 @@
 
 ![Alt text](./Readmeassets/Api.png)
 
-노션링크 확인
+노션링크
 https://judicious-rule-b00.notion.site/42-b8656a32fa804ef59ede97095087c57e?pvs=4
