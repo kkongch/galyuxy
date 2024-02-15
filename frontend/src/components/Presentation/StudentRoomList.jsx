@@ -24,7 +24,7 @@ const RoomContent = styled.div`
   align-items: center;
   flex-direction: column;
   width: 28.125rem;
-  height: 22.75rem;
+  height: 15.75rem;
 `;
 const RoomTitle = styled.div`
   display: flex;

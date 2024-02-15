@@ -27,7 +27,7 @@ const RoomContent = styled.div`
   align-items: center;
   flex-direction: column;
   width: 28.125rem;
-  height: 22.75rem;
+  height: 15.75rem;
 `;
 const RoomTitle = styled.div`
   display: flex;
@@ -165,20 +165,16 @@ const RoomList = () => {
             <RoomTitle>
               <p>{room.roomSubject}</p>
             </RoomTitle>
-            <Participate>{/* <p>참가자 : 3명</p> */}</Participate>
+            {/* <Participate><p>참가자 : 3명</p></Participate> */}
             <ButtonBox>
               <EnterButton
                 onClick={() => handleEnterRoom(room.roomSubject, room.roomId)}
               >
                 <p>입장</p>
               </EnterButton>
-              {userType === 1 && (
-                <DeleteButton
-                  onClick={() => handleDeleteRoomClick(room.roomId)}
-                >
-                  <p>삭제</p>
-                </DeleteButton>
-              )}
+              <DeleteButton onClick={() => handleDeleteRoomClick(room.roomId)}>
+                <p>삭제</p>
+              </DeleteButton>
             </ButtonBox>
           </RoomContent>
         </RoomBox>
