@@ -36,6 +36,7 @@ import clamp from 'lodash.clamp';
 const StyledMain = styled.main`
   width: 100%;
   height: 100%;
+  /* overflow: hidden; */
 `;
 
 const VideoDiv = styled.div`
@@ -150,13 +151,92 @@ function Model({ url }) {
   }
   return cache[url];
 }
+function Capture({ videoRef, canvasRef }) {
+  const capture = async () => {
+    if (!videoRef.current || !canvasRef.current) return;
 
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const outputCanvas = document.createElement('canvas');
+    const context = outputCanvas.getContext('2d');
+
+    // 캡처할 이미지의 크기 설정
+    outputCanvas.width = video.videoWidth;
+    outputCanvas.height = video.videoHeight;
+
+    // 비디오 프레임을 outputCanvas에 그립니다.
+    context.drawImage(video, 0, 0, outputCanvas.width, outputCanvas.height);
+
+    // canvasRef를 통해 얻은 캔버스(3D 씬이 렌더링된 캔버스)의 내용을 outputCanvas에 그립니다.
+    // 이 때, toDataURL 메서드를 사용하여 이미지 데이터를 얻습니다.
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = () => {
+        context.drawImage(img, 0, 0, outputCanvas.width, outputCanvas.height);
+        outputCanvas.toBlob((finalBlob) => {
+          const finalUrl = URL.createObjectURL(finalBlob);
+          const link = document.createElement('a');
+          link.href = finalUrl;
+          link.download = 'capture.png';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(finalUrl);
+        }, 'image/png');
+        URL.revokeObjectURL(url);
+      };
+      img.src = url;
+    }, 'image/png');
+  };
+
+  return <CaptureButton onClick={capture}>Capture</CaptureButton>;
+}
+// function useCapture(videoRef, threeCanvasRef) {
+//   const capture = useCallback(() => {
+//     if (!videoRef.current || !threeCanvasRef.current) return;
+
+//     const { gl, scene, camera } = useThree();
+
+//     // WebGL 컨텍스트의 현재 상태를 캡처
+//     gl.render(scene, camera);
+//     const gltfDataURL = gl.domElement.toDataURL();
+
+//     // 비디오 프레임을 캡처
+//     const canvas = document.createElement('canvas');
+//     canvas.width = videoRef.current.videoWidth;
+//     canvas.height = videoRef.current.videoHeight;
+//     const ctx = canvas.getContext('2d');
+//     ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+
+//     // 3D 콘텐츠 이미지를 캔버스에 그리기
+//     const image = new Image();
+//     image.onload = () => {
+//       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+//       // 최종 합성된 이미지를 데이터 URL로 변환
+//       const dataUrl = canvas.toDataURL('image/png');
+
+//       // 데이터 URL을 사용하여 사용자에게 다운로드 링크 제공
+//       const downloadLink = document.createElement('a');
+//       downloadLink.href = dataUrl;
+//       downloadLink.download = 'capturedImage.png';
+//       document.body.appendChild(downloadLink);
+//       downloadLink.click();
+//       document.body.removeChild(downloadLink);
+//     };
+//     image.src = gltfDataURL;
+//   }, []);
+
+//   return capture;
+// }
 const Models = { title: 'flag', url: '/stone.gltf' };
 
 const TestPage = () => {
   const videoRef = useRef();
-  const canvasRef = useRef(); 
+  const canvasRef = useRef();
+  const glRef = useRef();
 
+  // const capture = useCapture(videoRef, threeCanvasRef);
   const navigate = useNavigate();
   // const [isFrontCamera, setIsFrontCamera] = useState(true); // 후면 카메라인지 여부를 나타내는 state
   const [artworkAR, setArtworkAR] = useRecoilState(artworkARState);
@@ -167,55 +247,123 @@ const TestPage = () => {
     const startVideo = async () => {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { frameRate: { ideal: 30, max: 30 } },
-      }); 
+      });
       videoRef.current.srcObject = stream;
     };
 
     startVideo();
-  }, []); 
+  }, []);
 
   const handleBackClick = () => {
-    navigate('/heritage'); 
+    navigate('/heritage');
   };
 
-  
   const handleCameraToggle = () => {
     // setIsFrontCamera((prev) => !prev); // 후면 카메라 상태를 토글
   };
 
+  // const capture = async () => {
+  //   const canvas = canvasRef.current;
+  //   const video = videoRef.current;
+
+  //   console.log('Capture!!!');
+
+  //   // const context = canvas.getContext('2d');
+  //   // console.log(context);
+
+  //   // context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  //   // const dataUrl = canvas.toDataURL('image/jpeg');
+  //   // console.log(dataUrl);
+
+  //   // const downloadLink = document.createElement('a');
+  //   // downloadLink.href = dataUrl;
+  //   // downloadLink.download = 'capturedImage.jpg';
+  //   // document.body.appendChild(downloadLink);
+  //   // downloadLink.click();
+  //   // document.body.appendChild(downloadLink);
+
+  //   // webcam 사용할 때 캡처 코드
+  //   // const imageSrc = videoRef.current.getScreenshot();
+  //   // console.log(imageSrc);
+  //   // // 파일로 저장
+  //   // const downloadLink = document.createElement('a');
+  //   // downloadLink.href = imageSrc;
+  //   // downloadLink.download = 'captured_image.png'; //파일이름 바꿔야함
+  //   // document.body.appendChild(downloadLink);
+  //   // downloadLink.click();
+  //   // document.body.removeChild(downloadLink);
+  // };
+
+  // const capture = async () => {
+  //   if (!videoRef.current || !canvasRef.current) return;
+
+  //   const video = videoRef.current;
+  //   const canvas = document.createElement('canvas');
+  //   const ctx = canvas.getContext('2d');
+
+  //   // 캔버스 크기 설정
+  //   canvas.width = video.videoWidth;
+  //   canvas.height = video.videoHeight;
+
+  //   // 비디오 캡처
+  //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  //   // 3D 콘텐츠 캡처
+  //   const gltfCanvas = canvasRef.current; // 이는 @react-three/fiber의 Canvas 컴포넌트를 가리킵니다.
+  //   const gltfContext = gltfCanvas.getContext('webgl', {
+  //     preserveDrawingBuffer: true,
+  //   });
+
+  //   // 3D 콘텐츠 캡처를 위한 별도의 처리가 필요할 수 있습니다. 예를 들어, three.js 씬을 직접 캡처하는 등의 작업이 필요합니다.
+  //   // 이 부분은 @react-three/fiber와 three.js의 특정 API를 사용하여 구현해야 합니다.
+
+  //   // 합성된 이미지를 데이터 URL로 변환
+  //   const dataUrl = canvas.toDataURL('image/png');
+
+  //   // 데이터 URL을 사용하여 사용자에게 다운로드 링크 제공
+  //   const downloadLink = document.createElement('a');
+  //   downloadLink.href = dataUrl;
+  //   downloadLink.download = 'capturedImage.png'; // 파일 이름 지정
+  //   document.body.appendChild(downloadLink);
+  //   downloadLink.click();
+  //   document.body.removeChild(downloadLink);
+  // };
   const capture = async () => {
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
+    if (!videoRef.current || !glRef.current) return;
 
-    console.log('Capture!!!');
+    // WebGL 캔버스의 현재 상태를 이미지로 캡처
+    const gl = glRef.current;
+    gl.render(gl.scene, gl.camera); // 현재 씬을 강제로 렌더링
+    const glCanvas = gl.domElement;
+    const glImage = glCanvas.toDataURL('image/png');
 
-   
+    // 비디오 프레임과 WebGL 캔버스의 캡처를 합성
+    const outputCanvas = document.createElement('canvas');
+    const context = outputCanvas.getContext('2d');
+    outputCanvas.width = glCanvas.width;
+    outputCanvas.height = glCanvas.height;
 
-    // const context = canvas.getContext('2d');
-    // console.log(context);
+    // 3D 씬 이미지 로딩
+    const img = new Image();
+    img.src = glImage;
+    img.onload = () => {
+      context.drawImage(img, 0, 0); // 3D 씬 이미지를 그림
+      context.drawImage(
+        videoRef.current,
+        0,
+        0,
+        outputCanvas.width,
+        outputCanvas.height
+      ); // 비디오 이미지를 위에 그림
 
-    // context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    // const dataUrl = canvas.toDataURL('image/jpeg');
-    // console.log(dataUrl);
-
-    // const downloadLink = document.createElement('a');
-    // downloadLink.href = dataUrl;
-    // downloadLink.download = 'capturedImage.jpg';
-    // document.body.appendChild(downloadLink);
-    // downloadLink.click();
-    // document.body.appendChild(downloadLink);
-
-    // webcam 사용할 때 캡처 코드
-    // const imageSrc = videoRef.current.getScreenshot();
-    // console.log(imageSrc);
-    // // 파일로 저장
-    // const downloadLink = document.createElement('a');
-    // downloadLink.href = imageSrc;
-    // downloadLink.download = 'captured_image.png'; //파일이름 바꿔야함
-    // document.body.appendChild(downloadLink);
-    // downloadLink.click();
-    // document.body.removeChild(downloadLink);
+      // 최종 합성 이미지를 사용자에게 제공
+      const finalImage = outputCanvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = finalImage;
+      link.download = 'capture.png';
+      link.click();
+    };
   };
 
   return (
@@ -230,6 +378,7 @@ const TestPage = () => {
             zIndex: '1',
           }}
           ref={canvasRef}
+          // ref={threeCanvasRef}
           camera={{ position: [0, 0, -5], near: 0.1 }}
         >
           {/* <Environment files="/img/workshop_1k.hdr" background /> */}
@@ -259,7 +408,8 @@ const TestPage = () => {
         ></video>
 
         <ButtonBox>
-          <CaptureButton onClick={capture}>Capture</CaptureButton>
+          {/* <CaptureButton onClick={capture}>Capture</CaptureButton> */}
+          <Capture videoRef={videoRef} canvasRef={canvasRef} />
           <BackButton onClick={handleBackClick}>
             <SvgBox>
               <svg
