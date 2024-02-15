@@ -5,8 +5,8 @@ import TextImage from 'assets/images/Quiz/textimage.png';
 import TimeImage from 'assets/images/Quiz/timeimage1.png';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom/dist';
-import { isWorkbookStartState } from 'Recoil/QuizState';
-import { useRecoilValue } from 'recoil';
+import { isWorkbookStartState, quizNameState } from 'Recoil/QuizState';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { getActiveWorkBook } from 'api/QuizApi';
 const TextBox = styled.div`
   top: 10.56rem;
@@ -66,10 +66,9 @@ const QuizEnter = () => {
   const [workbook, setWorkbook] = useState({});
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState(null);
-  const [title, setTitle] = useState();
-
+  const [title, setTitle] = useRecoilState(quizNameState);
   const [workbookId, setWorkbookId] = useState();
-  const Id = sessionStorage.getItem('workbookId');
+  const Id = sessionStorage.getItem('groupId');
   const fetchActiveWorkBookData = async () => {
     try {
       console.log(Id);

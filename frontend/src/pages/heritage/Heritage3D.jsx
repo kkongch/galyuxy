@@ -67,7 +67,21 @@ const SvgBox = styled.div`
   width: auto;
   height: 4.6875rem;
 `;
-
+const ARbutton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 22.5rem;
+  height: 7.5rem;
+  border-radius: 3.75rem;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
+  background-color: #d9d9d9;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-left: 3rem;
+  padding: 0 3.5rem;
+  cursor: pointer;
+`;
 const CameraController = ({ x, y, z }) => {
   const { camera, gl } = useThree();
   camera.position.set(x, y, z);
@@ -86,7 +100,9 @@ const Heritage3D = (props) => {
     console.log('click');
     navigate(`/heritage/${id}`);
   };
-
+  const handleCameraClick = () => {
+    navigate(`/heritage/${id}/3d/heritagecamera`);
+  };
   return (
     <Background>
       <BackgroundBox>
@@ -153,6 +169,23 @@ const Heritage3D = (props) => {
           </SvgBox>
           <p>뒤로 가기</p>
         </BackButton>
+        <ARbutton onClick={handleCameraClick}>
+          <SvgBox>
+            <svg
+              width='76'
+              height='75'
+              viewBox='0 0 75 73'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M37.5 30.4167L34.5625 36.6825L28.125 39.5417L34.5625 42.4008L37.5 48.6667L40.4375 42.4008L46.875 39.5417L40.4375 36.6825L37.5 30.4167ZM62.5 15.2083H52.5937L46.875 9.125H28.125L22.4063 15.2083H12.5C9.0625 15.2083 6.25 17.9458 6.25 21.2917V57.7917C6.25 61.1375 9.0625 63.875 12.5 63.875H62.5C65.9375 63.875 68.75 61.1375 68.75 57.7917V21.2917C68.75 17.9458 65.9375 15.2083 62.5 15.2083ZM62.5 57.7917H12.5V21.2917H25.1563L27 19.3146L30.875 15.2083H44.125L48 19.3146L49.8437 21.2917H62.5V57.7917ZM37.5 24.3333C28.875 24.3333 21.875 31.1467 21.875 39.5417C21.875 47.9367 28.875 54.75 37.5 54.75C46.125 54.75 53.125 47.9367 53.125 39.5417C53.125 31.1467 46.125 24.3333 37.5 24.3333ZM37.5 48.6667C32.3438 48.6667 28.125 44.5604 28.125 39.5417C28.125 34.5229 32.3438 30.4167 37.5 30.4167C42.6562 30.4167 46.875 34.5229 46.875 39.5417C46.875 44.5604 42.6562 48.6667 37.5 48.6667Z'
+                fill='black'
+              />
+            </svg>
+          </SvgBox>
+          <p style={{ marginRight: '2rem' }}>카메라</p>
+        </ARbutton>
       </ButtonBox>
     </Background>
   );

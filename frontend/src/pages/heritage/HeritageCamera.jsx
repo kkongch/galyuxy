@@ -151,98 +151,10 @@ function Model({ url }) {
   }
   return cache[url];
 }
-// function Capture({ videoRef }) {
-//   const { gl, scene, camera } = useThree();
 
-//   const capture = async () => {
-//     if (!videoRef.current) return;
+const Models = { title: 'flag', url: '/goldcrown.gltf' };
 
-//     const video = videoRef.current;
-
-//     // Three.js 렌더러에서 캔버스를 가져옵니다.
-//     const canvas = gl.domElement;
-//     const outputCanvas = document.createElement('canvas');
-//     const context = outputCanvas.getContext('2d');
-
-//     // 캡처할 이미지의 크기를 설정합니다.
-//     outputCanvas.width = video.videoWidth;
-//     outputCanvas.height = video.videoHeight;
-
-//     // 비디오 프레임을 outputCanvas에 그립니다.
-//     context.drawImage(video, 0, 0, outputCanvas.width, outputCanvas.height);
-
-//     // Three.js 씬을 다시 렌더링합니다.
-//     gl.render(scene, camera);
-
-//     // Three.js 렌더러의 캔버스를 이미지로 변환합니다.
-//     canvas.toBlob((blob) => {
-//       const url = URL.createObjectURL(blob);
-//       const img = new Image();
-//       img.onload = () => {
-//         // 이미지가 로드되면, 해당 이미지를 outputCanvas에 그립니다.
-//         context.drawImage(img, 0, 0, outputCanvas.width, outputCanvas.height);
-//         // 최종 합성된 이미지를 저장합니다.
-//         outputCanvas.toBlob((finalBlob) => {
-//           const finalUrl = URL.createObjectURL(finalBlob);
-//           const link = document.createElement('a');
-//           link.href = finalUrl;
-//           link.download = 'capture.png';
-//           link.click();
-//           URL.revokeObjectURL(finalUrl);
-//         }, 'image/png');
-//         URL.revokeObjectURL(url);
-//       };
-//       img.src = url;
-//     }, 'image/png');
-//   };
-
-//   return (
-//     <Html>
-//       <CaptureButton onClick={capture}>Capture</CaptureButton>
-//     </Html>
-//   );
-// }
-
-// function useCapture(videoRef, threeCanvasRef) {
-//   const capture = useCallback(() => {
-//     if (!videoRef.current || !threeCanvasRef.current) return;
-
-//     const { gl, scene, camera } = useThree();
-
-//     // WebGL 컨텍스트의 현재 상태를 캡처
-//     gl.render(scene, camera);
-//     const gltfDataURL = gl.domElement.toDataURL();
-
-//     // 비디오 프레임을 캡처
-//     const canvas = document.createElement('canvas');
-//     canvas.width = videoRef.current.videoWidth;
-//     canvas.height = videoRef.current.videoHeight;
-//     const ctx = canvas.getContext('2d');
-//     ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
-//     // 3D 콘텐츠 이미지를 캔버스에 그리기
-//     const image = new Image();
-//     image.onload = () => {
-//       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-//       // 최종 합성된 이미지를 데이터 URL로 변환
-//       const dataUrl = canvas.toDataURL('image/png');
-
-//       // 데이터 URL을 사용하여 사용자에게 다운로드 링크 제공
-//       const downloadLink = document.createElement('a');
-//       downloadLink.href = dataUrl;
-//       downloadLink.download = 'capturedImage.png';
-//       document.body.appendChild(downloadLink);
-//       downloadLink.click();
-//       document.body.removeChild(downloadLink);
-//     };
-//     image.src = gltfDataURL;
-//   }, []);
-
-//   return capture;
-// }
-const Models = { title: 'flag', url: '/stone.gltf' };
-
-const TestPage = () => {
+const HeritageCamera = () => {
   const videoRef = useRef();
   const canvasRef = useRef();
   const glRef = useRef();
@@ -282,31 +194,6 @@ const TestPage = () => {
     camera: null,
   });
 
-  // const handleCapture = () => {
-  //   const { gl, scene, camera } = threeContext;
-  //   if (!videoRef.current || !gl || !scene || !camera) return;
-
-  //   const video = videoRef.current;
-  //   const canvas = document.createElement('canvas');
-  //   const context = canvas.getContext('2d');
-
-  //   canvas.width = video.videoWidth;
-  //   canvas.height = video.videoHeight;
-  //   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-  //   gl.render(scene, camera);
-
-  //   gl.domElement.toBlob((blob) => {
-  //     const url = URL.createObjectURL(blob);
-  //     const link = document.createElement('a');
-  //     link.href = url;
-  //     link.download = 'capture.png';
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //     URL.revokeObjectURL(url);
-  //   }, 'image/png');
-  // };
   const [captureFunction, setCaptureFunction] = useState(null);
   const capture = (gl, scene, camera) => {
     const video = videoRef.current;
@@ -354,10 +241,9 @@ const TestPage = () => {
           // ref={threeCanvasRef}
           camera={{ position: [0, 0, -5], near: 0.1 }}
         >
-          {/* <Capture videoRef={videoRef} /> */}
-          {/* <Environment files="/img/workshop_1k.hdr" background /> */}
-          <ambientLight />
+          <ambientLight intensity={0.5} />
           <directionalLight />
+          <Environment preset='sunset' />
           <OrbitControls
             target={[0, 0.6, 0]}
             enableDamping={true}
@@ -444,4 +330,4 @@ const TestPage = () => {
   );
 };
 
-export default TestPage;
+export default HeritageCamera;

@@ -23,7 +23,7 @@ import QuizFinish from 'pages/quiz/QuizFinish';
 import IncorrectNote from 'pages/quiz/IncorrectNote';
 import QuizListTeacher from 'pages/quiz/teacher/QuizListTeacher';
 import StudentLoginCameraPage from 'pages/user/StudentLoginCamera';
-import ArtCameraPage from 'pages/art/ArtCamera';
+import HeritageCamera from 'pages/heritage/HeritageCamera';
 import StudentInfoPage from 'pages/class/StudentInfoPage';
 import { loginState } from 'Recoil/UserState';
 import { useRecoilState } from 'recoil';
@@ -31,8 +31,6 @@ import QuizDetailTeacher from 'pages/quiz/teacher/QuizDetailTeacher';
 import QuizResultTeacher from 'pages/quiz/teacher/QuizResultTeacher';
 import QuizCreate from 'pages/quiz/QuizCreate';
 import ArtPage from 'pages/art/ArtPage';
-import TestPage from 'pages/art/TestTest';
-
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -72,7 +70,10 @@ function App() {
           <Route path='/quizfinish' element={<QuizFinish />} />
           <Route path='/IncorrectNote/:id' element={<IncorrectNote />} />
           <Route path='/quizlistteacher' element={<QuizListTeacher />} />
-          <Route path='/artCamera' element={<ArtCameraPage />} />
+          <Route
+            path='/heritage/:id/3d/heritagecamera'
+            element={<HeritageCamera />}
+          />
           <Route
             path='/quizdetailteacher/:id'
             element={<QuizDetailTeacher />}

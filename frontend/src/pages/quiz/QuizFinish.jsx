@@ -59,6 +59,7 @@ const QuizFinish = () => {
   const list = useRecoilValue(userAnswersState);
   const [wrongList, setWrongList] = useRecoilState(userWrongAnswerState);
   const [workbook, setWorkbook] = useState([]);
+  console.log(list);
   const navigate = useNavigate();
   const handleEnter = () => {
     navigate(`/incorrectnote/${wrongList[0]}`);
@@ -93,7 +94,7 @@ const QuizFinish = () => {
 
       // 데이터를 성공적으로 불러온 후, 여기에서 오답 목록 계산
       const newWrongList = workbookData.reduce((acc, data, index) => {
-        if (data.questionAnswer !== list[index + 1]) {
+        if (data.questionAnswer !== list[index]) {
           // index + 1로 접근하는 이유는 list 상태가 1부터 시작하는 인덱스를 사용할 수 있기 때문입니다.
           acc.push(index + 1); // 잘못된 답변의 인덱스를 오답 목록에 추가
         }

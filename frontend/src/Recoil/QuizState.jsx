@@ -32,3 +32,8 @@ export const userWrongAnswerState = atom({
   key: 'wrongAnswers',
   default: [],
 });
+
+export const quizNameState = atom({
+  key: 'name',
+  default: [],
+});

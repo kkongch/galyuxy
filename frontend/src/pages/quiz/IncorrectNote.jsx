@@ -7,7 +7,11 @@ import AnswerListIcon from 'assets/svg/quiz/answerlisticon.svg';
 import IncorrectListIcon from 'assets/svg/quiz/incorrectlisticon.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDetailWorkBook } from 'api/QuizApi';
-import { userAnswersState, userWrongAnswerState } from 'Recoil/QuizState';
+import {
+  quizNameState,
+  userAnswersState,
+  userWrongAnswerState,
+} from 'Recoil/QuizState';
 import { useRecoilValue } from 'recoil';
 const Layout = styled.div`
   display: flex;
@@ -74,8 +78,17 @@ const QuizName = styled.div`
   height: 5.9375rem;
   border-radius: 1.25rem;
   background: rgba(220, 242, 255, 1);
-  position: relative;
+  position: absolute;
+  display: flex;
   margin-top: 4.38rem;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-family: 'Noto Sans';
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 400;
 `;
 const SubmitButton = styled.button`
   width: 22.5rem;
@@ -212,6 +225,7 @@ const IncorrectNote = () => {
   const [question, setQuestion] = useState();
   const checkSheet = useRecoilValue(userAnswersState);
   const wrongList = useRecoilValue(userWrongAnswerState);
+  const quizName = useRecoilValue(quizNameState);
   const navigate = useNavigate();
   const handleClose = () => {
     navigate('/quizenter');
@@ -341,7 +355,7 @@ const IncorrectNote = () => {
           <NextButton onClick={handleNext}>다음 문제</NextButton>
         </MainContent>
         <QuizNavbar>
-          <QuizName></QuizName>
+          <QuizName>{quizName}</QuizName>
           <SubmitButton onClick={handleClose}>나가기</SubmitButton>
         </QuizNavbar>
       </Layout>
