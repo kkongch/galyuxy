@@ -53,6 +53,7 @@ import com.ssafy.domain.classroom.dto.TeacherLoginActiveDto;
 import com.ssafy.domain.quiz.dto.ActiveWorkbookDTO;
 import com.ssafy.domain.quiz.entity.ActiveWorkbook;
 import com.ssafy.domain.quiz.entity.Workbook;
+import com.ssafy.domain.quiz.repository.ActiveWorkbookRepository;
 import com.ssafy.domain.quiz.service.ActiveWorkbookService;
 import com.ssafy.global.common.dto.Message;
 import lombok.RequiredArgsConstructor;
@@ -82,16 +83,18 @@ public class ActiveWorkbookController {
 //    }
 
     @GetMapping("/{groupId}")
-    ResponseEntity<Message<ActiveWorkbookDTO>> getActiveWorkbook(@PathVariable("groupId") Integer groupId) {
+    ResponseEntity<Message<ActiveWorkbookDTO>> getActiveWorkbook(@PathVariable("groupId") int groupId) {
         ActiveWorkbookDTO activeWorkbookDTO = null;
         Optional<Workbook> optionalWorkbook = activeWorkbookService.getWorkbookByGroupId(groupId);
         if (optionalWorkbook.isPresent()) {
             Workbook workbook = optionalWorkbook.get();
+            ActiveWorkbook active = activeWorkbookService.getActiveByGroupId(groupId);
+
             activeWorkbookDTO = new ActiveWorkbookDTO();
             activeWorkbookDTO.setWorkbookId(workbook.getId());
             activeWorkbookDTO.setWorkbookTitle(workbook.getTitle());
-            activeWorkbookDTO.setActiveWorkbookStart(null);
-            activeWorkbookDTO.setActiveWorkbookEnd(null);
+            activeWorkbookDTO.setActiveWorkbookStart(active.getStart());
+            activeWorkbookDTO.setActiveWorkbookEnd(active.getEnd());
         }
         return ResponseEntity.ok().body(Message.success(activeWorkbookDTO, "OK", null));
     }

@@ -23,4 +23,6 @@ public interface ActiveWorkbookService {
     Optional<Workbook> getWorkbookByGroupId(Integer groupId);
 
     void updateActiveWorkbook(ActiveWorkbookDTO request);
+    ActiveWorkbook getActiveByGroupId(int groupId);
+
 }

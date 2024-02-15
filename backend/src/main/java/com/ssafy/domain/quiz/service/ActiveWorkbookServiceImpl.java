@@ -113,4 +113,14 @@ public class ActiveWorkbookServiceImpl implements ActiveWorkbookService {
 
 
     }
+
+    @Override
+    public ActiveWorkbook getActiveByGroupId(int groupId) {
+        List<ActiveWorkbook> activeWB = activeWorkbookRepository.findByGroupId(groupId);
+        if (activeWB.size() < 1) {
+            return null;
+        }else{
+            return activeWB.get(0);
+        }
+    }
 }
