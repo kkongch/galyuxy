@@ -90,15 +90,16 @@
 }
 
 .msg-detail p {
-  margin-top: 1rem;
+  margin-top: 0rem;
   font-size: 40px;
-  font-style: 'Noto Sans KR';
+  font-family: 'Noto Sans KR';
 }
 
 .msg-info p {
-  font-size: 1.2em;
+  margin-top: 1rem;
+  font-size: 1.6em;
   color: #000000;
-  font-style: 'Noto Sans KR';
+  font-family: 'Noto Sans KR';
 }
 
 /* .msg-content {
