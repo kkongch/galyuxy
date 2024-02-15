@@ -46,6 +46,9 @@ public class OpenviduController {
         }
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
         Connection connection = session.createConnection(properties);
-        return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
+        System.out.println(connection.getToken());
+        String replacedToken = connection.getToken().replace("ws://", "wss://");
+        return new ResponseEntity<>(replacedToken, HttpStatus.OK);
+//        return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
 }
