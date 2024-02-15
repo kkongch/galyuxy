@@ -242,6 +242,7 @@ const StudentNav = () => {
             <Overlay
               onClick={() => {
                 navigate('/login');
+                setIsOpen(false);
               }}
             >
               <NoDataMessage>로그인 후 이용해 주세요</NoDataMessage>
