@@ -55,6 +55,11 @@ public class WorkbookServiceImpl implements WorkbookService {
     }
 
     @Override
+    public void updateWorkbookStart(int workbookId) {
+
+    }
+
+    @Override
     public void deleteOne(Integer id) {
         workbookRepository.findById(id).ifPresent(workbook -> {
                     workbook.softDelete();
