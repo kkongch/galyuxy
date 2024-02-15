@@ -77,14 +77,14 @@ application:
 #  secret: T1BFTlZJRFVBUFA6TVlfU0VDUkVU
 
 # server 4443
-#openvidu:
-#  url: http://i10c206.p.ssafy.io:4443/
-#  secret: MY_SECRET
+openvidu:
+  url: http://i10c206.p.ssafy.io:4443/
+  secret: MY_SECRET
 
 # server 5443
-openvidu:
-  url: https://i10c206.p.ssafy.io:5443/
-  secret: MY_SECRET
+#openvidu:
+#  url: https://i10c206.p.ssafy.io:5443/
+#  secret: MY_SECRET
 
 jwt:
   secret-key:
@@ -94,9 +94,10 @@ jwt:
     access: 60
     refresh: 10000000
 
-server:
-  ssl:
-    enabled: true
-    key-store-type: PKCS12
-    key-store: classpath:SSL/keystore.p12
-    key-store-password:
+# HTTPS
+#server:
+#  ssl:
+#    enabled: true
+#    key-store-type: PKCS12
+#    key-store: classpath:SSL/keystore.p12
+#    key-store-password:
