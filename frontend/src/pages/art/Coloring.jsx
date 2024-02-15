@@ -22,6 +22,7 @@ const ButtonBox = styled.div`
   padding: 0 20px; /* 양쪽에 20px 패딩 추가 */
   box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
   z-index: 8;
+  height: 10rem;
 `;
 const BackButton = styled.div`
   display: flex;
@@ -104,15 +105,15 @@ const remToPixels = (rem) => {
 const DescriptionBox = styled.div`
   background-color: #917159;
   width: 100%;
-  height: 15rem;
-  /* position: absolute; */
+  height: 10rem;
+  position: absolute;
   box-sizing: border-box;
   /* border-radius: ${remToPixels(1.25)}px; */
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4.2rem;
+  font-size: 4rem;
   color: white;
 `;
 const StyledInput = styled.input`
@@ -170,6 +171,16 @@ const Coloring = () => {
     fetchImage();
   }, []);
 
+  function remToPercent(rem) {
+    // 1rem이 몇 픽셀인지 계산하여 반환합니다. 대부분의 브라우저에서 1rem은 보통 16px입니다.
+    var fontSize = parseFloat(
+      getComputedStyle(document.documentElement).fontSize
+    );
+    // 브라우저에서 1%는 보통 뷰포트의 너비를 기준으로 합니다.
+    var viewportWidth = window.innerWidth;
+    return ((rem * fontSize) / viewportWidth) * 100;
+  }
+
   // console.log(artworkOne);
   const stageRef = useRef(null);
   const rectLayerRef = useRef(null);
@@ -183,8 +194,15 @@ const Coloring = () => {
   // const [coloringImage] = useImage(artworkOne.imageUrl); // 이미지 경로 수정 필요
   // const [coloringImage] = useImage(Gimage); // 이미지 경로 수정 필요
   // Rect 크기를 rem 단위에서 px 단위로 설정
-  const rectWidth = remToPixels(90); // 90rem을 px로 변환
-  const rectHeight = remToPixels(56.25); // 56.25rem을 px로 변환
+
+  // const rectWidth = remToPixels(90); // 90rem을 px로 변환
+  // const rectHeight = remToPixels(56.25); // 56.25rem을 px로 변환
+
+  const rectWidth = remToPercent(3800);
+  const rectHeight = remToPercent(1800);
+
+  // const rectWidth = 2000; // 90rem을 px로 변환
+  // const rectHeight = 900; // 56.25rem을 px로 변환
 
   //artwork 이미지 크기 조정
   // const artworkWidth = coloringImage ? (coloringImage.width < rectWidth ? coloringImage.width :  coloringImage.width * ((rectWidth-100)/coloringImage.width)) : 0;
@@ -318,10 +336,10 @@ const Coloring = () => {
         >
           <Layer ref={rectLayerRef}>
             <Rect
-              x={330}
-              y={120}
-              width={1900}
-              height={1050}
+              x={rectX}
+              y={rectY + 80}
+              width={rectWidth}
+              height={rectHeight}
               fill='white' // 하얀색 배경
               cornerRadius={40}
             />
@@ -337,7 +355,7 @@ const Coloring = () => {
                   // x={window.innerWidth / 2 - (coloringImage?.width ?? 0) / 2}
                   // y={window.innerHeight / 2 - (coloringImage?.height ?? 0) / 2}
                   x={imageX}
-                  y={imageY - 150}
+                  y={imageY + 80}
                 />
               )}
             </Exampleimage>
