@@ -1,6 +1,21 @@
-import React, { useRef, useMemo, useState, useCallback, Suspense, useEffect, useLayoutEffect} from 'react';
+import React, {
+  useRef,
+  useMemo,
+  useState,
+  useCallback,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import * as THREE from 'three';
-import { Canvas, createPortal, useFrame, useThree, useLoader, useUpdate } from '@react-three/fiber';
+import {
+  Canvas,
+  createPortal,
+  useFrame,
+  useThree,
+  useLoader,
+  useUpdate,
+} from '@react-three/fiber';
 import {
   Stats,
   useGLTF,
@@ -13,24 +28,21 @@ import {
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 import { artworkARState } from 'Recoil/ArtworkState';
-import styled from 'styled-components'; 
-
+import styled from 'styled-components';
 
 import { useControls } from 'leva';
-import clamp from "lodash.clamp";  
- 
+import clamp from 'lodash.clamp';
 
 const StyledMain = styled.main`
   width: 100%;
   height: 100%;
-`; 
+`;
 
 const VideoDiv = styled.div`
   width: 100%;
   height: 1600px;
   border: 10px red solid;
-`; 
-
+`;
 
 // Button
 const ButtonBox = styled.div`
@@ -108,16 +120,13 @@ const SvgBox = styled.div`
   height: 4.6875rem;
 `;
 
-
-
-
 // 3D 모델 불러오기
-function Model({ url }) { 
+function Model({ url }) {
   const { scene } = useGLTF(url);
   const [cache, setCache] = useState({});
 
   if (!cache[url]) {
-    const annotations = []
+    const annotations = [];
 
     scene.traverse((o) => {
       if (o.userData.prop) {
@@ -127,28 +136,26 @@ function Model({ url }) {
             position={[o.position.x, o.position.y, o.position.z]}
             distanceFactor={0.25}
           >
-            <div className="annotation">{o.userData.prop}</div>
+            <div className='annotation'>{o.userData.prop}</div>
           </Html>
-        )
+        );
       }
-    })
+    });
 
-    console.log('Caching JSX for url ' + url)
+    console.log('Caching JSX for url ' + url);
     setCache({
       ...cache,
       [url]: <primitive object={scene}>{annotations}</primitive>,
-    })
+    });
   }
-  return cache[url]
-};
+  return cache[url];
+}
 
 const Models = { title: 'flag', url: '/stone.gltf' };
 
-
-
 const TestPage = () => {
   const videoRef = useRef();
-  const canvasRef = useRef();
+  const canvasRef = useRef(); 
 
   const navigate = useNavigate();
   // const [isFrontCamera, setIsFrontCamera] = useState(true); // 후면 카메라인지 여부를 나타내는 state
@@ -160,27 +167,29 @@ const TestPage = () => {
     const startVideo = async () => {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { frameRate: { ideal: 30, max: 30 } },
-      });
+      }); 
       videoRef.current.srcObject = stream;
     };
- 
+
     startVideo();
-  }, []);
+  }, []); 
 
   const handleBackClick = () => {
-    navigate('/heritage');
+    navigate('/heritage'); 
   };
+
   
   const handleCameraToggle = () => {
     // setIsFrontCamera((prev) => !prev); // 후면 카메라 상태를 토글
   };
-  
-  const capture = React.useCallback(() => {
+
+  const capture = async () => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
 
-    console.log("Capture!!!");
+    console.log('Capture!!!');
 
+   
 
     // const context = canvas.getContext('2d');
     // console.log(context);
@@ -196,7 +205,6 @@ const TestPage = () => {
     // document.body.appendChild(downloadLink);
     // downloadLink.click();
     // document.body.appendChild(downloadLink);
-    
 
     // webcam 사용할 때 캡처 코드
     // const imageSrc = videoRef.current.getScreenshot();
@@ -208,8 +216,7 @@ const TestPage = () => {
     // document.body.appendChild(downloadLink);
     // downloadLink.click();
     // document.body.removeChild(downloadLink);
-  }, [canvasRef, videoRef]);
-
+  };
 
   return (
     <StyledMain>
@@ -252,7 +259,7 @@ const TestPage = () => {
         ></video>
 
         <ButtonBox>
-          <CaptureButton onClick={capture} >Capture</CaptureButton>
+          <CaptureButton onClick={capture}>Capture</CaptureButton>
           <BackButton onClick={handleBackClick}>
             <SvgBox>
               <svg
