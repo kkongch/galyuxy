@@ -83,16 +83,6 @@ export default class ChatComponent extends Component {
     return (
       <div id='chatContainer'>
         <div id='chatComponent' style={styleChat}>
-          <div id='chatToolbar'>
-            <span></span>
-            <IconButton
-              id='closeButton'
-              onClick={this.close}
-              aria-label='Close chat'
-            >
-              <HighlightOffIcon color='secondary' />
-            </IconButton>
-          </div>
           <div className='title-box'>
             <p>{title}</p>
           </div>
@@ -112,7 +102,7 @@ export default class ChatComponent extends Component {
                 /> */}
                 <div className='msg-detail'>
                   <div className='msg-info'>
-                    <p>{data.nickname}:</p>
+                    <p>[ {data.nickname} ]</p>
                   </div>
                   <div className='msg-content'>
                     <span className='triangle'></span>
