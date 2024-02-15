@@ -45,3 +45,50 @@
 //        return ResponseEntity.ok().body(Message.success(activeWorkbookDTO, "OK", null));
 //    }
 //}
+
+package com.ssafy.domain.quiz.controller;
+
+import com.ssafy.domain.quiz.dto.ActiveWorkbookDTO;
+import com.ssafy.domain.quiz.entity.ActiveWorkbook;
+import com.ssafy.domain.quiz.entity.Workbook;
+import com.ssafy.domain.quiz.service.ActiveWorkbookService;
+import com.ssafy.global.common.dto.Message;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
+@CrossOrigin
+@RestController
+@RequestMapping("/quiz/activeWorkbook")
+@RequiredArgsConstructor
+public class ActiveWorkbookController {
+
+    private final ActiveWorkbookService activeWorkbookService;
+
+//    @PutMapping("/start")
+//    ResponseEntity<Message<ActiveWorkbookDTO>> putActiveWorkbook(@RequestBody ActiveWorkbookDTO activeWorkbookDTO) {
+//        try {
+//            ActiveWorkbookDTO postedActiveWorkbookDTO = activeWorkbookService.putOne(activeWorkbookDTO);
+//            return ResponseEntity.ok().body(Message.success(postedActiveWorkbookDTO, "OK", null));
+//        } catch (EntityNotFoundException entityNotFoundException) {
+//            throw entityNotFoundException;
+//        }
+//    }
+
+    @GetMapping("/{groupId}")
+    ResponseEntity<Message<ActiveWorkbookDTO>> getActiveWorkbook(@PathVariable("groupId") Integer groupId) {
+        ActiveWorkbookDTO activeWorkbookDTO = null;
+        Optional<Workbook> optionalWorkbook = activeWorkbookService.getWorkbookByGroupId(groupId);
+        if (optionalWorkbook.isPresent()) {
+            Workbook workbook = optionalWorkbook.get();
+            activeWorkbookDTO = new ActiveWorkbookDTO();
+            activeWorkbookDTO.setWorkbookId(workbook.getId());
+            activeWorkbookDTO.setWorkbookTitle(workbook.getTitle());
+            activeWorkbookDTO.setActiveWorkbookStart(null);
+            activeWorkbookDTO.setActiveWorkbookEnd(null);
+        }
+        return ResponseEntity.ok().body(Message.success(activeWorkbookDTO, "OK", null));
+    }
+}

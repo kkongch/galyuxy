@@ -9,3 +9,14 @@
 //    List<ActiveWorkbookProjection> findActiveWorkbookByGroupId(Integer groupId);
 //    ActiveWorkbookDTO putOne(ActiveWorkbookDTO activeWorkbookDTO);
 //}
+
+package com.ssafy.domain.quiz.service;
+
+import com.ssafy.domain.quiz.entity.Workbook;
+
+import java.util.Optional;
+
+public interface ActiveWorkbookService {
+
+    Optional<Workbook> getWorkbookByGroupId(Integer groupId);
+}
