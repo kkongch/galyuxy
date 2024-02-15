@@ -184,8 +184,9 @@ const Selection = styled.div`
   width: 83rem;
   height: 100%;
   align-items: center;
+  display: flex;
   color: #000;
-  text-align: center;
+  text-align: left;
   font-family: 'Noto Sans';
   font-size: 2.25rem;
   font-weight: 700;
@@ -207,7 +208,7 @@ const TitleBox = styled.div`
   padding: 1rem;
   color: #000;
 
-  text-align: center;
+  text-align: left;
   font-family: 'Noto Sans';
   font-size: 4rem;
   font-style: normal;
@@ -238,9 +239,9 @@ const QuizSolve = () => {
       (question, index) => question.questionAnswer
     );
     let score = 0;
-    console.log(correctAnswers);
+    console.log(userAnswers);
     correctAnswers.forEach((answer, index) => {
-      const userAnswer = userAnswers[index + 1]; // userAnswers는 1부터 시작하는 문제 번호를 키로 사용
+      const userAnswer = userAnswers[index]; // userAnswers는 1부터 시작하는 문제 번호를 키로 사용
       if (answer === userAnswer) {
         score += 1; // 정답을 맞힌 경우 점수 증가
       }
@@ -349,7 +350,6 @@ const QuizSolve = () => {
       alert('마지막 문제입니다');
     } else {
       navigate(`/quizsolve/${params.id}/${parseInt(params.number, 10) + 1}`);
-      handleAnswerSelect();
       setQuestionNumber(questionNumber + 1);
     }
   };
