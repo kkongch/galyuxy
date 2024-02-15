@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/quiz/workbook")
 @RequiredArgsConstructor

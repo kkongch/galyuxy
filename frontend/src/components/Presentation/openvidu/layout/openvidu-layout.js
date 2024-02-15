@@ -1,22 +1,16 @@
 import $ from 'jquery';
 
 class OpenViduLayout {
-  layoutContainer; // 레이아웃이 적용될 컨테이너 DOM 요소입니다.
+  layoutContainer;
   opts;
-  //특정 요소의 가로 세로 비율을 고정
   fixAspectRatio(elem, width) {
     const sub = elem.querySelector('.OT_root');
     if (sub) {
-      // If this is the parent of a subscriber or publisher then we need
-      // to force the mutation observer on the publisher or subscriber to
-      // trigger to get it to fix it's layout
       const oldWidth = sub.style.width;
       sub.style.width = width + 'px';
-      // sub.style.height = height + 'px';
       sub.style.width = oldWidth || '';
     }
   }
-  // 지정된 위치와 크기로 요소를 배치
   positionElement(elem, x, y, width, height, animate) {
     const targetPosition = {
       left: x + 'px',
@@ -58,17 +52,14 @@ class OpenViduLayout {
     }
     return 3 / 4;
   }
-  // getCSSNumber: CSS 속성 값에서 숫자 부분만 추출
   getCSSNumber(elem, prop) {
     const cssStr = $(elem).css(prop);
-    return cssStr ? parseInt(cssStr, 10) : 0; // jQuery를 사용하여 elem의 CSS 속성 prop의 값을 숫자로 변환하여 반환
+    return cssStr ? parseInt(cssStr, 10) : 0;
   }
 
-  // cheapUUID: 간단한 유니크 ID를 생성합니다.
   cheapUUID() {
     return (Math.random() * 100000000).toFixed(0);
   }
-  // getHeight, getWidth: 요소의 높이와 너비를 가져옵니다.
   getHeight(elem) {
     const heightStr = $(elem).css('height');
     return heightStr ? parseInt(heightStr, 10) : 0;
@@ -78,34 +69,27 @@ class OpenViduLayout {
     const widthStr = $(elem).css('width');
     return widthStr ? parseInt(widthStr, 10) : 0;
   }
-  // getBestDimensions: 주어진 조건에 가장 잘 맞는 차원계산
   getBestDimensions(minR, maxR, count, WIDTH, HEIGHT, targetHeight) {
     let maxArea, targetCols, targetRows, targetWidth, tWidth, tHeight, tRatio;
 
-    // Iterate through every possible combination of rows and columns
-    // and see which one has the least amount of whitespace
     for (let i = 1; i <= count; i++) {
       const colsAux = i;
       const rowsAux = Math.ceil(count / colsAux);
 
-      // Try taking up the whole height and width
       tHeight = Math.floor(HEIGHT / rowsAux);
       tWidth = Math.floor(WIDTH / colsAux);
 
       tRatio = tHeight / tWidth;
       if (tRatio > maxR) {
-        // We went over decrease the height
         tRatio = maxR;
         tHeight = tWidth * tRatio;
       } else if (tRatio < minR) {
-        // We went under decrease the width
         tRatio = minR;
         tWidth = tHeight / tRatio;
       }
 
       const area = tWidth * tHeight * count;
 
-      // If this width and height takes up the most space then we're going with that
       if (maxArea === undefined || area > maxArea) {
         maxArea = area;
         targetHeight = tHeight;
@@ -150,7 +134,6 @@ class OpenViduLayout {
         targetHeight
       );
     } else {
-      // Use the ratio of the first video element we find to approximate
       const ratio = this.getVideoRatio(
         children.length > 0 ? children[0] : null
       );
@@ -164,17 +147,12 @@ class OpenViduLayout {
       );
     }
 
-    // Loop through each stream in the container and place it inside
     let x = 0,
       y = 0;
     const rows = [];
     let row;
-    // Iterate through the children and create an array with a new item for each row
-    // and calculate the width of each row so that we know if we go over the size and need
-    // to adjust
     for (let i = 0; i < children.length; i++) {
       if (i % dimensions.targetCols === 0) {
-        // This is a new row
         row = {
           children: [],
           width: 0,
@@ -186,20 +164,17 @@ class OpenViduLayout {
       row.children.push(elem);
       let targetWidth = dimensions.targetWidth;
       targetHeight = dimensions.targetHeight;
-      // If we're using a fixedRatio then we need to set the correct ratio for this element
       if (fixedRatio) {
         targetWidth = targetHeight / this.getVideoRatio(elem);
       }
       row.width += targetWidth;
       row.height = targetHeight;
     }
-    // Calculate total row height adjusting if we go too wide
     let totalRowHeight = 0;
     let remainingShortRows = 0;
     for (let i = 0; i < rows.length; i++) {
       row = rows[i];
       if (row.width > WIDTH) {
-        // Went over on the width, need to adjust the height proportionally
         row.height = Math.floor(row.height * (WIDTH / row.width));
         row.width = WIDTH;
       } else if (row.width < WIDTH) {
@@ -208,16 +183,13 @@ class OpenViduLayout {
       totalRowHeight += row.height;
     }
     if (totalRowHeight < HEIGHT && remainingShortRows > 0) {
-      // We can grow some of the rows, we're not taking up the whole height
       let remainingHeightDiff = HEIGHT - totalRowHeight;
       totalRowHeight = 0;
       for (let i = 0; i < rows.length; i++) {
         row = rows[i];
         if (row.width < WIDTH) {
-          // Evenly distribute the extra height between the short rows
           let extraHeight = remainingHeightDiff / remainingShortRows;
           if (extraHeight / row.height > (WIDTH - row.width) / row.width) {
-            // We can't go that big or we'll go too wide
             extraHeight = Math.floor(
               ((WIDTH - row.width) / row.width) * row.height
             );
@@ -230,12 +202,9 @@ class OpenViduLayout {
         totalRowHeight += row.height;
       }
     }
-    // vertical centering
     y = (HEIGHT - totalRowHeight) / 2;
-    // Iterate through each row and place each child
     for (let i = 0; i < rows.length; i++) {
       row = rows[i];
-      // center the row
       const rowMarginLeft = (WIDTH - row.width) / 2;
       x = rowMarginLeft;
       for (let j = 0; j < row.children.length; j++) {
@@ -243,12 +212,10 @@ class OpenViduLayout {
 
         let targetWidth = dimensions.targetWidth;
         targetHeight = row.height;
-        // If we're using a fixedRatio then we need to set the correct ratio for this element
         if (fixedRatio) {
           targetWidth = Math.floor(targetHeight / this.getVideoRatio(elem));
         }
         elem.style.position = 'absolute';
-        // $(elem).css('position', 'absolute');
         const actualWidth =
           targetWidth -
           this.getCSSNumber(elem, 'paddingLeft') -
@@ -328,15 +295,11 @@ class OpenViduLayout {
       let bigWidth, bigHeight;
 
       if (availableRatio > this.getVideoRatio(bigOnes[0])) {
-        // We are tall, going to take up the whole width and arrange small
-        // guys at the bottom
         bigWidth = WIDTH;
         bigHeight = Math.floor(HEIGHT * this.opts.bigPercentage);
         offsetTop = bigHeight;
         bigOffsetTop = HEIGHT - offsetTop;
       } else {
-        // We are wide, going to take up the whole height and arrange the small
-        // guys on the right
         bigHeight = HEIGHT;
         bigWidth = Math.floor(WIDTH * this.opts.bigPercentage);
         offsetLeft = bigWidth;
@@ -390,19 +353,17 @@ class OpenViduLayout {
         );
       }
     } else if (bigOnes.length > 0 && smallOnes.length === 0) {
-      this
-        // We only have one bigOne just center it
-        .arrange(
-          bigOnes,
-          WIDTH,
-          HEIGHT,
-          0,
-          0,
-          this.opts.bigFixedRatio,
-          this.opts.bigMinRatio,
-          this.opts.bigMaxRatio,
-          this.opts.animate
-        );
+      this.arrange(
+        bigOnes,
+        WIDTH,
+        HEIGHT,
+        0,
+        0,
+        this.opts.bigFixedRatio,
+        this.opts.bigMinRatio,
+        this.opts.bigMaxRatio,
+        this.opts.animate
+      );
     } else {
       this.arrange(
         smallOnes,
