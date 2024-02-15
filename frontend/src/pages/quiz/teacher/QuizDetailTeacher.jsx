@@ -153,10 +153,11 @@ const QuestionFooter = styled.div`
 const SelectQuizContainer = styled.div`
   width: 101rem;
   margin-top: 3rem;
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 70vh;
   justify-content: space-around;
-  align-items: center;
-  display: flex;
+  /* align-items: center; */
+  /* display: flex; */
   flex-direction: column;
   position: relative;
 `;
@@ -242,7 +243,7 @@ const QuizDetailTeacher = () => {
         <QuizContainer>
           <Header>
             <ImageBox></ImageBox>
-            <QuizTitle style={{ zIndex: 1 }}>문제 제목</QuizTitle>
+            <QuizTitle>문제 제목</QuizTitle>
           </Header>
 
           <SelectQuizContainer>
