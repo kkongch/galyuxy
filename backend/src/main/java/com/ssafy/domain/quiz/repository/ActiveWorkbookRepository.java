@@ -21,3 +21,16 @@
 //            "WHERE g.id = :groupId")
 //    List<ActiveWorkbookProjection> findActiveWorkbookByGroupId(@Param("groupId") Integer groupId);
 //}
+
+package com.ssafy.domain.quiz.repository;
+
+import com.ssafy.domain.quiz.entity.ActiveWorkbook;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ActiveWorkbookRepository extends JpaRepository<ActiveWorkbook, Integer> {
+
+    List<ActiveWorkbook> findByGroupId(Integer groupId);
+}
