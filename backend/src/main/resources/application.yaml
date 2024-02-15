@@ -30,7 +30,7 @@ spring:
   data:
     redis:
       host: localhost
-      port: 6379
+      port: 6380
 
   mail:
     host: smtp.gmail.com
@@ -76,9 +76,14 @@ application:
 #  url: http://localhost:4443/
 #  secret: T1BFTlZJRFVBUFA6TVlfU0VDUkVU
 
-# server
+# server 4443
+#openvidu:
+#  url: http://i10c206.p.ssafy.io:4443/
+#  secret: MY_SECRET
+
+# server 5443
 openvidu:
-  url: http://i10c206.p.ssafy.io:4443/
+  url: https://i10c206.p.ssafy.io:5443/
   secret: MY_SECRET
 
 jwt:
@@ -89,9 +94,9 @@ jwt:
     access: 60
     refresh: 10000000
 
-#server:
-#  ssl:
-#    enabled: true
-#    key-store-type: PKCS12
-#    key-store: classpath:ssl/keystore.p12
-#    key-store-password: SSAFYa
+server:
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:SSL/keystore.p12
+    key-store-password:
