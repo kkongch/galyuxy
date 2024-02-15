@@ -48,6 +48,8 @@
 
 package com.ssafy.domain.quiz.controller;
 
+import com.ssafy.domain.classroom.dto.GroupStudentsDto;
+import com.ssafy.domain.classroom.dto.TeacherLoginActiveDto;
 import com.ssafy.domain.quiz.dto.ActiveWorkbookDTO;
 import com.ssafy.domain.quiz.entity.ActiveWorkbook;
 import com.ssafy.domain.quiz.entity.Workbook;
@@ -55,6 +57,8 @@ import com.ssafy.domain.quiz.service.ActiveWorkbookService;
 import com.ssafy.global.common.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -91,4 +95,13 @@ public class ActiveWorkbookController {
         }
         return ResponseEntity.ok().body(Message.success(activeWorkbookDTO, "OK", null));
     }
+
+    @PutMapping("/start")
+    ResponseEntity<Message<Void>> putActiveWorkbookStart(@RequestBody ActiveWorkbookDTO request) {
+        activeWorkbookService.updateActiveWorkbook(request);
+
+
+        return ResponseEntity.ok().body(Message.success());
+    }
+
 }

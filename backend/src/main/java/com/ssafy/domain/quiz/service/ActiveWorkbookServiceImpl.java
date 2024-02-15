@@ -64,8 +64,7 @@
 
 package com.ssafy.domain.quiz.service;
 
-import com.ssafy.domain.classroom.entity.Group;
-import com.ssafy.domain.classroom.repository.GroupRepository;
+import com.ssafy.domain.quiz.dto.ActiveWorkbookDTO;
 import com.ssafy.domain.quiz.entity.ActiveWorkbook;
 import com.ssafy.domain.quiz.entity.Workbook;
 import com.ssafy.domain.quiz.repository.ActiveWorkbookRepository;
@@ -81,7 +80,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ActiveWorkbookServiceImpl implements ActiveWorkbookService {
 
-    private final GroupRepository groupRepository;
     private final WorkbookRepository workbookRepository;
     private final ActiveWorkbookRepository activeWorkbookRepository;
 
@@ -94,5 +92,25 @@ public class ActiveWorkbookServiceImpl implements ActiveWorkbookService {
         ActiveWorkbook activeWorkbook = activeWorkbookList.get(0);
         Integer workbookId = activeWorkbook.getWorkbookId();
         return workbookRepository.findById(workbookId);
+    }
+
+    @Override
+    public void updateActiveWorkbook(ActiveWorkbookDTO request) {
+        List<ActiveWorkbook> activeWorkbookList= activeWorkbookRepository.findByGroupId(request.getGroupId());
+            ActiveWorkbook activeWB = null;
+        if (activeWorkbookList.size() < 1) {
+            activeWB = new ActiveWorkbook();
+        }else{
+            activeWB = activeWorkbookList.get(0);
+        }
+        activeWB.setWorkbookId(request.getWorkbookId());
+        activeWB.setGroupId(request.getGroupId());
+        activeWB.setStart(request.getActiveWorkbookStart());
+        activeWB.setEnd(request.getActiveWorkbookEnd());
+        System.out.println(activeWB.toString());
+        activeWorkbookRepository.save(activeWB);
+
+
+
     }
 }

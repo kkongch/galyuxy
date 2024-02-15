@@ -33,4 +33,6 @@ import java.util.Optional;
 public interface ActiveWorkbookRepository extends JpaRepository<ActiveWorkbook, Integer> {
 
     List<ActiveWorkbook> findByGroupId(Integer groupId);
+    ActiveWorkbook findByWorkbookIdAndGroupId(int workbookId, int groupId);
+
 }

@@ -12,4 +12,7 @@ public interface WorkbookService {
     List<Workbook> getAllByTeacherId(Integer id);
     List<Workbook> getAllByKeyword(String keyword);
     List<Workbook> getAllByTeacherName(String teacherName);
+
+    void updateWorkbookStart(int workbookId);
+
 }
