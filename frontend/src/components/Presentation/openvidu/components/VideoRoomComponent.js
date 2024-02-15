@@ -15,8 +15,8 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 
 // const APPLICATION_SERVER_URL =
 //   process.env.NODE_ENV === 'production'
-//   ? "http://localhost:8080"
-//   : "http://localhost:8080";
+//     ? 'http://localhost:8080'
+//     : 'http://localhost:8080';
 
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === 'production'
@@ -26,12 +26,10 @@ const APPLICATION_SERVER_URL =
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
-    // 상태 및 바인딩 초기화
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.roomId ? this.props.roomId : 'dsddsdsdsds';
-    //유저닉네임 수정 부분
-    let userName = this.props.user ? this.props.user : '역활';
+    let userName = this.props.user ? this.props.user : '역할';
     this.remotes = [];
     this.localUserAccessAllowed = false;
     this.state = {
@@ -45,7 +43,6 @@ class VideoRoomComponent extends Component {
       chatDisplay: 'block',
     };
 
-    // 메소드 바인딩
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -546,7 +543,6 @@ class VideoRoomComponent extends Component {
         />
 
         <div id='layout' className='bounds'>
-          {/* 나 나오는부분 */}
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div className='OT_root OT_publisher custom-class' id='localUser'>
@@ -556,7 +552,6 @@ class VideoRoomComponent extends Component {
                 />
               </div>
             )}
-          {/* 원격사용자  나오는부분 */}
           {this.state.subscribers.map((sub, i) => (
             <div
               key={i}
@@ -571,7 +566,6 @@ class VideoRoomComponent extends Component {
           ))}
         </div>
 
-        {/* 채팅나오는부분 */}
         <div className='chatContainer'>
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
@@ -594,26 +588,10 @@ class VideoRoomComponent extends Component {
   }
 
   async getToken() {
-    // 토큰 생성을 위한 서버 요청
-    // const sessionId = await this.createSession(this.state.mySessionId);
     return await this.createToken(this.props.roomId);
   }
 
-  // async createSession(sessionId) {
-  //   // 세션 생성 요청
-  //   const response = await axios.post(
-  //     APPLICATION_SERVER_URL + 'openvidu/sessions',
-  //     { customSessionId: sessionId },
-  //     {
-  //       headers: { 'Content-Type': 'application/json' },
-  //     }
-  //   );
-  //   console.log('세션아이디: ', response);
-  //   return response.data; // 세션 ID 반환
-  // }
-
   async createToken(sessionId) {
-    // 토큰 생성 요청
     const response = await axios.post(
       APPLICATION_SERVER_URL +
         '/openvidu/sessions/' +
@@ -627,7 +605,7 @@ class VideoRoomComponent extends Component {
         },
       }
     );
-    return response.data; // 토큰 반환
+    return response.data;
   }
 }
 export default VideoRoomComponent;
