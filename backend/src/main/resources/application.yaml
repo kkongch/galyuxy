@@ -89,9 +89,9 @@ jwt:
     access: 60
     refresh: 10000000
 
-server:
-  ssl:
-    enabled: true
-    key-store-type: PKCS12
-    key-store: classpath:ssl/keystore.p12
-    key-store-password: SSAFY
+#server:
+#  ssl:
+#    enabled: true
+#    key-store-type: PKCS12
+#    key-store: classpath:ssl/keystore.p12
+#    key-store-password: SSAFYa
