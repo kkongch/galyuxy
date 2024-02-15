@@ -92,15 +92,6 @@ class ToolbarComponent extends Component {
             <div className='exitBox'>
               <DeleteButton onClick={this.leaveSession}>나가기</DeleteButton>
             </div>
-
-            {/* <IconButton
-              color='inherit'
-              onClick={this.toggleChat}
-              id='navChatButton'
-            >
-              {this.props.showNotification && <div id='point' className='' />}
-              <Tooltip title='Chat'><QuestionAnswerIcon /></Tooltip>
-            </IconButton> */}
           </div>
         </Toolbar>
       </AppBar>
