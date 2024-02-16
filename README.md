@@ -16,6 +16,7 @@
 - Infra : AWS EC2, Nginx, SSL
 - Database : MariaDB
 - WebRTC : Openvidu 2.29.0
+
   <br>
 
 ## 🖥️ 협업툴 및 협업환경
@@ -40,6 +41,8 @@
 
 ### 2. 컬러링북 미술활동
 
+![컬러링북](https://github.com/gisun55555/reactshop2/assets/139519062/e4c99925-5ac2-4083-a1f4-0ec2fa0b37ae)
+
 ### 3. WEB RTC를 활용한 연극활동
 
 ![카메라테스트](https://github.com/gisun55555/reactshop2/assets/139519062/be08d4a3-22ee-4b06-ab8e-b6ba6edf1a4d)
@@ -48,6 +51,11 @@
 
 ![퀴즈](https://github.com/gisun55555/reactshop2/assets/139519062/bfb13bfd-8c33-4515-8c70-00e3f7f7efa1)
 
+### 5. AR 체험
+
+![Alt text](./Readmeassets/Ar.png)
+
+https://github.com/gisun55555/reactshop2/assets/139519062/53722006-eb09-4fcd-833f-640794f9c557
 <br>
 
 ## 🌐 전체기능
