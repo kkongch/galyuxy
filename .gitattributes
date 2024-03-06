@@ -1,1 +1,2 @@
 *.gltf filter=lfs diff=lfs merge=lfs -text
+frontend/public/goldcrown.gltf filter=lfs diff=lfs merge=lfs -text
